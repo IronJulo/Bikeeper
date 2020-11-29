@@ -1,0 +1,164 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0EB200;
+    --orange: #ff9100;
+}
+
+.footer {
+    background: #666;
+    -webkit-box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    /* font: bold 16px sans-serif; */
+    padding: 1.8em 3em;
+    clear: both;
+}
+
+.footer .footer-left,
+.footer .footer-center,
+.footer .footer-right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+/* Footer left */
+
+.footer .footer-left {
+    width: 40%;
+}
+
+
+/* The company logo */
+
+.footer h3 {
+    color: #ffffff;
+    /* font: normal 36px 'Open Sans', cursive; */
+    margin: 0;
+    font-size: 2rem;
+}
+
+.footer h3 span {
+    color: var(--rouge);
+}
+
+
+/* Footer links */
+
+.footer .footer-links {
+    color: #ffffff;
+    margin: 20px 0 12px;
+    padding: 0;
+}
+
+.footer .footer-links a {
+    font-size: 1.1rem;
+    display: inline-block;
+    line-height: 1.8;
+    font-weight: 400;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer .footer-name {
+    color: #222;
+    margin: 0;
+}
+
+
+/* Footer Center */
+
+.footer .footer-center {
+    width: 35%;
+}
+
+.footer .footer-center p {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: 400;
+    vertical-align: middle;
+}
+
+.footer .footer-center p:not(:first-child) {
+    margin-top: 0;
+}
+
+.footer .footer-center p span {
+    display: block;
+    line-height: 2;
+}
+
+.footer .footer-center p a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer .footer-links a:before {
+    content: "|";
+    font-weight: 300;
+    font-size: 20px;
+    left: 0;
+    color: #fff;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.footer .footer-links .link-1:before {
+    content: none;
+}
+
+
+/* Footer Right */
+
+.footer .footer-right {
+    width: 20%;
+}
+
+.footer .footer-about {
+    line-height: 20px;
+    color: #cccccc;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+}
+
+.footer .footer-about span {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer .footer-icons {
+    margin-top: 25px;
+}
+
+.footer .footer-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #33383b;
+    border-radius: 2px;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+.footer a:hover,
+.footer .footer-contact-mail a:hover,
+.footer .footer-contact-tel p:hover {
+    cursor: pointer;
+    color: var(--orange);
+    -webkit-transition: all .3s;
+    -o-transition: all .3s;
+    transition: all .3s;
+}

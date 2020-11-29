@@ -1,0 +1,290 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+    min-height: 100vh;
+}
+
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0EB200;
+    --orange: #ff9100;
+}
+
+@-webkit-keyframes apparition {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes apparition {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.landing-banner .card,
+main .card {
+    width: 23vw;
+    height: auto;
+    background-color: white;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    padding: 1em;
+}
+
+.span-red {
+    color: red;
+    font-size: 2rem;
+}
+
+img {
+    width: 100px;
+    height: auto;
+}
+
+b {
+    font-weight: 800;
+}
+
+header {
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+header>nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+header>nav a {
+    display: block;
+    text-decoration: none;
+    padding: .4em 1em;
+    margin: 1em;
+    color: white;
+    background: var(--rouge);
+    border-radius: 2em;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+}
+
+header>nav a:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    -o-transition: transform .5s;
+    transition: transform .5s;
+    transition: transform .5s, -webkit-transform .5s;
+    background: var(--orange);
+}
+
+header>div:first-child {
+    align-self: center;
+}
+
+header>div:first-child>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+header>div:first-child>span {
+    font-size: 1.5rem;
+}
+
+header>div>img {
+    width: 50px;
+    height: auto;
+    padding: .5em;
+}
+
+.landing-banner {
+    position: relative;
+    height: 350px;
+    width: 100%;
+    text-align: center;
+    -webkit-transition: -webkit-animation 3s;
+    transition: -webkit-animation 3s;
+    -o-transition: animation 3s;
+    transition: animation 3s;
+    transition: animation 3s, -webkit-animation 3s;
+    -webkit-animation: apparition 3s;
+    animation: apparition 3s;
+}
+
+.banner {
+    height: 100%;
+    width: 100%;
+    background-image: url("../assets/bike-mountains.png");
+    background-position: center center;
+    background-size: cover;
+    -webkit-filter: blur(3px);
+    filter: blur(3px);
+}
+
+.landing-banner h1 {
+    font-size: 2.5rem;
+    margin-top: 1em;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.landing-banner div.card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    margin: 2em auto;
+    width: 30%;
+    opacity: .9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.landing-banner>div.card>h4 {
+    margin: .5em 0;
+}
+
+.landing-banner div.card>div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row
+}
+
+.landing-banner div.card>div a {
+    text-decoration: none;
+}
+
+.landing-banner div.card>div a:hover {
+    text-decoration: underline;
+}
+
+.landing-banner div.card>div p {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    margin: 0 .5em;
+}
+
+main {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    text-align: center;
+}
+
+main h2 {
+    margin-top: 1em;
+}
+
+main>div {
+    margin-top: 2em;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+main .card {
+    border-radius: 5em;
+    margin-top: 1em;
+}
+
+main .card:hover {
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
+    -webkit-transition: .5s;
+    -o-transition: .5s;
+    transition: .5s;
+    cursor: pointer;
+}
+
+main .card:first-child {
+    margin-left: 1em;
+}
+
+main .card:last-child {
+    margin-right: 1em;
+}
+
+main .card p {
+    width: 80%;
+    margin: 0 auto;
+}
+
+main hr {
+    border: none;
+    background: #c4c4c4;
+    height: 1px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5rem;
+}
+
+main+h2 {
+    text-align: center;
+    margin: 1.5em 0;
+}
