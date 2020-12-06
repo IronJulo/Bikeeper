@@ -1,0 +1,57 @@
+.overlay {
+  width: 0;
+  height: 100%;
+  position: fixed; 
+  background-color: white;
+  overflow-x: hidden; 
+  transition: 0.1s;
+}
+
+
+.overlay a {
+  text-decoration: none;
+  font-size: 36px;
+  color: black;
+}
+
+.overlay .closebtn {
+  margin-left: 80%;
+  height: 5vh;
+  margin-top: 5%;
+  margin-bottom: 20%
+  
+}
+.overlay-content>div>img{
+   height: 4vh;
+  margin-top: 5%;
+    margin-left: 10%;
+  
+}
+
+
+
+
+
+#login{
+  display: flex;
+}
+.centrer{
+  width: 74%;
+  text-align: center;
+}
+
+#register{
+  display: flex;
+}
+
+
+
+
+.rectangle2{
+    margin: 1%;
+    margin-left: 6%;
+    margin-bottom: 8%;
+    width: 88%;
+    height:1px;
+    background:gray;
+}

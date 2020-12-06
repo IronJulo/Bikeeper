@@ -1,0 +1,172 @@
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+    background-color: black;
+    background-image: url("../assets/road.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 10vh;
+    background-size: 999px 777px;
+}
+
+
+
+a{
+    text-decoration: None;
+}
+
+
+body{
+    margin: 0%;
+    padding: 0%
+}
+
+
+header{
+    width: 100vw;
+    height: 10vh;
+    left: 0px;
+    top: 58px;
+    background-color: white;
+    display: inline-flex;
+
+}
+header>.logo{
+    width: 74vW;
+    padding: 3%
+}
+header>.logo>a>img{
+    height: 41px;
+    margin-right: 2vw;
+    margin-top: 1%
+}
+header>.logo>a>span{
+width: 195px;
+height: 41px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 42px;
+    margin-right:20vw; 
+    color: black;
+}
+
+
+
+header>nav{
+    padding-top: 8%;
+    padding-left: 4%;
+}
+
+
+
+
+main{
+}
+
+
+
+h1,form{
+    color: white;
+}
+
+h1{
+    margin-left: 10%;
+    margin-top:10%;
+    width: 80%;
+    height: 10vh;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+}
+
+
+form{
+    height: 60vh;
+    margin-top: 17%;
+
+}
+form div{
+    height: 16vh;
+}
+form div *{
+    display: flex;
+    flex-wrap: nowrap; 
+    margin-top: 3%
+}
+form div button{
+    background-color: #DC1D21;
+    color: white;
+    border: None;
+    border-radius: 30px;
+    font-size: 4vh;
+    padding: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+    
+}
+form div input{
+    width: 70vw;
+    height: 5vh;
+    margin-left: 11vw;
+    border-radius: 2em;
+    outline: none;
+    border: 1px solid #FFF;
+    padding-left: 5%;
+    
+    
+}
+
+form div label{
+    font-size: 22px;
+    margin-left: 12%;
+}
+
+
+.button{
+  height: 20vh;
+  line-height: 20em;
+  white-space: nowrap;
+}
+.admin{
+    margin-left: 35vw;
+    margin-top:7%;
+}
+.login{
+    margin-left: 36vw
+}
+
+
+#rectangle{
+    margin-left: 20%;
+    width: 60%;
+    height:1vh;
+    background:white;
+    border-radius: 10px
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: lightgray;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: lightgray;
+}
+
+
+
