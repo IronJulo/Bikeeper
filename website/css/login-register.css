@@ -233,6 +233,10 @@ main>form>div input:focus {
     width: 100%;
 }
 
+.register-main>form div div.payment-information>div {
+    margin-top: 0;
+}
+
 .payment-information>div div:first-child {
     margin-bottom: 2em;
 }
@@ -251,13 +255,14 @@ main>form>div input:focus {
     text-align: center;
 }
 
-.register-button {
+.register-main>form div div.register-button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-pack: distribute;
     justify-content: space-around;
     flex-basis: 100%;
+    margin-bottom: 0;
 }
 
 .register-button>button {

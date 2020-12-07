@@ -124,37 +124,37 @@
 }
 
 .timeline-item:nth-child(2) .timeline-img-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("https://edito.regionsjob.com/xjob/wp-content/uploads/sites/3/2020/02/chauffeur-livreur.jpg") center center no-repeat;
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://edito.regionsjob.com/xjob/wp-content/uploads/sites/3/2020/02/chauffeur-livreur.jpg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://edito.regionsjob.com/xjob/wp-content/uploads/sites/3/2020/02/chauffeur-livreur.jpg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/sending.jpg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/sending.jpg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/sending.jpg") center center no-repeat;
     background-size: cover;
 }
 
 .timeline-item:nth-child(3) .timeline-img-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("https://photos.lci.fr/images/613/344/livraison-colis-commerce-en-ligne-31f2a3-0@1x.jpeg") center center no-repeat;
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://photos.lci.fr/images/613/344/livraison-colis-commerce-en-ligne-31f2a3-0@1x.jpeg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://photos.lci.fr/images/613/344/livraison-colis-commerce-en-ligne-31f2a3-0@1x.jpeg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/delivery.jpeg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/delivery.jpeg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/delivery.jpeg") center center no-repeat;
     background-size: cover;
 }
 
 .timeline-item:nth-child(4) .timeline-img-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("https://image.shutterstock.com/image-photo/installation-motorbike-battery-260nw-425475790.jpg") center center no-repeat;
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://image.shutterstock.com/image-photo/installation-motorbike-battery-260nw-425475790.jpg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://image.shutterstock.com/image-photo/installation-motorbike-battery-260nw-425475790.jpg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/installation.jpg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/installation.jpg../assets/installation.jpg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/installation.jpg") center center no-repeat;
     background-size: cover;
 }
 
 .timeline-item:nth-child(5) .timeline-img-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("https://lh3.googleusercontent.com/proxy/FHO97ZZuIeR-G9fJT6hmUntVL0zbTVAoPrECmGa_SXTV3EdLRj794j4TUSuVtxY-j8iMG__76JU-tMqgJQ1ltDPeR1xowpbaYrd2cMOW8jCGpjsT3QGvFAuRcZRd-HjezdwFJDLmToIigndvdMEHOEp9Tg") center center no-repeat;
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://lh3.googleusercontent.com/proxy/FHO97ZZuIeR-G9fJT6hmUntVL0zbTVAoPrECmGa_SXTV3EdLRj794j4TUSuVtxY-j8iMG__76JU-tMqgJQ1ltDPeR1xowpbaYrd2cMOW8jCGpjsT3QGvFAuRcZRd-HjezdwFJDLmToIigndvdMEHOEp9Tg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://lh3.googleusercontent.com/proxy/FHO97ZZuIeR-G9fJT6hmUntVL0zbTVAoPrECmGa_SXTV3EdLRj794j4TUSuVtxY-j8iMG__76JU-tMqgJQ1ltDPeR1xowpbaYrd2cMOW8jCGpjsT3QGvFAuRcZRd-HjezdwFJDLmToIigndvdMEHOEp9Tg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/motard.jpg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/motard.jpg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/motard.jpg") center center no-repeat;
     background-size: cover;
 }
 
 .timeline-item:nth-child(6) .timeline-img-header {
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("https://beta.valentin-software.com/wp-content/uploads/2020/03/Support.jpg") center center no-repeat;
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://beta.valentin-software.com/wp-content/uploads/2020/03/Support.jpg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("https://beta.valentin-software.com/wp-content/uploads/2020/03/Support.jpg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/Support.jpg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/Support.jpg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/Support.jpg") center center no-repeat;
     background-size: cover;
 }
 
