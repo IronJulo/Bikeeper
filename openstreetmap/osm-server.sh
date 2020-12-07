@@ -1,0 +1,1 @@
+ sudo docker run --rm -it -v $(pwd):/data -p 7777:80 klokantech/openmaptiles-server
