@@ -1,0 +1,66 @@
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+    font-weight: 500;
+    background : fixed;
+    background-color: black;
+    background-image: url("../assets/road.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 10vh;
+    background-size: 999px 777px;
+    height: 600px;
+
+    
+
+
+}
+a{
+    text-decoration: None;
+    color: black;
+}
+header {
+  background-color: red;
+  position: fixed;
+  height: 7.5em;
+  background-color: white;
+  display: inline-flex;
+  left: 0; right: 0; top: 0;
+}
+#header{
+    height: 7.5em;
+    width: 100vw;
+}
+header .logo{
+    width: 74vW;
+    padding: 0.5em;
+    display: flex;
+}
+header .logo a{
+    display: flex;
+}
+header .logo a img{
+    height: 41px;
+    margin-top: 2em;
+    margin-left: 0.5em;
+}
+
+
+h1{
+    margin-left: 10px;
+    margin-top:30px;
+    width: 80%;
+    height: 10vh;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+}
+header>nav{
+    padding-top: 3.3em;
+    margin-left: 10%;
+}
