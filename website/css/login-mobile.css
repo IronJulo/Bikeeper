@@ -1,23 +1,4 @@
-html {
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    color: rgba(0, 0, 0, 0.87);
-    line-height: 1.6;
-    margin: 0;
-    font-weight: 500;
-    background-color: black;
-    background-image: url("../assets/road.png");
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: 10vh;
-    background-size: 999px 777px;
-}
 
-
-
-a{
-    text-decoration: None;
-}
 
 
 body{
@@ -26,57 +7,11 @@ body{
 }
 
 
-header{
-    width: 100vw;
-    height: 10vh;
-    left: 0px;
-    top: 58px;
-    background-color: white;
-    display: inline-flex;
-
-}
-header>.logo{
-    width: 74vW;
-    padding: 3%
-}
-header>.logo>a>img{
-    height: 41px;
-    margin-right: 2vw;
-    margin-top: 1%
-}
-header>.logo>a>span{
-width: 195px;
-height: 41px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: bold;
-font-size: 36px;
-line-height: 42px;
-    margin-right:20vw; 
-    color: black;
-}
-
-
-
-header>nav{
-    padding-top: 8%;
-    padding-left: 4%;
-}
-
-
-
-
-main{
-}
-
-
-
-h1,form{
+h2,form{
     color: white;
 }
 
-h1{
+h2{
     margin-left: 10%;
     margin-top:10%;
     width: 80%;
@@ -89,35 +24,38 @@ h1{
     line-height: 42px;
     text-align: center;
 }
-
+main h2{
+    margin-top:1em;
+}
 
 form{
-    height: 60vh;
-    margin-top: 17%;
+    margin-top: 3em;
 
 }
 form div{
-    height: 16vh;
+    height: 8em;
 }
 form div *{
     display: flex;
     flex-wrap: nowrap; 
-    margin-top: 3%
+    margin-top: 0.2em
 }
-form div button{
+form button{
     background-color: #DC1D21;
     color: white;
     border: None;
     border-radius: 30px;
-    font-size: 4vh;
-    padding: 1%;
+    font-size: 36px;
+    margin-top: 0.5em;
+    padding-bottom: 2%;
     padding-left: 3%;
     padding-right: 3%;
+    height: 1.5em
     
 }
 form div input{
     width: 70vw;
-    height: 5vh;
+    height: 3em;
     margin-left: 11vw;
     border-radius: 2em;
     outline: none;
@@ -133,15 +71,7 @@ form div label{
 }
 
 
-.button{
-  height: 20vh;
-  line-height: 20em;
-  white-space: nowrap;
-}
-.admin{
-    margin-left: 35vw;
-    margin-top:7%;
-}
+
 .login{
     margin-left: 36vw
 }
@@ -149,6 +79,8 @@ form div label{
 
 #rectangle{
     margin-left: 20%;
+    margin-top: 5em;
+    margin-bottom: 2em;
     width: 60%;
     height:1vh;
     background:white;

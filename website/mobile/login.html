@@ -4,10 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">    
-    <link rel="stylesheet" href="../css/login-mobile.css">
+    <link rel="stylesheet" href="../css/header-mobile.css">
     <link rel="stylesheet" href="../css/overlay.css">
+     
+     
+    <link rel="stylesheet" href="../css/login-mobile.css">
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">   
     <title>Login - BiKeeper</title>
     <script src="../js/hamburger.js"></script> 
 </head>
@@ -15,8 +19,8 @@
 <body>
 	<header>
         <div class="logo">
-            <a href="login.html"><img src="../assets/logo_bikeeper_without_text.png" alt="logo BiKeeper">
-            <span>BiKeeper</span></a>
+            <a href="home.html"><img src="../assets/logo_bikeeper_without_text.png" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
         </div>
         <div id="myNav" class="overlay">
 
@@ -47,11 +51,11 @@
 	</header>
 
 
-
+    <div id="header"></div>
     <main class='login-main'>
-    	<h1>
+    	<h2>
             Login to access your account
-        </h1>
+        </h2>
         <form action="home.html" method="POST">
             <div>
                 <label for="username">Username</label>
@@ -61,10 +65,8 @@
                 <label for="password">Password</label>
                 <input type="password" id='password' name="password" placeholder='Enter your password' required>
             </div>
-            <div class="button">
-                <button type="submit" class="login"><span>Login</span></button>
-                <button type="submit" class="admin"><span>Admin</span></button>
-            </div>
+ 
+            <button type="submit" class="login"><span>Login</span></button>
         </form>
         <div id="rectangle"></div>
 
