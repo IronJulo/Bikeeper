@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/header-mobile.css">
+    <link rel="stylesheet" href="../css/overlay.css">
+
+    <link rel="stylesheet" href="../css/register-mobile.css">
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet"> 
+    <title>Login - BiKeeper</title>
+    <script src="../js/hamburger.js"></script> 
+</head>
+
+<body>
+	<header>
+        <div class="logo">
+            <a href="home.html"><img src="../assets/logo_bikeeper_without_text.png" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+        <div id="myNav" class="overlay">
+
+          <!-- Button to close the overlay navigation -->
+          <img src="../assets/close.png" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
+
+          <!-- Overlay content -->
+            <div class="overlay-content">
+                <div id="login">
+                    <img src="../assets/login.png" alt="login">
+                    <div class="centrer">
+                        <a href="login.html">Login</a>
+                    </div>
+                    
+                </div>
+                <div class="rectangle2"></div>
+                <div id="register">
+                    <img src="../assets/register.png" alt="register">
+                    <div class="centrer"><a href="register.html">Register</a></div>
+                </div>
+                <div class="rectangle2"></div>
+            </div>
+
+        </div>
+
+        <!-- Use any element to open/show the overlay navigation menu -->
+        <nav onclick="openNav()"><img src="../assets/menu.png" alt="logo menu"></nav>
+	</header>
+    <main>
+        <div id="header"></div>
+
+
+        <div class="information">
+            <h2>Create your account</h2>
+            <div>
+                <label for="username">Username</label>
+                <input type="text" id='username' name="username" placeholder='Enter your username' required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="email" id='email' name="email" placeholder='Enter your email' required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" id='password' name="password" placeholder='Enter your password' required>
+            </div>
+            <div>
+                <label for="Confirm_password">Confirm your password</label>
+                <input type="password" id='Confirm_password' name="Confirm_password" placeholder='Retype your password' required>
+            </div>
+        </div>
+
+
+        <div class="information">
+            <h2>Where should we send your device ?</h2>
+            <div>
+                <label for="phone_number">Phone Number</label>
+                <input type="text" id='phone_number' name="phone_number" placeholder='0123456789' required>
+            </div>
+            <div>
+                <label for="address">Address</label>
+                <input type="text" id='address' name="address" placeholder='1 Avenue Champs Elysees' required>
+            </div>
+            <div>
+                <label for="city">City</label>
+                <input type="text" id='city' name="city" placeholder='Paris' required>
+            </div>
+            <div>
+                <label for="postal_code">Postal Code</label>
+                <input type="text" id='postal_code' name="postal_code" placeholder='75000' required>
+            </div>
+        </div>
+
+
+        <div id="credit-card">
+            <h3>Credit Card</h3>
+            <img src="../assets/mastercard.png" alt="master card logo">
+            <fieldset>
+                <legend>Card number</legend>
+                <input type="text" id='username' name="username" placeholder='1234 - 5678 - 9123 - 4567' required>
+            </fieldset>
+            <fieldset>
+                <legend>Card Holder Name</legend>
+                <input type="text" id='username' name="username" placeholder='John Doe' required>
+            </fieldset>
+            <fieldset>
+                <legend>Expiration Date</legend>
+                <input type="text" id='username' name="username" placeholder='08/22' required>
+            </fieldset>
+            <fieldset>
+                <legend>CVV/CVC</legend>
+                <input type="text" id='username' name="username" placeholder='666' required>
+            </fieldset>   
+        </div>                                 
+        <button type="submit" class="register"><span>Register</span></button>
+        <div id="rectangle"></div>
+    </main>
+
+
+
+
+</body>
+</html>

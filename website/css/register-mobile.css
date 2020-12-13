@@ -1,0 +1,127 @@
+body{
+    margin: 0%;
+    padding: 0%;
+}
+
+h1{
+    margin-left: 10px;
+    margin-top:30px;
+    width: 80%;
+    height: 10vh;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 42px;
+    text-align: center;
+}
+header>nav{
+    padding-top: 3.3em;
+    margin-left: 10%;
+}
+main{
+    text-align: center
+}
+.information{
+    padding: 5%;
+    display: flex;
+    flex-wrap: wrap;
+   text-align: left
+}
+.information h2{
+    color: white;
+    text-align: center;
+    width: 100%;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+}
+.information label{
+    color: white;
+    margin-left: 0.5em;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+}
+.information input{
+    width: 85vw;
+    height: 3em;
+    border-radius: 2em;
+    border: none;
+    padding-left: 5%;
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+#credit-card{
+    float: center;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 30px;
+    padding: 1.0em;
+    height: 28em;
+    width: 17em;
+    text-align: center;
+    
+    margin: auto;
+        margin-top: 5em;
+}
+#credit-card img{
+    height: 70px;
+    padding-top: 0.5em;
+}
+#credit-card input{
+    border: none;
+    background-color: rgba(255,255,255,0);
+    border-radius: 5px;
+    width: 16em;
+    height: 2em;
+    
+}
+#credit-card fieldset{
+    border: solid thin;
+    border-radius: 6px;
+    margin-top:1em 
+}
+legend{
+font-weight: 500;
+font-size: 12px;
+font-family: Roboto;
+}
+h3{margin: 0}
+main>button{
+    background-color: #DC1D21;
+    color: white;
+    border: None;
+    border-radius: 30px;
+    font-size: 36px;
+    font-family: Roboto;
+    margin-top: 2em;
+    padding-left: 3%;
+    padding-right: 3%;
+    height: 1.5em;
+    width: 6em
+}
+#rectangle{
+    margin-left: 20%;
+    margin-top: 5em;
+    margin-bottom: 2em;
+    width: 60%;
+    height:1vh;
+    background:white;
+    border-radius: 10px
+}
