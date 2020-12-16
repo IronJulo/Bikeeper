@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="./assets/logo_bikeeper_without_text.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
 
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
 
-    <link rel="stylesheet" href="css/landing-page.css">
-    <link rel="stylesheet" href="css/timeline.css">
-    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/timeline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/footer.css') }}">
 
     <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
     <title>BiKeeper</title>
@@ -21,12 +21,12 @@
 <body>
     <header>
         <div>
-            <img src="./assets/logo_bikeeper_without_text.png" alt="logo BiKeeper">
+            <img src="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}" alt='logo BiKeeper'>
             <span>BiKeeper</span>
         </div>
         <nav>
-            <a href="register.html">Register</a>
-            <a href="login.html">Login</a>
+            <a href="/register/">Register</a>
+            <a href="/login/">Login</a>
         </nav>
     </header>
 
@@ -36,7 +36,7 @@
         <div class="card">
             <h4>Motorbike Magazine</h4>
             <div>
-                <img src="assets/magazine.png" alt="Motorbike Magazine - Moto Journal">
+                <img src="{{ url_for('static', filename='/pc/assets/magazine.png') }}" alt="Motorbike Magazine - Moto Journal">
                 <p>The <b>best</b> tracker for <b>your motorbike</b>. Simple to use, a lot of features, for a small price ! <b>BiKeeper device</b> will <b>protect</b> your <b>motorbike</b> from theft. Localisation, statistics, fall detector....<a href='#'>read more</a></p>
             </div>
         </div>
@@ -47,22 +47,22 @@
         <p><b>BiKeeper</b> is a GPS tracker. BiKeeper device is <b>connected</b> everywhere and <b>linked to our powerful software</b>.<br> When we <b>detect theft</b>, a <b>notification is automatically sent</b> to the motorbike <b>owner</b>.</p>
         <div>
             <div class="card">
-                <img src="assets/localisation-1.png" alt="Magnifying glass on a map">
+                <img src="{{ url_for('static', filename='/pc/assets/localisation-1.png') }}" alt="Magnifying glass on a map">
                 <h4>Localisation in real time</h4>
                 <p>See were is your vehicle on a map directly in a web browser...</p>
             </div>
             <div class="card">
-                <img src="assets/notification-1.png" alt="Smartphone image having a notification">
+                <img src="{{ url_for('static', filename='/pc/assets/notification-1.png') }}" alt="Smartphone image having a notification">
                 <h4>Real time notification</h4>
                 <p>Be alerted when your vehicle is moved or shocked direclty on your phone.</p>
             </div>
             <div class="card">
-                <img src="assets/trip-1.png" alt="Trip symbol between two points">
+                <img src="{{ url_for('static', filename='/pc/assets/trip-1.png') }}" alt="Trip symbol between two points">
                 <h4>Save your trip</h4>
                 <p>See your daily trips done. Watch your stats, like speed, distance and more!</p>
             </div>
             <div class="card">
-                <img src="assets/friends-1.png" alt="Friends holding each other by the shoulder">
+                <img src="{{ url_for('static', filename='/pc/assets/friends-1.png') }}" alt="Friends holding each other by the shoulder">
                 <h4>Alert your friends</h4>
                 <p>When BiKeeper detect an accident, a message is send to your friends. They can take care of you.</p>
             </div>
@@ -83,7 +83,7 @@
                     <h2>REGISTER</h2>
                     <div class="date">STEP 1</div>
                     <p>Fill out the registration form with your personal information. Proceed to secure online payment. Once done, you will be assigned a BiKeeper device!</p>
-                    <a class="bnt-more" href="register.html">Register</a>
+                    <a class="bnt-more" href="/register/">Register</a>
                 </div>
             </div>
 
@@ -127,7 +127,7 @@
 
                     <div class="date">STEP 3</div>
                     <p>In order to enjoy the full capabilities of your device, you must now connect it to your motorcycle's battery! We can accompany you in this process with our online guide.</p>
-                    <a class="bnt-more" href="guide.html">Our guide</a>
+                    <a class="bnt-more" href="/guide/">Our guide</a>
                 </div>
             </div>
 
@@ -153,7 +153,7 @@
 
                     </div>
                     <p>If you would like to get help from our support team, do not hesitate to go to the page of our website dedicated to it. We will answer your requests as soon as possible! <br>Thank you for choosing BiKeeper!</p>
-                    <a class="bnt-more" href="support.html">Support</a>
+                    <a class="bnt-more" href="/support/">Support</a>
                 </div>
             </div>
 
@@ -161,48 +161,11 @@
     </section>
     <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
     <script src='https://cdn.jsdelivr.net/scrollreveal.js/3.3.1/scrollreveal.min.js'></script>
-    <script src="js/timeline.js"></script>
+    <script src="{{ url_for('static', filename='/pc/js/timeline.js') }}"></script>
 
-    <footer class='footer'>
-
-        <div class='footer-left'>
-
-            <h3>Bi<span>Keeper</span></h3>
-
-            <p class='footer-links'>
-                <a href='login.html' class='link-1'>Get a BiKeeper device</a>
-
-                <a href='contact@bikeeper.fr'>Contact us</a>
-            </p>
-
-            <p class='footer-name'>BiKeeper Company © 2020</p>
-        </div>
-
-        <div class='footer-center'>
-
-            <div>
-                <p><span>16 rue d'Issoudun</span> 45160, Olivet, France</p>
-            </div>
-
-            <div class='footer-contact-tel'>
-                <p>06 57 72 24 61</p>
-            </div>
-
-            <div class='footer-contact-mail'>
-                <p><a href='mailto:contact@bikeeper.fr'>contact@bikeeper.fr</a></p>
-            </div>
-
-        </div>
-
-        <div class='footer-right'>
-
-            <p class='footer-about'>
-                <span>A propos de nous</span>BiKeeper est une société créée en 2020. Nous avons pour vocation la sécurité d'autrui et de leurs biens à travers des dipositifs antivols !
-            </p>
-
-        </div>
-
-    </footer>
+    {% block footer %}
+        {% include "pc/components/footer.html" %}
+    {% endblock %}
 
 </body>
 

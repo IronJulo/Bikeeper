@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="./assets/logo_bikeeper_without_text.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
 
-    <link rel="stylesheet" href="css/login-register.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/login-register.css') }}">
 
     <title>Register - BiKeeper</title>
 </head>
@@ -16,18 +16,18 @@
 <body>
     <header>
         <div>
-            <a href='index.html'>
-                <img src="./assets/logo_bikeeper_without_text.png" alt="logo BiKeeper">
+            <a href='/'>
+                <img src="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             </a>
             <span>BiKeeper</span>
         </div>
         <nav>
-            <a href="login.html">Login</a>
+            <a href="/login/">Login</a>
         </nav>
     </header>
 
     <main class='register-main'>
-        <form action="login.html" method="POST">
+        <form action="/login/" method="POST">
             <div class="carousel-wrapper">
                 <span id="step-1"></span>
                 <span id="step-2"></span>
@@ -87,7 +87,7 @@
                         <div class="payment">
                             <div>
                                 <p>Credit Card</p>
-                                <img src="assets/mastercard.png" alt="Logo mastercard">
+                                <img src="{{ url_for('static', filename='/pc/assets/mastercard.png') }}" alt="Logo mastercard">
                             </div>
                             <div class='payment-information'>
                                 <div>
@@ -115,7 +115,7 @@
                         </div>
                         <div class='register-button'>
                             <button type="submit" class='login-btn'><span>Register</span></button>
-                            <a class='login-btn' href='login.html'>Cancel</a>
+                            <a class='login-btn' href='/login/'>Cancel</a>
                         </div>
                     </div>
                     <a class="arrow arrow-prev" href="#step-2"></a>
