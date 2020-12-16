@@ -6,7 +6,7 @@ html {
     font-weight: 500;
     background : fixed;
     background-color: black;
-    background-image: url("../assets/road.png");
+    background-image: url("../../assets/road.png");
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: 10vh;

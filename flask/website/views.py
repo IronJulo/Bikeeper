@@ -2,17 +2,21 @@ from .app import app
 from flask import render_template, request, redirect
 from flask_mobility import Mobility
 from flask_mobility.decorators import mobile_template
-
+from flask_mobility.decorators import mobilized
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template("home.html")
 
 
+# @mobile_template("{mobile/Authentification/}login.html")
 @app.route('/login', methods=['GET','POST'])
 def login():
-    return ""
+    return render_template("login.html")
 
+@mobilized(login)
+def login():
+    return render_template("mobile/Authentification/login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
 @mobile_template('{mobile/}register.html')

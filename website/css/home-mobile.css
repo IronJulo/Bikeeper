@@ -1,26 +1,18 @@
-
-html {
+html{
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
-    color: rgba(0, 0, 0, 0.87);
-    font-weight: 500;
-    background : fixed;
-    background-color: black;
-    background-image: url("../assets/road.png");
-    background-repeat: no-repeat;
-    background-position-x: center;
-    background-position-y: 10vh;
-    background-size: 999px 777px;
-    height: 600px;
+    margin: 0%;
+    padding: 0%;
 }
-
+body{    
+    margin: 0%;
+    padding: 0%:
+}
 
 
 @media(min-height: 877px)
 {
    html {
-       background-size: 1500px 1167px;
-       background-position-y: 5vh;
     } 
 }
 
@@ -28,15 +20,12 @@ html {
 @media (min-width:1000px){
     html
     {
-        background-size: 1500px 1167px;
-        background-position-y: -10vh;
     }
 }
 
 @media(max-height: 376px)
 {
    html {
-       background-position-y: -30vh;
     } 
 }
 
@@ -45,21 +34,15 @@ html {
 
 
 a{
-    text-decoration: None;
-    color: black;
 }
 header {
-  background-color: red;
-  position: fixed;
+    width: 100%;
   height: 7.5em;
-  background-color: white;
+  background-color: rgba(0,0,0,0.31);
   display: inline-flex;
   left: 0; right: 0; top: 0;
 }
-#header{
-    height: 7.5em;
-    width: 100vw;
-}
+
 header .logo{
     width: 74vW;
     padding: 0.5em;
@@ -92,3 +75,21 @@ header>nav{
     padding-top: 3.3em;
     margin-left: 10%;
 }
+
+
+header a{
+    text-decoration: none;
+    color: black
+}
+
+
+
+#localisation img{height: 20px}
+#localisation a{
+    text-decoration: none;
+    color: grey
+}
+#avis img{height: 20px}
+#avis span{color: #FF9900}
+
+article{background-color: red}
