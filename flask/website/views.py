@@ -4,19 +4,18 @@ from flask_mobility import Mobility
 from flask_mobility.decorators import mobile_template
 from flask_mobility.decorators import mobilized
 
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return render_template("pc/index.html")
 
 
-# @mobile_template("{mobile/Authentification/}login.html")
-@app.route('/login/', methods=['GET','POST'])
-def login():
-    return render_template("pc/login.html")
+#
+@app.route('/login', methods=['GET', 'POST'])
+@mobile_template("{mobile/Authentification/}login.html")
+def login(template):
+    return render_template(template)
 
-# @mobilized(login)
-# def login():
-#     return render_template("mobile/Authentification/login.html")
 
 @app.route('/register/', methods=['GET', 'POST'])
 # @mobile_template('{mobile/}register.html')
