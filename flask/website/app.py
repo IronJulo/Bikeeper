@@ -7,6 +7,8 @@ from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 Mobility(app)
 

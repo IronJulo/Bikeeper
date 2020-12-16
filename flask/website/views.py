@@ -7,12 +7,11 @@ from flask_mobility.decorators import mobilized
 
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def index():
     return render_template("index.html")
 
 
-#
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login/', methods=['GET', 'POST'])
 @mobile_template("{mobile/Authentification/}login.html")
 def login(template):
     print("Template : ", template)
@@ -23,6 +22,16 @@ def login(template):
 @mobile_template('{mobile/Authentification/}register.html')
 def register(template):
     return render_template(template)
+
+
+@app.route('/home/', methods=['GET', 'POST'])
+def home():
+    return render_template("home.html")
+
+
+@app.route('/statistics/', methods=['GET'])
+def statistics():
+    return ""
 
 
 @app.route('/delivery', methods=['GET'])

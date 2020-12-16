@@ -1,0 +1,163 @@
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
+    min-height: 100vh;
+}
+
+:root {
+    --rouge: #DC1D21;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+}
+
+.sidebar{
+    position: fixed;
+    height: 100%;
+    left: 0;
+    top: var(--taille-header);
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #1a1a1a;
+    color: #fff;
+    width: var(--taille-sidebar);
+    height: calc(100vh - var(--taille-header));
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(
+        rgba(219, 12, 34, 0.65), 
+        rgba(219, 12, 34, 0.65)
+      ), url("../assets/foret.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    font-weight: 500;
+}
+
+.sidebar ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-navigation {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.sidebar-navigation li {
+    background-color: white;
+    position: relative;
+    display: flex;
+    line-height: 20px;
+    margin: 2em 1em 0 1em;
+    color: var(--rouge);
+}
+
+.sidebar-navigation li svg,
+.sidebar-navigation li img {
+    align-self: center;
+    margin-left: 1em;
+}
+
+.sidebar-navigation li img{
+    width: 25px;
+    height: auto;
+}
+
+.sidebar-navigation li a {
+    padding: 10px 15px 10px 30px;
+    display: block;
+    color: inherit;
+}
+
+
+.sidebar-navigation li a:active,
+.sidebar-navigation li a:hover,
+.sidebar-navigation li a:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+
+
+header {
+    position: fixed;
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--taille-header);
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    box-shadow: 7px 0px 12px rgba(0, 0, 0, 0.25);
+    font-weight: 500;
+}
+
+header>nav a {
+    display: block;
+    text-decoration: none;
+    padding: .4em 1em;
+    margin: 1em;
+    color: white;
+    background: var(--rouge);
+    border-radius: 2em;
+}
+
+header>nav a:hover {
+    cursor: pointer;
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    -o-transition: transform .5s;
+    transition: transform .5s;
+    transition: transform .5s, -webkit-transform .5s;
+    background: var(--orange);
+}
+
+header>div:first-child {
+    align-self: center;
+}
+
+header>div:first-child>* {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+header>div:first-child>span {
+    font-size: 1.5rem;
+}
+
+header>div img {
+    width: 50px;
+    height: auto;
+    padding: .5em;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+main {
+    position: absolute;
+    top: var(--taille-header);
+    left: var(--taille-sidebar);
+}
+
+div.container {
+    position: relative;
+}

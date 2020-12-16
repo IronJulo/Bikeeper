@@ -7,14 +7,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
           rel="stylesheet">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}"
+    <link rel="shortcut icon" href="{{ url_for('static', filename='pc/assets/logo_bikeeper_without_text.png') }}"
           type="image/x-icon">
 
     <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/timeline.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/pc/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pc/css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pc/css/timeline.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pc/css/footer.css') }}">
 
     <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
     <title>BiKeeper</title>
@@ -23,7 +23,7 @@
 <body>
 <header>
     <div>
-        <img src="{{ url_for('static', filename='/pc/assets/logo_bikeeper_without_text.png') }}" alt='logo BiKeeper'>
+        <img src="{{ url_for('static', filename='pc/assets/logo_bikeeper_without_text.png') }}" alt='logo BiKeeper'>
         <span>BiKeeper</span>
     </div>
     <nav>
@@ -38,7 +38,7 @@
     <div class="card">
         <h4>Motorbike Magazine</h4>
         <div>
-            <img src="{{ url_for('static', filename='/pc/assets/magazine.png') }}"
+            <img src="{{ url_for('static', filename='pc/assets/magazine.png') }}"
                  alt="Motorbike Magazine - Moto Journal">
             <p>The <b>best</b> tracker for <b>your motorbike</b>. Simple to use, a lot of features, for a small price !
                 <b>BiKeeper device</b> will <b>protect</b> your <b>motorbike</b> from theft. Localisation, statistics,
@@ -54,24 +54,24 @@
     </p>
     <div>
         <div class="card">
-            <img src="{{ url_for('static', filename='/pc/assets/localisation-1.png') }}"
+            <img src="{{ url_for('static', filename='pc/assets/localisation-1.png') }}"
                  alt="Magnifying glass on a map">
             <h4>Localisation in real time</h4>
             <p>See were is your vehicle on a map directly in a web browser...</p>
         </div>
         <div class="card">
-            <img src="{{ url_for('static', filename='/pc/assets/notification-1.png') }}"
+            <img src="{{ url_for('static', filename='pc/assets/notification-1.png') }}"
                  alt="Smartphone image having a notification">
             <h4>Real time notification</h4>
             <p>Be alerted when your vehicle is moved or shocked direclty on your phone.</p>
         </div>
         <div class="card">
-            <img src="{{ url_for('static', filename='/pc/assets/trip-1.png') }}" alt="Trip symbol between two points">
+            <img src="{{ url_for('static', filename='pc/assets/trip-1.png') }}" alt="Trip symbol between two points">
             <h4>Save your trip</h4>
             <p>See your daily trips done. Watch your stats, like speed, distance and more!</p>
         </div>
         <div class="card">
-            <img src="{{ url_for('static', filename='/pc/assets/friends-1.png') }}"
+            <img src="{{ url_for('static', filename='pc/assets/friends-1.png') }}"
                  alt="Friends holding each other by the shoulder">
             <h4>Alert your friends</h4>
             <p>When BiKeeper detect an accident, a message is send to your friends. They can take care of you.</p>
@@ -180,7 +180,7 @@
 <script src="{{ url_for('static', filename='/pc/js/timeline.js') }}"></script>
 
 {% block footer %}
-{% include "components/footer.html" %}
+    {% include "components/footer.html" %}
 {% endblock %}
 
 </body>
