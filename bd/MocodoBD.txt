@@ -1,0 +1,22 @@
+------------------------------
+MESSAGE: id_message, is_admin_message, datetime_message, title_message, content_message
+HAS_TICKETS, 11 TICKET, 0N USER
+USER: username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user
+:
+
+HAS_MESSAGE, 11 MESSAGE, 0N TICKET
+TICKET: id_ticket, is_closed_ticked
+BELONGS, 0N USER, 11 DEVICE
+LOG: id_log, content_log, type_log, datetime_log, exception_log
+
+CONTACT: id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact
+ALERTED_CONTACT, 0N DEVICE, 11 CONTACT
+DEVICE: num_device, name_device, row_parameters_device
+BELONGS_, 11 LOG, 1N DEVICE
+---------------------------------------------------
+MESSAGE ( id_message, is_admin_message, datetime_message, title_message, content_message, id_ticket )
+USER ( username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user, num_device )
+TICKET ( id_ticket, is_closed_ticked, username_user )
+LOG ( id_log, content_log, type_log, datetime_log, exception_log, num_device )
+CONTACT ( id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device )
+DEVICE ( num_device, row_parameters_device )
