@@ -7,20 +7,21 @@ from flask_mobility.decorators import mobilized
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template("pc/index.html")
+    return render_template("index.html")
 
 
 #
 @app.route('/login', methods=['GET', 'POST'])
 @mobile_template("{mobile/Authentification/}login.html")
 def login(template):
+    print("Template : ", template)
     return render_template(template)
 
 
 @app.route('/register/', methods=['GET', 'POST'])
-# @mobile_template('{mobile/}register.html')
-def register():
-    return render_template('pc/register.html')
+@mobile_template('{mobile/Authentification/}register.html')
+def register(template):
+    return render_template(template)
 
 
 @app.route('/delivery', methods=['GET'])
