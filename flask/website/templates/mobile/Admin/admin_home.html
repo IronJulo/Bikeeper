@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+   <head>
+        <meta charset="UTF-8">
+        
+        <link rel="shortcut icon" href="../../../static/mobile/assets/logo_bikeeper_without_text.png" type="image/x-icon">
+        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+        <link rel="stylesheet" href="../../../static/mobile/css/Admin/admin_home.css">
+
+        <title>BiKeeper</title>
+    </head>
+    <body>
+    	<header>
+    		<div>
+            <img class="logo" src="../../../static/mobile/assets/logo%20transparent%201.svg" alt="logo BiKeeper">
+            <span>BiKeeper</span>
+        	</div>
+        	<a href="./humberger_overlay_connected_admin.html"> <img class="hamburger" src="../../../static/mobile/assets/hamburger.svg" alt="option"></a>
+    	</header>
+        <div class="main">
+        	<h2>Welcome Administrator !</h2>
+            <div class="list-info">
+				<ul class="list">
+					<li class="user"><p> {{ nb_user }} users </p><img class="img_user" src="../../../static/mobile/assets/user.svg" alt="user"></li>
+					<li class="data"><p> {{ tt_data }} Go </p><img class="img_data" src="../../../static/mobile/assets/data.svg" alt="data"></li>
+					<li class="mail"><p> {{ nb_ticket }} tickets </p><img class="img_mail" src="../../../static/mobile/assets/mail.svg" alt="mail"></li>
+					<li class="new"><p> {{ nb_new }} new bikeepers </p><img class="img_new" src="../../../static/mobile/assets/happy.svg" alt="happy"></li>
+					<li class="ride"><p> {{ nb_ride }} rides </p><img class="img_ride" src="../../../static/mobile/assets/stopwatch.svg" alt="stopwatch"></li>
+					<li class="alert"><p> {{ nb_alert }} alerts </p><img class="img_alert" src="../../../static/mobile/assets/notification_active.svg" alt="notification active"></li>
+					<li class="cancel"><p> {{ nb_cancel }} Cancellations </p><img class="img_cancel" src="../../../static/mobile/assets/trello.svg" alt="annulation"></li>
+               </ul>
+            </div>
+        </div>
+    </body>
+</html>

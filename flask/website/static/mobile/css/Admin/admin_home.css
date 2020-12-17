@@ -1,0 +1,140 @@
+html {
+}
+
+body{
+
+}
+
+header{
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+	display: flex;
+}
+
+span{
+	font-size: 60px;
+	font-weight: bold;
+	font-family: sans-serif;
+	margin-bottom: 5vh;
+	vertical-align: middle;
+}
+
+h2{
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 5vh;
+}
+
+ul.list{
+	list-style: none;
+}
+
+img{
+	height: 120px;
+	width: 120px;
+}
+
+img.logo{
+	height: 140px;
+	width: 140px;
+	vertical-align: middle;
+}
+
+
+img.hamburger{
+	height: 65px;
+	width: 65px;
+	vertical-align: middle;
+	margin-top: 2vh;
+	margin-left: 45vw;
+}
+
+img.img_user{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_data{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_mail{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_new{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_ride{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_alert{
+	height: 70px;
+	width: 70px;
+}
+
+img.img_cancel{
+	height: 70px;
+	width: 70px;
+}
+
+li{
+	font-size: 40px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	padding: 0.5em;
+	margin: 2em;
+	color: white;
+	border-radius: 1em;
+	width: 800px;
+	height: auto;
+	text-align: center;
+	
+}
+
+li.user{
+	background: #5593CD;
+}
+
+li.data{
+	background: #78D381;
+}
+
+li.mail{
+	background: #E09D5E;
+}
+
+li.new{
+	background: #8664D0;
+}
+
+li.ride{
+	background: #5593CD;
+}
+
+li.alert{
+	background: #78D381;
+	font-size: 40px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+	padding: 0.5em;
+	margin: 2em;
+	color: white;
+	border-radius: 1em;
+	width: 800px;
+	height: auto;
+	text-align: center;
+}
+
+li.cancel{
+	background: #E09D5E;
+}
