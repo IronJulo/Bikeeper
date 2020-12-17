@@ -1,9 +1,112 @@
 {% extends "base.html" %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/handmade/home.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/home.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
 {% endblock %}
 
 {% block main %}
-    <div>Contenu</div>
+<section class='cards'>
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-map.jpg') }}" alt="map localisation">
+        <span>Find your motorbike</span>
+    </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-moto.png') }}" alt="motorbike">
+        <span>Rides</span>
+    </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-alert.jpg') }}" alt="exclamation mark">
+        <span>Alerts</span>
+    </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-notification.png') }}" alt="megaphone">
+        <span>Notifications</span>
+    </div>
+
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-battery.png') }}" alt="battery level">
+        <span>Battery</span>
+    </div>
+    <div class="card">
+        <img src="{{ url_for('static', filename='pc/assets/home-play.png') }}" alt="play/stop button">
+        <span>Activate Park Mode</span>
+    </div>
+</section>
+<h2>Weekly Activity</h2>
+<svg width="1592" height="810" viewBox="0 0 1592 810" fill="none" xmlns="http://www.w3.org/2000/svg">
+    
+    <g filter="url(#filter0_d)">
+    <rect x="7" y="4" width="1580" height="798" rx="11" fill="white"/>
+    </g>
+    <rect x="230.164" y="86.7801" width="44.6328" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="417.621" y="86.7801" width="44.6328" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="605.079" y="86.7801" width="44.6328" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="792.537" y="86.7801" width="44.6328" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="979.995" y="86.7801" width="44.6327" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="1167.45" y="86.7801" width="44.6329" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="1354.91" y="86.7801" width="44.6327" height="480.125" rx="6" fill="#2A3C44"/>
+    <rect x="230.164" y="318.564" width="44.6328" height="248.34" rx="6" fill="#DC1D21"/>
+    <rect x="417.621" y="437.768" width="44.6328" height="129.137" rx="6" fill="#DC1D21"/>
+    <rect x="605.079" y="394.722" width="44.6328" height="172.183" rx="6" fill="#DC1D21"/>
+    <rect x="792.537" y="239.095" width="44.6328" height="327.809" rx="6" fill="#DC1D21"/>
+    <rect x="979.995" y="351.676" width="44.6327" height="215.228" rx="6" fill="#DC1D21"/>
+    <rect x="1167.45" y="457.635" width="44.6329" height="109.27" rx="6" fill="#DC1D21"/>
+    <rect x="1354.91" y="351.676" width="44.6327" height="215.228" rx="6" fill="#DC1D21"/>
+    <path d="M238.774 612.273V621H239.524V613.956H239.593L242.537 621H243.262L246.206 613.956H246.274V621H247.024V612.273H246.104L242.938 619.875H242.861L239.695 612.273H238.774ZM256.499 616.636C256.499 613.905 254.931 612.153 252.724 612.153C250.521 612.153 248.953 613.909 248.953 616.636C248.953 619.364 250.517 621.119 252.724 621.119C254.931 621.119 256.499 619.368 256.499 616.636ZM255.724 616.636C255.728 618.984 254.445 620.369 252.724 620.369C250.998 620.369 249.724 618.976 249.724 616.636C249.724 614.284 251.011 612.903 252.724 612.903C254.445 612.903 255.724 614.288 255.724 616.636ZM265.224 612.273H264.439V619.589H264.371L259.198 612.273H258.427V621H259.224V613.692H259.292L264.448 621H265.224V612.273Z" fill="black"/>
+    <path d="M428.806 611.989H431.572V620H432.369V611.989H435.135V611.273H428.806V611.989ZM442.745 611.273V616.996C442.745 618.385 441.757 619.399 440.235 619.399C438.714 619.399 437.725 618.385 437.725 616.996V611.273H436.929V617.051C436.924 618.832 438.271 620.149 440.235 620.149C442.204 620.149 443.542 618.832 443.542 617.051V611.273H442.745ZM445.858 620H451.006V619.284H446.655V615.99H450.652V615.274H446.655V611.989H450.921V611.273H445.858V620Z" fill="black"/>
+    <path d="M616.229 621H617.081L619.105 613.598H619.161L621.185 621H622.037L624.428 612.273H623.614L621.637 619.777H621.568L619.591 612.273H618.671L616.693 619.777H616.625L614.648 612.273H613.838L616.229 621ZM625.868 621H631.016V620.284H626.665V616.99H630.662V616.274H626.665V612.989H630.931V612.273H625.868V621ZM635.55 621C638.175 621 639.671 619.359 639.675 616.615C639.675 613.901 638.2 612.273 635.703 612.273H632.993V621H635.55ZM633.79 620.284V612.989H635.656C637.774 612.989 638.899 614.357 638.904 616.615C638.904 618.895 637.753 620.284 635.503 620.284H633.79Z" fill="black"/>
+    <path d="M802.939 612.989H805.705V621H806.502V612.989H809.267V612.273H802.939V612.989ZM811.061 621H811.858V616.99H816.81V621H817.607V612.273H816.81V616.274H811.858V612.273H811.061V621ZM825.738 612.273V617.996C825.738 619.385 824.749 620.399 823.228 620.399C821.706 620.399 820.718 619.385 820.718 617.996V612.273H819.921V618.051C819.917 619.832 821.263 621.149 823.228 621.149C825.196 621.149 826.534 619.832 826.534 618.051V612.273H825.738Z" fill="black"/>
+    <path d="M994.3 621H995.097V616.99H998.953V616.274H995.097V612.989H999.349V612.273H994.3V621ZM1001.33 621H1002.13V617.472H1004.16C1004.28 617.472 1004.39 617.467 1004.49 617.459L1006.41 621H1007.33L1005.31 617.305C1006.4 616.947 1006.96 616.053 1006.96 614.885C1006.96 613.359 1006 612.273 1004.15 612.273H1001.33V621ZM1002.13 616.743V612.989H1004.13C1005.51 612.989 1006.18 613.743 1006.18 614.885C1006.18 616.027 1005.51 616.743 1004.14 616.743H1002.13ZM1009.7 612.273H1008.9V621H1009.7V612.273Z" fill="black"/>
+    <path d="M1184.9 614.455H1185.67C1185.61 613.129 1184.47 612.149 1182.84 612.149C1181.23 612.149 1179.99 613.116 1179.99 614.523C1179.99 615.643 1180.78 616.347 1182.15 616.751L1183.2 617.058C1184.28 617.374 1185.02 617.778 1185.02 618.669C1185.02 619.717 1184.07 620.42 1182.76 620.42C1181.59 620.42 1180.67 619.854 1180.58 618.818H1179.76C1179.86 620.199 1180.98 621.149 1182.76 621.149C1184.66 621.149 1185.79 620.08 1185.79 618.682C1185.79 617.233 1184.53 616.653 1183.42 616.342L1182.5 616.078C1181.65 615.839 1180.76 615.409 1180.76 614.489C1180.76 613.551 1181.6 612.865 1182.82 612.865C1183.97 612.865 1184.8 613.483 1184.9 614.455ZM1187.72 621L1188.65 618.371H1192.32L1193.25 621H1194.09L1190.91 612.273H1190.06L1186.89 621H1187.72ZM1188.91 617.655L1190.46 613.308H1190.52L1192.06 617.655H1188.91ZM1194.03 612.989H1196.8V621H1197.6V612.989H1200.36V612.273H1194.03V612.989Z" fill="black"/>
+    <path d="M1370.1 614.455H1370.87C1370.81 613.129 1369.67 612.149 1368.04 612.149C1366.43 612.149 1365.19 613.116 1365.19 614.523C1365.19 615.643 1365.98 616.347 1367.35 616.751L1368.4 617.058C1369.48 617.374 1370.22 617.778 1370.22 618.669C1370.22 619.717 1369.27 620.42 1367.97 620.42C1366.79 620.42 1365.87 619.854 1365.78 618.818H1364.97C1365.06 620.199 1366.18 621.149 1367.97 621.149C1369.86 621.149 1370.99 620.08 1370.99 618.682C1370.99 617.233 1369.73 616.653 1368.62 616.342L1367.7 616.078C1366.85 615.839 1365.96 615.409 1365.96 614.489C1365.96 613.551 1366.8 612.865 1368.02 612.865C1369.18 612.865 1370 613.483 1370.1 614.455ZM1378.73 612.273V617.996C1378.73 619.385 1377.74 620.399 1376.22 620.399C1374.69 620.399 1373.71 619.385 1373.71 617.996V612.273H1372.91V618.051C1372.9 619.832 1374.25 621.149 1376.22 621.149C1378.18 621.149 1379.52 619.832 1379.52 618.051V612.273H1378.73ZM1388.64 612.273H1387.85V619.589H1387.78L1382.61 612.273H1381.84V621H1382.64V613.692H1382.7L1387.86 621H1388.64V612.273Z" fill="black"/>
+    <defs>
+    <filter id="filter0_d" x="0.5" y="0.5" width="1591" height="809" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+    <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="effect1_dropShadow"/>
+    <feOffset dx="-1" dy="2"/>
+    <feGaussianBlur stdDeviation="2.5"/>
+    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+    </defs>
+</svg>
+
+<div id="map">
+	<!-- Ici s'affichera la carte -->
+</div>
+
+<div class='temp'>
+</div>
+
+{% block script %}
+<script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+<script type="text/javascript">
+        // On initialise la latitude et la longitude de Paris (centre de la carte)
+        var lat = 47.902964;
+        var lon = 1.909251;
+
+        var macarte = null;
+        // Fonction d'initialisation de la carte
+        function initMap() {
+            // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
+            macarte = L.map('map').setView([lat, lon], 11);
+            // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
+            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+                // Il est toujours bien de laisser le lien vers la source des données
+                attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                minZoom: 1,
+                maxZoom: 20
+            }).addTo(macarte);
+            var marker = L.marker([lat, lon]).addTo(macarte);
+        }
+        window.onload = function(){
+    // Fonction d'initialisation qui s'exécute lorsque le DOM est chargé
+    initMap(); 
+        };
+</script>
+{% endblock %}
+
 {% endblock %}

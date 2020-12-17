@@ -31,7 +31,7 @@ def home():
 
 @app.route('/statistics/', methods=['GET'])
 def statistics():
-    return ""
+    return "Not implemented yet"
 
 
 @app.route('/delivery', methods=['GET'])
@@ -49,9 +49,24 @@ def get_stat_by_device_id(device_id, date):
     return ""
 
 
-@app.route('/settings/all', methods=['GET'])
+@app.route('/support/', methods=['GET'])
+def support():
+    return "Not implemented yet"
+
+
+@app.route('/settings/', methods=['GET'])
 def settings():
-    return ""
+    return "Not implemented yet"
+
+
+@app.route('/devices/', methods=['GET'])
+def devices():
+    return "Not implemented yet"
+
+
+@app.route('/guide/', methods=['GET'])
+def guide():
+    return "Not implemented yet"
 
 
 @app.route('/settings/account/<string:user_id>', methods=['GET'])
@@ -137,3 +152,7 @@ def add_contact_by_user_id(user_id, data):
 @app.route('/settings/account/<string:user_id>/update/<updated_data>', methods=['POST'])
 def update_contact_by_user_id(user_id, updated_data):
     return ""
+
+@app.route('/logout/', methods=['GET'])
+def logout():
+    return "Pas encore implémenté"

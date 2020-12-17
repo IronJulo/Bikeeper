@@ -39,6 +39,7 @@ html {
     background-repeat: no-repeat;
     background-position: center;
     font-weight: 500;
+    z-index: 1000;
 }
 
 .sidebar ul {
@@ -79,14 +80,21 @@ html {
     color: inherit;
 }
 
+.sidebar-navigation li a:hover {
+    text-decoration: underline;
+}
 
 .sidebar-navigation li a:active,
-.sidebar-navigation li a:hover,
 .sidebar-navigation li a:focus {
     text-decoration: none;
     outline: none;
 }
 
+.sidebar-navigation li:hover svg,
+.sidebar-navigation li:hover img {
+    margin-left: 4em;
+    transition: margin-left 1s;
+}
 
 
 header {
@@ -106,6 +114,7 @@ header {
     justify-content: space-between;
     box-shadow: 7px 0px 12px rgba(0, 0, 0, 0.25);
     font-weight: 500;
+    z-index: 1000;
 }
 
 header>nav a {
@@ -129,6 +138,8 @@ header>nav a:hover {
     transition: transform .5s;
     transition: transform .5s, -webkit-transform .5s;
     background: var(--orange);
+    text-decoration: none;
+    color: white;
 }
 
 header>div:first-child {
@@ -156,8 +167,12 @@ main {
     position: absolute;
     top: var(--taille-header);
     left: var(--taille-sidebar);
+    width: calc(99vw - var(--taille-sidebar));
+    height: calc(99vh - var(--taille-header));
 }
 
-div.container {
+main>div {
     position: relative;
+    width: 100%;
+    height: 100%;
 }

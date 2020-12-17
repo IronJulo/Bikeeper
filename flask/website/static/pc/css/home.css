@@ -1,0 +1,66 @@
+:root {
+    --taille-card: 14vw;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(90vw - var(--taille-sidebar));
+}
+
+section.cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: var(--taille-elements-width);
+    margin:1em auto;
+}
+
+section.cards > div.card {
+    width: var(--taille-card);
+    margin: 2em 0 1em 2em;
+    align-items: center;
+    box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+    border: none;
+    font-weight: 600;
+    overflow-x: hidden;
+    flex-basis: 20%;
+    font-size: 1.2rem;
+}
+
+section.cards > div.card:hover {
+    cursor: pointer;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    -o-transition: transform .5s;
+    transition: transform .5s;
+    transition: transform .5s, -webkit-transform .5s;
+}
+
+section.cards > div.card > img{
+    margin: 1em;
+    width: calc(var(--taille-card) - 2vw);
+    height: auto;
+    border-radius: .5em;
+}
+
+h2 {
+    text-align:center;
+    margin-top:2em;
+}
+
+h2 + svg {
+    width: var(--taille-elements-width);
+    display: block;
+    margin: 0 auto;
+}
+
+#map {
+    width: var(--taille-elements-width);
+    height: 400px;
+    display: block;
+    margin: 2em auto;
+}
+
+div.temp {
+    height: 50px;
+}
