@@ -13,7 +13,7 @@ CREATE TABLE CONTACT (
   num_contact VARCHAR(15),
   firstname_contact VARCHAR(42),
   lastname_contact VARCHAR(42),
-  profile_picture_contact VARCHAR(42),
+  profile_picture_contact VARCHAR(100),
   num_device VARCHAR(15)
 );
 
@@ -36,13 +36,15 @@ CREATE TABLE DEVICE (
 
 CREATE TABLE USER (
   username_user VARCHAR(42),
+  password_user VARCHAR(200),
   num_user VARCHAR(15),
   firstname_user VARCHAR(42),
   lastname_user VARCHAR(42),
-  email_user VARCHAR(42),
+  email_user VARCHAR(80),
   town_user VARCHAR(42),
   postal_code_user INT(10),
-  street_user VARCHAR(42),
+  street_user VARCHAR(95),
+  profile_picture_user VARCHAR(100),
   is_admin_user TINYINT,
   PRIMARY KEY (username_user)
 );
@@ -51,13 +53,13 @@ CREATE TABLE MESSAGE (
   id_message INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   is_admin_message TINYINT,
   datetime_message DATETIME,
-  title_message VARCHAR(100),
   content_message VARCHAR(1000),
   id_ticket INT
 );
 
 CREATE TABLE TICKET (
   id_ticket INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  title_ticket VARCHAR(100),
   is_closed_ticket TINYINT,
   username_user VARCHAR(42)
 );

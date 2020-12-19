@@ -5,7 +5,23 @@
         </a>
         <span>BiKeeper</span>
     </div>
-    <nav>
-        <a href="/logout/">Log out</a>
-    </nav>
+    <div class="login">
+        {% if current_user.is_authenticated %}
+            <div class="dropdown profile show">
+                <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{ current_user.profile_picture_user }}" alt="image de {{ current_user.username_user }}">
+                    <span>{{ current_user.username_user }}</span>
+                </a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="/logout/" class="dropdown-item">Logout</a>
+                </div>
+            </div>
+        {% else %}
+            <div>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <a href="/login/"><span>Login</span></a>
+            </div>
+        {% endif %}
+    </div>
 </header>

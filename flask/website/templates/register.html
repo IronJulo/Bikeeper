@@ -27,7 +27,7 @@
     </header>
 
     <main class='register-main'>
-        <form action="/login/" method="POST">
+        <form action="/register/validate/" method="POST">
             <div class="carousel-wrapper">
                 <span id="step-1"></span>
                 <span id="step-2"></span>
@@ -50,7 +50,7 @@
                         </div>
                         <div>
                             <label for="confirmpassword">Confirm your Password</label>
-                            <input type="password" id='confirmpassword' pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" name="password" placeholder='Confirm your password'>
+                            <input type="password" id='confirmpassword' pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" name="confirmpassword" placeholder='Confirm your password'>
                         </div>
                     </div>
                     <a class="arrow arrow-next" href="#step-2"></a>
@@ -73,7 +73,7 @@
                         </div>
                         <div>
                             <label for="postalCode">Postal Code</label>
-                            <input type="text" id='postalCode' pattern="[0-9]{5}" name="postalCode" placeholder='10029'>
+                            <input type="text" id='postalCode' pattern="[0-9]{5}" name="postalcode" placeholder='10029'>
                         </div>
                     </div>
                     <a class="arrow arrow-prev" href="#step-1"></a>

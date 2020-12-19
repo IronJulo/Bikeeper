@@ -28,14 +28,17 @@
         <h1>
             Login to access your account
         </h1>
-        <form action="/home/" method="POST">
+        <form action="#" method="POST">
+            {{ form.hidden_tag() }}
             <div>
                 <label for="username">Username</label>
-                <input type="text" id='username' name="username" placeholder='Enter your username' required>
+                <!-- <input type="text" id='username' name="username" placeholder='Enter your username' required> -->
+                {{ form.username(size=50, class_="form-control", id="username", placeholder="Enter your username") }}
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" id='password' name="password" placeholder='Enter your password' required>
+                <!-- <input type="password" id='password' name="password" placeholder='Enter your password' required> -->
+                {{ form.password(size=50, class_="form-control", id="password", placeholder="Enter your password") }}
             </div>
             <a href="/register/">Don't have an account yet?</a>
             <div>

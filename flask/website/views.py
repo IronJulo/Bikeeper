@@ -1,28 +1,117 @@
-from .app import app
-from .models import orm_get_user, orm_get_user_tickets, orm_get_user_message_title
-from flask import render_template, request, redirect
+from .app import app, db
+from .models import ORM, get_users
+from flask import render_template, request, redirect, url_for, escape
 from flask_mobility import Mobility
 from flask_mobility.decorators import mobile_template
 from flask_mobility.decorators import mobilized
+from flask_login import login_required, login_user, logout_user, current_user
+from wtforms import StringField, PasswordField, HiddenField
+from wtforms.validators import DataRequired
+from flask_wtf import FlaskForm
+from .models import USER
+from hashlib import sha256
+from .models import load_user
 
+@app.context_processor
+def global_user():
+    return dict(user = current_user)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
 
 
+# @app.route('/login/', methods=['GET', 'POST'])
+# @mobile_template("{mobile/Authentification/}login.html")
+# def login(template):
+#     print("Template : ", template)
+#     return render_template(template)
+
+
+# @app.route('/register/', methods=['GET', 'POST'])
+# @mobile_template('{mobile/Authentification/}register.html')
+# def register(template):
+#     return render_template(template)
+
+class LoginForm ( FlaskForm ):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    next = HiddenField()
+
+    def get_data(self):
+        return self.username.data
+
+    def get_authenticated_user(self):
+        user = load_user(self.username.data)
+        if user is None:
+            return None
+        m = sha256()
+        m.update(self.password.data.encode())
+        passwd = m.hexdigest()
+        return user if passwd == user.get_password() else None
+
+
 @app.route('/login/', methods=['GET', 'POST'])
 @mobile_template("{mobile/Authentification/}login.html")
 def login(template):
-    print("Template : ", template)
-    return render_template(template)
+    f = LoginForm()
+    if not f.is_submitted():
+        f.next.data = request.args.get("next")
+    elif f.validate_on_submit():
+        user = f.get_authenticated_user()
+        if user:
+            login_user(user)
+            next = f.next.data or url_for("home")
+            return redirect(next)
+    return render_template(
+        template,
+        form=f,
+        )
 
 
 @app.route('/register/', methods=['GET', 'POST'])
 @mobile_template('{mobile/Authentification/}register.html')
 def register(template):
-    return render_template(template)
+    return render_template(
+        template,
+    )
 
+
+@app.route('/register/validate/', methods=['GET', 'POST'])
+def register_validate():
+    username = str(escape(request.form['username']))
+    email = str(escape(request.form['email']))
+    password = str(escape(request.form['password']))
+    confirmpassword = str(escape(request.form['confirmpassword']))
+    phonenumber = str(escape(request.form['tel']))
+    address = str(escape(request.form['address']))
+    city = str(escape(request.form['city']))
+    postalcode = str(escape(request.form['postalcode']))
+
+    if password == confirmpassword:
+        m = sha256()
+        m.update(password.encode())
+        u = USER (
+            username_user = username,
+            email_user = email,
+            password_user = m.hexdigest(),
+            num_user = phonenumber,
+            street_user = address,
+            town_user = city,
+            postal_code_user = postalcode,
+
+            firstname_user = None,
+            lastname_user = None,
+            profile_picture_user="https://eu.ui-avatars.com/api/?name={}".format(username),
+
+            is_admin_user = False
+        )
+        db.session.add(u)
+        db.session.commit()
+
+        return redirect(url_for('login'))
+
+    return redirect(url_for('register'))
 
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
@@ -153,6 +242,8 @@ def add_contact_by_user_id(user_id, data):
 def update_contact_by_user_id(user_id, updated_data):
     return ""
 
-@app.route('/logout/', methods=['GET'])
+@app.route("/logout/")
+@login_required
 def logout():
-    return "Pas encore implémenté"
+    logout_user()
+    return redirect(url_for('login'))
