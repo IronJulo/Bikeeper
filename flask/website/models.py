@@ -37,65 +37,39 @@ class DEVICE(db.Model):
 
 class USER(db.Model, UserMixin):
     username_user = db.Column(db.String(42), primary_key=True)
-    email_user = db.Column(db.String(80))
     password_user = db.Column(db.String(200))
     num_user = db.Column(db.String(15))
-    street_user = db.Column(db.String(95))
-    town_user = db.Column(db.String(42))
-    postal_code_user = db.Column(db.String(10))
-
     firstname_user = db.Column(db.String(42))
     lastname_user = db.Column(db.String(42))
+    email_user = db.Column(db.String(80))
+    town_user = db.Column(db.String(42))
+    postal_code_user = db.Column(db.String(10))
+    street_user = db.Column(db.String(95))
     profile_picture_user = db.Column(db.String(100))
-
     is_admin_user = db.Column(db.Boolean)
+
+    def __init__(self, username, password, num, firstname, lastname, email, town,
+                 postal_code, street, profile_picture, is_admin):
+        self.username_user = username
+        self.password_user = password
+        self.num_user = num
+        self.firstname_user = firstname
+        self.lastname_user = lastname
+        self.email_user = email
+        self.town_user = town
+        self.postal_code_user = postal_code
+        self.street_user = street
+        self.profile_picture_user = profile_picture
+        self.is_admin_user = is_admin
 
     def get_id(self):
         return self.username_user
 
-    def get_username(self):
-        return self.username_user
-
-    def get_email(self):
-        return self.user_email
-
-    def get_password(self):
-        return self.password_user
-
-    def get_num(self):
-        return self.num_user
-
-    def get_street(self):
-        return self.street_user
-
-    def get_town(self):
-        return self.town_user
-
-    def get_postal_code(self):
-        return self.postal_code_user
-
-    def get_firstname(self):
-        return self.firstname_user
-
-    def get_lastname(self):
-        return self.lastname_user
-
-    def profile_picture(self):
-        return self.profile_picture_user
-
-
-@login_manager.user_loader
-def load_user(username):
-    return USER.query.filter(USER.username_user == username).first()
-
-def get_users():
-    return USER.query.all()
 
 class MESSAGE(db.Model):
     id_message = db.Column(db.Integer, primary_key=True)
     is_admin_message = db.Column(db.Integer)
     datetime_message = db.Column(db.DateTime())
-    title_message = db.Column(db.String(100))
     content_message = db.Column(db.String(1000))
     id_ticket = db.Column(db.Integer, db.ForeignKey("TICKET.id_ticket"))
     TICKET = db.relationship("TICKET", backref=db.backref("MESSAGE", lazy="dynamic"))
@@ -103,12 +77,18 @@ class MESSAGE(db.Model):
 
 class TICKET(db.Model):
     id_ticket = db.Column(db.Integer, primary_key=True)
+    title_ticket = db.Column(db.String(100))
     is_closed_ticket = db.Column(db.Integer)
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("TICKET", lazy="dynamic"))
 
 
 class ORM:
+    @staticmethod
+    @login_manager.user_loader
+    def load_user(username):
+        return USER.query.filter(USER.username_user == username).first()
+
     @staticmethod
     def get_user(pseudo: str) -> USER:
         """
@@ -129,7 +109,8 @@ class ORM:
         session.commit()
         return ticket_list
 
-orm = ORM()
-
-
-
+    @staticmethod
+    def is_username_available(pseudo: str) -> bool:
+        username = session.query(USER).filter(USER.username_user == pseudo)
+        session.commit()
+        return True if username is None else False

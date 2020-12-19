@@ -1,5 +1,5 @@
 from .app import app, db
-from .models import ORM, get_users
+from .models import ORM
 from flask import render_template, request, redirect, url_for, escape
 from flask_mobility import Mobility
 from flask_mobility.decorators import mobile_template
@@ -10,11 +10,12 @@ from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
 from .models import USER
 from hashlib import sha256
-from .models import load_user
+
 
 @app.context_processor
 def global_user():
-    return dict(user = current_user)
+    return dict(user=current_user)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -33,7 +34,7 @@ def index():
 # def register(template):
 #     return render_template(template)
 
-class LoginForm ( FlaskForm ):
+class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     next = HiddenField()
@@ -42,13 +43,13 @@ class LoginForm ( FlaskForm ):
         return self.username.data
 
     def get_authenticated_user(self):
-        user = load_user(self.username.data)
+        user = ORM.load_user(self.username.data)
         if user is None:
             return None
         m = sha256()
         m.update(self.password.data.encode())
         passwd = m.hexdigest()
-        return user if passwd == user.get_password() else None
+        return user if passwd == user.password_user else None
 
 
 @app.route('/login/', methods=['GET', 'POST'])
@@ -66,7 +67,7 @@ def login(template):
     return render_template(
         template,
         form=f,
-        )
+    )
 
 
 @app.route('/register/', methods=['GET', 'POST'])
@@ -88,30 +89,19 @@ def register_validate():
     city = str(escape(request.form['city']))
     postalcode = str(escape(request.form['postalcode']))
 
-    if password == confirmpassword:
+    print(ORM.is_username_available(username))
+    if password == confirmpassword and ORM.is_username_available(username):
         m = sha256()
         m.update(password.encode())
-        u = USER (
-            username_user = username,
-            email_user = email,
-            password_user = m.hexdigest(),
-            num_user = phonenumber,
-            street_user = address,
-            town_user = city,
-            postal_code_user = postalcode,
-
-            firstname_user = None,
-            lastname_user = None,
-            profile_picture_user="https://eu.ui-avatars.com/api/?name={}".format(username),
-
-            is_admin_user = False
-        )
+        u = USER(username, m.hexdigest(), phonenumber, None, None, email, city, postalcode, address,
+                 f"https://eu.ui-avatars.com/api/?name={username}", False)
         db.session.add(u)
         db.session.commit()
 
         return redirect(url_for('login'))
 
     return redirect(url_for('register'))
+
 
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
@@ -190,7 +180,7 @@ def admin_plateform():
 
 @app.route('/users/<string:user_id>', methods=['GET'])
 def user_page(user_id):
-    user = orm_get_user(user_id)
+    user = ORM.get_user(user_id)
     return f"<p>Username: {user.username_user}</p>" \
            f"<p>Number: {user.num_user}</p>" \
            f"<p>Firstname: {user.firstname_user}</p>" \
@@ -209,10 +199,10 @@ def get_tickets_admin_by_id(admin_id):
 @app.route('/support/<string:user_id>/tickets/all', methods=['GET'])
 def get_user_tickets_by_id(user_id):
     res = "<ul>"
-    list_ticket = orm_get_user_tickets(user_id)
+    list_ticket = ORM.get_user_tickets(user_id)
     for ticket in list_ticket:
         res += f"<li><p>ID ticket: {ticket.id_ticket}</p>" \
-               f"<p>Title ticket: {orm_get_user_message_title(ticket.id_ticket)}" \
+               f"<p>Title ticket: {ticket.title_ticket}" \
                f"<p>Is closed?: {ticket.is_closed_ticket}</p></li>"
     res += "</ul>"
     return res
@@ -241,6 +231,7 @@ def add_contact_by_user_id(user_id, data):
 @app.route('/settings/account/<string:user_id>/update/<updated_data>', methods=['POST'])
 def update_contact_by_user_id(user_id, updated_data):
     return ""
+
 
 @app.route("/logout/")
 @login_required

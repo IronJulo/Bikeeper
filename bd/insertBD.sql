@@ -1,6 +1,6 @@
 -- Inserting a new user
-INSERT INTO USER(username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user)
-VALUES("PhoqueEberlue", "+33615498730", "Andrew", "Mary Huet de Barochez", "phoqueeberlue@gmail.com", "Chartres", "45100", "79 Rue de Georges lafont", 0);
+INSERT INTO USER(username_user, password_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user)
+VALUES("PhoqueEberlue", "1234", "+33615498730", "Andrew", "Mary Huet de Barochez", "phoqueeberlue@gmail.com", "Chartres", "45100", "79 Rue de Georges lafont", 0);
 -- Inserting a new device
 INSERT INTO DEVICE(num_device, row_parameters_device, username_user)
 VALUES("+33625927620", "{'json example': 'deux'}", "PhoqueEberlue");
