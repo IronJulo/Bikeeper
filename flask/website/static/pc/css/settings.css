@@ -1,0 +1,91 @@
+:root {
+    --taille-card: 14vw;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(90vw - var(--taille-sidebar));
+}
+
+section.cards {
+    margin: 1em auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: var(--taille-elements-width);
+    flex-direction: column;
+    align-content: center;
+}
+
+div.settings-card {
+    position: relative;
+    width: 80%;
+    margin: 2em 0;
+    background-color: white;
+    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.25);
+    height: 20vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.settings-card>div.settings-card-img {
+    height: 100%;
+    width: 20%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 1em;
+}
+
+/** ACCOUNT PARAMETERS */
+div.settings-card:nth-child(1)>div.settings-card-img {
+    background-image: url("../assets/account-parameters.png");
+    background-position: right;
+}
+
+/** BIKEEPER SETTINGS */
+div.settings-card:nth-child(2)>div.settings-card-img {
+    background-image: url("../assets/bikeeper-device.png");
+}
+
+/** CONTACTS */
+div.settings-card:nth-child(3)>div.settings-card-img {
+    background-image: url("../assets/contacts.jpg");
+}
+
+/** PAYMENTS */
+div.settings-card:nth-child(4)>div.settings-card-img{
+    background-image: url("../assets/payments.jpg");
+}
+
+/** MY SUBSCRIPTION */
+div.settings-card:nth-child(5)>div.settings-card-img {
+    background-image: url("../assets/my-subscription.jpg");
+}
+
+div.settings-card>div.settings-card-text>h3 {
+    margin-top: 1em;
+}
+
+div.settings-card>a {
+    position: absolute;
+    display: block;
+    text-decoration: none;
+    padding: .4em 1em;
+    color: white;
+    background: var(--rouge);
+    border-radius: 2em;
+    bottom: 1em;
+    right: 2em;
+}
+
+div.settings-card>a:hover {
+    cursor: pointer;
+    -webkit-transform: scale(0.95);
+    -ms-transform: scale(0.95);
+    transform: scale(0.95);
+    -webkit-transition: -webkit-transform .5s;
+    transition: -webkit-transform .5s;
+    -o-transition: transform .5s;
+    transition: transform .5s;
+    transition: transform .5s, -webkit-transform .5s;
+    background: var(--orange);
+}
+

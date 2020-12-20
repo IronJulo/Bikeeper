@@ -89,7 +89,6 @@ def register_validate():
     city = str(escape(request.form['city']))
     postalcode = str(escape(request.form['postalcode']))
 
-    print(ORM.is_username_available(username))
     if password == confirmpassword and ORM.is_username_available(username):
         m = sha256()
         m.update(password.encode())
@@ -106,6 +105,37 @@ def register_validate():
 @app.route('/home/', methods=['GET', 'POST'])
 def home():
     return render_template("home.html")
+
+@app.route('/settings/', methods=['GET'])
+def settings():
+    return render_template(
+        "settings.html",
+    )
+
+
+@app.route('/settings/account/', methods=['GET'])
+def settings_account():
+    return "Not implemented yet"
+
+
+@app.route('/settings/devices/', methods=['GET'])
+def settings_devices():
+    return "Not implemented yet"
+
+
+@app.route('/settings/contacts/', methods=['GET'])
+def settings_contact():
+    return "Not implemented yet"
+
+
+@app.route('/settings/payments/', methods=['GET'])
+def settings_payments():
+    return "Not implemented yet"
+
+
+@app.route('/settings/subscriptions/', methods=['GET'])
+def settings_subscriptions():
+    return "Not implemented yet"
 
 
 @app.route('/statistics/', methods=['GET'])
@@ -130,11 +160,6 @@ def get_stat_by_device_id(device_id, date):
 
 @app.route('/support/', methods=['GET'])
 def support():
-    return "Not implemented yet"
-
-
-@app.route('/settings/', methods=['GET'])
-def settings():
     return "Not implemented yet"
 
 

@@ -5,13 +5,14 @@
 
 body,
 html {
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    color: rgba(0, 0, 0, 0.87);
-    line-height: 1.6;
-    margin: 0;
-    font-weight: 500;
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 15px !important;
+    color: rgba(0, 0, 0, 0.87) !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
     min-height: 100vh;
+    background-color: #eeeeee !important;
 }
 
 :root {

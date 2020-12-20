@@ -90,6 +90,10 @@ class ORM:
         return USER.query.filter(USER.username_user == username).first()
 
     @staticmethod
+    def get_users():
+        return USER.query.all()
+
+    @staticmethod
     def get_user(pseudo: str) -> USER:
         """
         :param pseudo: user's nickname
@@ -105,12 +109,12 @@ class ORM:
         :param pseudo: user's nickname
         :return: list of user's tickets
         """
-        ticket_list = session.query(TICKET).filter(TICKET.username_user == pseudo)
+        ticket_list = session.query(TICKET).filter(TICKET.username_user == pseudo).all()
         session.commit()
         return ticket_list
 
     @staticmethod
     def is_username_available(pseudo: str) -> bool:
-        username = session.query(USER).filter(USER.username_user == pseudo)
+        username = session.query(USER).filter(USER.username_user == pseudo).all()
         session.commit()
         return True if username is None else False

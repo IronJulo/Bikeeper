@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/settings.css') }}">
+{% endblock %}
+
+{% block main %}
+<section class="cards">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>
+                Account Parameters
+            </h3>
+            <p>
+                <b>Edit</b> your account settings and <b>view</b> all of your information.
+            </p>
+        </div>
+        <a href="/settings/account/">Manage</a>
+    </div>
+
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>
+                BiKeeper Settings
+            </h3>
+            <p>
+                <b>Edit BiKeeper settings</b>, sms frequency, range detection, adjust your device settings as you like.
+            </p>
+        </div>
+        <a href="/settings/devices/">Manage</a>
+    </div>
+
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>
+                Contacts
+            </h3>
+            <p>
+                <b>Add or Edit</b> Contacts to call when you will be in danger
+            </p>
+        </div>
+        <a href="/settings/contacts/">Manage</a>
+    </div>
+
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>
+                Payments
+            </h3>
+            <p>
+                <b>View or change</b> your payment information.
+            </p>
+        </div>
+        <a href="/settings/payments/">Manage</a>
+    </div>
+
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>
+                My subscription
+            </h3>
+            <p>
+                <b>See</b> subscription offers or <b>change</b> yours.
+            </p>
+        </div>
+        <a href="/settings/subscriptions/">Manage</a>
+    </div>
+</section>
+{% endblock %}
