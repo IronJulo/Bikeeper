@@ -40,7 +40,13 @@ img.home{
 	float: left;
 }
 
-img.users{
+img.statistic{
+	height: 90px;
+	width: 90px;
+	float: left;
+}
+
+img.setting{
 	height: 90px;
 	width: 90px;
 	float: left;
@@ -52,7 +58,7 @@ img.support{
 	float: left;
 }
 
-img.platform{
+img.device{
 	height: 90px;
 	width: 90px;
 	float: left;
