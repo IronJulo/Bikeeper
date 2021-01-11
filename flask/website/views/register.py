@@ -31,11 +31,11 @@ def register_validate():
     if password == confirmpassword and ORM.is_username_available(username):
         m = sha256()
         m.update(password.encode())
-        u = USER(username, m.hexdigest(), phonenumber, None, None, email, city, postalcode, address,
+        u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
                  f"https://eu.ui-avatars.com/api/?name={username}", False)
         db.session.add(u)
         db.session.commit()
 
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
 
-    return redirect(url_for('register'))
+    return redirect(url_for('register.register'))
