@@ -11,7 +11,7 @@ app = Flask(__name__)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
-app.config["SECRET_KEY"]="GH5H-QLPE4-MPN3-1THB"
+app.config["SECRET_KEY"] = "GH5H-QLPE4-MPN3-1THB"
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
@@ -26,8 +26,12 @@ def mkpath(p):
             p))
 
 
-# MariaDB URL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:bikeeper@92.188.70.221/BIKEEPER'
+# MariaDB Config
+SERVER_IP = "92.188.70.221"  # ip 92.188.70.221
+SERVER_USER = "root"
+SERVER_PASSWORD = "password"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.format(SERVER_USER, SERVER_PASSWORD,
+                                                                                   SERVER_IP)
 
 # Module that will build python objects
 db = SQLAlchemy(app)
