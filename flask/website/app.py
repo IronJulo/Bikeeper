@@ -5,16 +5,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mobility import Mobility
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
+from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
-app.config["SECRET_KEY"] = "GH5H-QLPE4-MPN3-1THB"
+app.config.update(
+    SECRET_KEY="GH5H-QLPE4-MPN3-1THB",
+    SEND_FILE_MAX_AGE_DEFAULT=0,
+    SQLALCHEMY_TRACK_MODIFICATIONS=True,
+    DEBUG_TB_INTERCEPT_REDIRECTS=False
+)
 
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+toolbar = DebugToolbarExtension(app)
 
 Mobility(app)
 
@@ -43,3 +48,21 @@ db.metadata.create_all(engine)
 # Session that is used to perform sql requests to the engine -> here MariaDB
 Session = sessionmaker(bind=engine)
 session = Session()
+
+from website.views import home
+from website.views import settings
+from website.views import login
+from website.views import register
+from website.views import index
+from website.views import logout
+from website.views import support
+from website.views import users
+
+app.register_blueprint(home.mod)
+app.register_blueprint(settings.mod)
+app.register_blueprint(login.mod)
+app.register_blueprint(register.mod)
+app.register_blueprint(index.mod)
+app.register_blueprint(logout.mod)
+app.register_blueprint(support.mod)
+app.register_blueprint(users.mod)
