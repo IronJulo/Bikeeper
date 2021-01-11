@@ -30,6 +30,7 @@ def global_user():
 #     return render_template(template)
 
 
+ 
 @app.route('/statistics/', methods=['GET'])
 def statistics():
     return "Not implemented yet"

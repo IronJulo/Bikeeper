@@ -32,9 +32,9 @@ def mkpath(p):
 
 
 # MariaDB Config
-SERVER_IP = "10.0.0.24"  # ip 92.188.70.221
+SERVER_IP = "92.188.70.221"  # ip 92.188.70.221
 SERVER_USER = "root"
-SERVER_PASSWORD = "password"
+SERVER_PASSWORD = "bikeeper"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.format(SERVER_USER, SERVER_PASSWORD,
                                                                                    SERVER_IP)
 

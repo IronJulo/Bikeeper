@@ -50,7 +50,7 @@ def login(template):
         user = f.get_authenticated_user()
         if user:
             login_user(user)
-            next = f.next.data or url_for("home")
+            next = f.next.data or url_for("home.home")
             return redirect(next)
     return render_template(
         template,

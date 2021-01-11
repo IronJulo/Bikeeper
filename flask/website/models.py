@@ -115,6 +115,6 @@ class ORM:
 
     @staticmethod
     def is_username_available(pseudo: str) -> bool:
-        username = session.query(USER).filter(USER.username_user == pseudo).all()
-        session.commit()
+        username = db.session.query(USER).filter(USER.username_user == pseudo).first()
+        db.session.commit()
         return True if username is None else False
