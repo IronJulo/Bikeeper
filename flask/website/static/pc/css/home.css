@@ -6,7 +6,8 @@
     --orange: #ff9100;
     --taille-header:66px;
     --taille-sidebar: 15vw;
-    --taille-elements-width: calc(60vw - var(--taille-sidebar));
+    --taille-elements-width: calc(90vw - var(--taille-sidebar));
+    --taille-card: 14vw;
 }
 
 section.cards {

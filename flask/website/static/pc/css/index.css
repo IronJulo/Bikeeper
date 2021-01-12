@@ -23,6 +23,7 @@ html {
     --taille-header:66px;
     --taille-sidebar: 15vw;
     --taille-elements-width: calc(60vw - var(--taille-sidebar));
+    --taille-card: 14vw;
 }
 
 @-webkit-keyframes apparition {
