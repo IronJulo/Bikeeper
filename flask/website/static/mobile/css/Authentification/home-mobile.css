@@ -6,38 +6,21 @@ html{
 }
 body{    
     margin: 0%;
-    padding: 0%:
+    padding: 0%;
+    text-align: center;
 }
 
 
-@media(min-height: 877px)
-{
-   html {
-    } 
+h2{
+    text-align: left;
 }
-
-
-@media (min-width:1000px){
-    html
-    {
-    }
-}
-
-@media(max-height: 376px)
-{
-   html {
-    } 
-}
-
-
-
-
 
 a{
 }
+
 header {
-    width: 100%;
-  height: 7.5em;
+  width: 100%;
+  height: 120px;
   background-color: rgba(0,0,0,0.31);
   display: inline-flex;
   left: 0; right: 0; top: 0;
@@ -51,7 +34,7 @@ header .logo{
 header .logo a{
     display: flex;
 }
-header .logo a img{
+header>.logo>a>img{
     height: 41px;
     margin-top: 2em;
     margin-left: 0.5em;
@@ -70,6 +53,7 @@ h1{
     font-size: 36px;
     line-height: 42px;
     text-align: center;
+    color: white
 }
 header>nav{
     padding-top: 3.3em;
@@ -83,13 +67,146 @@ header a{
 }
 
 
-
+#background-avec-image{height: 298px;}
 #localisation img{height: 20px}
 #localisation a{
     text-decoration: none;
     color: grey
 }
-#avis img{height: 20px}
-#avis span{color: #FF9900}
+#avis {
+    width: 90%;
+    margin: auto;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 14px;
 
-article{background-color: red}
+    letter-spacing: 0.005em;
+    color: #263238;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-bottom: 50px
+
+}
+#avis #mini-header{
+    width: 100%;
+    display: flex;
+    margin-top: 8px;
+    margin-left: 12px;
+
+    
+}
+#avis #mini-header h4{
+    text-align: left;
+    font-weight: normal;
+    font-size: 16px;
+    color: #263238;
+    width: 70%;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+#avis #rate{
+    width: 100%;
+    display: flex;
+    margin-left: 12px;
+
+
+}
+#avis #rate span{
+    color: #FF9900;
+    margin-top: 12px;
+    margin-right: 8px;
+}
+
+#magazine{
+    height: 62px;
+}
+#thumb-up{
+    height: 40px;
+    margin-top :3px;
+}
+#avis>p{
+    margin-top: 0%;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+article{
+    width:85%;
+    margin: auto;
+}
+#localisation{
+    display: flex;
+    text-align: left;
+    margin-top: 50px;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#localisation div{
+    margin-left: 20px
+}
+#localisation img{height: 96px}
+h2{margin-left: 10px}
+h5{
+    font-weight: normal;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    color: #263238;
+    margin: 0%;
+}
+#localisation p{
+    font-size: 14px;
+    color: #263238;
+    margin-top : 10px;
+    margin-bottom: 8px;
+}
+#localisation a{
+    font-size: 12px;
+color: #263238;
+opacity: 0.54;
+}
+
+
+.overlay .closebtn {
+  margin-left: 75%;
+  
+}
+#background-avec-image{
+    background-image: url("../../assets/bike-mountains2.png");
+    width: 100%;
+    background-size: cover;
+    background-position: bottom;
+    background-size: 500;
+    position: center;
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    height: 420px;
+    background-color: red;
+    background-repeat: no-repeat;
+}
+
+
+
+@media (min-width:418px){
+    #bien-tout-placer{
+        height: 280px;
+    }
+    #background-avec-image{
+        height: 390px;
+    }
+}
+@media (min-width:700px){
+    #background-avec-image{
+        background-position-y: -300px;
+    }
+}
+
+@media (min-width:1023px){
+    #background-avec-image{
+        background-position-y: -500px;
+    }
+}
+
+

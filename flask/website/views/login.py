@@ -5,6 +5,7 @@ from flask import (
     request,
     url_for
 )
+from flask_mobility.decorators import mobile_template
 
 from wtforms import (
     StringField,

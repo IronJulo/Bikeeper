@@ -5,13 +5,14 @@ from flask import (
     redirect,
     url_for
 )
+from flask_mobility.decorators import mobile_template
 
 mod = Blueprint('home', __name__)
 
-
 @mod.route('/home/', methods=['GET', 'POST'])
-def home():
-    return render_template("home.html")
+@mobile_template('{mobile/Authentification/}home.html')
+def home(template):
+    return render_template(template)
 
 
 @mod.route('/home/user/<string:user_id>', methods=['GET'])
