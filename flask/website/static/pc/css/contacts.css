@@ -58,18 +58,17 @@ section div.contact {
     flex-direction: row;
     align-items: center;
     position: relative;
+    justify-content: space-between;
 }
 
-section div.contact img {
+section div.contact div.info img {
     display: block;
     width: 60px;
     margin-right: 2em;
 }
 
-section div.contact a {
+section div.contact>div.action>a:first-child {
     display: block;
-    position: absolute;
-    right: 1em;
     font-size: 20px;
     text-decoration: none;
     font-weight: 500;
@@ -78,6 +77,39 @@ section div.contact a {
     padding: 0 1em;
     text-align: center;
     color: black;
+}
+
+section div.contact>div.action>a:last-child {
+    display: block;
+    font-size: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    border: solid var(--rouge) 2px;
+    border-radius: 1em;
+    padding: 0 1em;
+    text-align: center;
+    color: var(--rouge);
+}
+
+section div.info,
+section div.action {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+section div.contact div.action a:first-child:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+    transition: all .2s;
+    border-color: var(--orange);
+}
+
+section div.contact div.action a:last-child:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+    transition: all .2s;
+    border-color: var(--rouge-hover);
 }
 
 section div.contact h4 {

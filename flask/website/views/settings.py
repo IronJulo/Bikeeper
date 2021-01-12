@@ -16,7 +16,9 @@ def settings():
         "settings.html",
     )
 
-
+'''
+ACCOUNT
+'''
 @mod.route('/settings/account/', methods=['GET'])
 def settings_account():
     return render_template("account.html")
@@ -25,6 +27,9 @@ def settings_account():
 def settings_account_update():
     return redirect(url_for("settings.settings_account"))
 
+'''
+DEVICES
+'''
 @mod.route('/settings/devices/', methods=['GET'])
 def settings_devices():
     return render_template("device.html")
@@ -33,13 +38,35 @@ def settings_devices():
 def settings_devices_update():
     return redirect(url_for("settings.settings_devices"))
 
+'''
+CONTACT
+'''
 @mod.route('/settings/contacts/', methods=['GET'])
 def settings_contact():
     return render_template("contacts.html")
 
+#UPDATE
+@mod.route('/settings/contacts/update/', methods=['GET'])
+def settings_contact_update():
+    return render_template("update_contact.html")
+
+@mod.route('/settings/contacts/update/check/', methods=['GET','POST'])
+def settings_contact_update_check():
+    return redirect(url_for("settings.settings_contact"))
+
+#ADD
 @mod.route('/settings/contacts/add/', methods=['GET'])
 def settings_contact_add():
-    return redirect(url_for("settings.settings_contacts"))
+    return render_template("add_contact.html")
+
+@mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
+def settings_contact_add_check():
+    return redirect(url_for("settings.settings_contact"))
+
+#REMOVE
+@mod.route('/settings/contacts/remove/', methods=['GET','POST'])
+def settings_contact_remove():
+    return redirect(url_for('settings.settings_contact'));
 
 @mod.route('/settings/payments/', methods=['GET'])
 def settings_payments():

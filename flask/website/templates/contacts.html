@@ -9,22 +9,22 @@
 <div class="flex">
     <section>
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
+        {% for i in range(0,5) %}
         <div class="contact">
-            <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
-            <h4><span>Nom</span> <span>Prenom</span></h4>
-            <a href="">Edit</a>
+            <div class="info">
+                <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
+                <h4><span>Nom</span> <span>Prenom</span></h4>
+            </div>
+            <div class="action">
+                <a href="{{ url_for('settings.settings_contact_update') }}">Edit</a>
+                <a href="{{ url_for('settings.settings_contact_remove') }}">Remove</a>
+            </div>
         </div>
+        {% endfor %}
     </section>
     <a href="{{ url_for('settings.settings_contact_add') }}"><i class="fa fa-plus"></i></a>
 </div>
 {% endblock main %}
 
 {% block script %}
-    <script>
-        $(function() {
-        $('#picture').on('click', function() {
-            $('#fileinput').trigger('click');
-        });
-        });
-    </script>
 {% endblock script %}
