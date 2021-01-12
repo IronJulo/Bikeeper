@@ -5,6 +5,7 @@ from ..models import ORM
 from flask_mobility.decorators import mobile_template
 from ..app import db
 from ..models import USER
+from flask.helpers import flash
 
 mod = Blueprint('register', __name__)
 
@@ -36,6 +37,8 @@ def register_validate():
         db.session.add(u)
         db.session.commit()
 
+        flash("Sucessful registration! Welcome "+username+"!","success")
         return redirect(url_for('login.login'))
 
+    flash("Username already taken or passwords don't match! Please Try Again.","error")
     return redirect(url_for('register.register'))
