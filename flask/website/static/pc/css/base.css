@@ -223,6 +223,16 @@ div.dropdown-menu a:hover {
     text-decoration: underline;
 }
 
+div.modal-body fieldset {
+    margin: 0 auto;
+    width: 60%;
+}
+
+div.modal-body {
+    display: flex;
+    flex-direction: column;
+}
+
 html::-webkit-scrollbar-thumb
 {
     background: #434343;
