@@ -23,6 +23,8 @@ html {
     --vert-hover: #0d9900;
     --orange: #ff9100;
     --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(60vw - var(--taille-sidebar));
 }
 
 @-webkit-keyframes apparition {
