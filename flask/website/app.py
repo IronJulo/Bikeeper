@@ -57,7 +57,9 @@ from website.views import index
 from website.views import logout
 from website.views import support
 from website.views import users
+from website.views import admin
 from website.api import api
+
 
 app.register_blueprint(home.mod)
 app.register_blueprint(settings.mod)
@@ -68,3 +70,4 @@ app.register_blueprint(logout.mod)
 app.register_blueprint(support.mod)
 app.register_blueprint(users.mod)
 app.register_blueprint(api.mod)
+app.register_blueprint(admin.mod)
