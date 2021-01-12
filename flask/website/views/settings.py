@@ -5,6 +5,7 @@ from flask import (
     redirect,
     url_for
 )
+from flask_mobility.decorators import mobile_template
 
 mod = Blueprint('settings', __name__)
 
@@ -34,8 +35,11 @@ def settings_devices_update():
 
 @mod.route('/settings/contacts/', methods=['GET'])
 def settings_contact():
-    return "Not implemented yet"
+    return render_template("contacts.html")
 
+@mod.route('/settings/contacts/add/', methods=['GET'])
+def settings_contact_add():
+    return redirect(url_for("settings.settings_contacts"))
 
 @mod.route('/settings/payments/', methods=['GET'])
 def settings_payments():
