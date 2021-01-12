@@ -68,10 +68,20 @@ def settings_contact_add_check():
 def settings_contact_remove():
     return redirect(url_for('settings.settings_contact'));
 
-@mod.route('/settings/payments/', methods=['GET'])
-def settings_payments():
-    return "Not implemented yet"
+'''
+PAYMENT
+'''
+@mod.route('/settings/payment/', methods=['GET'])
+def settings_payment():
+    return render_template('payment.html')
 
+@mod.route('/settings/payment/edit/', methods=['GET','POST'])
+def settings_payment_edit():
+    return render_template('edit_payment.html')
+
+@mod.route('/settings/payment/edit/check/', methods=['GET','POST'])
+def settings_payment_edit_check():
+    return redirect(url_for('settings_payment'))
 
 @mod.route('/settings/subscriptions/', methods=['GET'])
 def settings_subscriptions():
