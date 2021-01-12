@@ -20,14 +20,17 @@ def settings():
 def settings_account():
     return render_template("account.html")
 
-@mod.route('/settings/account/update', methods=['GET', 'POST'])
+@mod.route('/settings/account/update/', methods=['GET', 'POST'])
 def settings_account_update():
     return redirect(url_for("settings.settings_account"))
 
 @mod.route('/settings/devices/', methods=['GET'])
 def settings_devices():
-    return "Not implemented yet"
+    return render_template("device.html")
 
+@mod.route('/settings/devices/update/', methods=['GET'])
+def settings_devices_update():
+    return redirect(url_for("settings.settings_devices"))
 
 @mod.route('/settings/contacts/', methods=['GET'])
 def settings_contact():

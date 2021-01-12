@@ -1,0 +1,192 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(60vw - var(--taille-sidebar));
+}
+
+div.flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+section {
+    background-color: white;
+    border-radius: 1em;
+    margin: 2em auto;
+    width: var(--taille-elements-width);
+    text-align: center;
+    padding: 3em;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 1em;
+    margin-top: 2em;
+    background-color: white;
+}
+
+form * {
+    box-shadow: none;
+    filter: none;
+}
+
+form > div {
+    margin-top: 1em;
+}
+
+form > h3 {
+    padding: 1em;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 15px;
+    border-radius: 5px;  
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: var(--rouge);
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: var(--rouge);
+    cursor: pointer;
+}
+
+form div.slidecontainer {
+    width: 90%;
+}
+
+form div.slidecontainer > div {
+    width: 100%;
+}
+
+form input[type=range] {
+    width: 100%;
+}
+
+form div.form-submit {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+form div.form-submit>a,
+form div.form-submit>button {
+    padding: 0.4em 3em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: .3em;
+}
+
+form div.form-submit>a {
+    border: solid var(--rouge) 2px;
+    display: block;
+}
+
+form div.form-submit>button {
+    border: solid var(--vert) 2px;
+    background-color: transparent;
+    outline: none;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+  
+  @keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+}
+
+.rotate-rouge:hover,
+.rotate-vert:hover {
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.rotate-rouge:hover::before,
+.rotate-vert:hover::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #399953;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    -webkit-animation: rotate 3s linear infinite;
+            animation: rotate 3s linear infinite;
+}
+
+.rotate-rouge:hover::before {
+    background-image: linear-gradient(var(--rouge), var(--rouge)), 
+    linear-gradient(white, white),
+    linear-gradient(var(--rouge), var(--rouge)),
+    linear-gradient(white, white);
+}
+
+.rotate-vert:hover::before {
+    background-image: linear-gradient(var(--vert), var(--vert)), 
+    linear-gradient(white, white),
+    linear-gradient(var(--vert), var(--vert)),
+    linear-gradient(white, white);
+}
+
+.rotate-rouge:hover::after,
+.rotate-vert:hover::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+}
+
+  
