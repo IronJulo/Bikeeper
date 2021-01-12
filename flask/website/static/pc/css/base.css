@@ -93,8 +93,19 @@ html {
 
 .sidebar-navigation li:hover svg,
 .sidebar-navigation li:hover img {
-    margin-left: 4em;
-    transition: margin-left 1s;
+    transform: translateX(10em);
+    transition: transform .6s;
+}
+
+.sidebar-navigation li>div {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.sidebar-navigation div.dropdown-menu {
+    transform: translate3D(0,40px,0) !important;
 }
 
 
@@ -143,7 +154,7 @@ main {
     position: absolute;
     top: var(--taille-header);
     left: var(--taille-sidebar);
-    width: calc(99vw - var(--taille-sidebar));
+    width: calc(98vw - var(--taille-sidebar));
     height: calc(99vh - var(--taille-header));
 }
 
@@ -204,4 +215,21 @@ div.dropdown-menu {
 div.dropdown-menu a:hover {
     color: var(--rouge);
     text-decoration: underline;
+}
+
+html::-webkit-scrollbar-thumb
+{
+    background: #434343;
+    border-radius: 16px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+}
+
+html::-webkit-scrollbar
+{
+    width: 16px;
+}
+
+html::-webkit-scrollbar-track
+{
+    background: linear-gradient(90deg,#434343,#434343 1px,#111 0,#111);
 }

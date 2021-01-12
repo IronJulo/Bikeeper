@@ -22,6 +22,7 @@ html {
     --vert: #0ea500;
     --vert-hover: #0d9900;
     --orange: #ff9100;
+    --taille-header:66px;
 }
 
 @-webkit-keyframes apparition {
@@ -55,6 +56,7 @@ header {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
+    height: var(--taille-header);
 }
 
 header>nav a {
@@ -102,13 +104,14 @@ header>div img {
 }
 
 main {
-    margin: 15vh auto;
+    margin: 0 auto;
     text-align: center;
     color: white;
     width: 50%;
     -webkit-transition: margin 2s;
     -o-transition: margin 2s;
-    transition: margin 2s;
+    transition: all 2s;
+    margin-top: calc(5px - var(--taille-header));
 }
 
 main>h1 {
@@ -181,8 +184,28 @@ main>form>div input:focus {
     background: var(--orange);
 }
 
+.login-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: calc(99vh - var(--taille-header));
+}
+
 .register-main {
-    margin-top: 5vh;
+    height: calc(99vh - var(--taille-header));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-main form {
+    height: 60vh;
+}
+
+.register-main form>div,
+.register-main form>div>div
+{
+    height: 100%;
 }
 
 .register-main>form div {
@@ -203,6 +226,9 @@ main>form>div input:focus {
 
 .register-main>form>div.carousel-wrapper>div.carousel-item {
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .register-main>form>div.carousel-wrapper>div.carousel-item h1,
@@ -321,18 +347,16 @@ main>form>div input:focus {
 }
 
 .arrow-prev {
-    left: -30px;
+    left: 0;
     position: absolute;
-    top: 40vh;
     -webkit-transform: translateY(-50%) rotate(135deg);
     -ms-transform: translateY(-50%) rotate(135deg);
     transform: translateY(-50%) rotate(135deg);
 }
 
 .arrow-next {
-    right: -30px;
+    right: 0;
     position: absolute;
-    top: 40vh;
     -webkit-transform: translateY(-50%) rotate(-45deg);
     -ms-transform: translateY(-50%) rotate(-45deg);
     transform: translateY(-50%) rotate(-45deg);
@@ -378,4 +402,21 @@ main>form>div input:focus {
 #step-3:target~.item-3 {
     z-index: 3;
     opacity: 1;
+}
+
+html::-webkit-scrollbar-thumb
+{
+    background: #434343;
+    border-radius: 16px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+}
+
+html::-webkit-scrollbar
+{
+    width: 16px;
+}
+
+html::-webkit-scrollbar-track
+{
+    background: linear-gradient(90deg,#434343,#434343 1px,#111 0,#111);
 }

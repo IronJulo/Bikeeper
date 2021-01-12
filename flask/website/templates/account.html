@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/account.css') }}">
+{% endblock style %}
+
+{% block main %}
+<div class="flex">
+    <section>
+        <h1>Your account</h1>
+        <form action="{{ url_for('settings.settings_account_update') }}" method='POST'>
+            <div class="form-group1">
+                <div class="form-avatar">
+                    <div class="img-avatar">
+                        <img id='picture' src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
+                        <input id='fileinput' type="file" name="avatar">
+                        <p>Change</p>
+                    </div>
+                    
+                    <h2>@pseudo</h2> <!-- TODO -->
+                    <span>Registered on DATE</span> <!-- TODO -->
+                </div>
+                <div class="form-password">
+                    <fieldset>
+                        <legend>Password</legend>
+                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" placeholder='TODO'>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="form-group2">
+                <div class="form-first-name">
+                    <fieldset>
+                        <legend>First Name</legend>
+                        <input type="text" name="first-name" placeholder='TODO'>
+                    </fieldset>
+                </div>
+                <div class="form-last-name">
+                    <fieldset>
+                        <legend>Last Name</legend>
+                        <input type="text" name="last-name" placeholder='TODO'>
+                    </fieldset>
+                </div>
+                <div class="form-phone">
+                    <fieldset>
+                        <legend>Phone Number</legend>
+                        <input type="tel" name="phone" placeholder='TODO'>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="form-group3">
+                <div class="form-email">
+                    <fieldset>
+                        <legend>Email</legend>
+                        <input type="email" name="email" placeholder='TODO'>
+                    </fieldset>
+                </div>
+                <div class="form-address">
+                    <fieldset>
+                        <legend>Address</legend>
+                        <input type="text" name="address" placeholder='TODO'>
+                    </fieldset>
+                </div>
+                <div class="form-postal">
+                    <fieldset>
+                        <legend>Postal Code</legend>
+                        <input type="text" name="address" pattern="[0-9]{5}" placeholder='TODO'>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="form-submit">
+                <!-- My Buttons -->
+                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
+                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
+
+                <!-- Bootstrap -->
+                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Enter your actual password to confirm changes.
+                                <fieldset>
+                                    <input type="password" name="confirmpassword" placeholder='********'>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock main %}
+
+{% block script %}
+    <script>
+        $(function() {
+        $('#picture').on('click', function() {
+            $('#fileinput').trigger('click');
+        });
+        });
+    </script>
+{% endblock script %}

@@ -5,6 +5,7 @@ from ..models import ORM
 from flask_mobility.decorators import mobile_template
 from ..app import db
 from ..models import USER
+from flask.helpers import flash
 
 mod = Blueprint('register', __name__)
 
@@ -31,11 +32,13 @@ def register_validate():
     if password == confirmpassword and ORM.is_username_available(username):
         m = sha256()
         m.update(password.encode())
-        u = USER(username, m.hexdigest(), phonenumber, None, None, email, city, postalcode, address,
+        u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
                  f"https://eu.ui-avatars.com/api/?name={username}", False)
         db.session.add(u)
         db.session.commit()
 
-        return redirect(url_for('login'))
+        flash("Sucessful registration! Welcome "+username+"!","success")
+        return redirect(url_for('login.login'))
 
-    return redirect(url_for('register'))
+    flash("Username already taken or passwords don't match! Please Try Again.","error")
+    return redirect(url_for('register.register'))
