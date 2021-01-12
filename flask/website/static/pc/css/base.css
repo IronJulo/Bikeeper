@@ -99,7 +99,7 @@ html {
 
 .sidebar-navigation li:hover svg,
 .sidebar-navigation li:hover img {
-    transform: translateX(10em);
+    transform: translateX(1em);
     transition: transform .6s;
 }
 

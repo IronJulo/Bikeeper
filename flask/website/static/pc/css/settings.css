@@ -27,7 +27,6 @@ div.settings-card {
     box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.25);
     height: 20vh;
     display: flex;
-    flex-wrap: wrap;
 }
 
 div.settings-card>div.settings-card-img {
@@ -63,6 +62,10 @@ div.settings-card:nth-child(4)>div.settings-card-img{
 /** MY SUBSCRIPTION */
 div.settings-card:nth-child(5)>div.settings-card-img {
     background-image: url("../assets/my-subscription.jpg");
+}
+
+div.settings-card>div.settings-card-text {
+    width: 60%;
 }
 
 div.settings-card>div.settings-card-text>h3 {

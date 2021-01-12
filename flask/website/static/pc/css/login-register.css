@@ -83,6 +83,8 @@ header>nav a:hover {
     transition: transform .5s;
     transition: transform .5s, -webkit-transform .5s;
     background: var(--orange);
+    text-decoration: none;
+    color: white;
 }
 
 header>div:first-child {
@@ -107,14 +109,17 @@ header>div img {
 }
 
 main {
-    margin: 0 auto;
     text-align: center;
     color: white;
     width: 50%;
     -webkit-transition: margin 2s;
     -o-transition: margin 2s;
     transition: all 2s;
-    margin-top: calc(5px - var(--taille-header));
+    margin-top: calc(0px - var(--taille-header));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-30%);
 }
 
 main>h1 {
@@ -164,7 +169,7 @@ main>form>div input:focus {
 
 .login-btn {
     background: var(--rouge);
-    padding: 1rem;
+    padding: .4em .8em;
     color: inherit;
     border-radius: 2em;
     width: 10rem;
@@ -191,7 +196,6 @@ main>form>div input:focus {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: calc(99vh - var(--taille-header));
 }
 
 .register-main {
