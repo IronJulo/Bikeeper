@@ -21,11 +21,14 @@ div.flex {
 section {
     background-color: white;
     border-radius: 1em;
-    margin: 2em auto;
+    margin-top: 1em;
     width: var(--taille-elements-width);
     text-align: center;
     padding: 3em;
-    position: relative;
+    position: absolute;
+    top: var(--taille-header);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 div.flex>section>a {

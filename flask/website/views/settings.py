@@ -81,53 +81,60 @@ def settings_payment_edit():
 
 @mod.route('/settings/payment/edit/check/', methods=['GET','POST'])
 def settings_payment_edit_check():
-    return redirect(url_for('settings_payment'))
+    return redirect(url_for('settings.settings_payment'))
 
 @mod.route('/settings/subscriptions/', methods=['GET'])
 def settings_subscriptions():
-    return "Not implemented yet"
+    return render_template("subscription.html")
+
+@mod.route('/settings/subscriptions/cancel/', methods=['GET'])
+def settings_subscriptions_cancel():
+    return redirect(url_for('logout.logout'))
+
+@mod.route('/settings/subscriptions/change/', methods=['GET'])
+def settings_subscriptions_change():
+    return redirect(url_for('settings.settings_subscriptions'))
+
+# @mod.route('/settings/account/<string:user_id>', methods=['GET'])
+# def get_settings_by_user_id(user_id):
+#     return ""
 
 
-@mod.route('/settings/account/<string:user_id>', methods=['GET'])
-def get_settings_by_user_id(user_id):
-    return ""
+# @mod.route('/settings/bikeeper/<string:user_id>', methods=['GET'])
+# def get_bikeeper_settings_by_user_id(user_id):
+#     return ""
 
 
-@mod.route('/settings/bikeeper/<string:user_id>', methods=['GET'])
-def get_bikeeper_settings_by_user_id(user_id):
-    return ""
+# @mod.route('/settings/contacts/<user_id>/all', methods=['GET'])
+# def get_contacts_by_user_id(user_id):
+#     return ""
 
 
-@mod.route('/settings/contacts/<user_id>/all', methods=['GET'])
-def get_contacts_by_user_id(user_id):
-    return ""
+# @mod.route('/settings/contact/<string:user_id>/<int:contact_id>/update/<int:updated_data>', methods=['POST'])
+# def edit_contact_by_user_id(user_id, contact_id, updated_data):
+#     return ""
 
 
-@mod.route('/settings/contact/<string:user_id>/<int:contact_id>/update/<int:updated_data>', methods=['POST'])
-def edit_contact_by_user_id(user_id, contact_id, updated_data):
-    return ""
+# @mod.route('/settings/plan/<string:user_id>', methods=['GET'])
+# def get_user_plan_by_id(user_id):
+#     return ""
 
 
-@mod.route('/settings/plan/<string:user_id>', methods=['GET'])
-def get_user_plan_by_id(user_id):
-    return ""
+# @mod.route('/settings/payment/<string:user_id>/update/<updated_data>', methods=['GET'])
+# def update_payment_by_id(user_id, updated_data):
+#     return ""
 
 
-@mod.route('/settings/payment/<string:user_id>/update/<updated_data>', methods=['GET'])
-def update_payment_by_id(user_id, updated_data):
-    return ""
+# @mod.route('/settings/payment/<string:user_id>', methods=['GET'])
+# def setting_payment_page(user_id):
+#     return ""
 
 
-@mod.route('/settings/payment/<string:user_id>', methods=['GET'])
-def setting_payment_page(user_id):
-    return ""
+# @mod.route('/settings/contact/<string:user_id>/add/<data>', methods=['POST'])
+# def add_contact_by_user_id(user_id, data):
+#     return ""
 
 
-@mod.route('/settings/contact/<string:user_id>/add/<data>', methods=['POST'])
-def add_contact_by_user_id(user_id, data):
-    return ""
-
-
-@mod.route('/settings/account/<string:user_id>/update/<updated_data>', methods=['POST'])
-def update_contact_by_user_id(user_id, updated_data):
-    return ""
+# @mod.route('/settings/account/<string:user_id>/update/<updated_data>', methods=['POST'])
+# def update_contact_by_user_id(user_id, updated_data):
+#     return ""

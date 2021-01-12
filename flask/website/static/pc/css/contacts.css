@@ -6,7 +6,7 @@
     --orange: #ff9100;
     --taille-header:66px;
     --taille-sidebar: 15vw;
-    --taille-elements-width: calc(45vw - var(--taille-sidebar));
+    --taille-elements-width: calc(50vw - var(--taille-sidebar));
     --taille-card: 14vw;
 }
 
@@ -25,10 +25,14 @@ div.flex h3 {
 section {
     background-color: white;
     border-radius: 1em;
-    margin: 2em auto;
-    width: var(--taille-elements-width);
+    margin-top: 1em;
+    width: max-content;
     text-align: center;
     padding: 3em;
+    position: absolute;
+    top: var(--taille-header);
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 section i {
@@ -115,4 +119,5 @@ section div.contact div.action a:last-child:hover {
 
 section div.contact h4 {
     font-size: 1.5rem;
+    margin-right: 2em;
 }

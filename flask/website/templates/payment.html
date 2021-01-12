@@ -2,7 +2,6 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/payment.css') }}">
-    
 {% endblock style %}
 
 {% block main %}
@@ -21,32 +20,34 @@
     
         <a href="#" data-toggle="modal" data-target="#modalCenter"><i class="fa fa-chevron-right"></i></a>
 
-        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ url_for('settings.settings_payment_edit') }}" method='POST'>
-                        <div class="modal-body">
-                            <p>Enter your password to acceed.</p>
-                            <fieldset>
-                                <input type="password" name="confirmpassword" placeholder='********'>
-                            </fieldset>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Pursue</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
 
     </section>
+    
+    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{ url_for('settings.settings_payment_edit') }}" method='POST'>
+                    <div class="modal-body">
+                        <p>Enter your password to acceed.</p>
+                        <fieldset>
+                            <input type="password" name="confirmpassword" placeholder='********'>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Pursue</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
 
