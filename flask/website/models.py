@@ -16,6 +16,15 @@ class CONTACT(db.Model):
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("CONTACT", lazy="dynamic"))
 
+    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, device):
+        self.id_contact = id_contact
+        self.num_contact = num_contact
+        self.firstname_contact = firstname_contact
+        self.lastname_contact = lastname_contact
+        self.profile_picture_contact = profile_picture_contact
+        self.num_device = device.num_device
+        self.DEVICE = device
+
 
 class LOG(db.Model):
     id_log = db.Column(db.Integer, primary_key=True)
@@ -33,6 +42,13 @@ class DEVICE(db.Model):
     row_parameters_device = db.Column(db.String(200))
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("DEVICE", lazy="dynamic"))
+
+    def __init__(self, num_device, name_device, row_parameters_device, user):
+        self.num_device = num_device
+        self.name_device = name_device
+        self.row_parameters_device = row_parameters_device
+        self.username_user = user.username_user
+        self.USER = user
 
 
 class USER(db.Model, UserMixin):
@@ -74,6 +90,14 @@ class MESSAGE(db.Model):
     id_ticket = db.Column(db.Integer, db.ForeignKey("TICKET.id_ticket"))
     TICKET = db.relationship("TICKET", backref=db.backref("MESSAGE", lazy="dynamic"))
 
+    def __init__(self, id_message, is_admin_message, datetime_message, content_message, ticket):
+        self.id_message = id_message
+        self.is_admin_message = is_admin_message
+        self.datetime_message = datetime_message
+        self.content_message = content_message
+        self.id_ticket = ticket.id_ticket
+        self.TICKET = ticket
+
 
 class TICKET(db.Model):
     id_ticket = db.Column(db.Integer, primary_key=True)
@@ -81,6 +105,13 @@ class TICKET(db.Model):
     is_closed_ticket = db.Column(db.Integer)
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("TICKET", lazy="dynamic"))
+
+    def __init__(self, id_ticket, title_ticket, is_closed_ticket, user):
+        self.id_ticket = id_ticket
+        self.is_closed_ticket = is_closed_ticket
+        self.title_ticket = title_ticket
+        self.username_user = user.username_user
+        self.USER = user
 
 
 class ORM:
