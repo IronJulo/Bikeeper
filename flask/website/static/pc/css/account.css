@@ -118,7 +118,8 @@ form div.form-submit {
     margin-top: 3em;
 }
 
-form div.form-submit * {
+form div.form-submit>a,
+form div.form-submit>button {
     padding: 0.4em 3em;
     text-decoration: none;
     color: black;
@@ -127,12 +128,12 @@ form div.form-submit * {
     border-radius: .3em;
 }
 
-form div.form-submit a {
+form div.form-submit>a {
     border: solid var(--rouge) 2px;
     display: block;
 }
 
-form div.form-submit button {
+form div.form-submit>button {
     border: solid var(--vert) 2px;
     background-color: transparent;
     outline: none;
