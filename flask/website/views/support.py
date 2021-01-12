@@ -1,5 +1,6 @@
 from flask import Blueprint
 from ..models import ORM
+from flask_mobility.decorators import mobile_template
 
 mod = Blueprint('support', __name__)
 

@@ -6,7 +6,7 @@ from flask import (
     url_for,
     escape
 )
-
+from flask_mobility.decorators import mobile_template
 
 mod = Blueprint('index', __name__)
 

@@ -1,6 +1,7 @@
 from ..models import USER
 from ..models import ORM
 from flask import Blueprint
+from flask_mobility.decorators import mobile_template
 
 mod = Blueprint('user', __name__)
 
