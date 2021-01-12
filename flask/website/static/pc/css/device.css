@@ -88,6 +88,20 @@ form div.slidecontainer {
 
 form div.slidecontainer > div {
     width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+form div.slidecontainer > div input {
+    align-self: center;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+#value-delay,
+#value-movement,
+div.slidecontainer span {
+    font-weight: bold;
 }
 
 form input[type=range] {

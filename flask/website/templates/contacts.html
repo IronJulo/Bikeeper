@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/contacts.css') }}">
+    
+{% endblock style %}
+
+{% block main %}
+<div class="flex">
+    <section>
+        <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
+        <div class="contact">
+            <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
+            <h4><span>Nom</span> <span>Prenom</span></h4>
+            <a href="">Edit</a>
+        </div>
+    </section>
+    <a href="{{ url_for('settings.settings_contact_add') }}"><i class="fa fa-plus"></i></a>
+</div>
+{% endblock main %}
+
+{% block script %}
+    <script>
+        $(function() {
+        $('#picture').on('click', function() {
+            $('#fileinput').trigger('click');
+        });
+        });
+    </script>
+{% endblock script %}
