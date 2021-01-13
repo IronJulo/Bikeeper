@@ -3,7 +3,7 @@ from .app import app, db
 from rich.console import Console
 from rich.progress import track
 import datetime
-from .models import USER, MESSAGE, TICKET
+from .models import USER, MESSAGE, TICKET, DEVICE
 from hashlib import sha256
 
 
@@ -20,68 +20,85 @@ def loaddb():
             console.log(f"{task} created")
 
     to_import = []
-    # création de deux admins
+
     m = sha256()
     m.update("admin".encode())
-
-    to_import.append(
-        USER("admin", m.hexdigest(), "0781546427", "John", "Doe", "johndoe@gmail.com", "Bourges", "18110", "167",
-             "profile_picture_user", 0))
+    to_import.append(USER(
+        username="admin",
+        password=m.hexdigest(),
+        num="0781546427",
+        firstname="John",
+        lastname="Doe",
+        email="johndoe@gmail.com",
+        town="Bourges",
+        postal_code="18110",
+        street="167 rue des coquelicots",
+        profile_picture="https://eu.ui-avatars.com/api/?name=admin",
+        is_admin=True))
 
     m = sha256()
     m.update("admin2".encode())
-    to_import.append(USER("admin2",
-                          m.hexdigest(),
-                          "0654321012",
-                          "Michel",
-                          "Dupon",
-                          "micheldupon@gmail.com",
-                          "Lille",
-                          "59350",
-                          "48 rue des coquelicots",
-                          "profile_picture_user",
-                          0))
+    to_import.append(USER(
+        username="admin2",
+        password=m.hexdigest(),
+        num="0654321012",
+        firstname="Michel",
+        lastname="Dupon",
+        email="micheldupon@gmail.com",
+        town="Lille",
+        postal_code="59350",
+        street="48 rue des coquelicots",
+        profile_picture="https://eu.ui-avatars.com/api/?name=admin2",
+        is_admin=True))
 
     m = sha256()
     m.update("user1".encode())
-    to_import.append(USER("user1",
-                          m.hexdigest(),
-                          "0789101112",
-                          "Luffy",
-                          "Monkey D",
-                          "mugiwara@gmail.com",
-                          "Mont Corvo",
-                          "45000",
-                          "5 rue du roi des pirates",
-                          "profile_picture_user",
-                          1))
+    user1 = USER(
+        username="user1",
+        password=m.hexdigest(),
+        num="0789101112",
+        firstname="Luffy",
+        lastname="Monkey D",
+        email="mugiwara@gmail.com",
+        town="Mont Corvo",
+        postal_code="45000",
+        street="5 rue du roi des pirates",
+        profile_picture="https://yt3.ggpht.com/ytc/AAUvwnhaEBIWRCum_FhM08TUczLBY0I5W5wyWH_sSi6pxg=s900-c-k-c0x00ffffff-no-rj",
+        is_admin=False)
+    to_import.append(user1)
+
     m = sha256()
     m.update("user2".encode())
-    to_import.append(USER("user2",
-                          m.hexdigest(),
-                          "0769696969",
-                          "Emma",
-                          "Brancourt",
-                          "emmabrancourt@gmail.com",
-                          "Tours",
-                          "37000",
-                          "42 rue de la vérité",
-                          "profile_picture_user",
-                          1))
+    user2 = USER(
+        username="user2",
+        password=m.hexdigest(),
+        num="0789101162",
+        firstname="Nami",
+        lastname="LOL",
+        email="mugiwara.nami@gmail.com",
+        town="Mont Corvo",
+        postal_code="45000",
+        street="5 rue du roi des voleurs",
+        profile_picture="https://eu.ui-avatars.com/api/?name=user2",
+        is_admin=False)
+    to_import.append(user2)
+
     m = sha256()
     m.update("user3".encode())
-    to_import.append(USER("user3",
-                          m.hexdigest(),
-                          "6942069420",
-                          "Nice",
-                          "Guy",
-                          "noicegenerator@gmail.com",
-                          "Nice",
-                          "06000",
-                          "69 rue des 420",
-                          "profile_picture_user",
-                          1))
+    user3 = USER(
+        username="user3",
+        password=m.hexdigest(),
+        num="0789101162",
+        firstname="Nice",
+        lastname="Guy",
+        email="oicegenerator@gmail.com",
+        town="Mont Corvo",
+        postal_code="45000",
+        street="69 rue des 420",
+        profile_picture="https://eu.ui-avatars.com/api/?name=user3",
+        is_admin=False)
 
+    to_import.append(user3)
     # création de messages
     t1 = TICKET(1, "ticket message 1", 0, to_import[1])
     to_import.append(t1)
@@ -122,6 +139,33 @@ def loaddb():
                              datetime.datetime(1989, 9, 30, 23, 59, 59, 300080),
                              "Wtf les mecs je viens d'inventé internet",
                              t5))
+
+    device1 = DEVICE(
+        num_device="0769342048",
+        name_device="JuleBrossier",
+        row_parameters_device="",
+        user=user1,
+
+    )
+
+    device2 = DEVICE(
+        num_device="0781546427",
+        name_device="DorianHardy",
+        row_parameters_device="",
+        user=user2,
+
+    )
+
+    device3 = DEVICE(
+        num_device="0664277796",
+        name_device="Andrew",
+        row_parameters_device="",
+        user=user3,
+
+    )
+    to_import.append(device1)
+    to_import.append(device2)
+    to_import.append(device3)
 
     for obj in track(to_import):
         db.session.add(obj)
