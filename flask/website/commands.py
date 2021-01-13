@@ -4,6 +4,7 @@ from rich.console import Console
 from rich.progress import track
 import datetime
 from .models import USER, MESSAGE, TICKET
+from hashlib import sha256
 
 
 @app.cli.command()
@@ -20,20 +21,17 @@ def loaddb():
 
     to_import = []
     # création de deux admins
+    m = sha256()
+    m.update("admin".encode())
 
-    to_import.append(USER("admin",
-                          "admin",
-                          "0781546427",
-                          "John",
-                          "Doe",
-                          "johndoe@gmail.com",
-                          "Bourges",
-                          "18110",
-                          "167",
-                          "profile_picture_user",
-                          0))
+    to_import.append(
+        USER("admin", m.hexdigest(), "0781546427", "John", "Doe", "johndoe@gmail.com", "Bourges", "18110", "167",
+             "profile_picture_user", 0))
+
+    m = sha256()
+    m.update("admin2".encode())
     to_import.append(USER("admin2",
-                          "admin2",
+                          m.hexdigest(),
                           "0654321012",
                           "Michel",
                           "Dupon",
@@ -44,9 +42,10 @@ def loaddb():
                           "profile_picture_user",
                           0))
 
-    # création de 3 users
+    m = sha256()
+    m.update("user1".encode())
     to_import.append(USER("user1",
-                          "user1",
+                          m.hexdigest(),
                           "0789101112",
                           "Luffy",
                           "Monkey D",
@@ -56,8 +55,10 @@ def loaddb():
                           "5 rue du roi des pirates",
                           "profile_picture_user",
                           1))
+    m = sha256()
+    m.update("user2".encode())
     to_import.append(USER("user2",
-                          "user2",
+                          m.hexdigest(),
                           "0769696969",
                           "Emma",
                           "Brancourt",
@@ -67,8 +68,10 @@ def loaddb():
                           "42 rue de la vérité",
                           "profile_picture_user",
                           1))
+    m = sha256()
+    m.update("user3".encode())
     to_import.append(USER("user3",
-                          "user3",
+                          m.hexdigest(),
                           "6942069420",
                           "Nice",
                           "Guy",
@@ -116,7 +119,7 @@ def loaddb():
     to_import.append(t5)
     to_import.append(MESSAGE(5,
                              1,
-                             datetime.datetime(1989, 9, 31, 23, 59, 59, 300080),
+                             datetime.datetime(1989, 9, 30, 23, 59, 59, 300080),
                              "Wtf les mecs je viens d'inventé internet",
                              t5))
 
