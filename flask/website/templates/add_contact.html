@@ -12,7 +12,7 @@
             <div class="form-group1">
                 <div class="form-avatar">
                     <div class="img-avatar">
-                        <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
+                        <img id='avatar' src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
                         <input id='fileinput' type="file" name="avatar">
                         <p id='picture'>Select image</p>
                     </div>
@@ -56,5 +56,23 @@
             $('#fileinput').trigger('click');
         });
         });
+
+        $(function(){
+            $('#fileinput').change(function(){
+            var input = this;
+            var url = $(this).val();
+            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                var reader = new FileReader();
+            
+                reader.onload = function (e) {
+                    $('#avatar').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+                
+            });
+            
+            });
     </script>
 {% endblock script %}
