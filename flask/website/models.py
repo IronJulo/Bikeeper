@@ -1,6 +1,7 @@
 from .app import db, session, login_manager
 from typing import List
 from flask_login import UserMixin
+from sqlalchemy import func
 
 """
 Define model class
@@ -225,5 +226,13 @@ class ORM:
         db.session.commit()
         return res
 
-
+    @staticmethod
+    def get_open_ticket():
+        """
+        :return: number of opened tickets,
+        """
+        res = session.query(func.count(TICKET.id_ticket))\
+            .filter(TICKET.is_closed_ticket == 0)\
+            .first()
+        return res[0]
 

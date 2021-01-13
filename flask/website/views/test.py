@@ -54,3 +54,12 @@ def get_space():
     """
     space = ORM.get_space_used_database()
     return str(space[0].get("Size (MB)"))
+
+
+@mod.route("/test/tickets/number", methods=["GET"])
+def get_tickets_number():
+    """
+    return : size of database in MB
+    """
+    res = ORM.get_open_ticket()
+    return str(res)
