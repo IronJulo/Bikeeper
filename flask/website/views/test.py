@@ -68,7 +68,24 @@ def get_tickets_number():
 @mod.route("/test/users/number", methods=["GET"])
 def get_user_number():
     """
-    return : size of database in MB
+    return : users count
     """
     res = ORM.get_number_of_user()
+    return str(res)
+
+
+@mod.route("/test/message/<string:ticket_id>/all", methods=["GET"])
+def get_message_ticket(ticket_id):
+    """
+    return : str
+    """
+    res = ORM.get_message_by_ticket_id(ticket_id)
+    l = ""
+    print("=========")
+    print(res)
+
+    for message in res:
+        l += f"<li><p>Message : {message.content_message}</p> </li>"
+    l += "</ul>"
+
     return str(res)

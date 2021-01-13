@@ -7,7 +7,9 @@ from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 
+
 app = Flask(__name__)
+
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -43,7 +45,7 @@ db = SQLAlchemy(app)
 
 # Engine connecting to MariaDB
 engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=False)
-#db.metadata.create_all(engine)
+# db.metadata.create_all(engine)
 
 # Session that is used to perform sql requests to the engine -> here MariaDB
 Session = sessionmaker(bind=engine)
@@ -60,7 +62,7 @@ from website.views import users
 from website.views import admin
 from website.api import api
 from website.views import stats
-
+from website.views import test
 
 app.register_blueprint(home.mod)
 app.register_blueprint(settings.mod)
@@ -73,3 +75,5 @@ app.register_blueprint(users.mod)
 app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
 app.register_blueprint(stats.mod)
+app.register_blueprint(test.mod)
+
