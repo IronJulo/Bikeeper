@@ -10,27 +10,27 @@ from flask_mobility.decorators import mobile_template
 mod = Blueprint('admin', __name__)
 
 
-@mod.route('/a/', methods=['GET'])
+@mod.route('/admin/access', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_access.html")
 def admin_access(template):
     return render_template(template)
 
-@mod.route('/z/', methods=['GET'])
+@mod.route('/admin/home', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_home.html")
 def admin_home(template):
     return render_template(template)
 
-@mod.route('/e/', methods=['GET'])
+@mod.route('/admin/support', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_support.html")
 def admin_support(template):
     return render_template(template)
 
-@mod.route('/r/', methods=['GET'])
+@mod.route('/admin/humberger', methods=['GET'])
 @mobile_template("{mobile/Admin/}humberger_overlay_connected_admin.html")
 def humberger_overlay_connected_admin(template):
     return render_template(template)
 
-@mod.route('/t/', methods=['GET'])
+@mod.route('/admin/dashboard', methods=['GET'])
 @mobile_template("{mobile/Admin/}support_dashboard_admin.html")
 def support_dashboard_admin(template):
     return render_template(template)
