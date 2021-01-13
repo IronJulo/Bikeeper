@@ -1,0 +1,386 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc((90vw - var(--taille-sidebar)));
+    --taille-card: 14vw;
+    --taille-mastercard: 80px;
+    --timeline-main-color:#7BC6E1;
+    --timeline-second-color:white;
+}
+
+div.flex {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.flex > section {
+    border-radius: 1em;
+    padding: 3em;
+    position: relative;
+    width: var(--taille-elements-width);
+    margin: 2em 2em;
+}
+
+div.flex > section > div {
+    border-radius: 1em;
+}
+
+/* -------------------------------- GROUP 1 ------------------------------*/
+div.flex > section.group1 {
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+div.flex > section.group1 h2 {
+    color: #535B7B;
+    margin-bottom: 1em;
+}
+
+div.flex > section.group1 > div.user-data {
+    width: 50%;
+}
+
+div.flex > section.group1 > div.user-data ul {
+    list-style-type: none;
+    padding: 0;
+    font-weight: 600;
+}
+
+div.flex > section.group1 > div.bikeeper-data {
+    border-left: solid black 2px;
+    border-radius: 0;
+    padding: 0 2em;
+    width: 50%;
+}
+
+
+/* -------------------------------- GROUP 2 ------------------------------*/
+
+div.flex > section.group2 {
+    padding: 0;
+}
+
+div.flex > section.group1 h2 {
+    color: #535B7B;
+    margin-bottom: .4em;
+}
+
+div.flex > section.group2 > div.filters,
+div.flex > section.group2 > div.container-timeline {
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    background-color: white;
+    width: 100%;
+    height: 50%;
+    padding: 2em;
+}
+
+div.flex > section.group2 > div.container-timeline {
+    margin-top: 5vh;
+}
+
+div.flex > section.group2 form {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+div.flex > section.group2 form > div {
+    width: 20%;
+    margin-left: 5vw;
+    display: flex;
+    flex-direction: row;
+}
+
+div.flex > section.group2 form label {
+    margin-bottom: 0;
+    margin-right: 1em;
+    align-self: center;
+}
+
+div.flex > section.group2 form select {
+    width: 50%;
+}
+
+div.flex > section.group2 form div.submit button {
+    color: black;
+    padding: .4em .8em;
+    outline: none;
+    border-radius: 2em;
+    border: solid var(--vert) 2px;
+    background-color: transparent;
+    font-weight: 600;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+}
+  
+@keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+}
+
+div.flex > section.group2 form div.submit button:hover {
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+  
+div.flex > section.group2 form div.submit button:hover::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #399953;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    -webkit-animation: rotate 3s linear infinite;
+            animation: rotate 3s linear infinite;
+    background-image: linear-gradient(var(--vert), var(--vert)), 
+        linear-gradient(white, white),
+        linear-gradient(var(--vert), var(--vert)),
+        linear-gradient(white, white);
+}
+  
+div.flex > section.group2 form div.submit button:hover::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+}
+
+.timeline {
+    display: flex;
+    flex-direction: column;
+    width: 70% !important;
+    margin: 5% auto;
+
+}.timeline__event {
+    background: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+.timeline__event__title {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--timeline-main-color);
+    letter-spacing: 1.5px;
+}
+
+.timeline__event__content {
+    padding: 20px;
+}
+
+.timeline__event__date {
+    color: var(--timeline-second-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.timeline__event__icon {
+    border-radius: 8px 0 0 8px;
+    background: var(--timeline-main-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-basis: 40%;
+    font-size: 2rem;
+    color: var(--timeline-main-color);
+    padding: 20px;
+}
+
+.timeline__event__icon i {
+    position: absolute;
+    top: 50%;
+    left: -68px;
+    font-size: 2.5rem;
+    transform: translateY(-50%);
+}
+
+.timeline__event__description {
+    flex-basis: 60%;
+}
+
+.timeline__event:before {
+    content: "";
+    width: 5rem;
+    height: 5rem;
+    position: absolute;
+    background: var(--timeline-second-color);
+    border-radius: 100%;
+    left: -6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 2px solid var(--timeline-main-color);
+}
+
+.timeline__event:last-child:after {
+    content: none;
+}
+  
+@media (max-width: 786px) {
+    .timeline__event {
+      flex-direction: column;
+    }
+  
+    .timeline__event__icon {
+      border-radius: 4px 4px 0 0;
+    }
+}
+
+/* -------------------------------- GROUP 3 ------------------------------*/
+
+div.flex > section.group3 {
+    padding: 0;
+    box-shadow: none;
+}
+
+div.flex > section.group3 > div.graph1 {
+    margin-bottom: 1em;
+    width: 100%;
+    padding: 3em;
+    display: flex;
+    flex-direction: row;
+    
+}
+
+div.flex > section.group3 > div.graph1 div.canvas1 {
+    flex-grow: 1;
+    background-color: white;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+div.flex > section.group3 > div.graph1 div.info1 {
+    position: relative;
+    width: 30%;
+    margin-left: 2em;
+    background-color: white;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+div.flex > section.group3 > div.graph1 div.info1 ul {
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.flex > section.group3 > div.graph2 {
+    width: 100%;
+    padding: 3em;
+    display: flex;
+    flex-direction: row;
+}
+
+div.flex > section.group3 > div.graph2 div.canvas2 {
+    flex-grow: 1;
+    background-color: white;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+div.flex > section.group3 > div.graph2 div.info2 {
+    position: relative;
+    width: 30%;
+    margin-left: 2em;
+    background-color: white;
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+}
+
+div.flex > section.group3 > div.graph2 div.info2 ul {
+    list-style-type: none;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* -------------------------------- GROUP 4 ------------------------------*/
+
+div.flex > section.group4 .btn-container{
+    display: inline-block;
+    margin: 70px auto 0;
+    font-size: 0;
+    border: 1px solid white;
+    background-color: black;
+}
+
+div.flex > section.group4 form {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+div.flex > section.group4 label{
+    position: relative; 
+    cursor: pointer;
+    font-size: 12px;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 5px;  
+    width: 10em;
+    padding: 13px 0;
+    transition: all 0.3s ease;  
+    margin-bottom: 0;
+}
+  
+#local + label:before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: -1;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+  
+#local:checked + label:before{
+    left: 0;
+}
+  
+#local:checked + label,
+#online:checked + label{
+    background-color: white;
+}
+
+div.flex > section.group4 {
+    height: 200px;
+}
+
+#map {
+    width: 100px;
+    height: 200px;
+    display: block;
+}

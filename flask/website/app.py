@@ -58,8 +58,8 @@ from website.views import logout
 from website.views import support
 from website.views import users
 from website.views import admin
-from website.views import test
 from website.api import api
+from website.views import stats
 
 
 app.register_blueprint(home.mod)
@@ -72,4 +72,4 @@ app.register_blueprint(support.mod)
 app.register_blueprint(users.mod)
 app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
-app.register_blueprint(test.mod)
+app.register_blueprint(stats.mod)

@@ -8,15 +8,18 @@
 <div class="flex">
     <section class='france'>
         <h2>France</h2>
-        <h4>This plan only works in France territories</h4>
-        <ul>
-            <li>Unlimited Notification</li>
-            <li>Top Customer Support</li>
-            <li>Mobile & Desktop web interfaces</li>
-            <li>Alert your friends</li>
-            <li>Smart Notification</li>
-            <li><s>World Wide Localisation</s></li>
-        </ul>
+        <div>
+           <h4>This plan only works in France territories</h4>
+            <ul>
+                <li>Unlimited Notification</li>
+                <li>Top Customer Support</li>
+                <li>Mobile & Desktop web interfaces</li>
+                <li>Alert your friends</li>
+                <li>Smart Notification</li>
+                <li><s>World Wide Localisation</s></li>
+            </ul> 
+        </div>
+        
         <a href="{{url_for('settings.settings_subscriptions_change')}}">
             <span>Your plan - </span>
             <span>€5/mo</span>
@@ -24,15 +27,18 @@
     </section>
     <section class='world'>
         <h2>World</h2>
-        <h4>This plan works everywhere</h4>
-        <ul>
-            <li>Unlimited Notification</li>
-            <li>Top Customer Support</li>
-            <li>Mobile & Desktop web interfaces</li>
-            <li>Alert your friends</li>
-            <li>Smart Notification</li>
-            <li>World Wide Localisation</li>
-        </ul>
+        <div>
+            <h4>This plan works everywhere</h4>
+            <ul>
+                <li>Unlimited Notification</li>
+                <li>Top Customer Support</li>
+                <li>Mobile & Desktop web interfaces</li>
+                <li>Alert your friends</li>
+                <li>Smart Notification</li>
+                <li>World Wide Localisation</li>
+            </ul>
+        </div>
+        
         <a href="{{url_for('settings.settings_subscriptions_change')}}">
             <span>Choose plan - </span>
             <span>€7/mo</span>
@@ -40,9 +46,12 @@
     </section>
     <section class='cancel'>
         <h2>Cancel</h2>
-        <h4>Cancel your subscription</h4>
-        <p>Warning, this is an important action. Select this option will remove your privileges.</p>
-        <p>Please send your BiKeeper at 15 Avenue de Paris if you want to leave our community.</p>
+        <div>
+            <h4>Cancel your subscription</h4>
+            <p>Warning, this is an important action. Select this option will remove your privileges.</p>
+            <p>Please send your BiKeeper at 15 Avenue de Paris if you want to leave our community.</p>
+        </div>
+
         <a href="{{url_for('settings.settings_subscriptions_cancel')}}">Cancel</a>
     </section>
 </div>

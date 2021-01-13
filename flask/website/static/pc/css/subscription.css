@@ -7,7 +7,7 @@
     --taille-header:66px;
     --taille-sidebar: 15vw;
     --taille-elements-width: calc((85vw - var(--taille-sidebar))/3);
-    --taille-elements-height: calc(90vh - var(--taille-header));
+    --taille-elements-height: calc(60vh - var(--taille-header));
     --taille-card: 14vw;
     --taille-mastercard: 80px;
 }
@@ -31,15 +31,27 @@ div.flex > section {
     margin: 0 1em;
 }
 
-div.flex > section > h4 {
+/* div.flex > section > div {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+} */
+
+div.flex > section  h4 {
     font-size: 1.4rem;
-    margin-bottom: 1em;
     text-decoration: underline;
 }
 
-div.flex > section > ul {
+div.flex > section  ul {
     list-style-type: none;
     padding: 0;
+}
+
+div.flex > section ul,
+div.flex > section h4,
+div.flex > section p:last-of-type {
+    margin-bottom: 7vh;
 }
 
 div.flex > section a {
@@ -123,3 +135,18 @@ section.cancel:hover a {
     font-weight: 600;
 }
 
+@media(max-width:1100px){
+    div.flex > section {
+        height: max-content;
+    }
+
+    :root {
+        --taille-elements-width:calc((95vw - var(--taille-sidebar))/3);
+    }
+}
+
+@media(max-height:800px){
+    div.flex > section {
+        height: max-content;
+    }
+}
