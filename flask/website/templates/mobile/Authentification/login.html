@@ -55,14 +55,18 @@
     	<h2>
             Login to access your account
         </h2>
-        <form action="home.html" method="POST">
+        <form action="#" method="POST">
+            {{ form.hidden_tag() }}
             <div>
+
+
+
                 <label for="username">Username</label>
-                <input type="text" id='username' name="username" placeholder='Enter your username' required>
+                {{ form.username(size=50, id="username", placeholder="Enter your username") }}
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" id='password' name="password" placeholder='Enter your password' required>
+                {{ form.password(size=50, id="password", placeholder="Enter your password") }}
             </div>
  
             <button type="submit" class="login"><span>Login</span></button>
