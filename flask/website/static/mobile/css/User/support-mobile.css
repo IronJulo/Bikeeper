@@ -1,0 +1,41 @@
+.fa-chevron-left{
+  color: rgba(46, 58, 89, 0.5);
+  height: 30px;
+  font-size: 30px;
+
+}
+div.col-8{
+  text-align: center;
+}
+#input-message{
+  position: absolute;
+  bottom: 10px
+}
+input{
+  width: 100%;
+  border: none;
+  color: gray;
+}
+div.col-1{
+  text-align: center
+}
+.fa-paper-plane{
+  background: linear-gradient(180deg, #0077B5 0%, #0E6795 100%);
+border-radius: 4px;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  padding-top: 7px;
+  color: white
+}
+button{
+  border: None;
+
+}
+.fa-paperclip{
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  padding-top: 7px;
+  color: grey
+}

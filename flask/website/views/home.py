@@ -26,11 +26,11 @@ def mob_support():
 
 @mod.route('/mob/statistic/', methods=['GET', 'POST'])
 def mob_localisation():
-    return render_template("mobile/User/localisation.html")
+    return render_template("mobile/User/statistics.html")
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
 def mob_statistic():
-    return render_template("mobile/User/statistics.html")
+    return render_template("mobile/User/localisation.html")
 
 
 

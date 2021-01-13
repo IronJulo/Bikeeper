@@ -1,0 +1,38 @@
+.fa-chevron-left{
+  color: rgba(46, 58, 89, 0.5);
+  height: 30px;
+  font-size: 30px;
+
+}
+div.col-8{
+  text-align: center;
+}
+
+div.container-fluid{
+  font-family: Roboto;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+align-items: center;
+letter-spacing: 0.01em;
+color: #535B7B;
+  text-align: center;
+}
+@media(max-width:560px){
+  div.card{
+    width: 100%!important;
+  }
+}
+div.container{
+  margin-top: 40px;
+}
+div.container div.container-fluid{
+  margin-bottom: 10px
+}
+label{
+  width: 100%;
+}
+.form-select, input{
+  border: None;
+  padding: 0;
+}
