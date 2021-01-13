@@ -7,6 +7,7 @@
     
     
     <!-- CSS only -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
@@ -40,36 +41,36 @@
                 <div class="rectangle2"></div>
                 <a href="/mob/statistic/">
                     <div class="row">
-                        <div class="col-2"><a><img src="{{ url_for('static', filename='mobile/assets/graphicon1.svg') }}" alt="stat"></a></div>
-                        <div class="col-10"><a>Statistics</a></div>
+                        <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/graphicon1.svg') }}" alt="stat"></div>
+                        <div class="col-10">Statistics</div>
                     </div>
                 </a>
                 <div class="rectangle2"></div>
                 <a href="">
                     <div class="row">
-                        <div class="col-2"><a><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></a></div>
-                        <div class="col-10"><a>Settings</a></div>
+                        <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
+                        <div class="col-10">Settings</div>
                     </div>
                 </a>
                 <div class="rectangle2"></div>
                 <a href="/mob/support/">
                     <div class="row">
-                        <div class="col-2"><a><img src="{{ url_for('static', filename='mobile/assets/support.svg') }}" alt="support"></a></div>
-                        <div class="col-10"><a>Support</a></div>
+                        <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/support.svg') }}" alt="support"></div>
+                        <div class="col-10">Support</div>
                     </div>
                 </a>
                 <div class="rectangle2"></div>
                 <a href="">
                     <div class="row">
-                        <div class="col-2"><a><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></a></div>
-                        <div class="col-10"><a>Disconnect</a></div>
+                        <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></div>
+                        <div class="col-10">Disconnect</div>
                     </div>
                 </a>
                 <div class="rectangle2"></div>
                 <a href="/mob/localisation/">
                     <div class="row">
-                        <div class="col-2"><a><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></a></div>
-                        <div class="col-10"><a>Device</a></div>
+                        <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
+                        <div class="col-10">Device</div>
                     </div>
                 </a>
                 <div class="rectangle2"></div>
@@ -80,7 +81,19 @@
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 	</header>
     <main>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <a href="/mob/home/">
+                      <i class="fa fa-chevron-left"></i>
+                    </a>
+                </div>
+                <div class="col-8">Localisation</div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            
+        </div>
     </main>
 </body>
 

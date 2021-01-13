@@ -13,6 +13,7 @@
   text-decoration: none;
   font-size: 36px;
   color: black;
+  z-index: 3!important;;
 }
 .overlay img{
   height: 30px;
