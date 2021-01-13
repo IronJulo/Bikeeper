@@ -14,7 +14,7 @@ mod = Blueprint('index', __name__)
 @mod.route('/', methods=['GET', 'POST'])
 @mobile_template('{mobile/Authentification/}index.html')
 def index(template):
-    return render_template("template")
+    return render_template(template)
 
 
 

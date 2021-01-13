@@ -12,8 +12,8 @@ mod = Blueprint('home', __name__)
 
 @mod.route('/home/', methods=['GET', 'POST'])
 # @mobile_template('{mobile/User/}dashboard.html')
-def home(template):
-    return render_template(template)
+def home():
+    return render_template("home.html")
 
 
 @mod.route('/mob/home/', methods=['GET', 'POST'])
@@ -26,11 +26,11 @@ def mob_support():
 
 @mod.route('/mob/statistic/', methods=['GET', 'POST'])
 def mob_localisation():
-    return render_template("mobile/User/statistics.html")
+    return render_template("mobile/User/localisation.html")
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
 def mob_statistic():
-    return render_template("mobile/User/localisation.html")
+    return render_template("mobile/User/statistics.html")
 
 
 
