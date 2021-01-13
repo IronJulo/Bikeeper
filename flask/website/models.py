@@ -236,3 +236,13 @@ class ORM:
             .first()
         return res[0]
 
+    @staticmethod
+    def get_number_of_user():
+        """
+        :return: number of users,
+        """
+        res = session.query(func.count(USER.username_user)) \
+            .filter(USER.is_admin_user == 0) \
+            .first()
+        return res[0]
+

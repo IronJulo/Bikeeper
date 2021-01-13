@@ -63,3 +63,12 @@ def get_tickets_number():
     """
     res = ORM.get_open_ticket()
     return str(res)
+
+
+@mod.route("/test/users/number", methods=["GET"])
+def get_user_number():
+    """
+    return : size of database in MB
+    """
+    res = ORM.get_number_of_user()
+    return str(res)
