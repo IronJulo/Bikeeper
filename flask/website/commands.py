@@ -102,43 +102,59 @@ def loaddb():
     # création de messages
     t1 = TICKET(1, "ticket message 1", 0, to_import[1])
     to_import.append(t1)
-    to_import.append(MESSAGE(1,
-                             0,
-                             datetime.datetime(2017, 11, 28, 23, 55, 59, 342380),
-                             "Bonjour de la par d'un admin",
-                             t1))
+    to_import.append(MESSAGE(
+
+        is_admin_message=0,
+        datetime_message=datetime.datetime(2017, 11, 28, 23, 55, 59, 342380),
+        content_message="Bonjour de la par d'un admin",
+        ticket=t1))
+
+    to_import.append(MESSAGE(
+        is_admin_message=1,
+        datetime_message=datetime.datetime(2017, 11, 28, 23, 56, 59, 342380),
+        content_message="Salut je suis un admin",
+        ticket=t1))
+
+    to_import.append(MESSAGE(
+        is_admin_message=0,
+        datetime_message=datetime.datetime(2017, 11, 28, 23, 57, 59, 342380),
+        content_message="OK pouvez vous m'aider ?",
+        ticket=t1))
 
     t2 = TICKET(2, "ticket message 2", 0, to_import[2])
     to_import.append(t2)
-    to_import.append(MESSAGE(2,
-                             1,
-                             datetime.datetime(2015, 8, 23, 10, 55, 9, 342380),
-                             "Salut bro",
-                             t2))
+    to_import.append(MESSAGE(
+
+        is_admin_message=1,
+        datetime_message=datetime.datetime(2015, 8, 23, 10, 55, 9, 342380),
+        content_message="Salut bro",
+        ticket=t2))
 
     t3 = TICKET(3, "ticket message 3", 1, to_import[0])
     to_import.append(t3)
-    to_import.append(MESSAGE(3,
-                             0,
-                             datetime.datetime(2021, 11, 22, 14, 12, 8, 300080),
-                             "Test message, ceci est un message test",
-                             t3))
+    to_import.append(MESSAGE(
+
+        is_admin_message=0,
+        datetime_message=datetime.datetime(2021, 11, 22, 14, 12, 8, 300080),
+        content_message="Test message, ceci est un message test",
+        ticket=t3))
 
     t4 = TICKET(4, "ticket message 4", 1, to_import[3])
     to_import.append(t4)
-    to_import.append(MESSAGE(4,
-                             1,
-                             datetime.datetime(2020, 12, 31, 23, 59, 59, 300080),
-                             "Bonne année 2021",
-                             t4))
+    to_import.append(MESSAGE(
+
+        is_admin_message=1,
+        datetime_message=datetime.datetime(2020, 12, 31, 23, 59, 59, 300080),
+        content_message="Bonne année 2021",
+        ticket=t4))
 
     t5 = TICKET(5, "ticket message 4", 1, to_import[4])
     to_import.append(t5)
-    to_import.append(MESSAGE(5,
-                             1,
-                             datetime.datetime(1989, 9, 30, 23, 59, 59, 300080),
-                             "Wtf les mecs je viens d'inventé internet",
-                             t5))
+    to_import.append(MESSAGE(
+                             is_admin_message=1,
+                             datetime_message=datetime.datetime(1989, 9, 30, 23, 59, 59, 300080),
+                             content_message="Wtf les mecs je viens d'inventé internet",
+                             ticket=t5))
 
     device1 = DEVICE(
         num_device="0769342048",

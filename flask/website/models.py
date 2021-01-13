@@ -88,20 +88,23 @@ class USER(db.Model, UserMixin):
 
 
 class MESSAGE(db.Model):
-    id_message = db.Column(db.Integer, primary_key=True)
+    id_message = db.Column(db.Integer, primary_key=True, autoincrement=True)
     is_admin_message = db.Column(db.Integer)
     datetime_message = db.Column(db.DateTime())
     content_message = db.Column(db.String(1000))
     id_ticket = db.Column(db.Integer, db.ForeignKey("TICKET.id_ticket"))
     TICKET = db.relationship("TICKET", backref=db.backref("MESSAGE", lazy="dynamic"))
 
-    def __init__(self, id_message, is_admin_message, datetime_message, content_message, ticket):
-        self.id_message = id_message
+    def __init__(self, is_admin_message, datetime_message, content_message, ticket):
         self.is_admin_message = is_admin_message
         self.datetime_message = datetime_message
         self.content_message = content_message
-        self.id_ticket = ticket.id_ticket
+        self.id_ticket = ticket.id_ticket,
         self.TICKET = ticket
+
+    def __repr__(self):
+        return "<MESSAGE(name='%s', content_message='%s', id_ticket='%s')>" % (
+            self.is_admin_message, self.content_message, self.id_ticket)
 
 
 class TICKET(db.Model):
@@ -217,10 +220,10 @@ class ORM:
         :param phone: user's nickname
         :return: str,
         """
-        res = session\
-            .query(USER.num_user)\
-            .join(DEVICE)\
-            .filter(DEVICE.num_device == phone)\
+        res = session \
+            .query(USER.num_user) \
+            .join(DEVICE) \
+            .filter(DEVICE.num_device == phone) \
             .first()
 
         db.session.commit()
@@ -231,8 +234,8 @@ class ORM:
         """
         :return: number of opened tickets,
         """
-        res = session.query(func.count(TICKET.id_ticket))\
-            .filter(TICKET.is_closed_ticket == 0)\
+        res = session.query(func.count(TICKET.id_ticket)) \
+            .filter(TICKET.is_closed_ticket == 0) \
             .first()
         return res[0]
 
@@ -246,3 +249,16 @@ class ORM:
             .first()
         return res[0]
 
+    @staticmethod
+    def get_message_by_ticket_id(ticket_id):
+        """
+        :params : ticket_id
+        :return: number of users,
+        """
+
+        res = session.query(MESSAGE) \
+            .join(TICKET, MESSAGE.id_ticket == TICKET.id_ticket, isouter=True) \
+            .filter(MESSAGE.id_ticket == ticket_id) \
+            .all()
+
+        return res

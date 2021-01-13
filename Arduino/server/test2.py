@@ -1,4 +1,3 @@
-
 class AlertSend:
 
     def __init__(self, message):
@@ -9,7 +8,7 @@ class AlertSend:
         self.long = 0
         self.lat = 0
         self.charge = False
-        self.lvl = [0,0]
+        self.lvl = [0, 0]
 
     def get_message(self):
         return self.message
@@ -64,14 +63,14 @@ class AlertSend:
         self.schema = self.message[4]
         self.type = self.message[5]
         if self.message[6] == "-":
-            self.long = -(int(self.message[7:-30])+int(self.message[11:-20])*0.000001)
+            self.long = -(int(self.message[7:-30]) + int(self.message[11:-20]) * 0.000001)
         else:
-            self.long = int(self.message[7:-30]) + (int(self.message[11:-20])*0.000001)
+            self.long = int(self.message[7:-30]) + (int(self.message[11:-20]) * 0.000001)
 
         if self.message[20] == "-":
-            self.lat = -(int(self.message[21:-17])+(int(self.message[24:-8])*0.000001))
+            self.lat = -(int(self.message[21:-17]) + (int(self.message[24:-8]) * 0.000001))
         else:
-            self.lat = int(self.message[21:-17]) + (int(self.message[24:-8])*0.000001)
+            self.lat = int(self.message[21:-17]) + (int(self.message[24:-8]) * 0.000001)
         if self.message[32] == "T":
             self.charge = True
         else:
@@ -83,14 +82,14 @@ class AlertSend:
 def dict(protocol):
     d = {}
     protocol.auto_set()
-    d["key"]=protocol.get_key()
-    d["schema"]=protocol.get_schema()
-    d["type"]=protocol.get_type()
-    d["longitude"]=protocol.get_long()
-    d["latitude"]=protocol.get_lat()
-    d["charge"]=protocol.get_charge()
-    d["level"]=protocol.get_lvl()
-    #for att in dir(protocol):
+    d["key"] = protocol.get_key()
+    d["schema"] = protocol.get_schema()
+    d["type"] = protocol.get_type()
+    d["longitude"] = protocol.get_long()
+    d["latitude"] = protocol.get_lat()
+    d["charge"] = protocol.get_charge()
+    d["level"] = protocol.get_lvl()
+    # for att in dir(protocol):
     #    if not att.startswith('__') and not callable(getattr(protocol, att)):
     #        d[str(att)] = protocol.att
     return d
