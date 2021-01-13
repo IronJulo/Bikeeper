@@ -42,7 +42,7 @@ body * {
   border-radius: 100%;
   left: calc(1% - 13px);
   top: 10px;
-  z-index: 99;
+  z-index: 2;
 }.entry .cercle-rouge {
   content: '';
   position: absolute;
@@ -52,13 +52,11 @@ body * {
   border-radius: 100%;
   left: calc(1% - 13px);
   top: 10px;
-  z-index: 99;
+  z-index: 2;
 }
 
 
 .entry .body {
-
-
   padding-left: 60px;
   padding-right: 10px;
   padding-bottom: 40px

@@ -115,70 +115,59 @@
                 Filters
             </div>
             <div class="row">
-                <div class="col-6">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+                <div class="col-6" id="date">
+                    <label for="date">Date</label>
+                    <input type="date" name="date" id="date">
                 </div>
-                <div class="col-6">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+                <div class="col-6" id="select">
+                    <label for="number-ride">Ride n°</label>
+                    <select class="form-select" id="number-ride">
+                        <option selected>Choose</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
                 </div>
             </div>
-            <div class="container">
-                <div class="container-fluid">Timeline</div>
-                <div class="timeline">
-                    <div class="entry">
-                        <div class="cercle-beige">
-                        </div>
-                        <div class="body">
-                            <p>Battery removed.</p>
-                            <ul>
-                                <li>Motorbike battery is removed</li>
-                            </ul>
-                        </div>
+        </div>
+        <div class="container">
+            <div class="container-fluid">Timeline</div>
+            <div class="timeline">
+                <div class="entry">
+                    <div class="cercle-beige">
                     </div>
-                    <div class="entry">
-                        <div class="cercle-rouge">
-                        </div>
-                        <div class="body">
-                            <p>Alert ! Bike Vibrations detected !</p>
-                            <ul>
-                                <li>Notification send on your phone at 8h51.</li>
-                            </ul>
-                        </div>
+                    <div class="body">
+                        <p>Battery removed.</p>
+                        <ul>
+                            <li>Motorbike battery is removed</li>
+                        </ul>
                     </div>
+                </div>
+                <div class="entry">
+                    <div class="cercle-rouge">
+                    </div>
+                    <div class="body">
+                        <p>Alert ! Bike Vibrations detected !</p>
+                        <ul>
+                            <li>Notification send on your phone at 8h51.</li>
+                        </ul>
+                    </div>
+                </div>
 
-                </div>
             </div>
-            <div class="container">
-                <div class="container-fluid">Records</div>
-                <div id="records-information">
-                    Max Speed : 
-                    <br>
-                    Best Right Angle :
-                    <br>
-                    Best Left Angle :
-                </div>
+        </div>
+        <div class="container">
+            <div class="container-fluid">Records</div>
+            <div id="records-information">
+                Max Speed : 
+                <br>
+                Best Right Angle :
+                <br>
+                Best Left Angle :
             </div>
-            <div class="container">
-                <div class="container-fluid">Ride</div>
-            </div>
+        </div>
+        <div class="container">
+            <div class="container-fluid">Ride</div>
         </div>
     </main>
 </body>
