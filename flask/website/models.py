@@ -81,6 +81,10 @@ class USER(db.Model, UserMixin):
     def get_id(self):
         return self.username_user
 
+    def __repr__(self):
+        return "<User(name='%s', email='%s', is_admin_user='%s')>" % (
+            self.username_user, self.email_user, self.is_admin_user)
+
 
 class MESSAGE(db.Model):
     id_message = db.Column(db.Integer, primary_key=True)
@@ -122,6 +126,9 @@ class ORM:
 
     @staticmethod
     def get_users():
+        """
+        :return: list of USERs
+        """
         return USER.query.all()
 
     @staticmethod
@@ -140,12 +147,83 @@ class ORM:
         :param pseudo: user's nickname
         :return: list of user's tickets
         """
-        ticket_list = session.query(TICKET).filter(TICKET.username_user == pseudo).all()
+        ticket_list = session.query(TICKET) \
+            .join(USER, TICKET.username_user == USER.username_user, isouter=True) \
+            .filter(TICKET.username_user == pseudo and USER.is_admin_user == 0) \
+            .all()
         session.commit()
         return ticket_list
 
     @staticmethod
     def is_username_available(pseudo: str) -> bool:
+        """
+        :param pseudo: user's nickname
+        :return: boolean, true if available
+        """
         username = db.session.query(USER).filter(USER.username_user == pseudo).first()
         db.session.commit()
         return True if username is None else False
+
+    @staticmethod
+    def is_admin(pseudo: str) -> bool:
+        """
+        :param pseudo: user's nickname
+        :return: boolean, true if is admin
+        """
+        username = db.session.query(USER).filter(USER.username_user == pseudo and USER.is_admin_user == 1).first()
+        print("IS ADmin", username)
+        if username.is_admin_user is True:
+            return True
+        else:
+            return False
+
+    @staticmethod
+    def get_admin_tickets_by_admin_id(pseudo: str):
+        """
+        :param pseudo: user's nickname
+        :return: boolean, true if available
+        """
+        if ORM.is_admin(pseudo):
+            ticket_list = session.query(TICKET).filter(TICKET.username_user == pseudo and USER.is_admin_user == 1).all()
+            session.commit()
+            return ticket_list
+        else:
+            # not admin, return false
+            return False
+
+    @staticmethod
+    def get_space_used_database():
+        """
+        :param pseudo: user's nickname
+        :return: boolean, true if available
+        """
+        query = "SELECT table_schema AS \"Database\", SUM(data_length + index_length) / 1024 / 1024 AS \"Size (MB)\"" + "FROM information_schema.TABLES" + " WHERE table_schema = 'BIKEEPER' GROUP BY table_schema"
+        resultproxy = session.execute(query)
+
+        d, a = {}, []
+        for rowproxy in resultproxy:
+            # rowproxy.items() returns an array like [(key0, value0), (key1, value1)]
+            for column, value in rowproxy.items():
+                # build up the dictionary
+                d = {**d, **{column: value}}
+            a.append(d)
+
+        return a
+
+    @staticmethod
+    def get_associated_phone(phone) -> str:
+        """
+        :param phone: user's nickname
+        :return: str,
+        """
+        res = session\
+            .query(USER.num_user)\
+            .join(DEVICE)\
+            .filter(DEVICE.num_device == phone)\
+            .first()
+
+        db.session.commit()
+        return res
+
+
+
