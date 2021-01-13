@@ -17,7 +17,6 @@ from flask_wtf import FlaskForm
 from flask_mobility.decorators import mobile_template
 from flask_login import login_required, login_user, logout_user, current_user
 from ..models import ORM
-
 from hashlib import sha256
 
 mod = Blueprint('login', __name__)
