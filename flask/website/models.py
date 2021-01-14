@@ -231,7 +231,7 @@ class ORM:
         return res
 
     @staticmethod
-    def get_open_ticket():
+    def get_number_open_ticket():
         """
         :return: number of opened tickets,
         """
@@ -254,7 +254,7 @@ class ORM:
     def get_message_by_ticket_id(ticket_id):
         """
         :params : ticket_id
-        :return: number of users,
+        :return: json with messages,
         """
 
         res = session.query(MESSAGE) \
@@ -263,8 +263,7 @@ class ORM:
             .all()
 
         messages = {}
-        print(type(res))
-        print("*" * 50)
+
         i = 0
         for message in res:
             messages[i] = {
@@ -276,5 +275,16 @@ class ORM:
 
             i += 1
 
-        print(messages)
+        return messages
+
+    @staticmethod
+    def messages_to_json(messages):
         return jsonify(messages)
+
+    @staticmethod
+    def get_open_ticket():
+        """
+        :return: opened tickets,
+        """
+        res = session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
+        return res
