@@ -74,18 +74,11 @@ def get_user_number():
     return str(res)
 
 
-@mod.route("/test/message/<string:ticket_id>/all", methods=["GET"])
+@mod.route("/test/message/<int:ticket_id>/all", methods=["GET"])
 def get_message_ticket(ticket_id):
     """
     return : str
     """
     res = ORM.get_message_by_ticket_id(ticket_id)
-    l = ""
-    print("=========")
-    print(res)
 
-    for message in res:
-        l += f"<li><p>Message : {message.content_message}</p> </li>"
-    l += "</ul>"
-
-    return str(res)
+    return res

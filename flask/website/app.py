@@ -6,9 +6,11 @@ from flask_mobility import Mobility
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 login_manager = LoginManager(app)
