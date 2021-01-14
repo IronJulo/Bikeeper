@@ -1,0 +1,229 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc((90vw - var(--taille-sidebar)));
+    --taille-card: 14vw;
+}
+
+div.flex {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    height: 100%;
+}
+
+div.flex > section {
+    position: relative;
+    height: 100%;
+}
+
+.nav {
+    flex-direction: column;
+    align-content: center;
+}
+
+section.tickets {
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    flex: 0 0 20%;
+    background-color: white;
+}
+
+section.tickets > div {
+    position: relative;
+    height: 100%;
+}
+
+section.tickets h3 {
+    text-align: center;
+    padding: .6em 0;
+}
+
+section.tickets > div > button {
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: transparent;
+    border-radius: 2em;
+    border: solid var(--vert) 2px;
+    padding: .4em .8em;
+    outline: none;
+}
+
+@-webkit-keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+}
+  
+@keyframes rotate {
+    100% {
+      transform: rotate(1turn);
+    }
+}
+
+section.tickets > div > button:hover {
+    z-index: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+  
+section.tickets > div > button:hover::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    left: -50%;
+    top: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: #399953;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    -webkit-animation: rotate 3s linear infinite;
+            animation: rotate 3s linear infinite;
+    background-image: linear-gradient(var(--vert), var(--vert)), 
+        linear-gradient(white, white),
+        linear-gradient(var(--vert), var(--vert)),
+        linear-gradient(white, white);
+}
+  
+section.tickets > div > button:hover::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 6px;
+    top: 6px;
+    width: calc(100% - 12px);
+    height: calc(100% - 12px);
+    background: white;
+    border-radius: 5px;
+}
+
+section.tickets ul li {
+    border-bottom: solid black 1px;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+section.tickets ul li:first-child {
+    border-top: solid black 1px;
+}
+
+section.tickets ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1.5em;
+    text-decoration: none;
+    color: black;
+}
+
+section.tickets ul li a:hover {
+    color: var(--orange);
+    transition: all .2s;
+}
+
+section.chat {
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    flex-grow: 1;
+    background-color: white;
+    margin-left: 2em;
+    position: relative;
+}
+
+section.chat .message-input {
+    position: absolute;
+    bottom: .5em;
+    left: .5em;
+    right: .5em;
+}
+
+section.chat .message-input input {
+    width: 95%;
+    border: none;
+}
+
+section.chat .message-input input:focus {
+    border: none;
+    outline: none;
+}
+
+section.chat ul {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+section.chat ul li {
+    display: flex;
+    padding: 1.5em;
+    padding-top: 1em;
+}
+
+section.chat ul li.sent {
+    align-self: flex-end;
+}
+
+section.chat ul li.sent img {
+    border-radius: 20em;
+    width: 40px;
+    height: auto;
+}
+
+section.chat ul li.sent p {
+    background: #435f7a;
+    color: #f5f5f5;
+    width: fit-content;
+    align-self: center;
+    margin: 0;
+    margin-right: 1em;
+    padding: .5em .7em;
+    border-radius: 2em;
+}
+
+section.chat ul li.replies img {
+    border-radius: 20em;
+    width: 40px;
+    height: auto;
+}
+
+section.chat ul li.replies p {
+    background: #f5f5f5;
+    width: fit-content;
+    align-self: center;
+    margin: 0;
+    margin-left: 1em;
+    padding: .5em .7em;
+    border-radius: 2em;
+}
+
+div.wrap {
+    border-top: solid gray 1px;
+    padding-top: .5em;
+}
+
+button.submit {
+    outline: none;
+    border: none;
+    background-color: #0077B5;
+    right: 0;
+    position: absolute;
+}
+
+button.submit i {
+    color: white;
+}
+
+ul.nav > li > a.active {
+    border-left: solid #0077B5 5px;
+}

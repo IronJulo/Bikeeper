@@ -1,4 +1,10 @@
-from flask import Blueprint
+from flask import (
+    Blueprint,
+    render_template,
+    session,
+    redirect,
+    url_for
+)
 from ..models import ORM
 from flask_mobility.decorators import mobile_template
 
@@ -7,7 +13,7 @@ mod = Blueprint('support', __name__)
 
 @mod.route('/support/', methods=['GET'])
 def support():
-    return "Not implemented yet"
+    return render_template("support.html")
 
 
 @mod.route('/support/<int:admin_id>/tickets/all', methods=['GET'])

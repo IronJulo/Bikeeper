@@ -8,7 +8,6 @@
     --taille-sidebar: 15vw;
     --taille-elements-width: calc((90vw - var(--taille-sidebar)));
     --taille-card: 14vw;
-    --taille-mastercard: 80px;
     --timeline-main-color:#7BC6E1;
     --timeline-second-color:white;
 }
