@@ -2,6 +2,7 @@ from .app import db, session, login_manager
 from typing import List
 from flask_login import UserMixin
 from sqlalchemy import func
+from flask import jsonify
 
 """
 Define model class
@@ -103,7 +104,7 @@ class MESSAGE(db.Model):
         self.TICKET = ticket
 
     def __repr__(self):
-        return "<MESSAGE(name='%s', content_message='%s', id_ticket='%s')>" % (
+        return "<MESSAGE(isadmin='%s', content_message='%s', id_ticket='%s')>" % (
             self.is_admin_message, self.content_message, self.id_ticket)
 
 
@@ -257,8 +258,23 @@ class ORM:
         """
 
         res = session.query(MESSAGE) \
-            .join(TICKET, MESSAGE.id_ticket == TICKET.id_ticket, isouter=True) \
+            .join(TICKET) \
             .filter(MESSAGE.id_ticket == ticket_id) \
             .all()
 
-        return res
+        messages = {}
+        print(type(res))
+        print("*" * 50)
+        i = 0
+        for message in res:
+            messages[i] = {
+                "content": message.content_message,
+                "datetime_message": message.datetime_message.strftime("%m/%d/%Y, %H:%M:%S"),
+                "id_ticket": message.id_ticket,
+                "is_admin_message": message.is_admin_message
+            }
+
+            i += 1
+
+        print(messages)
+        return jsonify(messages)
