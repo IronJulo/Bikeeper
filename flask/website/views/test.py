@@ -31,7 +31,7 @@ def get_user_tickets_by_id(username):
     res = "<ul>"
     list_ticket = ORM.get_user_tickets(username)
 
-    print("List User tieckets : ", list_ticket)
+    print("List User tickets : ", list_ticket)
     print("======================================")
     for t in list_ticket:
         print(t.id_ticket)
@@ -81,4 +81,4 @@ def get_message_ticket(ticket_id):
     """
     res = ORM.get_message_by_ticket_id(ticket_id)
 
-    return res
+    return ORM.messages_to_json(res)
