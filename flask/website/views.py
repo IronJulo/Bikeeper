@@ -14,9 +14,6 @@ def global_user():
     return dict(user=current_user)
 
 
-
-
-
 # @app.route('/login/', methods=['GET', 'POST'])
 # @mobile_template("{mobile/Authentification/}login.html")
 # def login(template):
@@ -28,22 +25,6 @@ def global_user():
 # @mobile_template('{mobile/Authentification/}register.html')
 # def register(template):
 #     return render_template(template)
-
-
-@app.route('/delivery', methods=['GET'])
-def delivery():
-    return "Not implemented yet"
-
-
-@app.route('/stats/device/<int:device_id>/<date>', methods=['GET'])
-def get_stat_by_device_id(device_id, date):
-    return "Not implemented yet"
-
-
-
-@app.route('/devices/', methods=['GET'])
-def devices():
-    return "Not implemented yet"
 
 
 @app.route('/guide/', methods=['GET'])
