@@ -34,7 +34,9 @@
 
 char str[STR_LENGTH];
 char data[STR_LENGTH];
-char phone[9] = "0000000000";
+char send_phone[9] = "0000000000";
+char receive_phone[10] = "0000000000";
+char datetime[15];
 
 IUTO_SIM808 sim808(&mySerial);
 //******Program states
@@ -155,7 +157,7 @@ void loop()
     }
 
 #ifdef SERVER
-    treatinformationsfromPC();
+    // treatinformationsfromPC();
 #endif
 }
 
@@ -176,22 +178,23 @@ void treatinformationsfromPC()
     }
     for (int j = 0; j <= 9; j++)
     {
-        phone[j] = (char)Serial.read();
+        send_phone[j] = (char)Serial.read();
     }
     snprintf(data, STR_LENGTH, data);
-    sim808.sendSMS(phone, data);
+    sim808.sendSMS(send_phone, data);
     sim808_clean_buffer(data, sizeof(data));
 }
 
 void tryReadSMS()
 {
-    if (sim808.readSMS(1, str, STR_LENGTH, 10000))
+    if (sim808.readSMS(1, str, STR_LENGTH, receive_phone, datetime))
     {
         wink(10, 50);
         sim808.deleteAllSMS(7000); // Delete message to free memory, may be important not to saturate memory
 
         GG_DEBUG_PRINTLN("reading message");
         GG_DEBUG_PRINTLN(str);
+        GG_DEBUG_PRINTLN(receive_phone);
     }
     sim808_clean_buffer(str, sizeof(str));
 }
@@ -247,7 +250,6 @@ void ResetSim808(bool sendaSMS)
 
     {
         GG_DEBUG_PRINTLN("Turn Rate");
-        //
         mySerial.flush();
         mySerial.begin(SIM8008rate);
         while (mySerial.available())
