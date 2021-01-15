@@ -276,7 +276,8 @@ class ORM:
                 "datetime_message": message.datetime_message.strftime("%m/%d/%Y, %H:%M:%S"),
                 "id_ticket": message.id_ticket,
                 "is_admin_message": message.is_admin_message,
-                "username_user":message.username_user
+                "username_user":message.username_user,
+                "other_user_picture": ORM.get_other_user_picture_from_ticket_id(message.id_ticket)
             }
 
             i += 1
@@ -306,11 +307,22 @@ class ORM:
         return res
 
     @staticmethod
-    def get_picture__message_from_username(username):
+    def get_picture_message_from_username(username):
         res = db.session.query(USER.profile_picture_user).join(MESSAGE).filter(
             MESSAGE.username_user == username
         ).first()
         return ''.join(res)
+    
+    @staticmethod
+    def get_users_from_ticket_id(id_ticket):
+        return db.session.query(USER).join(TICKET).filter(TICKET.id_ticket == id_ticket).all()
+
+    @staticmethod
+    def get_other_user_picture_from_ticket_id(id_ticket):
+        users = ORM.get_users_from_ticket_id(id_ticket)
+        for user in users:
+            if user != current_user:
+                return user.profile_picture_user
 
     @staticmethod
     def new_contact(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):

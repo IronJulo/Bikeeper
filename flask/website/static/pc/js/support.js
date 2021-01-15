@@ -48,25 +48,27 @@ function get(url) {
 }
 
 function draw(message) {
-    // {content: "Bonjour de la par d'un admin", datetime_message: "11/28/2017, 23:55:59", id_ticket: 1, is_admin_message: 0}
       var div = getActiveUL();
       const admin_message = message["is_admin_message"];
       user = message['username_user'];
+      other_picture = message["other_user_picture"]
       estAdmin = isAdmin();
 
       if (admin_message==1 && estAdmin=="True" || admin_message==0 && estAdmin=="False"){
-        div.innerHTML += "<li class=\"sent\">"
+        div.innerHTML += "<li class=\"sent\"><div>"
+        + "<span>"+ user +"</span>"
         + "<p>" + message["content"] + "</p>"
+        + "</div>"
         + "<img src=\""+ getImageUser() +"\" alt=\"\"/>"
-        + "<span>"+ getUsername() +"</span>"
         + "</li>"
       }
       else if (admin_message==0 && estAdmin=="True" || admin_message==1 && estAdmin=="False"){
         div.innerHTML +="<li class=\"replies\">"
-        + "<img src=\"http://emilcarlsson.se/assets/harveyspecter.png\" alt=\"\"/>"
+        + "<img src=\"" + other_picture + "\" alt=\"\"/>"
+        + "<div>"
+        + "<span>"+ user +"</span>"
         + "<p>" + message["content"] +"</p>"
-        + "<span>"+ getUsername() +"</span>"
-        + "</li>"
+        + "</div></li>"
       }
       else {
         console.log("error draw");

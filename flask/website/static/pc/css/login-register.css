@@ -199,7 +199,7 @@ main>form>div input:focus {
 }
 
 .register-main {
-    height: calc(99vh - var(--taille-header));
+    height: calc(70vh - var(--taille-header));
     display: flex;
     flex-direction: column;
     justify-content: center;
