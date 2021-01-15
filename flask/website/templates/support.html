@@ -38,10 +38,8 @@
             </div>
             <div class="message-input">
                 <div class="wrap">
-
-                        <input type="text" id='msg' name='msg' placeholder="Write your message..."/>
-                        <button class="submit" id='send-msg'><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-
+                    <input type="text" id='msg' name='msg' placeholder="Write your message..."/>
+                    <button class="submit" id='send-msg'><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                 </div>
             </div>
         </section>
@@ -76,54 +74,25 @@
 
 
 {% block script %}
-<script src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
 <script>
-    function getDate(){
-        var today = new Date();
-        var month = today.getMonth()+1;
-        var seconds = today.getSeconds();
-        if (month<10){
-            month = '0'+month;
-        }
-        if (seconds<10){
-            seconds = '0'+seconds;
-        }
-        var date = today.getFullYear()+'-'+month+'-'+today.getDate();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + seconds;
-        return date+' '+time;
-    }
-
     {% autoescape false %}
     var current_user = '{{current_user.username_user}}';
     var is_admin = '{{current_user.is_admin_user}}';
+    var user_image = '{{picture}}';
     {% endautoescape %}
 
-    $(function() {
-        $('#send-msg').on('click', function() {
-            var contenu_message = document.getElementById("msg").value;
-            var is_admin_msg = is_admin;
-            var datetime_msg = getDate();
-            var id_ticket = getIdTicket();
+    function isAdmin(){
+        return is_admin;
+    }
 
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/support/message/new", true); 
-            xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.onreadystatechange = function() {
-              if (this.readyState == 4 && this.status == 200) {
-                // Response
-                var response = this.responseText;
-                console.log("le message est envoyé")
-              }
-            };
-            var data = {
-                content:contenu_message,
-                is_admin:is_admin_msg,
-                date:datetime_msg,
-                id_ticket:id_ticket,
-            };
-            
-            xhttp.send(JSON.stringify(data));
-           });
-        });
+    function getUsername() {
+        return current_user;
+    }
+
+    function getImageUser(){
+        return user_image;
+    }
+
 </script>
+<script src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
 {% endblock script %}

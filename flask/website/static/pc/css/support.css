@@ -145,9 +145,14 @@ section.chat {
 
 section.chat .message-input {
     position: absolute;
-    bottom: .5em;
-    left: .5em;
-    right: .5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+}
+
+section.chat .message-input div.wrap {
+    padding: .5em;
 }
 
 section.chat .message-input input {
@@ -169,8 +174,12 @@ section.chat ul {
 
 section.chat ul li {
     display: flex;
-    padding: 1.5em;
+    padding: 1.4em;
     padding-top: 1em;
+}
+
+section.chat ul li:last-child {
+    padding-bottom: 2em;
 }
 
 section.chat ul li.sent {
@@ -219,7 +228,7 @@ button.submit {
     outline: none;
     border: none;
     background-color: #0077B5;
-    right: 0;
+    right: .5em;
     position: absolute;
 }
 
@@ -229,4 +238,31 @@ button.submit i {
 
 ul.nav > li > a.active {
     border-left: solid #0077B5 5px;
+}
+
+div.tab-content,
+div.tab-content > div,
+div.tab-content > div > ul {
+    height: 100%;
+}
+
+div.tab-content > div > ul {
+    overflow: scroll;
+}
+
+div.tab-content > div > ul::-webkit-scrollbar-thumb
+{
+    background: #999999;
+    border-radius: 12px;
+    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+}
+
+div.tab-content > div > ul::-webkit-scrollbar
+{
+    width: 12px;
+}
+
+div.tab-content > div > ul::-webkit-scrollbar-track
+{
+    background: linear-gradient(90deg,#999999,#999999 1px,#111 0,#111);
 }
