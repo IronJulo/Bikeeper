@@ -46,7 +46,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.form
 db = SQLAlchemy(app)
 # db.init_app(app)
 # Engine connecting to MariaDB
-engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=False, isolation_level="READ UNCOMMITTED")
+engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=False)#, isolation_level="READ UNCOMMITTED"
 # db.metadata.create_all(engine)
 
 # Session that is used to perform sql requests to the engine -> here MariaDB

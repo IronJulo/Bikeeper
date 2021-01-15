@@ -18,8 +18,7 @@ class CONTACT(db.Model):
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("CONTACT", lazy="dynamic"))
 
-    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact,
-                 num_device):
+    def __init__(self, num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):
         self.num_contact = num_contact
         self.firstname_contact = firstname_contact
         self.lastname_contact = lastname_contact
@@ -51,11 +50,11 @@ class DEVICE(db.Model):
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("DEVICE", lazy="dynamic"))
 
-    def __init__(self, num_device, name_device, row_parameters_device, username):
+    def __init__(self, num_device, name_device, row_parameters_device, user):
         self.num_device = num_device
         self.name_device = name_device
         self.row_parameters_device = row_parameters_device
-        self.username_user = username
+        self.username_user = user
 
 
 class USER(db.Model, UserMixin):
@@ -98,14 +97,16 @@ class MESSAGE(db.Model):
     is_admin_message = db.Column(db.Integer)
     datetime_message = db.Column(db.DateTime())
     content_message = db.Column(db.String(1000))
+    username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     id_ticket = db.Column(db.Integer, db.ForeignKey("TICKET.id_ticket"))
     TICKET = db.relationship("TICKET", backref=db.backref("MESSAGE", lazy="dynamic"))
 
-    def __init__(self, is_admin_message, datetime_message, content_message, id_ticket):
+    def __init__(self, is_admin_message, datetime_message, content_message, id_ticket, username_user):
         self.is_admin_message = is_admin_message
         self.datetime_message = datetime_message
         self.content_message = content_message
-        self.id_ticket = id_ticket,
+        self.id_ticket = id_ticket
+        self.username_user = username_user
 
     def __repr__(self):
         return "<MESSAGE(isadmin='%s', content_message='%s', id_ticket='%s')>" % (
@@ -261,7 +262,7 @@ class ORM:
         :return: json with messages,
         """
 
-        res = session.query(MESSAGE) \
+        res = MESSAGE.query \
             .join(TICKET) \
             .filter(MESSAGE.id_ticket == ticket_id) \
             .all()
@@ -274,7 +275,8 @@ class ORM:
                 "content": message.content_message,
                 "datetime_message": message.datetime_message.strftime("%m/%d/%Y, %H:%M:%S"),
                 "id_ticket": message.id_ticket,
-                "is_admin_message": message.is_admin_message
+                "is_admin_message": message.is_admin_message,
+                "username_user":message.username_user
             }
 
             i += 1
@@ -294,6 +296,21 @@ class ORM:
         res = session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
         db.session.commit()
         return res
+
+    @staticmethod
+    def get_open_ticket_user(username):
+        res = db.session.query(TICKET).join(USER).filter(
+            USER.username_user == username,
+            TICKET.is_closed_ticket == 0
+        ).all()
+        return res
+
+    @staticmethod
+    def get_picture__message_from_username(username):
+        res = db.session.query(USER.profile_picture_user).join(MESSAGE).filter(
+            MESSAGE.username_user == username
+        ).first()
+        return ''.join(res)
 
     @staticmethod
     def new_contact(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):

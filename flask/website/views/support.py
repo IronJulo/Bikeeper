@@ -18,12 +18,23 @@ mod = Blueprint('support', __name__)
 @mod.route('/support/', methods=['GET'])
 def support():
     messages = {}
-    for ticket in ORM.get_open_ticket():
-        messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
+
+    if not current_user.is_admin_user:
+        open_tickets_user = ORM.get_open_ticket_user(current_user.username_user)
+
+        if len(open_tickets_user) != 0:
+            for ticket in open_tickets_user:
+                messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
+
+    else:
+        open_tickets = ORM.get_open_ticket()
+        for ticket in open_tickets:
+            messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
 
     return render_template(
         "support.html",
         messages = messages,
+        picture = ORM.get_picture__message_from_username(current_user.username_user),
     )
 
 @mod.route('/support/message/new', methods=['POST'])
@@ -33,9 +44,9 @@ def support_message_new():
         is_admin = request.json['is_admin']
         date = request.json['date']
         id_ticket = request.json['id_ticket']
-        print(contenu_message,is_admin,date,id_ticket)
+        username = request.json['username']
 
-        msg = MESSAGE(is_admin,date,contenu_message,id_ticket)
+        msg = MESSAGE(is_admin, date, contenu_message, id_ticket, username)
         db.session.add(msg)
         db.session.commit()
 
