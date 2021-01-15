@@ -43,7 +43,7 @@ section.tickets h3 {
     padding: .6em 0;
 }
 
-section.tickets > div > button {
+section.tickets > div > a {
     position: absolute;
     bottom: 1em;
     left: 50%;
@@ -53,6 +53,9 @@ section.tickets > div > button {
     border: solid var(--vert) 2px;
     padding: .4em .8em;
     outline: none;
+    width: fit-content;
+    text-decoration: none;
+    color: black;
 }
 
 @-webkit-keyframes rotate {
@@ -67,13 +70,13 @@ section.tickets > div > button {
     }
 }
 
-section.tickets > div > button:hover {
+section.tickets > div > a:hover {
     z-index: 0;
     border-radius: 10px;
     overflow: hidden;
 }
   
-section.tickets > div > button:hover::before {
+section.tickets > div > a:hover::before {
     content: "";
     position: absolute;
     z-index: -2;
@@ -93,7 +96,7 @@ section.tickets > div > button:hover::before {
         linear-gradient(white, white);
 }
   
-section.tickets > div > button:hover::after {
+section.tickets > div > a:hover::after {
     content: "";
     position: absolute;
     z-index: -1;

@@ -1,6 +1,6 @@
 from .app import db, session, login_manager
 from typing import List
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from sqlalchemy import func
 from flask import jsonify
 
@@ -18,18 +18,17 @@ class CONTACT(db.Model):
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("CONTACT", lazy="dynamic"))
 
-    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, device):
+    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):
         self.id_contact = id_contact
         self.num_contact = num_contact
         self.firstname_contact = firstname_contact
         self.lastname_contact = lastname_contact
         self.profile_picture_contact = profile_picture_contact
-        self.num_device = device.num_device
-        self.DEVICE = device
+        self.num_device = num_device
 
 
 class LOG(db.Model):
-    id_log = db.Column(db.Integer, primary_key=True)
+    id_log = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content_log = db.Column(db.String(150))
     type_log = db.Column(db.String(20))
     datetime_log = db.Column(db.DateTime())
@@ -45,12 +44,11 @@ class DEVICE(db.Model):
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("DEVICE", lazy="dynamic"))
 
-    def __init__(self, num_device, name_device, row_parameters_device, user):
+    def __init__(self, num_device, name_device, row_parameters_device, username):
         self.num_device = num_device
         self.name_device = name_device
         self.row_parameters_device = row_parameters_device
-        self.username_user = user.username_user
-        self.USER = user
+        self.username_user = username
 
 
 class USER(db.Model, UserMixin):
@@ -96,12 +94,11 @@ class MESSAGE(db.Model):
     id_ticket = db.Column(db.Integer, db.ForeignKey("TICKET.id_ticket"))
     TICKET = db.relationship("TICKET", backref=db.backref("MESSAGE", lazy="dynamic"))
 
-    def __init__(self, is_admin_message, datetime_message, content_message, ticket):
+    def __init__(self, is_admin_message, datetime_message, content_message, id_ticket):
         self.is_admin_message = is_admin_message
         self.datetime_message = datetime_message
         self.content_message = content_message
-        self.id_ticket = ticket.id_ticket,
-        self.TICKET = ticket
+        self.id_ticket = id_ticket,
 
     def __repr__(self):
         return "<MESSAGE(isadmin='%s', content_message='%s', id_ticket='%s')>" % (
@@ -109,18 +106,16 @@ class MESSAGE(db.Model):
 
 
 class TICKET(db.Model):
-    id_ticket = db.Column(db.Integer, primary_key=True)
+    id_ticket = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title_ticket = db.Column(db.String(100))
     is_closed_ticket = db.Column(db.Integer)
     username_user = db.Column(db.String(42), db.ForeignKey("USER.username_user"))
     USER = db.relationship("USER", backref=db.backref("TICKET", lazy="dynamic"))
 
-    def __init__(self, id_ticket, title_ticket, is_closed_ticket, user):
-        self.id_ticket = id_ticket
+    def __init__(self, title_ticket, is_closed_ticket, user):
         self.is_closed_ticket = is_closed_ticket
         self.title_ticket = title_ticket
-        self.username_user = user.username_user
-        self.USER = user
+        self.username_user = user
 
 
 class ORM:
