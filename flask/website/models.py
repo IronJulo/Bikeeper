@@ -208,7 +208,7 @@ class ORM:
                 d = {**d, **{column: value}}
             a.append(d)
 
-        return a
+        return str(d['Size (MB)'])
 
     @staticmethod
     def get_associated_phone(phone) -> str:

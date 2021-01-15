@@ -7,6 +7,8 @@ from flask import (
 )
 from flask_mobility.decorators import mobile_template
 
+from ..models import ORM
+
 mod = Blueprint('admin', __name__)
 
 
@@ -19,7 +21,12 @@ def admin_access(template):
 @mod.route('/admin/home', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_home.html")
 def admin_home(template):
-    return render_template(template)
+    return render_template(
+        template,
+        nb_users=ORM.get_number_of_user(),
+        tt_data=ORM.get_space_used_database(),
+        nb_ticket=ORM.get_number_open_ticket()
+    )
 
 
 @mod.route('/admin/support', methods=['GET'])
