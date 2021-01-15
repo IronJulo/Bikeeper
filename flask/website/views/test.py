@@ -80,8 +80,6 @@ def get_message_ticket(ticket_id):
     return : str
     """
     res = ORM.get_message_by_ticket_id(ticket_id)
-    print('messages : ')
-    print(res)
     return ORM.messages_to_json(res)
 
 
@@ -118,5 +116,4 @@ def sumbit_data_test():
     return : users count
     """
     data = request.stream.read()
-    print(data)
     return Response(status=201, mimetype='application/json')

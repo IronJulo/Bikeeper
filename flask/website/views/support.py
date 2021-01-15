@@ -4,10 +4,11 @@ from flask import (
     session,
     redirect,
     url_for,
-    request
+    request,
+    Response
 )
 from ..app import db
-from ..models import ORM, TICKET, USER
+from ..models import ORM, TICKET, USER, MESSAGE
 from flask_mobility.decorators import mobile_template
 from flask_login import login_required, current_user
 
@@ -25,18 +26,28 @@ def support():
         messages = messages,
     )
 
-@mod.route('/support/add/message', methods=['GET'])
-def support_add_message():
-    return render_template("support.html")
+@mod.route('/support/message/new', methods=['POST'])
+def support_message_new():
+    if request.method == 'POST':
+        contenu_message = request.json['content']
+        is_admin = request.json['is_admin']
+        date = request.json['date']
+        id_ticket = request.json['id_ticket']
+        print(contenu_message,is_admin,date,id_ticket)
+
+        msg = MESSAGE(is_admin,date,contenu_message,id_ticket)
+        db.session.add(msg)
+        db.session.commit()
+
+        return Response(status=200)
 
 
-@mod.route('/support/ticket/new', methods=['GET','POST'])
+@mod.route('/support/ticket/new', methods=['POST'])
 def support_new_ticket():
     title = request.form.get('ticket')
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     user = current_user.username_user
-    print(current_user.username_user)
     ticket = TICKET(title,0,user)
     db.session.add(ticket)
     db.session.commit()
@@ -63,7 +74,6 @@ def get_user_tickets_by_id(user_id):
 def get_open_tickets():
     res = "<ul>"
     open_tickets = ORM.get_open_ticket()
-    print(open_tickets)
     for ticket in open_tickets:
         res += f"<li><p>ID ticket: {ticket.id_ticket}</p>" \
                f"<p>Title ticket: {ticket.title_ticket}" \

@@ -10,7 +10,7 @@ Define model class
 
 
 class CONTACT(db.Model):
-    id_contact = db.Column(db.Integer, primary_key=True)
+    id_contact = db.Column(db.Integer, primary_key=True, autoincrement=True)
     num_contact = db.Column(db.String(15))
     firstname_contact = db.Column(db.String(42))
     lastname_contact = db.Column(db.String(42))
