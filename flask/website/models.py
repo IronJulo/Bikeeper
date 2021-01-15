@@ -18,8 +18,8 @@ class CONTACT(db.Model):
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("CONTACT", lazy="dynamic"))
 
-    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):
-        self.id_contact = id_contact
+    def __init__(self, id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact,
+                 num_device):
         self.num_contact = num_contact
         self.firstname_contact = firstname_contact
         self.lastname_contact = lastname_contact
@@ -35,6 +35,13 @@ class LOG(db.Model):
     exception_log = db.Column(db.String(160))
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("LOG", lazy="dynamic"))
+
+    def __init__(self, content_log, type_log, datetime_log, exception_log, num_device):
+        self.content_log = content_log
+        self.type_log = type_log
+        self.datetime_log = datetime_log
+        self.exception_log = exception_log
+        self.num_device = num_device
 
 
 class DEVICE(db.Model):
@@ -287,3 +294,34 @@ class ORM:
         res = session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
         db.session.commit()
         return res
+
+    @staticmethod
+    def new_contact(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):
+        CONTACT(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device)
+        db.session.commit()
+
+    @staticmethod
+    def new_log(content_log, type_log, datetime_log, exception_log, num_device):
+        LOG(content_log, type_log, datetime_log, exception_log, num_device)
+        db.session.commit()
+
+    @staticmethod
+    def new_user(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
+                 is_admin):
+        USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin)
+        db.session.commit()
+
+    @staticmethod
+    def new_device(num_device, name_device, row_parameters_device, username):
+        DEVICE(num_device, name_device, row_parameters_device, username)
+        db.session.commit()
+
+    @staticmethod
+    def new_message(is_admin_message, datetime_message, content_message, id_ticket):
+        MESSAGE(is_admin_message, datetime_message, content_message, id_ticket)
+        db.session.commit()
+
+    @staticmethod
+    def new_ticket(title_ticket, is_closed_ticket, user):
+        TICKET(title_ticket, is_closed_ticket, user)
+        db.session.commit()
