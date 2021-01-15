@@ -4,8 +4,6 @@ class PositionTraget:
 
     def __init__(self, data):
         self.data = data
-        #self.key = ""
-        #self.schema = ""
         self.long = 0
         self.lat = 0
         self.charge = False
@@ -15,12 +13,6 @@ class PositionTraget:
 
     def get_data(self):
        return self.data
-
-    #def get_key(self):
-    #    return self.key
-
-    #def get_schema(self):
-    #   return self.schema
 
     def get_long(self):
         return self.long
@@ -43,12 +35,6 @@ class PositionTraget:
     def set_data(self, data):
         self.data = data
 
-    #def set_key(self, key):
-    #    self.key = key
-
-    #def set_schema(self, schema):
-    #   self.schema = schema
-
     def set_long(self, long):
         self.long = long
 
@@ -68,8 +54,6 @@ class PositionTraget:
         self.angle = angle
 
     def auto_set(self):
-        #self.key = self.data[:4]
-        #self.schema = self.data[4]
         self.long = (Decimal(self.data[2])*1000).normalize()
         self.lat = (Decimal(self.data[3])*1000).normalize()
         if self.data[4] == "T":
@@ -90,13 +74,4 @@ class PositionTraget:
         d["speed"]=self.get_speed()
         d["angle"]=self.get_angle()
         return d
-
-str1=["[bk]","@","+0.0634356297356124","+0.01435619728643","T","036","058","236","+025"]
-test=PositionTraget(str1)
-#print(test.to_dico())
-#test.auto_set()
-#print(float(test.get_long()))
-#print(test.get_long())
-#print(test.get_lat())
-#print(test.get_lat()*1000)
 
