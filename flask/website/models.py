@@ -238,6 +238,7 @@ class ORM:
         res = session.query(func.count(TICKET.id_ticket)) \
             .filter(TICKET.is_closed_ticket == 0) \
             .first()
+        db.session.commit()
         return res[0]
 
     @staticmethod
@@ -248,6 +249,7 @@ class ORM:
         res = session.query(func.count(USER.username_user)) \
             .filter(USER.is_admin_user == 0) \
             .first()
+        db.session.commit()
         return res[0]
 
     @staticmethod
@@ -261,7 +263,7 @@ class ORM:
             .join(TICKET) \
             .filter(MESSAGE.id_ticket == ticket_id) \
             .all()
-
+        db.session.commit()
         messages = {}
 
         i = 0
@@ -286,5 +288,7 @@ class ORM:
         """
         :return: opened tickets,
         """
+
         res = session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
+        db.session.commit()
         return res

@@ -34,6 +34,7 @@ def add_bikeeper_settings_to_bd(device_id, data):
 
 @mod.route('/api/bikeeper/settings/<int:device_id>/update/<updatedData>/', methods=['POST'])
 def update_bikeeper_settings_to_bd(device_id, updated_data):
+    
     return ""
 
 
