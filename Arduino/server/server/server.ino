@@ -22,29 +22,24 @@
 
 #define mySerial Serial1
 
-//########################################
-//########################################
-#define PHONE_NUMBER "0769342048" //Put your phone number here!!
-//########################################
-//########################################
-
 #define Powerkey 12      // PIN used to  wake up shield
 #define SIM8008rate 9600 //only 9600 works... Why??
 #define STR_LENGTH 160
 
-char str[STR_LENGTH];
+// SEND VARIABLES
 char data[STR_LENGTH];
 char send_phone[9] = "0000000000";
+
+// RECEIVE VARIABLES
+char str[STR_LENGTH];
 char receive_phone[10] = "0000000000";
 char datetime[15];
 
 IUTO_SIM808 sim808(&mySerial);
-//******Program states
 
+//******Program states
 bool ledON = false;       //switch on led
-bool ledOFF = false;      //switch off led
-bool Reset = false;       // To reset by software Arduino
-bool ResetShield = false; // To reset by software ResetShield
+bool ledOFF = false;      //switch off led*
 volatile bool testSMS = false;
 volatile int seconds = 0; //make it volatile because it is used inside the interrupt
 volatile bool testSim808 = false;
@@ -126,24 +121,6 @@ void loop()
         testSMS = false;
     }
 
-    if (Reset)
-    {
-        sim808.sendSMS(PHONE_NUMBER, "Receive order to reset Arduino");
-        GG_DEBUG_PRINTLN("Receive order to reset Arduino");
-        wink(10, 100);
-        wink(10, 50);
-        resetFunc();
-    }
-
-    if (ResetShield)
-    {
-        sim808.sendSMS(PHONE_NUMBER, "Reseting sim808");
-        GG_DEBUG_PRINTLN("Receive order to reset sim808");
-        wink(10, 50);
-        ResetShield = false;
-        ResetSim808(true);
-    }
-
     if (ledON)
     {
         digitalWrite(LED_BUILTIN, HIGH);
@@ -157,7 +134,7 @@ void loop()
     }
 
 #ifdef SERVER
-    // treatinformationsfromPC();
+    treatinformationsfromPC();
 #endif
 }
 
@@ -193,8 +170,10 @@ void tryReadSMS()
         sim808.deleteAllSMS(7000); // Delete message to free memory, may be important not to saturate memory
 
         GG_DEBUG_PRINTLN("reading message");
-        GG_DEBUG_PRINTLN(str);
-        GG_DEBUG_PRINTLN(receive_phone);
+        Serial.flush();
+        Serial.print(str);
+        Serial.print(';');
+        Serial.println(receive_phone);
     }
     sim808_clean_buffer(str, sizeof(str));
 }
@@ -268,15 +247,4 @@ void ResetSim808(bool sendaSMS)
     }
 
     sim808.deleteAllSMS(10000); // Delete message to free memory, may be important not to saturate memory
-
-    wink(count++, 500);
-
-    if (sendaSMS)
-    {
-        snprintf(str, STR_LENGTH, "OK");
-        GG_DEBUG_PRINTLN("send the SMS");
-        sim808.sendSMS(PHONE_NUMBER, str);
-        sim808_clean_buffer(str, sizeof(str));
-    }
-    wink(count++, 500);
 }
