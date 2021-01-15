@@ -14,6 +14,13 @@ mod = Blueprint('api', __name__)
 
 @mod.route('/api/sms/add/<data>/', methods=['POST'])
 def send_sms_to_bd(data):
+    if data['type'] == 'alerte':
+        new_dic = jsonify(
+            longitude=data['longitude'],
+            latitude=data['latitude'],
+            alerte=data['type']
+        )
+    ORM.new_log(new_dic, data['schema'])
     return ""
 
 
@@ -34,7 +41,6 @@ def add_bikeeper_settings_to_bd(device_id, data):
 
 @mod.route('/api/bikeeper/settings/<int:device_id>/update/<updatedData>/', methods=['POST'])
 def update_bikeeper_settings_to_bd(device_id, updated_data):
-    
     return ""
 
 
