@@ -1,7 +1,7 @@
 /*
 for the arduino uno
                                              ╔═══╗                   ╔═════╗
-                                        ╔════║PWR║═══════════════════║ USB ║══╗
+                                        ╔════╣PWR╠═══════════════════╣ USB ╠══╗
                                         ║    ╚═══╝                   ╚═════╝  ║
                                         ║         GND/RST2  [ ][ ]            ║
                                         ║       MOSI2/SCK2  [ ][ ]  A5/SCL[ ] ║ 
@@ -12,13 +12,13 @@ for the arduino uno
                                         ║ [ ]IOREF                 MISO/12[ ] ║
                                         ║ [ ]RESET                 MOSI/11[ ]~║
                                         ║ [ ]3V3    ╔═══╗               10[ ]~║
-  +5V (2A) external power supply <══════║ [ ]5v    ═║ A ║═               9[ ]~║
-    Ground external power supply <══════║ [ ]GND   ═║ R ║═               8[ ] ║══════> SIM800L rx 
-                                        ║ [ ]GND   ═║ D ║═                    ║
-                                        ║ [ ]Vin   ═║ U ║═               7[ ] ║══════> SIM800L tx
-                                        ║          ═║ I ║═               6[ ]~║
-                                        ║ [ ]A0    ═║ N ║═               5[ ]~║
-                                        ║ [ ]A1    ═║ O ║═               4[ ] ║
+  +5V (2A) external power supply <══════║ [ ]5v    ═╣ A ╠═               9[ ]~║
+    Ground external power supply <══════║ [ ]GND   ═╣ R ╠═               8[ ] ║══════> SIM800L rx 
+                                        ║ [ ]GND   ═╣ D ╠═                    ║
+                                        ║ [ ]Vin   ═╣ U ╠═               7[ ] ║══════> SIM800L tx
+                                        ║          ═╣ I ╠═               6[ ]~║
+                                        ║ [ ]A0    ═╣ N ╠═               5[ ]~║
+                                        ║ [ ]A1    ═╣ O ╠═               4[ ] ║
                                         ║ [ ]A2     ╚═══╝           INT1/3[ ]~║
                                         ║ [ ]A3                     INT0/2[ ] ║══════> Interrupt pin for the "do" pin of the vibration sensor
                                         ║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
@@ -31,20 +31,25 @@ for the arduino uno
 #include "Headers/messageAlert.h"
 #include "Headers/messageTraget.h"
 #include "Headers/messageHeartbeat.h"
+#include "Headers/messageReceived.h"
 #include "Headers/location.h"
 
 //Server
 #define SERVER_PHONE_NUMBER "+33769342048"  // BiKServer number (main server) called to get user number
 
 //SIM 800L
-#include <SoftwareSerial.h>                 // Software serial is used to comunicate with the sim800L.
+
+#include <SoftwareSerial.h>                 // need to be slightly modified to have a bigger buffer (100 instead of 64)
+                                            // line 43 #define _SS_MAX_RX_BUFF 64
+                                            // will become #define _SS_MAX_RX_BUFF 100
 #define PHONE_NUMBER "+33769342048"         // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
 #define GSM_BAUDRATE 9600			        // Works because the sim800l baud rate is "hard coded" in the module.
-#define GSM_RX 7					        // Declare the SIM800L onto the pins 7, 8.
-#define GSM_TX 8					        // Declare the SIM800L onto the pins 7, 8.
+#define GSM_RX 7					        // Declare the SIM800L onto the pin 7.
+#define GSM_TX 8					        // Declare the SIM800L onto the pin 8.
 #define STR_LENGTH 160				        // SMS lenght max 160 (one sms in limited in size !).
 
 SoftwareSerial sim800l(GSM_RX, GSM_TX);     // Declare the SIM800L onto the pins 7, 8.
+char receivedData[240];
 
 
 //GPS
@@ -74,6 +79,7 @@ void setup()
 
 	//Serial communication (TODO delete every System.print(ln)();).
 	Serial.begin(9600);
+    //sim800l.println("AT+CNMI=1,2,0,0,0");
 
 
     /*
@@ -114,9 +120,33 @@ void loop()
 		interrupts();
 	}
     delay(1000);
-    
+    updateSerial();
 }
 
+void updateSerial()
+{
+  delay(500);
+  memset(receivedData, '\0', 240);
+  int cpt = 0;
+  while(sim800l.available()) 
+  {
+    receivedData[cpt] = sim800l.read();
+    cpt++;
+  }
+  Serial.println(receivedData);
+  Received_msg_t *received = (Received_msg_t*) receivedData;
+
+  Serial.print("numero : ");
+  Serial.println(received->phoneNumber);
+
+  Serial.print("message : ");
+  Serial.println(received->message);
+
+  Serial.print("date : ");
+  Serial.println(received->dateMess);
+
+
+}
 
 void
 actualizeLocation()

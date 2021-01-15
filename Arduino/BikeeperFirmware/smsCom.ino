@@ -1,6 +1,7 @@
 void 
 sendSMSTo(char* sms)
 {
+    noInterrupts();
     Serial.println("Sending SMS...");                      //TODO delete
     sim800l.print("AT+CMGF=1\r");                          //Set the module to SMS mode
     delay(1000);
@@ -10,4 +11,5 @@ sendSMSTo(char* sms)
     sim800l.print((char)26);                               // End of line char!
     sim800l.println();                                     //TODO delete
     Serial.println("Text Sent.");                          //TODO delete 
+    interrupts();
 }
