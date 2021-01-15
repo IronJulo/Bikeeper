@@ -5,59 +5,132 @@
 {% endblock style %}
 
 {% block main %}
-<div class='flex'>
-    <section class='tickets'>
-        <div>
-            <h3>Tickets</h3>
+    <div class='flex'>
+        <section class='tickets'>
+            <div>
+                <h3>Tickets</h3>
 
-            <ul class="nav">
-                {% for numero in messages.keys() %}             
-                    <li><a href="#tab{{numero}}" onclick="active(this)" class="inactive" data-toggle="tab">Ticket #{{numero}}</a></li>
-                {% endfor %}
-            </ul>
-
-            <button>Contact BiKeeper Team</button>
-        </div>
-    </section>
-
-    <section class='chat'>
-        <div class="tab-content">
-
-            {% for numero,message in messages.items() %}
-            <div id="tab{{numero}}" role="tabpanel" class="tab-pane fade in">
-                <ul>
-                    {% for _,contenu in message.items() %}
-
-                        {% if not contenu['is_admin_message'] %}
-                        <li class="replies">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                            <p>{{contenu['content']}}</p>
-                        </li>
-                        {% else %}
-                        <li class="sent">
-                            <p>{{contenu['content']}}</p>
-                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                        </li>
-                        {% endif %}
-                        
+                <ul class="nav">
+                    {% for numero in messages.keys() %}
+                        <li><a href="#tab{{ numero }}" onclick="active(this)" class="inactive" data-toggle="tab">Ticket
+                            #{{ numero }}</a></li>
                     {% endfor %}
                 </ul>
-            </div>
-            {% endfor%}
 
-        </div>
-        <div class="message-input">
-			<div class="wrap">
-                <form action="{{url_for('support.support_add_message')}}">
-                    <input type="text" name='msg' placeholder="Write your message..." />
-                    <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
-                </form>
+                <button>Contact BiKeeper Team</button>
             </div>
-		</div>
-    </section>
-</div>
+        </section>
+
+        <section class='chat'>
+            <div class="tab-content">
+
+                {% for numero,message in messages.items() %}
+                    <div id="tab{{ numero }}" role="tabpanel" class="tab-pane fade in">
+                        <ul id="messages-container">
+                        </ul>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="message-input">
+                <div class="wrap">
+                    <form action="{{ url_for('support.support_add_message') }}">
+                        <input type="text" name='msg' placeholder="Write your message..."/>
+                        <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
 {% endblock main %}
 
 
+
 {% block script %}
+    <script>
+
+        api = "http://127.0.0.1:5000/test/message/1/all"
+
+        function get(url) {
+            return new Promise((resolve, reject) => {
+                const req = new XMLHttpRequest();
+                req.open('GET', url);
+                req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
+                req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+                req.send();
+            });
+        }
+
+        function draw(message) {
+            // {content: "Bonjour de la par d'un admin", datetime_message: "11/28/2017, 23:55:59", id_ticket: 1, is_admin_message: 0}
+            var div = document.getElementById('messages-container');
+            const expr = message["is_admin_message"]
+            switch (expr) {
+                case 0:
+                     div.innerHTML +="<li class=\"replies\">"
+                     + "<p>" + message["content"] +"</p>"
+                     + "<img src=\"http://emilcarlsson.se/assets/harveyspecter.png\" alt=\"\"/>"
+                     + "</li>"
+                    break;
+                case 1:
+
+                     div.innerHTML += "<li class=\"sent\">"
+                     + "<p>" + message["content"] + "</p>"
+                     + "<img src=\"http://emilcarlsson.se/assets/mikeross.png\" alt=\"\"/>"
+                     + "</li>"
+                    break;
+                default:
+                    console.log(`Sorry, we are out of ${expr}.`);
+            }
+        }
+
+
+        let oldData = null;
+
+        $(document).ready(function () {
+            setInterval(function () {  // loop every 5 seconds
+                get(api).then((data) => {
+                    console.log("data")
+                    console.log(data)
+                    console.log("old")
+                    console.log(oldData)
+                        if (data !== oldData) { // si on doit redraw car nouveau changement
+                            console.log("New message data fetched " + data)
+                            console.log("Start rendering")
+                            console.log(data)
+                            let jsonData = null
+                            try {
+                                jsonData = JSON.parse(data);
+                                console.log(jsonData)
+                            } catch (e) {
+                                console.error("Parsing error:", e);
+                            }
+
+                            if (jsonData != null) {
+                                // clear all messages
+                                document.getElementById('messages-container').innerHTML = "";
+                                let message
+                                for (message in jsonData) {
+                                    console.log(jsonData[message])
+                                    console.log("Drawing message")
+                                    draw(jsonData[message])
+                                }
+                            }
+
+                            oldData = data
+
+                        } else {
+                            console.log("No new data fetched ")
+                            console.log("No rendering")
+                        }
+                    }
+                )
+
+            }, 3000);
+        });
+
+
+    </script>
 {% endblock script %}
