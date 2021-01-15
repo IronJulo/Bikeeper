@@ -172,8 +172,8 @@ void tryReadSMS()
         GG_DEBUG_PRINTLN("reading message");
         Serial.flush();
         Serial.print(str);
-        Serial.print(';');
         Serial.println(receive_phone);
+        Serial.print(';');
     }
     sim808_clean_buffer(str, sizeof(str));
 }

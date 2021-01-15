@@ -31,7 +31,7 @@ class AlertSend:
     def set_data(self, data):
         self.data = data
 
-    def set_type(self, arert_type):
+    def set_type(self, alert_type):
         self.type = alert_type
 
     def set_long(self, long):
