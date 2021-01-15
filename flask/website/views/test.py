@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify, request, Response
 from ..models import ORM
 from flask_mobility.decorators import mobile_template
 
@@ -83,3 +83,40 @@ def get_message_ticket(ticket_id):
     print('messages : ')
     print(res)
     return ORM.messages_to_json(res)
+
+
+"""
+For unittest only 
+"""
+
+
+@mod.route("/test/api/users/number/test", methods=["GET"])
+def get_user_number_test():
+    """
+    return : users count
+    """
+
+    return jsonify(
+        number_of_user=5
+    )
+
+
+@mod.route("/test/api/ticket/number/test", methods=["GET"])
+def get_ticket_number_test():
+    """
+    return : users count
+    """
+
+    return jsonify(
+        tickets=5
+    )
+
+
+@mod.route("/test/api/users/send/test", methods=["POST"])
+def sumbit_data_test():
+    """
+    return : users count
+    """
+    data = request.stream.read()
+    print(data)
+    return Response(status=201, mimetype='application/json')
