@@ -3,10 +3,13 @@ from flask import (
     render_template,
     session,
     redirect,
-    url_for
+    url_for,
+    request
 )
-from ..models import ORM
+from ..app import db
+from ..models import ORM, TICKET, USER
 from flask_mobility.decorators import mobile_template
+from flask_login import login_required, current_user
 
 mod = Blueprint('support', __name__)
 
@@ -25,6 +28,20 @@ def support():
 @mod.route('/support/add/message', methods=['GET'])
 def support_add_message():
     return render_template("support.html")
+
+
+@mod.route('/support/ticket/new', methods=['GET','POST'])
+def support_new_ticket():
+    title = request.form.get('ticket')
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
+    user = current_user.username_user
+    print(current_user.username_user)
+    ticket = TICKET(title,0,user)
+    db.session.add(ticket)
+    db.session.commit()
+    return redirect(url_for('support.support'))
+
 
 @mod.route('/support/<int:admin_id>/tickets/all', methods=['GET'])
 def get_tickets_admin_by_id(admin_id):
