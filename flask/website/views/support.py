@@ -25,7 +25,6 @@ def support():
         if len(open_tickets_user) != 0:
             for ticket in open_tickets_user:
                 messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
-
     else:
         open_tickets = ORM.get_open_ticket()
         for ticket in open_tickets:
@@ -34,7 +33,7 @@ def support():
     return render_template(
         "support.html",
         messages = messages,
-        picture = ORM.get_picture__message_from_username(current_user.username_user),
+        picture = ORM.get_picture_message_from_username(current_user.username_user),
     )
 
 @mod.route('/support/message/new', methods=['POST'])

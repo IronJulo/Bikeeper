@@ -176,6 +176,7 @@ section.chat ul li {
     display: flex;
     padding: 1.4em;
     padding-top: 1em;
+    align-items: center;
 }
 
 section.chat ul li:last-child {
@@ -186,10 +187,20 @@ section.chat ul li.sent {
     align-self: flex-end;
 }
 
+section.chat ul li.sent div {
+    display: flex;
+    flex-direction: column;
+}
+
+section.chat ul li.sent span {
+    margin-right: 2em;
+    align-self: flex-end;
+}
+
 section.chat ul li.sent img {
     border-radius: 20em;
-    width: 40px;
-    height: auto;
+    height: 50px;
+    width: auto;
 }
 
 section.chat ul li.sent p {
@@ -203,10 +214,19 @@ section.chat ul li.sent p {
     border-radius: 2em;
 }
 
+section.chat ul li.replies div {
+    display: flex;
+    flex-direction: column;
+}
+
+section.chat ul li.replies span {
+    margin-left: 2em;
+}
+
 section.chat ul li.replies img {
     border-radius: 20em;
-    width: 40px;
-    height: auto;
+    height: 50px;
+    width: auto;
 }
 
 section.chat ul li.replies p {
