@@ -115,5 +115,6 @@ def sumbit_data_test():
     """
     return : users count
     """
-    data = request.stream.read()
+    content = request.get_json()
+    print(content)
     return Response(status=201, mimetype='application/json')
