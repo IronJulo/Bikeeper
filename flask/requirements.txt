@@ -14,9 +14,9 @@ distlib==0.3.0
 distro==1.4.0
 Flask==1.1.2
 Flask-Cors==3.0.10
+Flask-Mobility==1.1.0
 Flask-DebugToolbar==0.11.0
 Flask-Login==0.5.0
-Flask-Mobility==1.1.0
 flask-restplus==0.13.0
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
@@ -57,5 +57,6 @@ typing-extensions==3.7.4.3
 urllib3==1.25.8
 validators==0.18.2
 webencodings==0.5.1
-Werkzeug==0.16.0
+Werkzeug==1.0.1
+PyMySQL==0.10.1
 WTForms==2.3.3
