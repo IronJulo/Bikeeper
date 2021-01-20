@@ -1,15 +1,35 @@
-import click
-from .app import app, db
-from rich.console import Console
-from rich.progress import track
+"""
+This module handle command.
+Loaddb command to create and insert data into database
+"""
 import datetime
-from .models import USER, MESSAGE, TICKET, DEVICE
 from hashlib import sha256
+import yaml
+from rich.console import Console
+from rich.progress import (
+    track,
+    BarColumn,
+    TextColumn,
+    TimeRemainingColumn,
+    Progress,
+)
+
+from .app import app, db
+from .models import USER, MESSAGE, TICKET, DEVICE
+
+progress = Progress(
+    TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
+    BarColumn(bar_width=None),
+    "[progress.percentage]{task.percentage:>3.1f}%",
+    "•",
+    TimeRemainingColumn(),
+)
 
 
-@app.cli.command()
-def loaddb():
-    console = Console()
+def create_tables(console: Console):
+    """
+    Create tables
+    """
     tasks = ["Database BIKEEPER"]
 
     with console.status("[bold green]Creating Database...") as status:
@@ -19,178 +39,127 @@ def loaddb():
             db.create_all()
             console.log(f"{task} created")
 
-    to_import = []
 
-    m = sha256()
-    m.update("admin".encode())
-    to_import.append(USER(
-        username="admin",
-        password=m.hexdigest(),
-        num="0781546427",
-        firstname="John",
-        lastname="Doe",
-        email="johndoe@gmail.com",
-        town="Bourges",
-        postal_code="18110",
-        street="167 rue des coquelicots",
-        profile_picture="https://eu.ui-avatars.com/api/?name=admin",
-        is_admin=True))
+def decode_datetime(datetime_str: str) -> datetime:
+    """
+    Convert string representation of python to datetime
+    """
+    times = datetime_str.strip("datetime.datetime()").split(",")
+    year = int(times[0])
+    month = int(times[1])
+    day = int(times[2])
+    hour = int(times[3])
+    minute = int(times[4])
+    second = int(times[5])
+    microsecond = int(times[6])
 
-    m = sha256()
-    m.update("admin2".encode())
-    to_import.append(USER(
-        username="admin2",
-        password=m.hexdigest(),
-        num="0654321012",
-        firstname="Michel",
-        lastname="Dupon",
-        email="micheldupon@gmail.com",
-        town="Lille",
-        postal_code="59350",
-        street="48 rue des coquelicots",
-        profile_picture="https://eu.ui-avatars.com/api/?name=admin2",
-        is_admin=True))
+    return datetime.datetime(year, month, day, hour, minute, second, microsecond)
 
-    m = sha256()
-    m.update("user1".encode())
-    user1 = USER(
-        username="user1",
-        password=m.hexdigest(),
-        num="0789101112",
-        firstname="Luffy",
-        lastname="Monkey D",
-        email="mugiwara@gmail.com",
-        town="Mont Corvo",
-        postal_code="45000",
-        street="5 rue du roi des pirates",
-        profile_picture="https://yt3.ggpht.com/ytc/AAUvwnhaEBIWRCum_FhM08TUczLBY0I5W5wyWH_sSi6pxg=s900-c-k-c0x00ffffff-no-rj",
-        is_admin=False)
-    to_import.append(user1)
 
-    m = sha256()
-    m.update("user2".encode())
-    user2 = USER(
-        username="user2",
-        password=m.hexdigest(),
-        num="0789101162",
-        firstname="Nami",
-        lastname="LOL",
-        email="mugiwara.nami@gmail.com",
-        town="Mont Corvo",
-        postal_code="45000",
-        street="5 rue du roi des voleurs",
-        profile_picture="https://eu.ui-avatars.com/api/?name=user2",
-        is_admin=False)
-    to_import.append(user2)
+def insert_user(user_to_add):
+    """
+    Add user to database
+    :params: user
+    """
+    user_to_add = user_to_add["user"]
 
-    m = sha256()
-    m.update("user3".encode())
-    user3 = USER(
-        username="user3",
-        password=m.hexdigest(),
-        num="0789101162",
-        firstname="Nice",
-        lastname="Guy",
-        email="oicegenerator@gmail.com",
-        town="Mont Corvo",
-        postal_code="45000",
-        street="69 rue des 420",
-        profile_picture="https://eu.ui-avatars.com/api/?name=user3",
-        is_admin=False)
+    username = user_to_add["username"]
+    num = user_to_add["num"]
+    firstname = user_to_add["firstname"]
+    lastname = user_to_add["lastname"]
+    email = user_to_add["email"]
+    town = user_to_add["town"]
+    postal_code = user_to_add["postal_code"]
+    street = user_to_add["street"]
+    profile_picture = user_to_add["profile_picture"]
+    is_admin = user_to_add["is_admin"]
 
-    to_import.append(user3)
-    # création de messages
-    t1 = TICKET("ticket message 1", 0, "user1")
-    to_import.append(t1)
-    to_import.append(MESSAGE(
+    password = sha256()
+    password.update(username.encode())  # taking username as password to test
 
-        is_admin_message=0,
-        datetime_message=datetime.datetime(2017, 11, 28, 23, 55, 59, 342380),
-        content_message="Bonjour",
-        id_ticket="1",
-        username_user="user1"))
+    db.session.add(USER(username, password.hexdigest(), num, firstname, lastname, email, town,
+                        postal_code, street, profile_picture, is_admin))
 
-    to_import.append(MESSAGE(
-        is_admin_message=1,
-        datetime_message=datetime.datetime(2017, 11, 28, 23, 56, 59, 342380),
-        content_message="Salut je suis un admin",
-        id_ticket="1",
-        username_user="admin"))
 
-    to_import.append(MESSAGE(
-        is_admin_message=0,
-        datetime_message=datetime.datetime(2017, 11, 28, 23, 57, 59, 342380),
-        content_message="OK pouvez vous m'aider ?",
-        id_ticket="1",
-        username_user="user1"))
+def insert_ticket(ticket_to_add):
+    """
+    Add ticket to database
+    :params: ticket
+    """
+    ticket_to_add = ticket_to_add["ticket"]
+    title_ticket = ticket_to_add["title_ticket"]
+    is_closed_ticket = ticket_to_add["is_closed_ticket"]
+    user = ticket_to_add["user"]
 
-    t2 = TICKET("ticket message 2", 0, "user2")
-    to_import.append(t2)
-    to_import.append(MESSAGE(
+    db.session.add(TICKET(title_ticket, is_closed_ticket, user))
 
-        is_admin_message=1,
-        datetime_message=datetime.datetime(2015, 8, 23, 10, 55, 9, 342380),
-        content_message="Salut bro",
-        id_ticket="2",
-        username_user="admin"))
 
-    t3 = TICKET("ticket message 3", 1, "admin")
-    to_import.append(t3)
-    to_import.append(MESSAGE(
+def insert_message(message_to_add):
+    """
+    Add message to database
+    :params: message
+    """
+    print(message_to_add)
+    message_to_add = message_to_add["message"]
 
-        is_admin_message=0,
-        datetime_message=datetime.datetime(2021, 11, 22, 14, 12, 8, 300080),
-        content_message="Test message, ceci est un message test",
-        id_ticket="3",
-        username_user="user1"))
+    is_admin_message = message_to_add["is_admin_message"]
+    datetime_message = decode_datetime(message_to_add["datetime_message"])
 
-    t4 = TICKET("ticket message 4", 1, "user3")
-    to_import.append(t4)
-    to_import.append(MESSAGE(
+    content_message = message_to_add["content_message"]
+    id_ticket = message_to_add["id_ticket"]
+    username_user = message_to_add["username_user"]
 
-        is_admin_message=1,
-        datetime_message=datetime.datetime(2020, 12, 31, 23, 59, 59, 300080),
-        content_message="Bonne année 2021",
-        id_ticket="4",
-        username_user="admin"))
+    db.session.add(MESSAGE(
+        is_admin_message,
+        datetime_message,
+        content_message,
+        id_ticket,
+        username_user))
 
-    t5 = TICKET("ticket message 4", 1, "user3")
-    to_import.append(t5)
-    to_import.append(MESSAGE(
-        is_admin_message=1,
-        datetime_message=datetime.datetime(1989, 9, 30, 23, 59, 59, 300080),
-        content_message="Wtf les mecs je viens d'inventé internet",
-        id_ticket="5",
-        username_user="admin"))
 
-    device1 = DEVICE(
-        num_device="0769342048",
-        name_device="JuleBrossier",
-        row_parameters_device="",
-        user="user1",
+def insert_device(device_to_add):
+    """
+    Add device to database
+    :params: device
+    """
+    device_to_add = device_to_add["device"]
+    num_device = device_to_add["num_device"]
+    name_device = device_to_add["name_device"]
+    row_parameters_device = device_to_add["row_parameters_device"]
+    user = device_to_add["user"]
+    db.session.add(DEVICE(num_device, name_device, row_parameters_device, user))
 
-    )
 
-    device2 = DEVICE(
-        num_device="0781546427",
-        name_device="DorianHardy",
-        row_parameters_device="",
-        user="user2",
+def import_data(filename: str):
+    """
+    Load data in yml file into database
+    :params: filename, filename of data
+    """
 
-    )
+    def switch(case):
+        return {"users": insert_user,
+                "device": insert_device,
+                "messages": insert_message,
+                "tickets": insert_ticket
+                }.get(case)
 
-    device3 = DEVICE(
-        num_device="0664277796",
-        name_device="Andrew",
-        row_parameters_device="",
-        user="user3",
+    with open(filename) as file:
+        documents = yaml.full_load(file)
 
-    )
-    to_import.append(device1)
-    to_import.append(device2)
-    to_import.append(device3)
+        for item, doc in documents.items():
+            print("Importing : " + item)
 
-    for obj in track(to_import):
-        db.session.add(obj)
+            for elem in track(doc):
+                switch(item)(elem)
+
+
+@app.cli.command()
+def loaddb():
+    """
+    Create all tables and insert data in database.
+    """
+    console = Console()
+    create_tables(console)
+    import_data("data.yml")
 
     db.session.commit()

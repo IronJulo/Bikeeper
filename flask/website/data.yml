@@ -1,0 +1,157 @@
+# This file describe data insertion during database creation
+
+# Users
+users:
+  - user:
+      "username": "user1"
+      "num": "0789101112"
+      "firstname": "Luffy"
+      "lastname": "Monkey D"
+      "email": "mugiwara@gmail.com"
+      "town": "Mont Corvo"
+      "postal_code": "45000"
+      "street": "5 rue du roi des pirates"
+      "profile_picture": "https://assets.change.org/photos/9/xm/ov/HuXMoVlIDzauXCp-800x450-noPad.jpg?1562964866"
+      "is_admin": False
+  - user:
+      "username": "user2"
+      "num": "0789101162"
+      "firstname": "Nami"
+      "lastname": "LOL"
+      "email": "mugiwara.nami@gmail.com"
+      "town": "Mont Corvo"
+      "postal_code": "45000"
+      "street": "5 rue du roi des voleurs"
+      "profile_picture": "https://i.pinimg.com/originals/b9/cb/0c/b9cb0c0ef9d2b8f1dee686dcb24bc9d2.jpg"
+      "is_admin": False
+  - user:
+      "username": "user3"
+      "num": "0789101162"
+      "firstname": "Nice"
+      "lastname": "Guy"
+      "email": "oicegenerator@gmail.com"
+      "town": "Mont Corvo"
+      "postal_code": "45000"
+      "street": "69 rue des 420"
+      "profile_picture": "https://eu.ui-avatars.com/api/?name:user3"
+      "is_admin": False
+
+  - user:
+      "username": "admin"
+      "num": "0781546427"
+      "firstname": "John"
+      "lastname": "Doe"
+      "email": "johndoe@gmail.com"
+      "town": "Bourges"
+      "postal_code": "18110"
+      "street": "167 rue des coquelicots"
+      "profile_picture": "https://eu.ui-avatars.com/api/?name:admin"
+      "is_admin": True
+
+  - user:
+      "username": "admin2"
+      "num": "0654321012"
+      "firstname": "Michel"
+      "lastname": "Dupon"
+      "email": "micheldupon@gmail.com"
+      "town": "Lille"
+      "postal_code": "59350"
+      "street": "48 rue des coquelicots"
+      "profile_picture": "https://eu.ui-avatars.com/api/?name:admin2"
+      "is_admin": True
+
+# Tickets
+tickets:
+  - ticket:
+      "title_ticket": "ticket message 1"
+      "is_closed_ticket": 0
+      "user": "user1"
+  - ticket:
+      "title_ticket": "ticket message 2"
+      "is_closed_ticket": 0
+      "user": "user2"
+  - ticket:
+      "title_ticket": "ticket message 3"
+      "is_closed_ticket": 1
+      "user": "admin"
+  - ticket:
+      "title_ticket": "ticket message 4"
+      "is_closed_ticket": 1
+      "user": "user3"
+  - ticket:
+      "title_ticket": "ticket message 5"
+      "is_closed_ticket": 1
+      "user": "user3"
+
+# Messages, please add ticket before
+messages:
+  - message:
+     "is_admin_message": 0
+     "datetime_message": "datetime.datetime(2017, 11, 28, 23, 55, 59, 342380)"
+     "content_message": "Bonjour"
+     "id_ticket": "1"
+     "username_user": "user1"
+
+  - message:
+     "is_admin_message": 1
+     "datetime_message": "datetime.datetime(2017, 11, 28, 23, 56, 59, 342380)"
+     "content_message": "Salut je suis un admin"
+     "id_ticket": "1"
+     "username_user": "admin"
+
+  - message:
+     "is_admin_message": 0
+     "datetime_message": "datetime.datetime(2017, 11, 28, 23, 57, 59, 342380)"
+     "content_message": "OK pouvez vous m'aider ?"
+     "id_ticket": "1"
+     "username_user": "user1"
+
+  - message:
+     "is_admin_message": 1
+     "datetime_message": "datetime.datetime(2015, 8, 23, 10, 55, 9, 342380)"
+     "content_message": "Salut bro"
+     "id_ticket": "2"
+     "username_user": "admin"
+
+  - message:
+     "is_admin_message": 0
+     "datetime_message": "datetime.datetime(2021, 11, 22, 14, 12, 8, 300080)"
+     "content_message": "Test message, ceci est un message test"
+     "id_ticket": "3"
+     "username_user": "user1"
+
+  - message:
+     "is_admin_message": 1
+     "datetime_message": "datetime.datetime(2020, 12, 31, 23, 59, 59, 300080)"
+     "content_message": "Bonne année 2021"
+     "id_ticket": "4"
+     "username_user": "admin"
+
+  - message:
+     "is_admin_message": 1
+     "datetime_message": "datetime.datetime(1989, 9, 30, 23, 59, 59, 300080)"
+     "content_message": "Wtf les mecs je viens d'inventé internet"
+     "id_ticket": "5"
+     "username_user": "admin"
+
+# Devices, please add user before
+device:
+
+  - device:
+      "num_device": "0769342048"
+      "name_device": "JuleBrossier"
+      "row_parameters_device": ""
+      "user": "user1"
+
+
+  - device:
+      "num_device": "0781546427"
+      "name_device": "DorianHardy"
+      "row_parameters_device": ""
+      "user": "user2"
+
+  - device:
+     "num_device": "0664277796"
+     "name_device": "Andrew"
+     "row_parameters_device": ""
+     "user": "user3"
