@@ -111,8 +111,7 @@ void loop()
 		interrupts();                                           // Activate interrupt
 	    }
     }
-    
-    delay(1000);
+
     if (message("+CMTI:", 1000, 1))                             // If new message available 
     {
         LireSMS();                                              // Read SMS
@@ -124,6 +123,9 @@ void loop()
     Serial.println(parked);
     Serial.print("bike journey state : ");
     Serial.println(journey);
+    
+    sim800l.println("AT+CMGD=1,1");
+    message("OK", 1000, 0);
 
 }
 

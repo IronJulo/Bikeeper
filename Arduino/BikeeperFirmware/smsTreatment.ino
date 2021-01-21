@@ -23,15 +23,34 @@ void treatSMS(String answer)
         {
             answer.toLowerCase();
             int messageIndex = answer.indexOf("park");
-            String commandReceived = answer.substring(messageIndex, messageIndex + 4);
-            Serial.print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*:");
-            Serial.print("the index :");
-            Serial.println(messageIndex);
-            Serial.print("the word :");
-            Serial.println(messageIndex);
-            if (messageIndex >= 0)
+            String commandReceived = answer.substring(74, answer.length() - 5);                           //74 is the lenght of the data before the actual sms
+            commandReceived.trim();
+            //commandReceived.replace(String(char(10)), "");
+            //commandReceived.replace(String(char(13)), "");
+            Serial.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+            Serial.println(commandReceived == "park");
+            Serial.println(commandReceived.length());
+            Serial.println(commandReceived);
+
+            if (commandReceived != "")
             {
-                if (messageIndex == 74)
+                if (commandReceived == "unpark")
+                {
+                    if (parked)
+                    {
+                        sendSMSTo(userPhoneNumber, "Your Bike is now unparked");
+                        message("OK", 1000, 0);
+                        parked = false;
+                    }
+                    else
+                    {
+                        sendSMSTo(userPhoneNumber, "Your Bike is not parked");
+                        message("OK", 1000, 0);
+                        parked = true;
+                    }
+                }
+
+                if (commandReceived == "park")
                 {
                     if (!parked)
                     {
@@ -55,25 +74,7 @@ void treatSMS(String answer)
                         message("OK", 1000, 0);
                     }
                 }
-                messageIndex = answer.indexOf("unpark"); // Get the index if exist of the string "park"
-                if (messageIndex == 74)
-                {
-                    if (parked)
-                    {
-                        sendSMSTo(userPhoneNumber, "Your Bike is now parked");
-                        message("OK", 1000, 0);
-                        parked = false;
-                    }
-                    else
-                    {
-                        sendSMSTo(userPhoneNumber, "Your Bike is not parked");
-                        message("OK", 1000, 0);
-                        parked = true;
-                    }
-                }
-
-                messageIndex = answer.indexOf("start"); // Get the index if exist of the string "start"
-                if (messageIndex == 74)
+                if (commandReceived == "start")
                 {
                     if (journey)
                     {
@@ -84,7 +85,7 @@ void treatSMS(String answer)
                     {
                         if (parked)
                         {
-                            sendSMSTo(userPhoneNumber, "You have started your journey and your bike is no unparked ride safe");
+                            sendSMSTo(userPhoneNumber, "You have started your journey and your bike is now unparked ride safe");
                             message("OK", 1000, 0);
                             journey = true;
                             parked = false;
@@ -98,8 +99,7 @@ void treatSMS(String answer)
                     }
                 }
 
-                messageIndex = answer.indexOf("stop"); // Get the index if exist of the string "start"
-                if (messageIndex == 74)
+                if (commandReceived == "stop")
                 {
                     if (journey)
                     {

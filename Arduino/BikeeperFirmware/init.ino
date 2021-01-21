@@ -12,6 +12,6 @@ initCard(){
             LireSMS();                                                  // Si nouveau SMS disponible SIM800 envoie +CMTI:
         }
     }
-    sim800l.println("AT+CMGD=1,4");
+    sim800l.println("AT+CMGD=1,1");
     message("OK", 2000, 0);
 }

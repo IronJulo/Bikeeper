@@ -34,11 +34,9 @@ void LireSMS()
     answer[phoneIndex] = 'a';                                             // Replace the first phone number "+" by a to get the next
     Serial.print("sender phone number : ");                               // TODO delete
     Serial.println(senderPhoneNumber);                                    // TODO delete
-    
+
     treatSMS(answer);
 
-    sim800l.println("AT+CMGD=1,4");
-    message("OK", 1000, 0);
 }
 
 boolean message(String attente, unsigned int timeout, boolean affiche)
