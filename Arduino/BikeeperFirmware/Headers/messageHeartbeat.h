@@ -68,7 +68,7 @@ struct Heartbeat_msg_t
         _separator2(';'),
         lat(),
         _separator3(';'),
-        charging(charging ? 't': 'f'),
+        charging(charging ? 'T': 'F'),
         _separator4(';'),
         batteryLevel(),
         _separator5(';'),

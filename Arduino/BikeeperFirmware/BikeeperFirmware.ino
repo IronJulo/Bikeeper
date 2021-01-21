@@ -29,7 +29,7 @@ for the arduino uno
 */
 #include "Headers/messageHeader.h"
 #include "Headers/messageAlert.h"
-#include "Headers/messageTraget.h"
+#include "Headers/messageTrajet.h"
 #include "Headers/messageHeartbeat.h"
 #include "Headers/messageReceived.h"
 #include "Headers/location.h"
@@ -38,18 +38,19 @@ for the arduino uno
 #define SERVER_PHONE_NUMBER "+33769342048"  // BiKServer number (main server) called to get user number
 
 //SIM 800L
-
 #include <SoftwareSerial.h>                 // need to be slightly modified to have a bigger buffer (100 instead of 64)
                                             // line 43 #define _SS_MAX_RX_BUFF 64
                                             // will become #define _SS_MAX_RX_BUFF 100
-#define PHONE_NUMBER "+33769342048"         // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
+String userPhoneNumber;                     // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
 #define GSM_BAUDRATE 9600			        // Works because the sim800l baud rate is "hard coded" in the module.
 #define GSM_RX 7					        // Declare the SIM800L onto the pin 7.
 #define GSM_TX 8					        // Declare the SIM800L onto the pin 8.
 #define STR_LENGTH 160				        // SMS lenght max 160 (one sms in limited in size !).
 
 SoftwareSerial sim800l(GSM_RX, GSM_TX);     // Declare the SIM800L onto the pins 7, 8.
-char receivedData[240];
+
+String answer, senderPhoneNumber, SMS;
+unsigned long t0;
 
 
 //GPS
@@ -69,44 +70,36 @@ int bikeBatteryLevel = 0;
 
 bool isBatteryCharging = false;
 
+
+//State
+
+bool parked = false;
+bool journey = false;
+
 void setup()
 {
+    Serial.begin(9600);
+    
 	//SIM 800L
 	sim800l.begin(9600);
-
+    
 	//Vibration sensor
 	attachInterrupt(0, vibartionDetected, RISING); // Interrupt for the vibration detector (RISING because the detector emmit ~3.5V for 10 ms).
+    initCard();
 
-	//Serial communication (TODO delete every System.print(ln)();).
-	Serial.begin(9600);
-    //sim800l.println("AT+CNMI=1,2,0,0,0");
-
-
-    /*
-    Serial.begin(9600);
-    Alert_msg_t alert_msg('V', -1.696969424269426942, 0.62115454426656874545216532, true, 42, 69);
-    Serial.println("alert  message : ");
-    Serial.println((char*) &alert_msg);
-    
-    Traget_msg_t traget_msg(-1.696969424269426942, 0.62115454426656874545216532, true, 42, 69, 150, 90);
-    Serial.println("traget message : ");
-    Serial.println((char*) &traget_msg);
-
-    Heartbeat_msg_t heartbeat_msg(-1.696969424269426942, 0.62115454426656874545216532, true, 42, 69);
-    Serial.println("traget message : ");
-    Serial.println((char*) &heartbeat_msg);*/
 }
 
 void loop()
 {
-    if (vibartion)
-	{
-		noInterrupts();
+    if (parked){                                                // Only detect vibration if we arer parked
+    if (vibartion)                                              // Vibration detected
+	    {
+		noInterrupts();                                         // Stop interrupt
 		vibartion = false;
-        actualizeLocation();
-        actualizeDeviceBattery();
-        actualizeBikeBattery();
-		Alert_msg_t alert_msg(
+        actualizeLocation();                                    // Actualise the localisation 
+        actualizeDeviceBattery();                               // Actualise the device battery 
+        actualizeBikeBattery();                                 // Actualise the bike battery 
+		Alert_msg_t alert_msg(                                  // Set the data
             VIBRATION,
             location.longitude,
             location.latitude,
@@ -114,37 +107,23 @@ void loop()
             deviceBatteryLevel,
             bikeBatteryLevel
             );
-
-            Serial.println((char*) &alert_msg);
-            sendSMSTo((char*) &alert_msg);
-		interrupts();
-	}
+            sendSMSTo(userPhoneNumber, (char*) &alert_msg);     // Use the Struct fo the char[] 
+		interrupts();                                           // Activate interrupt
+	    }
+    }
+    
     delay(1000);
-    updateSerial();
-}
+    if (message("+CMTI:", 1000, 1))                             // If new message available 
+    {
+        LireSMS();                                              // Read SMS
+    }
 
-void updateSerial()
-{
-  delay(500);
-  memset(receivedData, '\0', 240);
-  int cpt = 0;
-  while(sim800l.available()) 
-  {
-    receivedData[cpt] = sim800l.read();
-    cpt++;
-  }
-  Serial.println(receivedData);
-  Received_msg_t *received = (Received_msg_t*) receivedData;
-
-  Serial.print("numero : ");
-  Serial.println(received->phoneNumber);
-
-  Serial.print("message : ");
-  Serial.println(received->message);
-
-  Serial.print("date : ");
-  Serial.println(received->dateMess);
-
+    Serial.print("user phone number : ");
+    Serial.println(userPhoneNumber);
+    Serial.print("bike park state : ");
+    Serial.println(parked);
+    Serial.print("bike journey state : ");
+    Serial.println(journey);
 
 }
 

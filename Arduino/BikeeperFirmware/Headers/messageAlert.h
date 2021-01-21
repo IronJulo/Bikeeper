@@ -68,7 +68,7 @@ struct Alert_msg_t
         _separator3(';'),
         lat(),
         _separator4(';'),
-        charging(charging ? 't': 'f'),
+        charging(charging ? 'T': 'F'),
         _separator5(';'),
         batteryLevel(),
         _separator6(';'),

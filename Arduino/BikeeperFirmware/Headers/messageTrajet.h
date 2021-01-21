@@ -1,43 +1,40 @@
-#ifndef MESSAGES_TRAGET_H
-#define MESSAGES_TRAGET_H
+#ifndef MESSAGES_TRAJET_H
+#define MESSAGES_TRAJET_H
 #include "messageHeader.h"
 #include "storer.h"
 
 /**
- * @file messageAlert.h
+ * @file messageTrajet.h
  */
 
-/** @struct message Alert
- * This struct is an message (an alert message)
+/** @struct message Trajet
+ * This struct is an message (for the Trajet heartbeat)
  * 
- * @var Alert_msg_t::header
+ * @var Traget_msg_t::header
  *      the message header
  * 
- * @var Alert_msg_t::_separator1-7
+ * @var Traget_msg_t::_separator1-7
  *      the separators ";"
- * 
- * @var Alert_msg_t::schema
- *      the schema (to decode afterward in python)
- * 
- * @var Alert_msg_t::lon[19]
+ *
+ * @var Traget_msg_t::lon[19]
  *      the longitude
  * 
- * @var Alert_msg_t::lat[17]
+ * @var Traget_msg_t::lat[17]
  *      the latitude
  * 
- * @var Alert_msg_t::charging
+ * @var Traget_msg_t::charging
  *      T/F if the batt is charging
  * 
- * @var Alert_msg_t::batteryLevel[3]
+ * @var Traget_msg_t::batteryLevel[3]
  *      the percent of charging of the battery 
  * 
- * @var Alert_msg_t::bikeBatteryLevel[3]
+ * @var Traget_msg_t::bikeBatteryLevel[3]
  *      the percent of charging of the bike battery
  * 
- * @var Alert_msg_t::speed[3]
+ * @var Traget_msg_t::speed[3]
  *      the speed of the bike
  * 
- * @var Alert_msg_t::angle[4]
+ * @var Traget_msg_t::angle[4]
  *      the speed of the bike
  */     
 
@@ -61,7 +58,7 @@ struct Traget_msg_t
     char _separator8;
 	char _end;
     /**
-     * Create the struct struct 
+     * Create the struct 
      * 
      */
     Traget_msg_t(double lon, double lat, bool charging, int batteryLevel, int bikeBatteryLevel, int speed, int angle):
@@ -71,7 +68,7 @@ struct Traget_msg_t
         _separator2(';'),
         lat(),
         _separator3(';'),
-        charging(charging ? 't': 'f'),
+        charging(charging ? 'T': 'F'),
         _separator4(';'),
         batteryLevel(),
         _separator5(';'),
