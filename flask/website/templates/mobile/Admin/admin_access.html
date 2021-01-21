@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
-   <head>
-        <meta charset="UTF-8">
-        
-        <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
-        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_access.css') }}">
 
-        <title>BiKeeper</title>
-    </head>
-    <body>
-        <div class="main">
-            <a href = "{{ url_for('home.home') }}"><img class="close_button" src = "{{ url_for('static', filename = 'mobile/assets/off_outline_close.svg') }}" alt = "Retour à l'accueil"></a>
-            <div class="info-border">
-                <p>
-                    Hello administrator !
-                    <br>
-                    Your resolution is too low to access Administration Pannel !
-                    <br>
-                    Feel safe with BiKeeper !
-                </p>
-            </div>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_access.css') }}">
+
+    <title>BiKeeper</title>
+</head>
+
+<body>
+    <div class="main">
+        <a href="{{ url_for('home.home') }}"><img class="close_button" src="{{ url_for('static', filename = 'mobile/assets/off_outline_close.svg') }}" alt="Retour à l'accueil"></a>
+        <div class="info-border">
+            <p>
+                Hello administrator !
+                <br> Your resolution is too low to access Administration Pannel !
+                <br> Feel safe with BiKeeper !
+            </p>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

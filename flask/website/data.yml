@@ -35,6 +35,17 @@ users:
       "street": "69 rue des 420"
       "profile_picture": "https://eu.ui-avatars.com/api/?name:user3"
       "is_admin": False
+  - user:
+      "username": "user4"
+      "num": "0785101162"
+      "firstname": "sdsd"
+      "lastname": "sdsd"
+      "email": "sdsd@gmail.com"
+      "town": "Mont sd"
+      "postal_code": "45000"
+      "street": "69 rue des 420"
+      "profile_picture": "https://eu.ui-avatars.com/api/?name:user3"
+      "is_admin": False
 
   - user:
       "username": "admin"

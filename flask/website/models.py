@@ -295,6 +295,18 @@ class ORM:
         return res[0]
 
     @staticmethod
+    def get_number_of_bikeeper():
+        """
+        :return: number of Bikeepers,
+        """
+        res = session.query(func.count(DEVICE.num_device)) \
+            .first()
+        print("Bikeepers : ")
+        print(res[0])
+        db.session.commit()
+        return res[0]
+
+    @staticmethod
     def get_message_by_ticket_id(ticket_id):
         """
         :params : ticket_id

@@ -1,0 +1,51 @@
+<div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+    <img src="{{ url_for('static', filename='mobile/assets/close.png') }}" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
+
+    <!-- Overlay content -->
+    <div class="container">
+        <a href="/mob/home/">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Vector.svg') }}" alt="vector"></div>
+                <div class="col-10">Home</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="/mob/statistic/">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/graphicon1.svg') }}" alt="stat"></div>
+                <div class="col-10">Statistics</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
+                <div class="col-10">Settings</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="/mob/support/">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/support.svg') }}" alt="support"></div>
+                <div class="col-10">Support</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></div>
+                <div class="col-10">Disconnect</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="/mob/localisation/">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
+                <div class="col-10">Device</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+    </div>
+</div>

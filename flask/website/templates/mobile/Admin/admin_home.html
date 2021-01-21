@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html>
-   <head>
-        <meta charset="UTF-8">
-        
-        <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
-        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_home.css') }}">
 
-        <title>BiKeeper</title>
-    </head>
-    <body>
-    	<header>
-    		<div>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_home.css') }}">
+
+    <title>BiKeeper</title>
+</head>
+
+<body>
+    <header>
+        <div>
             <img class="logo" src="{{ url_for('static', filename = 'mobile/assets/logo transparent 1.svg') }}" alt="logo BiKeeper">
             <span>BiKeeper</span>
-        	</div>
-        	<a href="{{ url_for('admin.humberger_overlay_connected_admin') }}"> <img class="hamburger" src="{{ url_for('static', filename = 'mobile/assets/hamburger.svg') }}" alt="option"></a>
-    	</header>
-        <div class="main">
-        	<h2>Welcome Administrator !</h2>
-            <div class="list-info">
-				<ul class="list">
-					<li class="user"><p> {{ nb_users }} users </p><img class="img_user" src="{{ url_for('static', filename = 'mobile/assets/user.svg') }}" alt="user"></li>
-					<li class="data"><p> {{ tt_data }} Mb </p><img class="img_data" src="{{ url_for('static', filename = 'mobile/assets/data.svg') }}" alt="data"></li>
-					<li class="mail"><p> {{ nb_ticket }} tickets </p><img class="img_mail" src="{{ url_for('static', filename = 'mobile/assets/mail.svg') }}" alt="mail"></li>
-					<li class="new"><p> {{ nb_new }} new bikeepers </p><img class="img_new" src="{{ url_for('static', filename = 'mobile/assets/happy.svg') }}" alt="happy"></li>
-					<li class="ride"><p> {{ nb_ride }} rides </p><img class="img_ride" src="{{ url_for('static', filename = 'mobile/assets/stopwatch.svg') }}" alt="stopwatch"></li>
-					<li class="alert"><p> {{ nb_alert }} alerts </p><img class="img_alert" src="{{ url_for('static', filename = 'mobile/assets/notification_active.svg') }}" alt="notification active"></li>
-					<li class="cancel"><p> {{ nb_cancel }} Cancellations </p><img class="img_cancel" src="{{ url_for('static', filename = 'mobile/assets/trello.svg') }}" alt="annulation"></li>
-               </ul>
-            </div>
         </div>
-    </body>
+        <a href="{{ url_for('admin.humberger_overlay_connected_admin') }}"> <img class="hamburger" src="{{ url_for('static', filename = 'mobile/assets/hamburger.svg') }}" alt="option"></a>
+    </header>
+    <div class="main">
+        <h2>Welcome Administrator !</h2>
+        <div class="list-info">
+            <ul class="list">
+                <li class="user">
+                    <p> {{ nb_users }} Users </p><img class="img_user" src="{{ url_for('static', filename = 'mobile/assets/user.svg') }}" alt="user"></li>
+                <li class="data">
+                    <p> {{ tt_data }} Mb </p><img class="img_data" src="{{ url_for('static', filename = 'mobile/assets/data.svg') }}" alt="data"></li>
+                <li class="mail">
+                    <p> {{ nb_ticket }} Tickets </p><img class="img_mail" src="{{ url_for('static', filename = 'mobile/assets/mail.svg') }}" alt="mail"></li>
+                <li class="new">
+                    <p> {{ nb_bikeeper }} Bikeepers </p><img class="img_new" src="{{ url_for('static', filename = 'mobile/assets/happy.svg') }}" alt="happy"></li>
+                <li class="ride">
+                    <p> {{ nb_ride }} Rides </p><img class="img_ride" src="{{ url_for('static', filename = 'mobile/assets/stopwatch.svg') }}" alt="stopwatch"></li>
+                <li class="alert">
+                    <p> {{ nb_alert }} Alerts </p><img class="img_alert" src="{{ url_for('static', filename = 'mobile/assets/notification_active.svg') }}" alt="notification active"></li>
+                <li class="cancel">
+                    <p> {{ nb_cancel }} Cancellations </p><img class="img_cancel" src="{{ url_for('static', filename = 'mobile/assets/trello.svg') }}" alt="annulation"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+
 </html>
