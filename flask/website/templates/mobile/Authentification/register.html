@@ -20,36 +20,14 @@
             <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
         </div>
-        <div id="myNav" class="overlay">
 
-          <!-- Button to close the overlay navigation -->
-          <img src="{{ url_for('static', filename='mobile/assets/close.png') }}" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
-
-          <!-- Overlay content -->
-            <div class="overlay-content">
-                <div id="login">
-                    <img src="{{ url_for('static', filename='mobile/assets/login.png') }}" alt="login">
-                    <div class="centrer">
-                        <a href="/login/">Login</a>
-                    </div>
-                    
-                </div>
-                <div class="rectangle2"></div>
-                <div id="register">
-                    <img src="{{ url_for('static', filename='mobile/assets/register.png') }}" alt="register">
-                    <div class="centrer"><a href="/register/">Register</a></div>
-                </div>
-                <div class="rectangle2"></div>
-            </div>
-
-        </div>
+        {% include "components/mobile-sidebar-admin.html" %}
 
         <!-- Use any element to open/show the overlay navigation menu -->
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
     </header>
     <main>
         <div id="header"></div>
-
 
         <div class="information">
             <h2>Create your account</h2>

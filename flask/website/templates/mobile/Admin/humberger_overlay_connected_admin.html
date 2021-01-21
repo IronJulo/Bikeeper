@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
-   <head>
-        <meta charset="UTF-8">
-        
-        <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
-        <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/humberger_overlay_connected_admin.css') }}">
 
-        <title>BiKeeper</title>
-    </head>
-    <body>
-        <div class="main">
-            <a href = "{{ url_for('home.home') }}"><img class="close_button" src = "{{ url_for('static', filename = 'mobile/assets/off_outline_close.svg') }}" alt = "Retour à l'accueil"></a>
-            <nav class="nav-list">
-               <ul class="list">
-					<li><a href="{{ url_for('home.home') }}"> Home <img class="home" src="{{ url_for('static', filename = 'mobile/assets/Vector.svg') }}" alt="accueil"></a></li>
-					<li><a href="{{ url_for('admin.admin_access') }}"> Users <img class="users" src="{{ url_for('static', filename = 'mobile/assets/settings 1.svg') }}" alt="liste utilisateurs"></a></li>
-					<li><a href="{{ url_for('admin.support_dashboard_admin') }}"> Support <img class="support" src="{{ url_for('static', filename = 'mobile/assets/support.svg') }}" alt="aide"></a></li>
-					<li><a href="{{ url_for('admin.admin_home') }}"> Platform <img class="platform" src="{{ url_for('static', filename = 'mobile/assets/layers.svg') }}" alt="plateforme"></a></li>
-					<li><a href="{{ url_for('login.login') }}"> Disconnect <img class="disconnect" src="{{ url_for('static', filename = 'mobile/assets/log_out.svg') }}" alt="se déconnecter"></a></li>
-               </ul>
-            </nav>
-        </div>
-    </body>
+<head>
+    <meta charset="UTF-8">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
+    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/humberger_overlay_connected_admin.css') }}">
+
+    <title>BiKeeper</title>
+</head>
+
+<body>
+    <div class="main">
+        <a href="{{ url_for('home.home') }}"><img class="close_button" src="{{ url_for('static', filename = 'mobile/assets/off_outline_close.svg') }}" alt="Retour à l'accueil"></a>
+        <nav class="nav-list">
+            <ul class="list">
+                <li><a href="{{ url_for('home.home') }}"> Home <img class="home" src="{{ url_for('static', filename = 'mobile/assets/Vector.svg') }}" alt="accueil"></a></li>
+                <li><a href="{{ url_for('admin.admin_access') }}"> Users <img class="users" src="{{ url_for('static', filename = 'mobile/assets/settings 1.svg') }}" alt="liste utilisateurs"></a></li>
+                <li><a href="{{ url_for('admin.support_dashboard_admin') }}"> Support <img class="support" src="{{ url_for('static', filename = 'mobile/assets/support.svg') }}" alt="aide"></a></li>
+                <li><a href="{{ url_for('admin.admin_home') }}"> Platform <img class="platform" src="{{ url_for('static', filename = 'mobile/assets/layers.svg') }}" alt="plateforme"></a></li>
+                <li><a href="{{ url_for('login.login') }}"> Disconnect <img class="disconnect" src="{{ url_for('static', filename = 'mobile/assets/log_out.svg') }}" alt="se déconnecter"></a></li>
+            </ul>
+        </nav>
+    </div>
+</body>
+
 </html>

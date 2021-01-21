@@ -25,7 +25,8 @@ def admin_home(template):
         template,
         nb_users=ORM.get_number_of_user(),
         tt_data=ORM.get_space_used_database(),
-        nb_ticket=ORM.get_number_open_ticket()
+        nb_ticket=ORM.get_number_open_ticket(),
+        nb_bikeeper=ORM.get_number_of_bikeeper()
     )
 
 
