@@ -1,0 +1,67 @@
+{% extends "mobile/base.html" %} {% from "components/mobile-btn-large.html" import newLargeButton with context %} {% block header %}
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/sub.css') }}">
+<header>
+    <div class="logo">
+        <a href="/mob/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1>
+        </a>
+    </div>
+    {% include "components/mobile-sidebar.html" %}
+    <!-- Use any element to open/show the overlay navigation menu -->
+    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+</header>
+{% endblock header %} {% block main %}
+<div class="container">
+
+
+    <h1>Subscriptions</h1>
+    <div class="france">
+        <div class="france-title">
+            <p>FRANCE</p>
+            <img src="{{ url_for('static', filename='mobile/assets/circle_check.png') }}" alt="circle_check.png">
+        </div>
+        <div class="content-france">
+            <p>Unlimited notification</p>
+            <p>Top Customer Support </p>
+            <p>Mobile & Desktop web interfaces</p>
+            <p>Alert your friends</p>
+            <p>Smart notification</p>
+            <p class="notavailable">World Wide localisation</p>
+        </div>
+        <div class="footer-france">
+            <div class="button-france">
+                <p>Your plan - €5/MO</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="world">
+        <div class="world-title">
+            <p>World</p>
+        </div>
+
+        <div class="content-world">
+            <p>Unlimited notification</p>
+            <p>Top Customer Support </p>
+            <p>Mobile & Desktop web interfaces</p>
+            <p>Alert your friends</p>
+            <p>Smart notification</p>
+            <p>World Wide localisation </p>
+        </div>
+        <div class="footer-france">
+            <div class="button-france">
+                <p>Select - €7/MO</p>
+            </div>
+        </div>
+    </div>
+    <div class="cancel-sub">
+        <p>Cancel my subscription</p>
+    </div>
+
+
+</div>
+
+
+</div>
+
+{% endblock main %} {% block script %} {% endblock script %}

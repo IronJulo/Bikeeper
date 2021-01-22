@@ -8,10 +8,8 @@ from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 CORS(app)
-
 
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
@@ -36,7 +34,7 @@ def mkpath(p):
 
 
 # MariaDB Config
-SERVER_IP = "92.188.70.221"  # ip 92.188.70.221
+SERVER_IP = "10.0.0.24"  # ip 92.188.70.221
 SERVER_USER = "root"
 SERVER_PASSWORD = "bikeeper"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.format(SERVER_USER, SERVER_PASSWORD,
@@ -46,7 +44,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.form
 db = SQLAlchemy(app)
 # db.init_app(app)
 # Engine connecting to MariaDB
-engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=False)# , isolation_level="READ
+engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=False)  # , isolation_level="READ
 # UNCOMMITTED"
 # db.metadata.create_all(engine)
 
@@ -79,4 +77,3 @@ app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
 app.register_blueprint(stats.mod)
 app.register_blueprint(test.mod)
-
