@@ -1,3 +1,4 @@
+{% from "components/mobile-btn-large.html" import newLargeButton with context %}
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -31,14 +32,9 @@
     </header>
     <main>
         <div class="container">
-            <div class="row" id="find-motorbike">
-                <div class="col-11">
-                    <a href="/mob/localisation/">
-                        <h3>Find your motorbike</h3>
-                </div>
-                </a>
-                <div class="col-1"><img src="{{ url_for('static', filename='mobile/assets/location_outline.png') }}" alt="find"></div>
-            </div>
+
+            {{ newLargeButton("find-motorbike","/mob/localisation/", "Find your motorbike", "mobile/assets/location_outline.png", "find") }}
+
             <div class="row">
                 <div class="col-6">
                     <div class="card" style="width: 18rem;">
