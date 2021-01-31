@@ -43,6 +43,7 @@ PyMySQL==0.10.1
 pyparsing==2.4.6
 pyrsistent==0.17.3
 pytest==6.2.1
+python-dotenv==0.15.0
 pytoml==0.1.21
 pytz==2020.5
 PyYAML==5.3.1

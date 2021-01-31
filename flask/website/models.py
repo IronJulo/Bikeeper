@@ -255,7 +255,7 @@ class ORM:
                 tables_dict = {**tables_dict, **{column: value}}
             tables.append(tables_dict)
 
-        return str(tables_dict['Size (MB)'])
+        return str(round(tables_dict['Size (MB)'],2))
 
     @staticmethod
     def get_associated_phone(phone) -> str:
