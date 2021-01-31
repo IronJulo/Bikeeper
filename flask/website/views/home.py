@@ -15,7 +15,7 @@ mod = Blueprint('home', __name__)
 
 
 @mod.route('/home/', methods=['GET', 'POST'])
-@mobile_template('{mobile/User/}dashboard.html')
+@mobile_template('{mobile/User/}home.html')
 def home(template):
     ip_address = request.remote_addr
     print("IP : ", ip_address)
