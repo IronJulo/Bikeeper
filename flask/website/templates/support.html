@@ -74,7 +74,7 @@
 
 
 {% block script %}
-<script>
+<script type="text/javascript">
     {% autoescape false %}
     var current_user = '{{current_user.username_user}}';
     var is_admin = '{{current_user.is_admin_user}}';

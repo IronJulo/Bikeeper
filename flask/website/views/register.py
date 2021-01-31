@@ -33,7 +33,7 @@ def register_validate():
         m = sha256()
         m.update(password.encode())
         u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
-                 f"https://eu.ui-avatars.com/api/?name={username}", False)
+                 f"https://eu.ui-avatars.com/api/{username}", False)
         db.session.add(u)
         db.session.commit()
 

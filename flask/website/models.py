@@ -362,10 +362,17 @@ class ORM:
 
     @staticmethod
     def get_picture_message_from_username(username):
-        res = db.session.query(USER.profile_picture_user).join(MESSAGE).filter(
-            MESSAGE.username_user == username
-        ).first()
-        return ''.join(res)
+        res = db.session.query(USER.profile_picture_user) \
+        .join(MESSAGE) \
+        .filter(MESSAGE.username_user == username) \
+        .first()
+
+        if res:
+            return ''.join(res)
+
+        return ''.join(db.session.query(USER.profile_picture_user) \
+            .filter(USER.username_user == username) \
+            .first())
 
     @staticmethod
     def get_users_from_ticket_id(id_ticket):
