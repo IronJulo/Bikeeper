@@ -129,9 +129,11 @@ $(function() {
     var contenu_message = document.getElementById("msg").value;
     var is_admin_msg = 0;
 
-    if (isAdmin()=="True"){
+    if (is_admin=="True"){
         is_admin_msg = 1;
     }
+
+    console.log("message envoyé")
 
     var datetime_msg = getDate();
     var id_ticket = getIdTicket();
