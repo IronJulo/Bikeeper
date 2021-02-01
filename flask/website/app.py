@@ -21,7 +21,7 @@ app.config.update(
     DEBUG_TB_INTERCEPT_REDIRECTS=False
 )
 
-toolbar = DebugToolbarExtension(app)
+#toolbar = DebugToolbarExtension(app)
 
 Mobility(app)
 

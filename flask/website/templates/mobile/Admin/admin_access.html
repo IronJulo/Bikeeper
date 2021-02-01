@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html>
+{% extends "mobile/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
+{% block header %}
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_access.css') }}">
+{% endblock %}
 
-    <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
-    <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
-    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Admin/admin_access.css') }}">
-
-    <title>BiKeeper</title>
-</head>
-
-<body>
-    <div class="main">
+{% block main %}
         <a href="{{ url_for('home.home') }}"><img class="close_button" src="{{ url_for('static', filename = 'mobile/assets/off_outline_close.svg') }}" alt="Retour à l'accueil"></a>
         <div class="info-border">
             <p>
@@ -22,6 +16,4 @@
             </p>
         </div>
     </div>
-</body>
-
-</html>
+{% endblock %}

@@ -1,59 +1,44 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "mobile/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/header-mobile.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
+{% block style %}
     <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/login-mobile.css') }}">
+{% endblock %}
 
-    
+{% block header %}
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">   
-    <title>Login - BiKeeper</title>
-    <script src="{{ url_for('static', filename='mobile/js/hamburger.js') }}"></script> 
-</head>
-
-<body>
-    <header>
-        <div class="logo">
-            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-            <h1>BiKeeper</h1></a>
-        </div>
+    <div class="logo">
+        <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+        <h1>BiKeeper</h1></a>
+    </div>
 
 
-        {% include "components/mobile-sidebar-admin.html" %}
+    {% include "components/mobile-sidebar-admin.html" %}
 
-        <!-- Use any element to open/show the overlay navigation menu -->
-        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
-    </header>
+    <!-- Use any element to open/show the overlay navigation menu -->
+    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
 
+{% block main %}
 
     <div id="header"></div>
     <main class='login-main'>
-    	<h2>
-            Login to access your account
-        </h2>
-        <form action="#" method="POST">
-            {{ form.hidden_tag() }}
-            <div>
+    <h2>
+        Login to access your account
+    </h2>
+    <form action="#" method="POST">
+        {{ form.hidden_tag() }}
+        <div>
 
+            <label for="username">Username</label>
+            {{ form.username(size=50, id="username", placeholder="Enter your username") }}
+        </div>
+        <div>
+            <label for="password">Password</label>
+            {{ form.password(size=50, id="password", placeholder="Enter your password") }}
+        </div>
 
+        <button type="submit" class="login"><span>Login</span></button>
+    </form>
+    <div id="rectangle"></div>
 
-                <label for="username">Username</label>
-                {{ form.username(size=50, id="username", placeholder="Enter your username") }}
-            </div>
-            <div>
-                <label for="password">Password</label>
-                {{ form.password(size=50, id="password", placeholder="Enter your password") }}
-            </div>
- 
-            <button type="submit" class="login"><span>Login</span></button>
-        </form>
-        <div id="rectangle"></div>
-
-    </main>
-</body>
-
-</html>
+{% endblock %}
