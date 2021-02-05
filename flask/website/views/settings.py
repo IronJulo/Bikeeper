@@ -11,10 +11,10 @@ mod = Blueprint('settings', __name__)
 
 
 @mod.route('/settings/', methods=['GET'])
-#@mobile_template("{mobile/Settings/}settings.html")
-def settings():
+@mobile_template("{mobile/Settings/}settings.html")
+def settings(template):
     return render_template(
-        "mobile/Settings/subscription.html"
+        template
     )
 
 
@@ -54,8 +54,9 @@ CONTACT
 
 
 @mod.route('/settings/contacts/', methods=['GET'])
-def settings_contact():
-    return render_template("contacts.html")
+@mobile_template("{mobile/Settings/}contacts.html")
+def settings_contact(template):
+    return render_template(template)
 
 
 @mod.route('/settings/contacts/update/', methods=['GET'])
@@ -81,6 +82,17 @@ def settings_contact_add_check():
 @mod.route('/settings/contacts/remove/', methods=['GET', 'POST'])
 def settings_contact_remove():
     return redirect(url_for('settings.settings_contact'))
+
+
+
+'''
+CREDIT CARD MOBILE
+'''
+
+
+@mod.route('/settings/card/', methods=['GET'])
+def settings_card():
+    return render_template("mobile/Settings/credit-card.html")
 
 
 '''

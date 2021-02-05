@@ -12,13 +12,16 @@
 {% endblock header %} {% block main %}
 <div class="container">
 
-    {{ newLargeButton("/mob/localisation/", "Account Parameters", "mobile/assets/location_outline.png", "account") }} {{ newLargeButton("/mob/bikeeper/settings", "BiKeeper Settings", "mobile/assets/settings.png", "settings") }} {{ newLargeButton("/mob/settings/contacts","Contacts","mobile/assets/user.png","find")
-    }} {{ newLargeButton("/mob/settings/card", "My Credit Card", "mobile/assets/credit_card_alt.png", "Credit") }} {{ newLargeButton("/mob/settings/plan/", "My Subscriptions", "mobile/assets/info_circle_outline.png","Subscriptions") }}
+    {{ newLargeButton("/settings/account/", "Account Parameters", "mobile/assets/location_outline.png", "account") }}
+    {{ newLargeButton("/bikeeper/settings", "BiKeeper Settings", "mobile/assets/settings.png", "settings") }}
+    {{ newLargeButton("/settings/contacts","Contacts","mobile/assets/user.png","find") }}
+    {{ newLargeButton("/settings/card", "My Credit Card", "mobile/assets/credit_card_alt.png", "Credit") }}
+    {{ newLargeButton("/mob/settings/plan/", "My Subscriptions", "mobile/assets/info_circle_outline.png","Subscriptions") }}
 
 
 </div>
 
 
-</div>
 
-{% endblock main %} {% block script %} {% endblock script %}
+{% endblock main %}
+{% block script %} {% endblock script %}

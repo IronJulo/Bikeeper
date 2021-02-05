@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
+{% extends "mobile/base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/home-mobile.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">  
-    
-    <title>Login - BiKeeper</title>
-    <script src="{{ url_for('static', filename='mobile/js/hamburger.js') }}"></script> 
-</head>
-
-<body>
-	<header>
+{% block header %}
         <div class="logo">
             <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
@@ -23,8 +9,9 @@
         {% include "components/mobile-sidebar-admin.html" %}
         <!-- Use any element to open/show the overlay navigation menu -->
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
-	</header>
-    <main>
+{% endblock %}
+
+{% block main %}
 
         <div id="header"></div>
         <div id="background-avec-image"></div>
@@ -68,10 +55,4 @@
             </p>
         </article>
 
-    </main>
-
-
-
-
-</body>
-</html>
+{% endblock %}
