@@ -65,6 +65,10 @@ class DEVICE(db.Model):
         self.row_parameters_device = row_parameters_device
         self.username_user = user
 
+    def set_row_parameters(self, parameters):
+        self.row_parameters_device = parameters
+        db.session.commit()
+
 
 class USER(db.Model, UserMixin):
     """
@@ -443,3 +447,7 @@ class ORM:
         num_del_rows = db.session.query(DEVICE).filter_by(id=device_id).delete()
         db.session.commit()
         return True if num_del_rows >= 1 else False
+
+    @staticmethod
+    def get_device(device_id: str) -> DEVICE:
+        return db.session.query(DEVICE).filter_by(id=device_id)
