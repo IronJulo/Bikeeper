@@ -26,8 +26,9 @@ def errror(err):
     )
 
 
-@mod.route('/api/sms/add/<payload>/', methods=['POST'])
-def send_sms_to_bd(payload):
+@mod.route('/api/sms/add/', methods=['POST'])
+def send_sms_to_bd():
+    payload = request.json
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
     data = payload['data']
     exception_log = ""
@@ -61,23 +62,21 @@ def send_sms_to_bd(payload):
     return ok()
 
 
-@mod.route('/api/bikeeper/add/<data>/', methods=['POST'])
-def add_bikeeper_to_bd(data):
+@mod.route('/api/bikeeper/add/', methods=['POST'])
+def add_bikeeper_to_bd():
+    data = request.json
     try:
         num = data['num_device']
         name = data['name_device']
         row_parameters = data['row_parameters_device']
         username = data['username']
     except KeyError as keyerror:
-        return jsonify(
-            type_message="error",
-            error=keyerror
-        )
+        return errror(f"{keyerror}")
     ORM.new_device(num, name, row_parameters, username)
     return ok()
 
 
-@mod.route('/api/bikeeper/remove/<int:device_id>/', methods=['GET'])
+@mod.route('/api/bikeeper/remove/<int:device_id>/', methods=['DELETE'])
 def remove_bikeeper(device_id):
     if ORM.remove_device(device_id):
         return ok()
@@ -85,9 +84,10 @@ def remove_bikeeper(device_id):
         return errror("No rows deleted")
 
 
-@mod.route('/api/bikeeper/settings/<int:device_id>/update/<data>/', methods=['POST'])
-def update_bikeeper_settings_to_bd(device_id, data):
-    ORM.get_device(device_id).set_row_parameters(data)
+@mod.route('/api/bikeeper/settings/<int:device_id>/update/', methods=['POST'])
+def update_bikeeper_settings_to_bd(device_id):
+    data = request.json
+    ORM.get_device(device_id).set_row_parameters(f"{data}")
     return ok()
 
 
