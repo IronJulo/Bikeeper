@@ -85,14 +85,10 @@ def remove_bikeeper(device_id):
         return errror("No rows deleted")
 
 
-@mod.route('/api/bikeeper/settings/<int:device_id>/add/<data>/', methods=['POST'])
-def add_bikeeper_settings_to_bd(device_id, data):
-    return ""
-
-
-@mod.route('/api/bikeeper/settings/<int:device_id>/update/<updatedData>/', methods=['POST'])
-def update_bikeeper_settings_to_bd(device_id, updated_data):
-    return ""
+@mod.route('/api/bikeeper/settings/<int:device_id>/update/<data>/', methods=['POST'])
+def update_bikeeper_settings_to_bd(device_id, data):
+    ORM.get_device(device_id).set_row_parameters(data)
+    return ok()
 
 
 @mod.route('/api/bikeeper/currentphone/<string:device_id>/', methods=['GET'])
