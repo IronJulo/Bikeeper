@@ -28,6 +28,6 @@ while True:
             pass
         
         dic2 = separated_values.to_dico()
-        dic = {**dic1, **dic2}
+        dic = {"header": dic1, "data": dic2}
         
         print(dic)
