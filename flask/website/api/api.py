@@ -8,20 +8,49 @@ from flask import (
     request
 )
 from ..models import ORM
+from datetime import datetime
 
 mod = Blueprint('api', __name__)
 
 
 @mod.route('/api/sms/add/<data>/', methods=['POST'])
-def send_sms_to_bd(data):
-    if data['type'] == 'alerte':
-        new_dic = jsonify(
+def send_sms_to_bd(payload):
+    header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
+    data = payload['data']
+    exception_log = ""
+    if header['schema'] == '@':  # Position
+        dic = jsonify(
+            type=data['type'],
             longitude=data['longitude'],
             latitude=data['latitude'],
-            alerte=data['type']
+            charge=data['charge'],
+            level=data['level']
         )
-    ORM.new_log(new_dic, data['schema'])
-    return ""
+    elif header['schema'] == 'W':  # Alert
+        dic = jsonify(
+            longitude=data['longitude'],
+            latitude=data['latitude'],
+            charge=data['charge'],
+            level=data['level'],
+            speed=data['speed'],
+            angle=data['angle']
+        )
+    elif header['schema'] == '*':  # Normal
+        dic = jsonify(
+            longitude=data['longitude'],
+            latitude=data['latitude'],
+            charge=data['charge'],
+            level=data['level']
+        )
+    else:
+        return jsonify(
+            type_message="error",
+            error="Schema type not supported"
+        )
+    ORM.new_log(dic, data['schema'], datetime.now(), exception_log, header['sender'])
+    return jsonify(
+        type_message="ok"
+    )
 
 
 @mod.route('/api/bikeeper/add/<data>/', methods=['POST'])
