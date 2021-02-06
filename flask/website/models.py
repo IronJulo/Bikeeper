@@ -437,3 +437,9 @@ class ORM:
         """
         db.session.add(IPLogger(ip_address, datetime.datetime.now()))
         db.session.commit()
+
+    @staticmethod
+    def remove_device(device_id: str) -> bool:
+        num_del_rows = db.session.query(DEVICE).filter_by(id=device_id).delete()
+        db.session.commit()
+        return True if num_del_rows >= 1 else False
