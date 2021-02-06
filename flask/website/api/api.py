@@ -13,6 +13,12 @@ from datetime import datetime
 mod = Blueprint('api', __name__)
 
 
+def ok():
+    return jsonify(
+        type_message="ok"
+    )
+
+
 @mod.route('/api/sms/add/<data>/', methods=['POST'])
 def send_sms_to_bd(payload):
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
@@ -48,14 +54,23 @@ def send_sms_to_bd(payload):
             error="Schema type not supported"
         )
     ORM.new_log(dic, data['schema'], datetime.now(), exception_log, header['sender'])
-    return jsonify(
-        type_message="ok"
-    )
+    return ok()
 
 
 @mod.route('/api/bikeeper/add/<data>/', methods=['POST'])
 def add_bikeeper_to_bd(data):
-    return ""
+    try:
+        num = data['num_device']
+        name = data['name_device']
+        row_parameters = data['row_parameters_device']
+        username = data['username']
+    except KeyError as keyerror:
+        return jsonify(
+            type_message="error",
+            error=keyerror
+        )
+    ORM.new_device(num, name, row_parameters, username)
+    return ok()
 
 
 @mod.route('/api/bikeeper/remove/<int:device_id>/', methods=['GET'])
