@@ -65,6 +65,10 @@ class DEVICE(db.Model):
         self.row_parameters_device = row_parameters_device
         self.username_user = user
 
+    def set_row_parameters(self, parameters):
+        self.row_parameters_device = parameters
+        db.session.commit()
+
 
 class USER(db.Model, UserMixin):
     """
@@ -407,26 +411,26 @@ class ORM:
     @staticmethod
     def new_user(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
                  is_admin):
-        # TODO check if it works
-        USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin)
+        user = USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin)
+        db.session.add(user)
         db.session.commit()
 
     @staticmethod
     def new_device(num_device, name_device, row_parameters_device, username):
-        # TODO check if it works
-        DEVICE(num_device, name_device, row_parameters_device, username)
+        device = DEVICE(num_device, name_device, row_parameters_device, username)
+        db.session.add(device)
         db.session.commit()
 
     @staticmethod
     def new_message(username_user, is_admin_message, datetime_message, content_message, id_ticket):
-        # TODO check if it works
-        MESSAGE(username_user, is_admin_message, datetime_message, content_message, id_ticket)
+        message = MESSAGE(username_user, is_admin_message, datetime_message, content_message, id_ticket)
+        db.session.add(message)
         db.session.commit()
 
     @staticmethod
     def new_ticket(title_ticket, is_closed_ticket, user):
-        # TODO check if it works
-        TICKET(title_ticket, is_closed_ticket, user)
+        ticket = TICKET(title_ticket, is_closed_ticket, user)
+        db.session.add(ticket)
         db.session.commit()
 
     @staticmethod
@@ -437,3 +441,13 @@ class ORM:
         """
         db.session.add(IPLogger(ip_address, datetime.datetime.now()))
         db.session.commit()
+
+    @staticmethod
+    def remove_device(device_id: str) -> bool:
+        num_del_rows = DEVICE.query.filter_by(num_device=device_id).delete()
+        db.session.commit()
+        return True if num_del_rows >= 1 else False
+
+    @staticmethod
+    def get_device(device_id: str) -> DEVICE:
+        return DEVICE.query.filter_by(id=device_id).first()
