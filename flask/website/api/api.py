@@ -19,7 +19,14 @@ def ok():
     )
 
 
-@mod.route('/api/sms/add/<data>/', methods=['POST'])
+def errror(err):
+    return jsonify(
+        type_message="error",
+        error=err
+    )
+
+
+@mod.route('/api/sms/add/<payload>/', methods=['POST'])
 def send_sms_to_bd(payload):
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
     data = payload['data']
@@ -49,10 +56,7 @@ def send_sms_to_bd(payload):
             level=data['level']
         )
     else:
-        return jsonify(
-            type_message="error",
-            error="Schema type not supported"
-        )
+        return errror("Schema type not supported")
     ORM.new_log(dic, data['schema'], datetime.now(), exception_log, header['sender'])
     return ok()
 
@@ -75,7 +79,10 @@ def add_bikeeper_to_bd(data):
 
 @mod.route('/api/bikeeper/remove/<int:device_id>/', methods=['GET'])
 def remove_bikeeper(device_id):
-    return ""
+    if ORM.remove_device(device_id):
+        return ok()
+    else:
+        return errror("No rows deleted")
 
 
 @mod.route('/api/bikeeper/settings/<int:device_id>/add/<data>/', methods=['POST'])
