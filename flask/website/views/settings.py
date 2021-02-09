@@ -29,8 +29,11 @@ def settings_account():
 
 
 @mod.route('/settings/account/update/', methods=['GET', 'POST'])
-def settings_account_update():
-    return redirect(url_for("settings.settings_account"))
+@mobile_template("{mobile/Settings/}account_parameters_update.html")
+def settings_account_update(template):
+    return render_template(
+        template,
+    )
 
 
 '''
