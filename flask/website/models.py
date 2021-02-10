@@ -1,13 +1,14 @@
 """
 This module interact directly with the database. It make call to sqlalchemy ORM to deal with tables.
 """
-import datetime
+from datetime import datetime
 from typing import List
 from sqlalchemy import func
+from sqlalchemy.types import TIMESTAMP
 from flask_login import UserMixin, current_user
 from flask import jsonify
 from .app import db, session, login_manager
-
+import requests
 
 class CONTACT(db.Model):
     """
@@ -47,6 +48,8 @@ class LOG(db.Model):
         self.datetime_log = datetime_log
         self.exception_log = exception_log
         self.num_device = num_device
+
+
 
 
 class DEVICE(db.Model):
@@ -153,12 +156,18 @@ class IPLogger(db.Model):
     Save IPs request by time.
     """
     __tablename__ = "IPLOGGER"
-    ip_address = db.Column(db.String(100), nullable=False, primary_key=True)
-    time_info = db.Column(db.DateTime(), nullable=False, primary_key=True)
+    id_log = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    ip_address = db.Column(db.String(100), nullable=False)
+    time_info = db.Column(db.DateTime(), nullable=False)
+    latitude = db.Column(db.String(20), nullable=False)
+    longitude = db.Column(db.String(20), nullable=False)
+    timestamp = db.Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
 
-    def __init__(self, ip, time_info):
+    def __init__(self, ip, time_info, latitude, longitude):
         self.ip_address = ip
         self.time_info = time_info
+        self.latitude = latitude
+        self.longitude = longitude
 
 
 class ORM:
@@ -259,7 +268,7 @@ class ORM:
                 tables_dict = {**tables_dict, **{column: value}}
             tables.append(tables_dict)
 
-        return str(round(tables_dict['Size (MB)'],2))
+        return str(round(tables_dict['Size (MB)'], 2))
 
     @staticmethod
     def get_associated_phone(phone) -> str:
@@ -367,16 +376,16 @@ class ORM:
     @staticmethod
     def get_picture_message_from_username(username):
         res = db.session.query(USER.profile_picture_user) \
-        .join(MESSAGE) \
-        .filter(MESSAGE.username_user == username) \
-        .first()
+            .join(MESSAGE) \
+            .filter(MESSAGE.username_user == username) \
+            .first()
 
         if res:
             return ''.join(res)
 
         return ''.join(db.session.query(USER.profile_picture_user) \
-            .filter(USER.username_user == username) \
-            .first())
+                       .filter(USER.username_user == username) \
+                       .first())
 
     @staticmethod
     def get_users_from_ticket_id(id_ticket):
@@ -411,7 +420,8 @@ class ORM:
     @staticmethod
     def new_user(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
                  is_admin):
-        user = USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin)
+        user = USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
+                    is_admin)
         db.session.add(user)
         db.session.commit()
 
@@ -439,7 +449,16 @@ class ORM:
         Store ip connections in database
         :params : ip
         """
-        db.session.add(IPLogger(ip_address, datetime.datetime.now()))
+
+        response = requests.get("https://geolocation-db.com/json/{}&position=true".format(ip_address)).json()
+        latitude = response["latitude"]
+        longitude = response["longitude"]
+
+        print("Lat : ", latitude, "Long :", longitude)
+        now = datetime.now()
+        db.session.add(
+            IPLogger(ip=ip_address, time_info=datetime.now(), longitude=longitude, latitude=latitude)
+        )
         db.session.commit()
 
     @staticmethod
