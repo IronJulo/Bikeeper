@@ -142,7 +142,8 @@ def import_data(filename: str):
                 "messages": insert_message,
                 "tickets": insert_ticket
                 }.get(case)
-
+    import os
+    print(os.getcwd())
     with open(filename) as file:
         documents = yaml.full_load(file)
 
@@ -160,6 +161,6 @@ def loaddb():
     """
     console = Console()
     create_tables(console)
-    import_data("data.yml")
+    import_data("./website/data.yml")
 
     db.session.commit()
