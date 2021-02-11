@@ -18,7 +18,7 @@ for the arduino uno
                                         ║ [ ]Vin   ═╣ U ╠═               7[ ] ║══════> SIM800L tx
                                         ║          ═╣ I ╠═               6[ ]~║
                                         ║ [ ]A0    ═╣ N ╠═               5[ ]~║
-                                        ║ [ ]A1    ═╣ O ╠═               4[ ] ║
+                                        ║ [ ]A1    ═╣ O ╠═               4[ ] ║══════> GPS tx
                                         ║ [ ]A2     ╚═══╝           INT1/3[ ]~║
                                         ║ [ ]A3                     INT0/2[ ] ║══════> Interrupt pin for the "do" pin of the vibration sensor
                                         ║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
@@ -33,6 +33,7 @@ for the arduino uno
 #include "Headers/messageHeartbeat.h"
 #include "Headers/messageReceived.h"
 #include "Headers/location.h"
+#include <TinyGPS++.h>
 
 //Server
 #define SERVER_PHONE_NUMBER "+33769342048"  // BiKServer number (main server) called to get user number
@@ -41,7 +42,7 @@ for the arduino uno
 #include <SoftwareSerial.h>                 // need to be slightly modified to have a bigger buffer (100 instead of 64)
                                             // line 43 #define _SS_MAX_RX_BUFF 64
                                             // will become #define _SS_MAX_RX_BUFF 100
-String userPhoneNumber;                     // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
+String userPhoneNumber = "+33769342048";                     // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
 #define GSM_BAUDRATE 9600			        // Works because the sim800l baud rate is "hard coded" in the module.
 #define GSM_RX 7					        // Declare the SIM800L onto the pin 7.
 #define GSM_TX 8					        // Declare the SIM800L onto the pin 8.
@@ -53,8 +54,6 @@ String answer, senderPhoneNumber, SMS;
 unsigned long t0;
 
 
-//GPS
-location_t location;		                // Declare the Location type
 
 //Vibration sensor
 bool vibartion = false;                     // False most of the time but true if the module detected a vibration (trough interrupt)
@@ -76,6 +75,16 @@ bool isBatteryCharging = false;
 bool parked = false;
 bool journey = false;
 
+//GPS
+#define GPS_RX 4					        // Declare the SIM800L onto the pin 7.
+#define GPS_TX 3	
+
+#define GPS_BAUDRATE 9600
+TinyGPSPlus gps;
+SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
+
+location_t location;		                // Declare the Location type
+
 void setup()
 {
     Serial.begin(9600);
@@ -83,9 +92,13 @@ void setup()
 	//SIM 800L
 	sim800l.begin(9600);
     
+    //GPS 
+    gpsSerial.begin(GPS_BAUDRATE);
+    pinMode(13, OUTPUT);
 	//Vibration sensor
 	attachInterrupt(0, vibartionDetected, RISING); // Interrupt for the vibration detector (RISING because the detector emmit ~3.5V for 10 ms).
     initCard();
+    sendSMSTo(SERVER_PHONE_NUMBER, "bsdfsdfsdf");
 
 }
 
@@ -134,8 +147,8 @@ actualizeLocation()
 {
     //Nointerrupts later !!!!
     //TODO implement this ok!
-    location.latitude = 0.62115455000000;
-	location.longitude = 1.6969694000000000;
+    location.latitude = gps.location.lat();
+	location.longitude = gps.location.lng();
 }
 
 
