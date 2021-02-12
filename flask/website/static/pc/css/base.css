@@ -114,8 +114,7 @@ html {
     transform: translate3D(0,40px,0) !important;
 }
 
-
-header {
+header.base {
     position: fixed;
     background-color: white;
     top: 0;
@@ -160,7 +159,7 @@ main {
     position: absolute;
     top: var(--taille-header);
     left: var(--taille-sidebar);
-    width: calc(98vw - var(--taille-sidebar));
+    width: calc(98.7vw - var(--taille-sidebar));
     height: calc(99vh - var(--taille-header));
 }
 

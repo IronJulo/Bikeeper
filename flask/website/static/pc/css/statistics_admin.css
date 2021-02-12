@@ -13,6 +13,10 @@
 }
 
 div.flex {
+    width: 100%;
+}
+
+div.nadmin {
     display: flex;
     width: 100%;
     justify-content: space-around;
@@ -20,7 +24,7 @@ div.flex {
     align-items: center;
 }
 
-div.flex > section {
+div.nadmin > section {
     border-radius: 1em;
     padding: 3em;
     position: relative;
@@ -28,34 +32,34 @@ div.flex > section {
     margin: 2em 2em;
 }
 
-div.flex > section > div {
+div.nadmin > section > div {
     border-radius: 1em;
 }
 
 /* -------------------------------- GROUP 1 ------------------------------*/
-div.flex > section.group1 {
+div.nadmin > section.group1 {
     background-color: white;
     display: flex;
     flex-direction: row;
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-div.flex > section.group1 h2 {
+div.nadmin > section.group1 h2 {
     color: #535B7B;
     margin-bottom: 1em;
 }
 
-div.flex > section.group1 > div.user-data {
+div.nadmin > section.group1 > div.user-data {
     width: 50%;
 }
 
-div.flex > section.group1 > div.user-data ul {
+div.nadmin > section.group1 > div.user-data ul {
     list-style-type: none;
     padding: 0;
     font-weight: 600;
 }
 
-div.flex > section.group1 > div.bikeeper-data {
+div.nadmin > section.group1 > div.bikeeper-data {
     border-left: solid black 2px;
     border-radius: 0;
     padding: 0 2em;
@@ -65,53 +69,51 @@ div.flex > section.group1 > div.bikeeper-data {
 
 /* -------------------------------- GROUP 2 ------------------------------*/
 
-div.flex > section.group2 {
+div.nadmin > section.group2 {
     padding: 0;
 }
 
-div.flex > section.group1 h2 {
+div.nadmin > section.group1 h2 {
     color: #535B7B;
     margin-bottom: .4em;
 }
 
-div.flex > section.group2 > div.filters,
-div.flex > section.group2 > div.container-timeline {
+div.nadmin > section.group2 > div.filters,
+div.nadmin > section.group2 > div.container-timeline {
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
     background-color: white;
     width: 100%;
-    height: 50%;
     padding: 2em;
 }
 
-div.flex > section.group2 > div.container-timeline {
+div.nadmin > section.group2 > div.container-timeline {
     margin-top: 5vh;
 }
 
-div.flex > section.group2 form {
+div.nadmin > section.group2 form {
     display: flex;
     flex-direction: row;
     justify-content: start;
 }
 
-div.flex > section.group2 form > div {
-    margin-left: 5vw;
+div.nadmin > section.group2 form > div {
     display: flex;
     justify-content: space-around;
     flex-direction: row;
     flex-grow: 1;
 }
 
-div.flex > section.group2 form label {
+div.nadmin > section.group2 form label {
     margin-bottom: 0;
     margin-right: 1em;
     align-self: center;
 }
 
-div.flex > section.group2 form select {
+div.nadmin > section.group2 form select {
     width: 50%;
 }
 
-div.flex > section.group2 form div.submit button {
+div.nadmin > section.group2 form div.submit button {
     color: black;
     padding: .4em .8em;
     outline: none;
@@ -133,14 +135,14 @@ div.flex > section.group2 form div.submit button {
     }
 }
 
-div.flex > section.group2 form div.submit button:hover {
+div.nadmin > section.group2 form div.submit button:hover {
     position: relative;
     z-index: 0;
     border-radius: 10px;
     overflow: hidden;
 }
   
-div.flex > section.group2 form div.submit button:hover::before {
+div.nadmin > section.group2 form div.submit button:hover::before {
     content: "";
     position: absolute;
     z-index: -2;
@@ -160,7 +162,7 @@ div.flex > section.group2 form div.submit button:hover::before {
         linear-gradient(white, white);
 }
   
-div.flex > section.group2 form div.submit button:hover::after {
+div.nadmin > section.group2 form div.submit button:hover::after {
     content: "";
     position: absolute;
     z-index: -1;
@@ -260,12 +262,12 @@ div.flex > section.group2 form div.submit button:hover::after {
 
 /* -------------------------------- GROUP 3 ------------------------------*/
 
-div.flex > section.group3 {
+div.nadmin > section.group3 {
     padding: 0;
     box-shadow: none;
 }
 
-div.flex > section.group3 > div {
+div.nadmin > section.group3 > div {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -276,17 +278,17 @@ canvas#speed {
     height: 40vh;
 }
 
-div.flex > section.group3 > div.graph1 {
+div.nadmin > section.group3 > div.graph1 {
     margin-bottom: 1em;  
 }
 
-div.flex > section.group3 > div.graph1 div.canvas1 {
+div.nadmin > section.group3 > div.graph1 div.canvas1 {
     flex-grow: 1;
     background-color: white;
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-div.flex > section.group3 > div.graph1 div.info1 {
+div.nadmin > section.group3 > div.graph1 div.info1 {
     position: relative;
     width: 30%;
     margin-left: 2em;
@@ -294,7 +296,7 @@ div.flex > section.group3 > div.graph1 div.info1 {
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-div.flex > section.group3 > div.graph1 div.info1 ul {
+div.nadmin > section.group3 > div.graph1 div.info1 ul {
     list-style-type: none;
     padding: 0;
     position: absolute;
@@ -303,17 +305,17 @@ div.flex > section.group3 > div.graph1 div.info1 ul {
     transform: translate(-50%, -50%);
 }
 
-div.flex > section.group3 > div.graph2 {
+div.nadmin > section.group3 > div.graph2 {
     margin-top: 4em;
 }
 
-div.flex > section.group3 > div.graph2 div.canvas2 {
+div.nadmin > section.group3 > div.graph2 div.canvas2 {
     flex-grow: 1;
     background-color: white;
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-div.flex > section.group3 > div.graph2 div.info2 {
+div.nadmin > section.group3 > div.graph2 div.info2 {
     position: relative;
     width: 30%;
     margin-left: 2em;
@@ -321,7 +323,7 @@ div.flex > section.group3 > div.graph2 div.info2 {
     box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
-div.flex > section.group3 > div.graph2 div.info2 ul {
+div.nadmin > section.group3 > div.graph2 div.info2 ul {
     list-style-type: none;
     padding: 0;
     position: absolute;
@@ -331,7 +333,7 @@ div.flex > section.group3 > div.graph2 div.info2 ul {
 }
 /* -------------------------------- GROUP 4 ------------------------------*/
 
-div.flex > section.group4 .btn-container{
+div.nadmin > section.group4 .btn-container{
     display: inline-block;
     margin: 70px auto 0;
     font-size: 0;
@@ -339,12 +341,12 @@ div.flex > section.group4 .btn-container{
     background-color: black;
 }
 
-div.flex > section.group4 form {
+div.nadmin > section.group4 form {
     width: fit-content;
     margin: 0 auto;
 }
 
-div.flex > section.group4 label{
+div.nadmin > section.group4 label{
     position: relative; 
     cursor: pointer;
     font-size: 12px;
@@ -378,7 +380,7 @@ div.flex > section.group4 label{
     background-color: white;
 }
 
-div.flex > section.group4 {
+div.nadmin > section.group4 {
     height: 200px;
 }
 
@@ -386,4 +388,125 @@ div.flex > section.group4 {
     width: 100px;
     height: 200px;
     display: block;
+}
+
+div.global-admin {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+}
+
+header.header-admin {
+    background: linear-gradient(90deg, #946EF2 0%, #32C8FF 100%);
+    padding: 2em;
+    position: relative;
+    border-radius: 0 0 1em 1em;
+    width: 100%;
+}
+
+header.header-admin > form {
+    width: fit-content;
+    position: relative;
+}
+
+header.header-admin > form i.fa-user {
+    color: var(--rouge);
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(50%, 50%);
+}
+
+header.header-admin > form input{
+    border: none;
+    outline: none;
+    border-radius: 1em;
+    text-indent: 2em;
+}
+
+header.header-admin > form button {
+    outline: none;
+    border: none;
+    background: transparent;
+    color: white;
+    font-size: 1.2rem;
+}
+
+header.header-admin > div.show-user {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+
+header.header-admin > div.show-user > * {
+    padding: 1em;
+}
+
+header.header-admin > div.show-user > div {
+    flex-grow: 1;
+    flex-basis: 80%;
+}
+
+header.header-admin > div.show-user > img {
+    width: 120px;
+    height: auto;
+    display: block;
+    flex-grow: 1;
+}
+
+header.header-admin > div.show-user span.localisation-icon {
+    color: var(--orange);
+    margin-right: .2em;
+}
+
+header.header-admin > div.show-user span.pays {
+    text-transform: uppercase;
+}
+
+header.header-admin > div.info-user {
+    width: 100%;
+}
+
+header.header-admin > div.info-user > ul {
+    display: flex;
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 2em;
+}
+
+header.header-admin > div.info-user > ul > li {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0.5em 1em;
+    border-radius: 2em;
+}
+
+header.header-admin > div.info-user > ul > li > i {
+    color: var(--orange);
+    margin-right: .2em;
+    font-size: 1.2rem;
+}
+
+header.header-admin > button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%,50%);
+    border-radius: 1em;
+    outline: none;
+    border: none;
+    background-color: #FF9900;
+    padding: .5em 1em;
+    color: white;
+}
+
+header.header-admin > button:hover {
+    background-color: var(--rouge);
+    transform: translate(-50%,50%) scale(.85);
 }
