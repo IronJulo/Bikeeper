@@ -1,120 +1,178 @@
 {% extends "base.html" %}
 
 {% block style %}
+    {% if current_user.is_admin_user %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
+    {% else %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics.css') }}">
+    {% endif %}
 {% endblock style %}
 
 {% block main %}
 <div class="flex">
-    <section class='group1'>
-        <div class='user-data'>
-            <h2>Your Data</h2>
+    {% if current_user.is_admin_user %}
+    <header class="header-admin">
+        <form action="#" method="get">
+            <i class="fa fa-user"></i>
+            <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
+            <button type="submit">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+        <div class='show-user'>
+            <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="">
+            <div>
+                <h2>Jane Doe</h2>
+                <p>
+                    <span class="localisation-icon"><i class="fa fa-map-marker"></i></span>
+                    Paris, <span class="pays">France</span>
+                </p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam sunt temporibus eveniet magni debitis corrupti maxime totam repudiandae placeat? Alias commodi ut magni illum facilis id, dolor omnis veniam expedita!</p>
+            </div>
+        </div>
+        <div class='info-user'>
             <ul>
-                <li>Last Ride : <span>DATE</span></li>
-                <li>Last Ride Duration : <span>TIME</span></li>
+                <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li>
+                <li><i class="fa fa-mobile"></i>+336 70 15 62 78</li>
+                <li><i class="fa fa-calendar"></i> 2019, account created</li>
+                <li><i class="fa fa-credit-card"></i> €5/mo, Current Plan</li>
+            </ul>
+            <ul>
+                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235894</li>
+                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235895</li>
+                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235896</li>
             </ul>
         </div>
-        <div class='bikeeper-data'>
-            <h2>Your BiKeeper Data</h2>
-        </div>
-    </section>
+        
+        <button>Block Account</button>
+    </header>
 
-    <section class='group2'>
-        <div class="filters">
-            <h2>Filters</h2>
-            <form class='filters'>
-                <div class='ride-date'>
-                    <label for="ride-date">Ride Date : </label>
-                    <input type="date" name="ride-date" id="ride-date">
+    <div class="global-admin">
+        <div class="nadmin">
+    {% endif %}
+
+        <section class='group1'>
+            
+            <div class='user-data'>
+                <h2>Your Data</h2>
+                <ul>
+                    <li>Last Ride : <span>DATE</span></li>
+                    <li>Last Ride Duration : <span>TIME</span></li>
+                </ul>
+            </div>
+            
+            <div class='bikeeper-data'>
+                <h2>Your BiKeeper Data</h2>
+            </div>
+        </section>
+
+        <section class='group2'>
+            <div class="filters">
+                <h2>Filters</h2>
+                <form class='filters'>
+                    <div class='ride-date'>
+                        <label for="ride-date">Ride Date : </label>
+                        <input type="date" name="ride-date" id="ride-date">
+                    </div>
+                    <div class='ride-number'>
+                        <label for="ride-number">Ride Number : </label>
+                        <select name="ride-number" id="ride-number">
+                            <option value="ride1">Ride 1</option>
+                            <option value="ride2">Ride 2</option>
+                            <option value="ride3">Ride 3</option>
+                        </select>
+                    </div>
+                    <div class='device-number'>
+                        <label for="device-number">Ride Number : </label>
+                        <select name="device-number" id="device-number">
+                            <option value="device1">Device 1</option>
+                            <option value="device2">Device 2</option>
+                            <option value="device3">Device 3</option>
+                        </select>
+                    </div>
+                    <div class="submit">
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+            <div class="container-timeline">
+                <h2>Timeline</h2>
+                <div class="timeline">
+                    {% for i in range(0,5) %}
+                    <!-- METTRE LA COULEUR EN FONCTION DU LOG 
+                        --timeline-main-color:#7BC6E1; INFORMATION
+                        --timeline-main-color:#DC1D21; ALERT
+                    -->
+                    <style>
+                        :root {
+                            --timeline-main-color: #DC1D21;
+                        }
+                    </style>
+                    
+                    <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+                        <div class="timeline__event__icon ">
+                            <i class="fa fa-info-circle"></i>
+                            <div class="timeline__event__date">
+                                20-08-2019
+                            </div>
+                        </div>
+                        <div class="timeline__event__content ">
+                            <div class="timeline__event__title">
+                                Birthday
+                            </div>
+                            <div class="timeline__event__description">
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
-                <div class='ride-number'>
-                    <label for="ride-number">Ride Number : </label>
-                    <select name="ride-number" id="ride-number">
-                        <option value="ride1">Ride 1</option>
-                        <option value="ride2">Ride 2</option>
-                        <option value="ride3">Ride 3</option>
-                    </select>
+            </div>
+            
+        </section>
+
+        <section class='group3'>
+            <div class="graph1">
+                <div class="canvas1">
+                    <canvas id="speed"></canvas>
                 </div>
-                <div class="submit">
-                    <button type="submit">Search</button>
+                <div class="info1">
+                    <ul>
+                        <li>Max Speed : <span>158</span>km/h</li>
+                        <li>Average Speed : <span>72</span>km/h</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="graph2">
+                <div class="canvas2">
+                    <canvas id="angle"></canvas>
+                </div>
+                <div class="info2">
+                    <ul>
+                        <li>Max Angle : <span>158</span>°</li>
+                        <li>Average Angle : <span>72</span>°</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="group4">
+            <form action="{{ request.url }}" method='GET'>
+                <div class="btn-container">
+                    <input type="radio" name="food" id="local" checked hidden/>
+                    <label for="local">Local</label>  
+                    <input type="radio" name="food" id="online" hidden/>
+                    <label for="online">Online</label>
                 </div>
             </form>
+            
+            <div id="map"></div>
+        </section>
+    {% if current_user.is_admin_user %}    
         </div>
-        <div class="container-timeline">
-            <h2>Timeline</h2>
-            <div class="timeline">
-                {% for i in range(0,5) %}
-                <!-- METTRE LA COULEUR EN FONCTION DU LOG 
-                    --timeline-main-color:#7BC6E1; INFORMATION
-                    --timeline-main-color:#DC1D21; ALERT
-                -->
-                <style>
-                    :root {
-                        --timeline-main-color: #DC1D21;
-                    }
-                </style>
-                
-                <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
-                    <div class="timeline__event__icon ">
-                        <i class="fa fa-info-circle"></i>
-                        <div class="timeline__event__date">
-                            20-08-2019
-                        </div>
-                    </div>
-                    <div class="timeline__event__content ">
-                        <div class="timeline__event__title">
-                            Birthday
-                        </div>
-                        <div class="timeline__event__description">
-                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-        
-    </section>
-
-    <section class='group3'>
-        <div class="graph1">
-            <div class="canvas1">
-                <canvas id="speed" width="400" height="100"></canvas>
-            </div>
-            <div class="info1">
-                <ul>
-                    <li>Max Speed : <span>158</span>km/h</li>
-                    <li>Average Speed : <span>72</span>km/h</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="graph2">
-            <div class="canvas2">
-                <canvas id="angle" width="400" height="100"></canvas>
-            </div>
-            <div class="info2">
-                <ul>
-                    <li>Max Angle : <span>158</span>°</li>
-                    <li>Average Angle : <span>72</span>°</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section class="group4">
-        <form action="{{ request.url }}" method='GET'>
-            <div class="btn-container">
-                <input type="radio" name="food" id="local" checked hidden/>
-                <label for="local">Local</label>  
-                <input type="radio" name="food" id="online" hidden/>
-                <label for="online">Online</label>
-            </div>
-        </form>
-        
-        <div id="map"></div>
-    </section>
-
+    </div>
+    {% endif %}
 </div>
 {% endblock main %}
 
