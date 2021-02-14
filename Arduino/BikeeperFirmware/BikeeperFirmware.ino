@@ -33,6 +33,7 @@ for the arduino uno
 #include "Headers/messageHeartbeat.h"
 #include "Headers/messageReceived.h"
 #include "Headers/location.h"
+
 #include <TinyGPS++.h>
 
 //Server
@@ -42,7 +43,7 @@ for the arduino uno
 #include <SoftwareSerial.h>                 // need to be slightly modified to have a bigger buffer (100 instead of 64)
                                             // line 43 #define _SS_MAX_RX_BUFF 64
                                             // will become #define _SS_MAX_RX_BUFF 100
-String userPhoneNumber = "+33769342048";                     // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
+String userPhoneNumber;                     // Device owner phone number TODO make it changable in the setup call SERVER_PHONE_NUMBER to get phone number
 #define GSM_BAUDRATE 9600			        // Works because the sim800l baud rate is "hard coded" in the module.
 #define GSM_RX 7					        // Declare the SIM800L onto the pin 7.
 #define GSM_TX 8					        // Declare the SIM800L onto the pin 8.
@@ -50,7 +51,8 @@ String userPhoneNumber = "+33769342048";                     // Device owner pho
 
 SoftwareSerial sim800l(GSM_RX, GSM_TX);     // Declare the SIM800L onto the pins 7, 8.
 
-String answer, senderPhoneNumber, SMS;
+String answer, SMS;
+String senderPhoneNumber;
 unsigned long t0;
 
 
@@ -80,30 +82,56 @@ bool journey = false;
 #define GPS_TX 3	
 
 #define GPS_BAUDRATE 9600
-TinyGPSPlus gps;
-SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
+//TinyGPSPlus gps;
 
 location_t location;		                // Declare the Location type
+//SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 
 void setup()
 {
     Serial.begin(9600);
+
+    //GPS 
+    //gpsSerial.begin(GPS_BAUDRATE);
+    //pinMode(13, OUTPUT);
     
 	//SIM 800L
 	sim800l.begin(9600);
     
-    //GPS 
-    gpsSerial.begin(GPS_BAUDRATE);
-    pinMode(13, OUTPUT);
+    
+    sim800l.listen();
 	//Vibration sensor
 	attachInterrupt(0, vibartionDetected, RISING); // Interrupt for the vibration detector (RISING because the detector emmit ~3.5V for 10 ms).
-    initCard();
-    sendSMSTo(SERVER_PHONE_NUMBER, "bsdfsdfsdf");
-
+  
+  initCard();
+  LireSMS();                                                  // Si nouveau SMS disponible SIM800 envoie +CMTI:
+    sim800l.println("AT+CMGD=1,2");
+	message("OK", 1000, 0);
+	sim800l.println("AT+CMGDA=DEL INBOX");
+    message("OK", 1000, 0); 
 }
+
+/*static void smartDelay(unsigned long ms)
+{
+  gpsSerial.listen();
+  unsigned long start = millis();
+  do 
+  {
+    while (gpsSerial.available())
+      gps.encode(gpsSerial.read());
+  } while (millis() - start < ms);
+  sim800l.listen();
+
+}*/
 
 void loop()
 {
+    /*gpsSerial.listen();
+    double oldlat = gps.location.lat();
+    double oldlon = gps.location.lng();
+    sim800l.listen();*/
+
+    
     if (parked){                                                // Only detect vibration if we arer parked
     if (vibartion)                                              // Vibration detected
 	    {
@@ -124,22 +152,23 @@ void loop()
 		interrupts();                                           // Activate interrupt
 	    }
     }
+    if (message("+CMTI:", 1000, 1))
+        {
+        Serial.println(F("Maisage Recaivent-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"));
+        LireSMS();                                                                                 // Si nouveau SMS disponible SIM800 envoie +CMTI:
+        sim800l.println("AT+CMGD=1,2");
 
-    if (message("+CMTI:", 1000, 1))                             // If new message available 
-    {
-        LireSMS();                                              // Read SMS
-    }
-
-    Serial.print("user phone number : ");
-    Serial.println(userPhoneNumber);
-    Serial.print("bike park state : ");
-    Serial.println(parked);
-    Serial.print("bike journey state : ");
-    Serial.println(journey);
-    
-    sim800l.println("AT+CMGD=1,1");
-    message("OK", 1000, 0);
-
+    	Serial.print(F("answer : "));
+        Serial.println(answer);
+        Serial.println();
+        message("OK", 1000, 0); 
+    	}
+    //smartDelay(1000);
+    //message("OK", 1000, 1);
+	Serial.print(F("answer : "));
+    Serial.println(answer);
+	//sim800l.println("AT+CMGD=1,2");
+	//message("OK", 1000, 0); 
 }
 
 void
@@ -147,8 +176,8 @@ actualizeLocation()
 {
     //Nointerrupts later !!!!
     //TODO implement this ok!
-    location.latitude = gps.location.lat();
-	location.longitude = gps.location.lng();
+    location.latitude = 0.0;//gps.location.lat();
+	location.longitude = 0.0;//gps.location.lng();
 }
 
 
@@ -176,5 +205,25 @@ void
 vibartionDetected()
 {
     vibartion = true; 
-    Serial.println("moto a vibrationed");
+    Serial.println(F("moto a vibrationed"));
+}
+
+static void printFloat(float val, bool valid, int len, int prec)
+{
+  if (!valid)
+  {
+    while (len-- > 1)
+      Serial.print('*');
+    Serial.print(' ');
+  }
+  else
+  {
+    Serial.print(val, prec);
+    int vi = abs((int)val);
+    int flen = prec + (val < 0.0 ? 2 : 1); // . and -
+    flen += vi >= 1000 ? 4 : vi >= 100 ? 3 : vi >= 10 ? 2 : 1;
+    for (int i=flen; i<len; ++i)
+      Serial.print(' ');
+  }
+  delay(0);
 }

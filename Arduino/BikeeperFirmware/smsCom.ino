@@ -26,7 +26,8 @@ void LireSMS()
 {
     sim800l.println("AT+CMGF=1");                                         // Mode Texte TODO delete
     message("OK", 1000, 0);                                               // Wait for the SIM800L to return "OK" for stability
-    sim800l.println("AT+CMGR=1");                                         // Only read the first sms on the sim card!
+    sim800l.println("AT+CMGR=1");    
+    sim800l.println("\r");                                      // Only read the first sms on the sim card!
     message("OK", 1000, 0);                                               // Wait for the SIM800L to return "OK" for stability
 
     int phoneIndex = answer.indexOf("+33");                               // Get sender phone number index (the first of the received text)

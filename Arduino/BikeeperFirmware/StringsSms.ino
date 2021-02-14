@@ -1,0 +1,11 @@
+char StringSyncOk[] = "Your are now sync with your device";
+char StringBikeUnparked[] = "Your Bike is now unparked";
+char StringBikeNotParked[] = "Your Bike is not parked";
+char StringJourneyStopedAndParked[] = "You where doing a journey we stopped it for you and your bike is now parked";
+char StringBikeParked[] = "Your bike is now parked";
+char StringBikeAlreadyParked[] = "Your Bike is already parked";
+char StringJourneyStartedPleaseStop[] = "You are already doing a journey please 'stop' it before starting a new one";
+char StringJourneyStartedAndUnparked[] = "You have started your journey and your bike is now unparked ride safe";
+char StringJourneyStarted[] = "You have started your journey ride safe";
+char StringJourneyStopped[] = "You have stopped your journey remember to 'park' your bike for optimal detection";
+char StringJourneyNotStarted[] = "You are not doing a journey right now but you can 'start' one";
