@@ -16,53 +16,52 @@
 {% endblock %}
 
 {% block main %}
-    	<h2>Your account</h2>
-    	<div class="main">
-    		<div class="user-profile">
-    			<div class="image">
-					<div class="image-container">
-						<img src="{{ url_for('static', filename = 'mobile/assets/alert.png') }}" style="border-radius: 50%" width="50%" height="auto">
-					</div>
-					<div class="button-image">
-						<label for="profile_pic"></label>
-						<input class = "select-image" id="profile_pic" name="profile_pic" type="file" accept=".png, .gif, .jpg">
-					</div>
-    			</div>
-    		</div>
+        <h2>Your account</h2>
+        <div class="main">
+            <div class="user-profile">
+                <div class="image">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename = 'mobile/assets/alert.png') }}" style="border-radius: 50%" width="50%" height="auto">
+                    </div>
+                    <div class="button-image">
+                        <label for="profile_pic"></label>
+                        <input class = "select-image" id="profile_pic" name="profile_pic" type="file" accept=".png, .gif, .jpg">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="account">
+                <h3>Registered on {{ register_date }}</h3>
 
-    		<div class="account">
-				<h3>Registered on {{ register_date }}</h3>
+                    <fieldset>
+                        <legend>First name</legend>
+                        <input class="form-input" type="text" name="Fname" id="Fname" placeholder="Elon" required />
+                    </fieldset>
 
-            		<fieldset>
-                		<legend>First name</legend>
-						<input class="form-input" type="text" name="Fname" id="Fname" placeholder="Elon" required />
-					</fieldset>
+                    <fieldset>
+                        <legend>Last name</legend>
+                        <input class="form-input" type="text" name="Lname" id="Lname" placeholder="Musk" required />
+                    </fieldset>
 
-					<fieldset>
-						<legend>Last name</legend>
-						<input class="form-input" type="text" name="Lname" id="Lname" placeholder="Musk" required />
-					</fieldset>
+                    <fieldset>
+                        <legend>Phone number</legend>
+                        <input class="form-input" type="tel" name="numtel" id="numtel" placeholder="+33 7 85 69 24 15" required />
+                    </fieldset>
 
-					<fieldset>
-						<legend>Phone number</legend>
-						<input class="form-input" type="tel" name="numtel" id="numtel" placeholder="+33 7 85 69 24 15" required />
-					</fieldset>
+                    <fieldset>
+                        <legend>Email</legend>
+                        <input class="form-input" type="email" name="mail" id="mail" placeholder="Elonmusk@tesla.com" required />
+                    </fieldset>
 
-					<fieldset>
-						<legend>Email</legend>
-						<input class="form-input" type="email" name="mail" id="mail" placeholder="Elonmusk@tesla.com" required />
-					</fieldset>
+                    <fieldset>
+                        <legend>Adress</legend>
+                        <input class="form-input" type="text" name="Adress" id="Adress" placeholder="289 Elkview Drive, Vero Beach, Florida" required />
+                    </fieldset>
 
-					<fieldset>
-						<legend>Adress</legend>
-						<input class="form-input" type="text" name="Adress" id="Adress" placeholder="289 Elkview Drive, Vero Beach, Florida" required />
-					</fieldset>
-
-    		</div>
-    	</div>
-    	<footer>
-    		<button class="update" type="button">Update informations</button>
-    		<button class="cancel" type="button">Cancel</button>
-    	</footer>
+            </div>
+        </div>
+        <footer>
+            <button class="update" type="button">Update informations</button>
+            <button class="cancel" type="button">Cancel</button>
+        </footer>
  {% endblock %}
-
