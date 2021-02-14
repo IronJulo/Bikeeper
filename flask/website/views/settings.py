@@ -24,16 +24,14 @@ ACCOUNT
 
 
 @mod.route('/settings/account/', methods=['GET'])
-def settings_account():
-    return render_template("account.html")
+@mobile_template("{mobile/Settings/}account.html")
+def settings_account(template):
+    return render_template(template)
 
 
 @mod.route('/settings/account/update/', methods=['GET', 'POST'])
-@mobile_template("{mobile/Settings/}account_parameters_update.html")
 def settings_account_update(template):
-    return render_template(
-        template,
-    )
+    return "" #TODO Mathieu
 
 
 '''
