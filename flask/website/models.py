@@ -470,3 +470,17 @@ class ORM:
     @staticmethod
     def get_device(device_id: str) -> DEVICE:
         return DEVICE.query.filter_by(id=device_id).first()
+
+    @staticmethod
+    def update_user(password, num, firstname, lastname, email, town, postal_code, street, profile_picture):
+        db.session.query(USER).filter(USER.username_user==current_user.username_user).update({USER.password_user:password,
+            USER.num_user:num,
+            USER.firstname_user:firstname,
+            USER.lastname_user:lastname,
+            USER.email_user:email,
+            USER.town_user:town,
+            USER.postal_code_user:postal_code,
+            USER.street_user:street,
+            USER.profile_picture_user:profile_picture,}, synchronize_session = False)
+        db.session.commit()
+

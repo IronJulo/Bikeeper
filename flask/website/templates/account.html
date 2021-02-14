@@ -17,13 +17,13 @@
                         <p>Change</p>
                     </div>
                     
-                    <h2>@pseudo</h2> <!-- TODO -->
+                    <h2>@{{pseudo}}</h2> <!-- TODO -->
                     <span>Registered on DATE</span> <!-- TODO -->
                 </div>
                 <div class="form-password">
                     <fieldset>
                         <legend>Password</legend>
-                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" placeholder='TODO'>
+                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" placeholder={{mdp}}>
                     </fieldset>
                 </div>
             </div>
@@ -32,19 +32,19 @@
                 <div class="form-first-name">
                     <fieldset>
                         <legend>First Name</legend>
-                        <input type="text" name="first-name" placeholder='TODO'>
+                        <input type="text" name="first-name" placeholder={{first}}>
                     </fieldset>
                 </div>
                 <div class="form-last-name">
                     <fieldset>
                         <legend>Last Name</legend>
-                        <input type="text" name="last-name" placeholder='TODO'>
+                        <input type="text" name="last-name" placeholder={{last}}>
                     </fieldset>
                 </div>
                 <div class="form-phone">
                     <fieldset>
                         <legend>Phone Number</legend>
-                        <input type="tel" name="phone" placeholder='TODO'>
+                        <input type="tel" name="phone" placeholder='+33 {{tel}}'>
                     </fieldset>
                 </div>
             </div>
@@ -53,19 +53,25 @@
                 <div class="form-email">
                     <fieldset>
                         <legend>Email</legend>
-                        <input type="email" name="email" placeholder='TODO'>
+                        <input type="email" name="email" placeholder={{mail}}>
+                    </fieldset>
+                </div>
+                <div class="form-town">
+                    <fieldset>
+                        <legend>Town</legend>
+                        <input type="text" name="address" placeholder={{ville}}>
                     </fieldset>
                 </div>
                 <div class="form-address">
                     <fieldset>
-                        <legend>Address</legend>
-                        <input type="text" name="address" placeholder='TODO'>
+                        <legend>Street</legend>
+                        <input type="text" name="address" placeholder={{rue}}>
                     </fieldset>
                 </div>
                 <div class="form-postal">
                     <fieldset>
                         <legend>Postal Code</legend>
-                        <input type="text" name="address" pattern="[0-9]{5}" placeholder='TODO'>
+                        <input type="text" name="address" pattern="[0-9]{5}" placeholder={{code}}>
                     </fieldset>
                 </div>
             </div>
