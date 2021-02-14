@@ -25,12 +25,12 @@ def home(template):
 
 @mod.route('/mob/home/', methods=['GET', 'POST'])
 def mob_home():
-    return render_template("mobile/User/dashboard.html")
+    return render_template("mobile/User/home.html")
 
 
 @mod.route('/mob/support/', methods=['GET', 'POST'])
 def mob_support():
-    return render_template("mobile/User/support-chat.html")
+    return render_template("mobile/User/support.html")
 
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
@@ -40,7 +40,7 @@ def mob_localisation():
 
 @mod.route('/mob/statistic/', methods=['GET', 'POST'])
 def mob_statistic():
-    return render_template("mobile/User/statistics.html")
+    return render_template("mobile/User/stats.html")
 
 
 @mod.route('/home/user/<string:user_id>', methods=['GET'])

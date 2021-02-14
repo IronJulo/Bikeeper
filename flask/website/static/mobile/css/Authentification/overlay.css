@@ -5,6 +5,7 @@
   background-color: white;
   overflow-x: hidden; 
   transition: 0.1s;
+  z-index: 1;
 }
 
 
