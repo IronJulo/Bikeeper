@@ -93,7 +93,6 @@ void setup()
 
     //GPS 
     //gpsSerial.begin(GPS_BAUDRATE);
-    //pinMode(13, OUTPUT);
     
 	//SIM 800L
 	sim800l.begin(9600);
@@ -129,7 +128,16 @@ void loop()
     /*gpsSerial.listen();
     double oldlat = gps.location.lat();
     double oldlon = gps.location.lng();
-    sim800l.listen();*/
+    sim800l.listen();
+
+    Serial.println(F("latitude"));
+    printFloat(oldlat, gps.location.isValid(), 11, 6);
+    Serial.println();
+    Serial.println(F("longitude"));
+    printFloat(oldlon, gps.location.isValid(), 12, 6);
+    Serial.println();
+    Serial.println();*/
+
 
     
     if (parked){                                                // Only detect vibration if we arer parked
@@ -154,7 +162,7 @@ void loop()
     }
     if (message("+CMTI:", 1000, 1))
         {
-        Serial.println(F("Maisage Recaivent-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"));
+        Serial.println(F("Maisage Recaivent"));
         LireSMS();                                                                                 // Si nouveau SMS disponible SIM800 envoie +CMTI:
         sim800l.println("AT+CMGD=1,2");
 
@@ -221,7 +229,7 @@ static void printFloat(float val, bool valid, int len, int prec)
     Serial.print(val, prec);
     int vi = abs((int)val);
     int flen = prec + (val < 0.0 ? 2 : 1); // . and -
-    flen += vi >= 1000 ? 4 : vi >= 100 ? 3 : vi >= 10 ? 2 : 1;
+    flen += vi >= 1000 ? 4 : vi >= 100 ? 3 : vi >= 10 ? 2 : 1; 
     for (int i=flen; i<len; ++i)
       Serial.print(' ');
   }

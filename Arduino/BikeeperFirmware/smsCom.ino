@@ -56,13 +56,13 @@ boolean message(String attente, unsigned int timeout, boolean affiche)
             break;
         }
     }
-    if (affiche || answer.indexOf(attente) == -1)
+    /*if (affiche || answer.indexOf(attente) == -1)
     {
         Serial.print("Attente = " + attente + " " + answer.indexOf(attente) + " duree ");
         Serial.print(millis() - t0);
         Serial.println(" ms");
         Serial.println(answer);
-    }
+    }*/
 
     if (answer.indexOf(attente) > 0)
         return true;
