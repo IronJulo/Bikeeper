@@ -23,24 +23,11 @@ def home(template):
     return render_template(template)
 
 
-@mod.route('/mob/home/', methods=['GET', 'POST'])
-def mob_home():
-    return render_template("mobile/User/home.html")
-
-
-@mod.route('/mob/support/', methods=['GET', 'POST'])
-def mob_support():
-    return render_template("mobile/User/support.html")
-
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
 def mob_localisation():
     return render_template("mobile/User/localisation.html")
 
-
-@mod.route('/mob/statistic/', methods=['GET', 'POST'])
-def mob_statistic():
-    return render_template("mobile/User/stats.html")
 
 
 @mod.route('/home/user/<string:user_id>', methods=['GET'])
