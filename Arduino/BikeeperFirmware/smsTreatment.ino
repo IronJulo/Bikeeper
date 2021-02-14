@@ -10,9 +10,9 @@ void treatSMS(String answer)
             if (userPhonenumberIndex >= 0)
             {
                 userPhoneNumber = answer.substring(userPhonenumberIndex, userPhonenumberIndex + 12);
-                sendSMSTo(userPhoneNumber, "Your are now sync with your device you can send command here type help for help");
+                sendSMSTo(userPhoneNumber, StringSyncOk);
                 message("OK", 1000, 0);
-                Serial.println("The user phone number is :"); // TODO delete
+                Serial.println(F("The user phone number is :")); // TODO delete
                 Serial.println(userPhoneNumber);              // TODO delete
             }
         }
@@ -27,7 +27,7 @@ void treatSMS(String answer)
             commandReceived.trim();
             //commandReceived.replace(String(char(10)), "");
             //commandReceived.replace(String(char(13)), "");
-            Serial.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+            Serial.println(F("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"));
             Serial.println(commandReceived == "park");
             Serial.println(commandReceived.length());
             Serial.println(commandReceived);
@@ -38,13 +38,13 @@ void treatSMS(String answer)
                 {
                     if (parked)
                     {
-                        sendSMSTo(userPhoneNumber, "Your Bike is now unparked");
+                        sendSMSTo(userPhoneNumber, StringBikeUnparked);
                         message("OK", 1000, 0);
                         parked = false;
                     }
                     else
                     {
-                        sendSMSTo(userPhoneNumber, "Your Bike is not parked");
+                        sendSMSTo(userPhoneNumber, StringBikeNotParked);
                         message("OK", 1000, 0);
                         parked = true;
                     }
@@ -56,21 +56,21 @@ void treatSMS(String answer)
                     {
                         if (journey)
                         {
-                            sendSMSTo(userPhoneNumber, "You where doing a journey we stopped it for you and your bike is now parked");
+                            sendSMSTo(userPhoneNumber, StringJourneyStopedAndParked);
                             message("OK", 1000, 0);
                             parked = true;
                             journey = false;
                         }
                         else
                         {
-                            sendSMSTo(userPhoneNumber, "Your bike is now parked");
+                            sendSMSTo(userPhoneNumber, StringBikeParked);
                             message("OK", 1000, 0);
                             parked = true;
                         }
                     }
                     else
                     {
-                        sendSMSTo(userPhoneNumber, "Your Bike is already parked");
+                        sendSMSTo(userPhoneNumber, StringBikeAlreadyParked);
                         message("OK", 1000, 0);
                     }
                 }
@@ -78,21 +78,21 @@ void treatSMS(String answer)
                 {
                     if (journey)
                     {
-                        sendSMSTo(userPhoneNumber, "You are already doing a journey please 'stop' it before starting a new one");
+                        sendSMSTo(userPhoneNumber, StringJourneyStartedPleaseStop);
                         message("OK", 1000, 0);
                     }
                     else
                     {
                         if (parked)
                         {
-                            sendSMSTo(userPhoneNumber, "You have started your journey and your bike is now unparked ride safe");
+                            sendSMSTo(userPhoneNumber, StringJourneyStartedAndUnparked);
                             message("OK", 1000, 0);
                             journey = true;
                             parked = false;
                         }
                         else
                         {
-                            sendSMSTo(userPhoneNumber, "You have started your journey ride safe");
+                            sendSMSTo(userPhoneNumber, StringJourneyStarted);
                             message("OK", 1000, 0);
                             journey = true;
                         }
@@ -103,13 +103,13 @@ void treatSMS(String answer)
                 {
                     if (journey)
                     {
-                        sendSMSTo(userPhoneNumber, "You have stopped your journey remember to 'park' your bike for optimal detection");
+                        sendSMSTo(userPhoneNumber, StringJourneyStopped);
                         message("OK", 1000, 0);
                         journey = false;
                     }
                     else
                     {
-                        sendSMSTo(userPhoneNumber, "You are not doing a journey right now but you can 'start' one");
+                        sendSMSTo(userPhoneNumber, StringJourneyNotStarted);
                         message("OK", 1000, 0);
                     }
                 }
