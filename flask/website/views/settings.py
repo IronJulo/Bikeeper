@@ -12,6 +12,7 @@ from flask_login import current_user
 
 mod = Blueprint('settings', __name__)
 
+
 @mod.route('/settings/', methods=['GET'])
 @mobile_template("{mobile/Settings/}settings.html")
 def settings(template):
@@ -27,32 +28,34 @@ ACCOUNT
 
 @mod.route('/settings/account/', methods=['GET'])
 def settings_account():
-    pseudo=current_user.username_user
-    first=current_user.firstname_user
-    last=current_user.lastname_user
-    mdp=current_user.password_user
-    tel=current_user.num_user
-    mail=current_user.email_user
-    ville=current_user.town_user
-    code=current_user.postal_code_user
-    rue=current_user.street_user
-    return render_template("account.html",pseudo=pseudo,first=first,last=last,mdp=mdp,tel=tel,mail=mail,ville=ville,code=code,rue=rue)
+    pseudo = current_user.username_user
+    first = current_user.firstname_user
+    last = current_user.lastname_user
+    mdp = current_user.password_user
+    tel = current_user.num_user
+    mail = current_user.email_user
+    ville = current_user.town_user
+    code = current_user.postal_code_user
+    rue = current_user.street_user
+    return render_template("account.html", pseudo=pseudo, first=first, last=last, mdp=mdp, tel=tel, mail=mail,
+                           ville=ville, code=code, rue=rue)
 
 
 @mod.route('/settings/account/update/', methods=['GET', 'POST'])
 def settings_account_update():
-    result=request.form
-    first=result['first-name']
-    last=result['last-name']
-    tel=result['phone']
-    mail=result['email']
+    result = request.form
+    first = result['first-name']
+    last = result['last-name']
+    tel = result['phone']
+    mail = result['email']
     # image=result['avatar']
-    mdp=result['password']
-    code=result['postal-code']
-    ville=result['town']
-    rue=result['street']
-    ORM.update_user(mdp,tel,first,last,mail,ville,code,rue)
+    mdp = result['password']
+    code = result['postal-code']
+    ville = result['town']
+    rue = result['street']
+    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
     return redirect(url_for('settings.settings_account'))
+
 
 '''
 DEVICES
@@ -106,10 +109,10 @@ def settings_contact_add_check():
     return redirect(url_for("settings.settings_contact"))
 
 
-@mod.route('/settings/contacts/remove/', methods=['GET', 'POST'])
-def settings_contact_remove():
+@mod.route('/settings/contacts/remove/<int:id_contact>', methods=['GET', 'POST'])
+def settings_contact_remove(id_contact):
+    ORM.remove_contact(id_contact)
     return redirect(url_for('settings.settings_contact'))
-
 
 
 '''
