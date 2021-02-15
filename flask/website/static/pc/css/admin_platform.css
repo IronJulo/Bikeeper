@@ -1,0 +1,30 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+}
+
+div.flex {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.flex > * {
+    margin-bottom: 2rem;
+}
+
+canvas#cpu,
+canvas#ram {
+    background-color: white;
+    width: 90%;
+    height: auto;
+    padding: 1em;
+    border-radius: .5em;
+}

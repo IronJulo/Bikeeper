@@ -1,18 +1,18 @@
 <aside class="sidebar sidebar-navigation">
     <ul>
+        {% if not current_user.is_admin_user %}
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/home-icon.svg') }}" alt="icone home">
-                <a href="/home/">
+                <a href="{{ url_for('home.home') }}">
                     Accueil
                 </a>
             </div>
         </li>
-        {% if not current_user.is_admin_user %}
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/statistics.png') }}" alt="icone statistics">               
-                <a href="/statistics/">
+                <a href="{{ url_for('stats.statistics') }}">
                     Statistics
                 </a>
             </div>
@@ -20,7 +20,7 @@
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/settings.png') }}" alt="icone settings">                
-                <a href="/settings/">
+                <a href="{{ url_for('settings.settings') }}">
                     Settings
                 </a>
             </div>
@@ -28,8 +28,16 @@
         {% else %}
         <li>
             <div>
+                <img src="{{ url_for('static', filename='pc/assets/home-icon.svg') }}" alt="icone home">
+                <a href="{{ url_for('admin.admin_home') }}">
+                    Accueil
+                </a>
+            </div>
+        </li>
+        <li>
+            <div>
                 <img src="{{ url_for('static', filename='pc/assets/users-icon.svg') }}" alt="icone statistics">               
-                <a href="/statistics/">
+                <a href="{{ url_for('stats.statistics') }}">
                     Users
                 </a>
             </div>
@@ -37,7 +45,7 @@
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/plateform-icon.svg') }}" alt="icone settings">                
-                <a href="/plateform/">
+                <a href="{{ url_for('admin.platform') }}">
                     Plateform
                 </a>
             </div>
@@ -46,7 +54,7 @@
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/support.png') }}" alt="icone support">
-                <a href="/support/">
+                <a href="{{ url_for('support.support') }}">
                     Support
                 </a>
             </div>
