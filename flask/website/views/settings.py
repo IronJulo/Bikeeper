@@ -77,7 +77,8 @@ CONTACT
 @mod.route('/settings/contacts/', methods=['GET'])
 @mobile_template("{mobile/Settings/}contacts.html")
 def settings_contact(template):
-    return render_template(template)
+    contacts=ORM.get_contacts_by_user(current_user.username_user)
+    return render_template(template,contacts=contacts)
 
 
 @mod.route('/settings/contacts/update/', methods=['GET'])
@@ -87,6 +88,11 @@ def settings_contact_update():
 
 @mod.route('/settings/contacts/update/check/', methods=['GET', 'POST'])
 def settings_contact_update_check():
+    result=request.form
+    first=result['first-name']
+    last=result['last-name']
+    tel=result['phone']
+    ORM.update_contact(tel,first,last)
     return redirect(url_for("settings.settings_contact"))
 
 
