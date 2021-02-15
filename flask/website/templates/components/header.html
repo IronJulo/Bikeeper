@@ -1,6 +1,10 @@
 <header class="base">
     <div>
-        <a href='/home/'>
+        {% if not current_user.is_admin_user %}
+        <a href="{{ url_for('home.home') }}">
+        {% else %}
+        <a href="{{ url_for('admin.admin_home') }}">
+        {% endif %}
             <img src="{{ url_for('static', filename='pc/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
         </a>
         <span>BiKeeper</span>
@@ -14,13 +18,13 @@
                 </a>
               
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a href="/logout/" class="dropdown-item">Logout</a>
+                    <a href="{{ url_for('logout.logout')}}" class="dropdown-item">Logout</a>
                 </div>
             </div>
         {% else %}
             <div>
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <a href="/login/"><span>Login</span></a>
+                <a href="{{ url_for('login.login')}}"><span>Login</span></a>
             </div>
         {% endif %}
     </div>

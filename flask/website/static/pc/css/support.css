@@ -226,7 +226,7 @@ section.chat ul li.replies span {
 section.chat ul li.replies img {
     border-radius: 20em;
     height: 50px;
-    width: auto;
+    width: 50px;
 }
 
 section.chat ul li.replies p {
