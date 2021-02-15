@@ -19,8 +19,9 @@
                         </li>
                     {% endfor %}
                 </ul>
-
-                <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
+                {% if not current_user.is_admin_user %}
+                    <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
+                {% endif %}
             </div>
         </section>
 
