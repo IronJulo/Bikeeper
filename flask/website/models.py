@@ -415,6 +415,14 @@ class ORM:
         return messages
 
     @staticmethod
+    def get_last_message_by_ticket_id(ticket_id):
+        """
+        return: last message of the tickets
+        """
+        messages = ORM.get_message_by_ticket_id(ticket_id)
+        return messages[max(messages.keys())]
+
+    @staticmethod
     def messages_to_json(messages):
         return jsonify(messages)
 

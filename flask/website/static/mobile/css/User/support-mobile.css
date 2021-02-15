@@ -15,6 +15,9 @@ input{
   border: none;
   color: gray;
 }
+h3{
+  font-size: 30px;
+}
 div.col-1{
   text-align: center
 }
@@ -37,4 +40,35 @@ button{
   text-align: center;
   padding-top: 7px;
   color: grey
+}
+.why{
+  border: none;
+  width: 100%
+}
+.modal{
+  margin-top: 30px;
+
+}
+.modal-body{
+  text-align: center
+}
+.why-btn{
+  position: absolute;
+  bottom: 10px;
+  left: 10px
+}
+.tckt{
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+.lst-msg{
+  font-size: 14px;
+  color: grey
+}
+.tckt-id{
+  font-size: 20px;
+}
+h3{
+  text-align: center;
+  margin-bottom: 20px;
 }
