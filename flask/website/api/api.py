@@ -212,9 +212,10 @@ def get_bikeeper_user_num(device_id):
         """
     try:
         user_num = ORM.get_bikeeper_user_num(device_id)
+        ORM.new_log("", "I", datetime.now(), "", device_id)
     except AttributeError:
         return error("Device number not found")
     return jsonify(
-        type_message="reponse_num",
+        type_message="response_num",
         numero=user_num
     )
