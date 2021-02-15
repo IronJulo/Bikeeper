@@ -4,7 +4,7 @@ This module interact directly with the database. It make call to sqlalchemy ORM 
 from datetime import datetime
 from typing import List
 from sqlalchemy import func
-from sqlalchemy.types import TIMESTAMP
+from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
 from .app import db, session, login_manager
@@ -32,6 +32,15 @@ class CONTACT(db.Model):
         self.profile_picture_contact = profile_picture_contact
         self.num_device = num_device
 
+    def serialize(self):
+        return {
+            'num_contact': self.num_contact,
+            'firstname_contact': self.firstname_contact,
+            'lastname_contact': self.lastname_contact,
+            'profile_picture_contact': self.profile_picture_contact,
+            'num_device': self.num_device
+        }
+
 
 class LOG(db.Model):
     """
@@ -40,7 +49,7 @@ class LOG(db.Model):
     id_log = db.Column(db.Integer, primary_key=True, autoincrement=True)
     content_log = db.Column(db.String(150))
     type_log = db.Column(db.String(20))
-    datetime_log = db.Column(db.DateTime())
+    datetime_log = db.Column(DateTime())
     exception_log = db.Column(db.String(160))
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("LOG", lazy="dynamic"))
@@ -562,18 +571,7 @@ class ORM:
 
     @staticmethod
     def update_user(password, num, firstname, lastname, email, town, postal_code, street):
-        """
-        Update user data
-        :params : password
-        :params : num
-        :params : firstname
-        :params : lastname
-        :params : email
-        :params : town
-        :params : postal_code
-        :params : street
-        """
-        user = ORM.get_user(current_user.username_user)
+        user=ORM.get_user(current_user.username_user)
 
         encrypted_password = sha256()
         encrypted_password.update(password.encode())
@@ -590,6 +588,9 @@ class ORM:
 
         db.session.commit()
 
+    @staticmethod
+    def get_contacts(device_id: str) -> List[CONTACT]:
+        return CONTACT.query.filter(CONTACT.num_device == device_id).all()
 
     @staticmethod
     def get_contacts_by_user(pseudo: str) -> List[CONTACT]:
