@@ -11,18 +11,10 @@
 {% endblock style %}
 
 {% block main %}
-    <style>
-    #my_osm_widget_map { /* use the same name as <div id=""> */
-	width: 100%; /* important! if you need full width display */
-	height: 400px;
-	margin: 0;
-	border-radius: 5px;
-    }
-    </style>
 <div class="flex">
     {% if current_user.is_admin_user %}
     <header class="header-admin">
-        <form action="#" method="get">
+        <form action="{{ request.url }}" method="post">
             <i class="fa fa-user"></i>
             <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
             <button type="submit">
@@ -32,18 +24,18 @@
         <div class='show-user'>
             <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="">
             <div>
-                <h2>Jane Doe</h2>
+                <h2>{{username}}</h2>
                 <p>
                     <span class="localisation-icon"><i class="fa fa-map-marker"></i></span>
-                    Paris, <span class="pays">France</span>
+                    {{street}}, <span class="pays">{{town}}, {{postalcode}}</span>
                 </p>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam sunt temporibus eveniet magni debitis corrupti maxime totam repudiandae placeat? Alias commodi ut magni illum facilis id, dolor omnis veniam expedita!</p>
             </div>
         </div>
         <div class='info-user'>
             <ul>
-                <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li>
-                <li><i class="fa fa-mobile"></i>+336 70 15 62 78</li>
+                <!-- <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li> -->
+                <li><i class="fa fa-mobile"></i>{{phone}}</li>
                 <li><i class="fa fa-calendar"></i> 2019, account created</li>
                 <li><i class="fa fa-credit-card"></i> €5/mo, Current Plan</li>
             </ul>
@@ -54,12 +46,15 @@
             </ul>
         </div>
         
-        <button>Block Account</button>
+        {% if current_user.is_admin_user and not username=="" %}
+            <button>Block Account</button>
+        {% endif %}
     </header>
 
     <div class="global-admin">
         <div class="nadmin">
     {% endif %}
+    {% if current_user.is_admin_user and not username=="" or not current_user.is_admin_user %}
 
         <section class='group1'>
             
@@ -180,6 +175,7 @@
             <div id="position"></div>
             <div id="temp"></div>
         </section>
+    {% endif %}
     {% if current_user.is_admin_user %}    
         </div>
     </div>

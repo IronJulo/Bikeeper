@@ -676,3 +676,7 @@ class ORM:
         contact.lastname_contact=lastname
         contact.num_contact=num
         db.session.commit()
+
+    @staticmethod
+    def search_user(word):
+        return db.session.query(USER).filter(USER.username_user.like("%" + word + "%")).all()
