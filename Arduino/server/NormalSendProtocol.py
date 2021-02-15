@@ -42,10 +42,7 @@ class NormalSend:
     def auto_set(self):
         self.long = (Decimal(self.data[2])*1000).normalize()
         self.lat = (Decimal(self.data[3])*1000).normalize()
-        if self.data[4] == "T":
-            self.charge = True
-        else:
-            self.charge = False
+        self.charge = self.data[4]
         self.lvl[0] = int(self.data[5])
         self.lvl[1] = int(self.data[6])
 
