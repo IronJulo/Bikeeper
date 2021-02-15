@@ -1,0 +1,91 @@
+{% extends "mobile/base.html" %}
+
+        {% block header %}
+        <div class="logo">
+            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/support-mobile.css') }}">
+        <!-- Use any element to open/show the overlay navigation menu -->
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+        {% endblock %}
+
+        {% block main %}
+        <div class="container">
+            <div class="row">
+                <div class="col-2"><a href="/support/"><i class="fa fa-chevron-left"></i></a></div>
+                <div class="col-8">TICKET #{{ id_ticket }}</div>
+                {% if current_user.is_admin_user %}
+                
+                <div class="col-1 check"><a href="#"><i class="fa fa-check"></i></a></div>
+                
+                {% endif %}
+            </div>
+        </div>
+        <div class="container">
+        {% for mes in messages.values() %}
+            
+            <div class="row msg">
+            {% if mes["is_admin_message"]==0 %}
+                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+                <div class="col-8 user">{{ mes["content"] }}</div>
+            {% else %}
+                <div class="col-2"></div>
+                <div class="col-8 admin">{{ mes["content"] }}</div>
+                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+            {% endif %}
+            
+            </div>
+
+
+        {% endfor %}
+        </div>
+
+
+
+
+        <div class="container-fluid" id="input-message">
+            <div class="row">
+                <div class="col-8"><input type="text" value="Write your message" name="msg" id="msg"></div>
+                <div class="col-2"><button type="button"><i class="fa fa-paperclip"></i></button></div>
+                <div class="col-2"><button type="submit" class="submit" id="send-msg"><i class="fa fa-paper-plane"></i></button></div>
+            </div>
+        </div>
+
+    {% endblock %}
+    <script type="text/javascript">
+        {% autoescape false %}
+        var current_user = '{{current_user.username_user}}';
+        var is_admin = '{{current_user.is_admin_user}}';
+        var user_image = '{{picture}}';
+        {% endautoescape %}
+
+        function isAdmin(){
+            return is_admin;
+        }
+
+        function getUsername() {
+            return current_user;
+        }
+
+        function getImageUser(){
+            return user_image;
+        }
+        function openNav() {
+          document.getElementById("myNav").style.width = "100%";
+        }
+
+        /* Close when someone clicks on the "x" symbol inside the overlay */
+        function closeNav() {
+          document.getElementById("myNav").style.width = "0%";
+        } 
+
+    </script>
+    <script src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
+
+
+
