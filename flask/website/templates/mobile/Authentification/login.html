@@ -13,6 +13,9 @@
 
 
     {% include "components/mobile-sidebar-admin.html" %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/login-mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/header-mobile.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
 
     <!-- Use any element to open/show the overlay navigation menu -->
     <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>

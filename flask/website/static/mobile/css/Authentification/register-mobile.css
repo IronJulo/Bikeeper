@@ -106,7 +106,7 @@ font-size: 12px;
 font-family: Roboto;
 }
 h3{margin: 0}
-main>button{
+button{
     background-color: #DC1D21;
     color: white;
     border: None;

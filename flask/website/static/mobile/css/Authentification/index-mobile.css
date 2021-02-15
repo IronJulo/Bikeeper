@@ -13,6 +13,7 @@ body{
 
 h2{
     text-align: left;
+    margin-top: 20px;
 }
 
 a{
@@ -67,13 +68,13 @@ header a{
 }
 
 
-#background-avec-image{height: 298px;}
-#localisation img{height: 20px}
-#localisation a{
+.background-avec-image{height: 298px;}
+.localisation img{height: 20px}
+.localisation a{
     text-decoration: none;
     color: grey
 }
-#avis {
+.avis {
     width: 90%;
     margin: auto;
     background-color: white;
@@ -88,7 +89,8 @@ header a{
     margin-bottom: 50px
 
 }
-#avis #mini-header{
+
+.avis .mini-header{
     width: 100%;
     display: flex;
     margin-top: 8px;
@@ -96,7 +98,7 @@ header a{
 
     
 }
-#avis #mini-header h4{
+.avis .mini-header h4{
     text-align: left;
     font-weight: normal;
     font-size: 16px;
@@ -105,14 +107,14 @@ header a{
     margin-left: 10px;
     margin-top: 15px;
 }
-#avis #rate{
+.avis .rate{
     width: 100%;
     display: flex;
     margin-left: 12px;
 
 
 }
-#avis #rate span{
+.avis .rate span{
     color: #FF9900;
     margin-top: 12px;
     margin-right: 8px;
@@ -123,9 +125,12 @@ header a{
 }
 #thumb-up{
     height: 40px;
-    margin-top :3px;
+    position: absolute;
+    right: 10%;
+    z-index: 0
+    
 }
-#avis>p{
+.avis>p{
     margin-top: 0%;
     margin-left: 5px;
     margin-right: 5px;
@@ -135,18 +140,22 @@ article{
     width:85%;
     margin: auto;
 }
-#localisation{
+.localisation{
+    width: 90%;
+    margin:auto;
     display: flex;
     text-align: left;
     margin-top: 50px;
     justify-content: center;
     flex-direction: row;
+    
+    
 }
 
-#localisation div{
+.localisation div{
     margin-left: 20px
 }
-#localisation img{height: 96px}
+.localisation img{height: 96px}
 h2{margin-left: 10px}
 h5{
     font-weight: normal;
@@ -155,13 +164,13 @@ h5{
     color: #263238;
     margin: 0%;
 }
-#localisation p{
+.localisation p{
     font-size: 14px;
     color: #263238;
     margin-top : 10px;
     margin-bottom: 8px;
 }
-#localisation a{
+.localisation a{
     font-size: 12px;
 color: #263238;
 opacity: 0.54;
@@ -172,7 +181,10 @@ opacity: 0.54;
   margin-left: 75%;
   
 }
-#background-avec-image{
+article{
+    margin-top: 40px
+}
+.background-avec-image{
     background-image: url("../../assets/bike-mountains2.png");
     width: 100%;
     background-size: cover;
@@ -190,21 +202,21 @@ opacity: 0.54;
 
 
 @media (min-width:418px){
-    #bien-tout-placer{
+    .bien-tout-placer{
         height: 280px;
     }
-    #background-avec-image{
+    .background-avec-image{
         height: 390px;
     }
 }
 @media (min-width:700px){
-    #background-avec-image{
+    .background-avec-image{
         background-position-y: -300px;
     }
 }
 
 @media (min-width:1023px){
-    #background-avec-image{
+    .background-avec-image{
         background-position-y: -500px;
     }
 }

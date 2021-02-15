@@ -16,7 +16,8 @@ mod = Blueprint('support', __name__)
 
 
 @mod.route('/support/', methods=['GET'])
-def support():
+@mobile_template('{mobile/User/}support.html')
+def support(template):
     messages = {}
 
     if not current_user.is_admin_user:
@@ -31,7 +32,7 @@ def support():
             messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
 
     return render_template(
-        "support.html",
+        template,
         messages = messages,
         picture = ORM.get_picture_message_from_username(current_user.username_user),
     )
