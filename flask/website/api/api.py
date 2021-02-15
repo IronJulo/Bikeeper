@@ -16,12 +16,26 @@ mod = Blueprint('api', __name__)
 
 
 def ok():
+    """
+    return ok message
+
+    :return: OK message
+    :rtype: Response
+    """
     return jsonify(
         type_message="ok"
     )
 
 
 def error(err):
+    """
+    return error message
+
+    :param err: Error content
+    :type err: string
+    :return: error message
+    :rtype: Response
+    """
     return jsonify(
         type_message="error",
         error=err
@@ -30,6 +44,13 @@ def error(err):
 
 @mod.route('/api/sms/add/', methods=['POST'])
 def send_sms_to_bd():
+    """
+    sends sms to the bd
+    This sends a SMS to the database.
+
+    :return: Ok message if it worked, error message otherwise
+    :rtype: Response
+    """
     payload = request.json
     print(payload)
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
@@ -67,6 +88,13 @@ def send_sms_to_bd():
 
 @mod.route('/api/bikeeper/add/', methods=['POST'])
 def add_bikeeper_to_bd():
+    """
+    Adds bikeeper to the database
+    This adds a new bikeeper device to the database.
+
+    :return: Ok message if it worked, error message otherwise
+    :rtype: Response
+    """
     data = request.json
     try:
         num = data['num_device']
@@ -81,6 +109,13 @@ def add_bikeeper_to_bd():
 
 @mod.route('/api/bikeeper/add_raw/', methods=['POST'])
 def add_raw_bikeeper_to_bd():
+    """
+    Adds raw bikeeper to the database
+    This adds a bikeeper with raw parameters to the database.
+
+    :return: Ok message if it worked, error message otherwise
+    :rtype: Response
+    """
     data = request.json
     try:
         num = data['num_device']
@@ -95,6 +130,15 @@ def add_raw_bikeeper_to_bd():
 
 @mod.route('/api/bikeeper/remove/<int:device_id>/', methods=['DELETE'])
 def remove_bikeeper(device_id):
+    """
+    Removes selected device
+    This removes the current device from the database using ORM function.
+
+    :param device_id: id of current device
+    :type device id: string
+    :return: Ok message if it worked, error message otherwise
+    :rtype: Response
+    """
     if ORM.remove_device(device_id):
         return ok()
     else:
@@ -103,6 +147,15 @@ def remove_bikeeper(device_id):
 
 @mod.route('/api/bikeeper/settings/<int:device_id>/update/', methods=['POST'])
 def update_bikeeper_settings_to_bd(device_id):
+    """
+    Update current device settings to the database
+    This updates settings of the device on the database using ORM function.
+
+    :param device_id: id of the current device
+    :type device_id: string
+    :return: Ok message
+    :rtype: Response
+    """
     data = request.json
     ORM.get_device(device_id).set_row_parameters(f"{data}")
     return ok()
@@ -110,6 +163,15 @@ def update_bikeeper_settings_to_bd(device_id):
 
 @mod.route('/api/bikeeper/currentphone/<string:device_id>/', methods=['GET'])
 def get_current_user_phone_from_db(device_id):
+    """
+    Gets current user associated phone
+    This gets the current user phone associated on the database from ORM and returns it.
+
+    :param device_id: id of the current device
+    :type device_id: string
+    :return: Associated phone number of current device
+    :rtype: Response
+    """
     current_phone = ORM.get_associated_phone(device_id)
     return jsonify(
         type_message="response_current_phone",
@@ -119,6 +181,15 @@ def get_current_user_phone_from_db(device_id):
 
 @mod.route('/api/bikeeper/contacts/<string:device_id>/', methods=['GET'])
 def get_current_user_contacts(device_id):
+    """
+    Gets current user contacts
+    This gets current user contacts from ORM and returns it.
+
+    :param device_id: id of the current device
+    :type device_id: string
+    :return: Contacts of current device
+    :rtype: Response
+    """
     res = []
     contacts = ORM.get_contacts(device_id)
     for contact in contacts:
