@@ -15,10 +15,14 @@
                 <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
                 <h4><span>{{contact.firstname_contact}}</span> <span>{{contact.lastname_contact}}</span></h4>
             </div>
+            <form action="{{ url_for('settings.settings_contact_update') }}" id="update-contact" method='POST'>
+                <input type="hidden" name="id-contact" value='{{contact.id_contact}}'>
+            </form>
             <div class="action">
-                <a href="{{ url_for('settings.settings_contact_update') }}">Edit</a>
+                <button type="submit" form="update-contact">Edit</button>
                 <a href="{{ url_for('settings.settings_contact_remove') }}">Remove</a>
             </div>
+
         </div>
         {% endfor %}
     </section>
