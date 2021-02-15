@@ -10,6 +10,8 @@ from flask import jsonify
 from .app import db, session, login_manager
 import requests
 from hashlib import sha256
+import psutil
+
 
 class CONTACT(db.Model):
     """
@@ -49,8 +51,6 @@ class LOG(db.Model):
         self.datetime_log = datetime_log
         self.exception_log = exception_log
         self.num_device = num_device
-
-
 
 
 class DEVICE(db.Model):
@@ -410,17 +410,49 @@ class ORM:
 
     @staticmethod
     def new_contact(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device):
-        CONTACT(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device)
+        """
+        Create a new contact
+        :params : num_contact
+        :params : firstname_contact
+        :params : lastname_contact
+        :params : profile_picture_contact
+        :params : num_device
+        """
+        c = CONTACT(num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device)
+        db.session.add(c)
         db.session.commit()
 
     @staticmethod
     def new_log(content_log, type_log, datetime_log, exception_log, num_device):
-        LOG(content_log, type_log, datetime_log, exception_log, num_device)
+        """
+        Create a new log
+        :params : content_log
+        :params : type_log
+        :params : datetime_log
+        :params : exception_log
+        :params : num_device
+        """
+        l = LOG(content_log, type_log, datetime_log, exception_log, num_device)
+        db.session.add(l)
         db.session.commit()
 
     @staticmethod
     def new_user(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
                  is_admin):
+        """
+        Create a new user
+        :params : username
+        :params : password
+        :params : num
+        :params : firstname
+        :params : lastname
+        :params : email
+        :params : town
+        :params : postal_code
+        :params : street
+        :params : profile_picture
+        :params : is_admin
+        """
         user = USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
                     is_admin)
         db.session.add(user)
@@ -428,18 +460,39 @@ class ORM:
 
     @staticmethod
     def new_device(num_device, name_device, row_parameters_device, username):
+        """
+        Create a new device
+        :params : num_device
+        :params : name_device
+        :params : row_parameters_device
+        :params : username
+        """
         device = DEVICE(num_device, name_device, row_parameters_device, username)
         db.session.add(device)
         db.session.commit()
 
     @staticmethod
     def new_message(username_user, is_admin_message, datetime_message, content_message, id_ticket):
+        """
+        Create a new message
+        :params : username_user
+        :params : is_admin_message
+        :params : datetime_message
+        :params : content_message
+        :params : id_ticket
+        """
         message = MESSAGE(username_user, is_admin_message, datetime_message, content_message, id_ticket)
         db.session.add(message)
         db.session.commit()
 
     @staticmethod
     def new_ticket(title_ticket, is_closed_ticket, user):
+        """
+        Create a new ticket
+        :params : title_ticket
+        :params : is_closed_ticket
+        :params : user
+        """
         ticket = TICKET(title_ticket, is_closed_ticket, user)
         db.session.add(ticket)
         db.session.commit()
@@ -464,29 +517,75 @@ class ORM:
 
     @staticmethod
     def remove_device(device_id: str) -> bool:
+        """
+        Remove a device from database by a given device_id
+        :params : device_id, str
+        """
         num_del_rows = DEVICE.query.filter_by(num_device=device_id).delete()
         db.session.commit()
         return True if num_del_rows >= 1 else False
 
     @staticmethod
+    def remove_contact(contact_id) -> bool:
+        """
+        Remove a contact from database by a given contact_id
+        :params : contact_id : int
+        """
+        num_del_rows = CONTACT.query.filter_by(contact_id=contact_id).delete()
+        db.session.commit()
+        return True if num_del_rows >= 1 else False
+
+    @staticmethod
     def get_device(device_id: str) -> DEVICE:
+        """
+        Get device by id
+        :return : A Device
+        """
         return DEVICE.query.filter_by(id=device_id).first()
 
     @staticmethod
-    def update_user(password, num, firstname, lastname, email, town, postal_code, street):
-        user=ORM.get_user(current_user.username_user)
+    def get_current_cpu_usage():
+        """
+        Get current CPU usage
+        :return: gives a single float value
+        """
+        return psutil.cpu_percent()
 
-        encrypted_password=sha256()
+    @staticmethod
+    def get_current_ram_usage():
+        """
+        Get current CPU usage
+        :return: gives a single float value
+        """
+        return psutil.virtual_memory().percent
+
+
+    @staticmethod
+    def update_user(password, num, firstname, lastname, email, town, postal_code, street):
+        """
+        Update user data
+        :params : password
+        :params : num
+        :params : firstname
+        :params : lastname
+        :params : email
+        :params : town
+        :params : postal_code
+        :params : street
+        """
+        user = ORM.get_user(current_user.username_user)
+
+        encrypted_password = sha256()
         encrypted_password.update(password.encode())
 
-        user.password_user=encrypted_password.hexdigest()
-        user.num_user=num
-        user.firstname_user=firstname
-        user.lastname_user=lastname
-        user.email_user=email
-        user.town_user=town
-        user.postal_code_user=postal_code
-        user.street_user=street
+        user.password_user = encrypted_password.hexdigest()
+        user.num_user = num
+        user.firstname_user = firstname
+        user.lastname_user = lastname
+        user.email_user = email
+        user.town_user = town
+        user.postal_code_user = postal_code
+        user.street_user = street
         # user.profile_picture_user=profile_picture
 
         db.session.commit()
@@ -498,11 +597,7 @@ class ORM:
         db.session.commit()
         return contact_list 
 
-    # @staticmethod
     # def update_contact(num, firstname, lastname):
+    # @staticmethod
     #     contacts=ORM.get_contacts_by_user(current_user.username_user)
-
     #     db.session.commit()
-
-       
-
