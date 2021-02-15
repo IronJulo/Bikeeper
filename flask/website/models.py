@@ -473,14 +473,17 @@ class ORM:
 
     @staticmethod
     def update_user(password, num, firstname, lastname, email, town, postal_code, street, profile_picture):
-        db.session.query(USER).filter(USER.username_user==current_user.username_user).update({USER.password_user:password,
-            USER.num_user:num,
-            USER.firstname_user:firstname,
-            USER.lastname_user:lastname,
-            USER.email_user:email,
-            USER.town_user:town,
-            USER.postal_code_user:postal_code,
-            USER.street_user:street,
-            USER.profile_picture_user:profile_picture,}, synchronize_session = False)
+        user=ORM.get_user(current_user.username_user)
+
+        user.password_user=password
+        user.num_user=num
+        user.firstname_user=firstname
+        user.lastname_user=lastname
+        user.email_user=email
+        user.town_user=town
+        user.postal_code_user=postal_code
+        user.street_user=street
+        user.profile_picture_user=profile_picture
+        
         db.session.commit()
 

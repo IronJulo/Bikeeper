@@ -23,7 +23,7 @@
                 <div class="form-password">
                     <fieldset>
                         <legend>Password</legend>
-                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" placeholder={{mdp}}>
+                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" value='*******'>
                     </fieldset>
                 </div>
             </div>
@@ -32,19 +32,19 @@
                 <div class="form-first-name">
                     <fieldset>
                         <legend>First Name</legend>
-                        <input type="text" name="first-name" placeholder={{first}}>
+                        <input type="text" name="first-name" value="{{first}}">
                     </fieldset>
                 </div>
                 <div class="form-last-name">
                     <fieldset>
                         <legend>Last Name</legend>
-                        <input type="text" name="last-name" placeholder={{last}}>
+                        <input type="text" name="last-name" value="{{last}}">
                     </fieldset>
                 </div>
                 <div class="form-phone">
                     <fieldset>
                         <legend>Phone Number</legend>
-                        <input type="tel" name="phone" placeholder='+33 {{tel}}'>
+                        <input type="tel" name="phone" value="{{tel}}">
                     </fieldset>
                 </div>
             </div>
@@ -53,25 +53,25 @@
                 <div class="form-email">
                     <fieldset>
                         <legend>Email</legend>
-                        <input type="email" name="email" placeholder={{mail}}>
+                        <input type="email" name="email" value="{{mail}}">
                     </fieldset>
                 </div>
                 <div class="form-town">
                     <fieldset>
                         <legend>Town</legend>
-                        <input type="text" name="address" placeholder={{ville}}>
+                        <input type="text" name="town" value="{{ville}}">
                     </fieldset>
                 </div>
                 <div class="form-address">
                     <fieldset>
                         <legend>Street</legend>
-                        <input type="text" name="address" placeholder={{rue}}>
+                        <input type="text" name="street" value="{{rue}}">
                     </fieldset>
                 </div>
                 <div class="form-postal">
                     <fieldset>
                         <legend>Postal Code</legend>
-                        <input type="text" name="address" pattern="[0-9]{5}" placeholder={{code}}>
+                        <input type="text" name="postal-code" pattern="[0-9]{5}" value="{{code}}">
                     </fieldset>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="form-submit">
                 <!-- My Buttons -->
                 <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
+                <button class='rotate-vert' type="submit" data-toggle="modal" data-target="#modalCenter">Update</button>
 
                 <!-- Bootstrap -->
                 
@@ -99,7 +99,7 @@
                 <div class="modal-body">
                     <p>Enter your actual password to confirm changes.</p>
                     <fieldset>
-                        <input type="password" name="confirmpassword" placeholder='********'>
+                        <input type="password" name="confirmpassword" value='********'>
                     </fieldset>
                 </div>
                 <div class="modal-footer">

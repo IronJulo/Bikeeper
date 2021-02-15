@@ -48,9 +48,9 @@ def settings_account_update(template):
     mail=result['email']
     image=result['avatar']
     mdp=result['password']
-    code=result['address'][2]
-    ville=result['address'][0]
-    rue=result['address'][1]
+    code=result['postal-code']
+    ville=result['town']
+    rue=result['street']
     ORM.update_user(mdp,tel,first,last,mail,ville,code,rue,image)
     return redirect(url_for('register'))
 
