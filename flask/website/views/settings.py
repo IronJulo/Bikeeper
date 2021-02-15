@@ -3,12 +3,14 @@ from flask import (
     render_template,
     session,
     redirect,
-    url_for
+    url_for,
+    request
 )
 from flask_mobility.decorators import mobile_template
+from ..models import ORM
+from flask_login import current_user
 
 mod = Blueprint('settings', __name__)
-
 
 @mod.route('/settings/', methods=['GET'])
 @mobile_template("{mobile/Settings/}settings.html")
@@ -24,15 +26,33 @@ ACCOUNT
 
 
 @mod.route('/settings/account/', methods=['GET'])
-@mobile_template("{mobile/Settings/}account.html")
-def settings_account(template):
-    return render_template(template)
+def settings_account():
+    pseudo=current_user.username_user
+    first=current_user.firstname_user
+    last=current_user.lastname_user
+    mdp=current_user.password_user
+    tel=current_user.num_user
+    mail=current_user.email_user
+    ville=current_user.town_user
+    code=current_user.postal_code_user
+    rue=current_user.street_user
+    return render_template("account.html",pseudo=pseudo,first=first,last=last,mdp=mdp,tel=tel,mail=mail,ville=ville,code=code,rue=rue)
 
 
 @mod.route('/settings/account/update/', methods=['GET', 'POST'])
-def settings_account_update(template):
-    return "" #TODO Mathieu
-
+def settings_account_update():
+    result=request.form
+    first=result['first-name']
+    last=result['last-name']
+    tel=result['phone']
+    mail=result['email']
+    # image=result['avatar']
+    mdp=result['password']
+    code=result['postal-code']
+    ville=result['town']
+    rue=result['street']
+    ORM.update_user(mdp,tel,first,last,mail,ville,code,rue)
+    return redirect(url_for('settings.settings_account'))
 
 '''
 DEVICES
