@@ -197,7 +197,11 @@ def get_current_user_contacts(device_id):
     contacts = ORM.get_contacts(device_id)
     for contact in contacts:
         res.append(contact.serialize())
-    return jsonify(res)
+    user = ORM.get_device(device_id).USER
+    return jsonify(
+        contacts=res,
+        bikeeper_owner=f"{user.firstname_user} {user.lastname_user}"
+    )
 
 
 @mod.route('/api/bikeeper/get_user_num/<string:device_id>/', methods=['GET'])
