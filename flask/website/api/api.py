@@ -79,6 +79,10 @@ def send_sms_to_bd():
             "charge": data['charge'],
             "level": data['level']
         }
+    elif header['schema'] == '+':  # State update
+        dic = {
+            "type": data['type']
+        }
     else:
         return error("Schema type not supported")
     ORM.new_log(json.dumps(dic), header['schema'], datetime.now(), exception_log, header['sender'])
