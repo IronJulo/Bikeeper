@@ -9,6 +9,7 @@ from flask_login import UserMixin, current_user
 from flask import jsonify
 from .app import db, session, login_manager
 import requests
+from hashlib import sha256
 
 class CONTACT(db.Model):
     """
@@ -198,8 +199,8 @@ class ORM:
         :param pseudo: user's nickname
         :return: USER: user instance
         """
-        user = session.query(USER).get(pseudo)
-        session.commit()
+        user = db.session.query(USER).get(pseudo)
+        db.session.commit()
         return user
 
     @staticmethod
@@ -472,10 +473,13 @@ class ORM:
         return DEVICE.query.filter_by(id=device_id).first()
 
     @staticmethod
-    def update_user(password, num, firstname, lastname, email, town, postal_code, street, profile_picture):
+    def update_user(password, num, firstname, lastname, email, town, postal_code, street):
         user=ORM.get_user(current_user.username_user)
 
-        user.password_user=password
+        encrypted_password=sha256()
+        encrypted_password.update(password.encode())
+
+        user.password_user=encrypted_password.hexdigest()
         user.num_user=num
         user.firstname_user=firstname
         user.lastname_user=lastname
@@ -483,7 +487,7 @@ class ORM:
         user.town_user=town
         user.postal_code_user=postal_code
         user.street_user=street
-        user.profile_picture_user=profile_picture
-        
+        # user.profile_picture_user=profile_picture
+
         db.session.commit()
 

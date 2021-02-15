@@ -8,7 +8,7 @@
 <div class="flex">
     <section>
         <h1>Your account</h1>
-        <form action="{{ url_for('settings.settings_account_update') }}" method='POST'>
+        <form action="{{ url_for('settings.settings_account_update') }}" id="update-account" method='POST'>
             <div class="form-group1">
                 <div class="form-avatar">
                     <div class="img-avatar">
@@ -23,7 +23,7 @@
                 <div class="form-password">
                     <fieldset>
                         <legend>Password</legend>
-                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" value='*******'>
+                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{5,}$" >
                     </fieldset>
                 </div>
             </div>
@@ -79,7 +79,7 @@
             <div class="form-submit">
                 <!-- My Buttons -->
                 <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="submit" data-toggle="modal" data-target="#modalCenter">Update</button>
+                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
 
                 <!-- Bootstrap -->
                 
@@ -104,7 +104,8 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" form="update-account" class="btn btn-primary">Save changes</button>
+
                 </div>
             </div>
         </div>

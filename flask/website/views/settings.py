@@ -40,19 +40,19 @@ def settings_account():
 
 
 @mod.route('/settings/account/update/', methods=['GET', 'POST'])
-def settings_account_update(template):
+def settings_account_update():
     result=request.form
     first=result['first-name']
     last=result['last-name']
     tel=result['phone']
     mail=result['email']
-    image=result['avatar']
+    # image=result['avatar']
     mdp=result['password']
     code=result['postal-code']
     ville=result['town']
     rue=result['street']
-    ORM.update_user(mdp,tel,first,last,mail,ville,code,rue,image)
-    return redirect(url_for('register'))
+    ORM.update_user(mdp,tel,first,last,mail,ville,code,rue)
+    return redirect(url_for('settings.settings_account'))
 
 '''
 DEVICES
