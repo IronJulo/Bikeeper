@@ -9,11 +9,11 @@
 <div class="flex">
     <section>
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
-        {% for i in range(0,5) %}
+        {% for contact in contacts %}
         <div class="contact">
             <div class="info">
                 <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
-                <h4><span>Nom</span> <span>Prenom</span></h4>
+                <h4><span>{{contact.firstname_contact}}</span> <span>{{contact.lastname_contact}}</span></h4>
             </div>
             <div class="action">
                 <a href="{{ url_for('settings.settings_contact_update') }}">Edit</a>

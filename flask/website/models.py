@@ -491,3 +491,18 @@ class ORM:
 
         db.session.commit()
 
+
+    @staticmethod
+    def get_contacts_by_user(pseudo: str) -> List[CONTACT]:
+        contact_list = db.session.query(CONTACT).join(DEVICE).join(USER).filter(USER.username_user == pseudo).all()
+        db.session.commit()
+        return contact_list 
+
+    # @staticmethod
+    # def update_contact(num, firstname, lastname):
+    #     contacts=ORM.get_contacts_by_user(current_user.username_user)
+
+    #     db.session.commit()
+
+       
+
