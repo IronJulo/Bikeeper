@@ -29,16 +29,30 @@ def register_validate():
     city = str(escape(request.form['city']))
     postalcode = str(escape(request.form['postalcode']))
 
-    if password == confirmpassword and ORM.is_username_available(username):
+    informations = {
+        "username" : username,
+        "email" : email,
+        "password" : password,
+        "confirmpassword" : confirmpassword,
+        "phonenumber" : phonenumber,
+        "address" : address,
+        "city" : city,
+        "postalcode" : postalcode,
+    }
+
+    valid, message = ORM.isValidRegister(informations)
+
+    if valid:
         m = sha256()
         m.update(password.encode())
         u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
-                 f"https://eu.ui-avatars.com/api/{username}", False)
+                f"https://eu.ui-avatars.com/api/{username}", False)
         db.session.add(u)
         db.session.commit()
 
-        flash("Sucessful registration! Welcome "+username+"!","success")
+        flash(message,"success")
         return redirect(url_for('login.login'))
-
-    flash("Username already taken or passwords don't match! Please Try Again.","error")
-    return redirect(url_for('register.register'))
+    else:
+        flash(message,"error")
+        return redirect(url_for('register.register'))
+    
