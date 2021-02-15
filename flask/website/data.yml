@@ -33,7 +33,7 @@ users:
       "town": "Mont Corvo"
       "postal_code": "45000"
       "street": "69 rue des 420"
-      "profile_picture": "https://eu.ui-avatars.com/api/?name:user3"
+      "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
   - user:
       "username": "user4"
@@ -44,7 +44,7 @@ users:
       "town": "Mont sd"
       "postal_code": "45000"
       "street": "69 rue des 420"
-      "profile_picture": "https://eu.ui-avatars.com/api/?name:user3"
+      "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
 
   - user:
@@ -56,7 +56,7 @@ users:
       "town": "Bourges"
       "postal_code": "18110"
       "street": "167 rue des coquelicots"
-      "profile_picture": "https://eu.ui-avatars.com/api/?name:admin"
+      "profile_picture": "https://eu.ui-avatars.com/api/admin"
       "is_admin": True
 
   - user:
@@ -68,7 +68,7 @@ users:
       "town": "Lille"
       "postal_code": "59350"
       "street": "48 rue des coquelicots"
-      "profile_picture": "https://eu.ui-avatars.com/api/?name:admin2"
+      "profile_picture": "https://eu.ui-avatars.com/api/admin2"
       "is_admin": True
 
 # Tickets

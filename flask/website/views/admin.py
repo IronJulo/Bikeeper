@@ -3,14 +3,25 @@ from flask import (
     render_template,
     session,
     redirect,
-    url_for
+    url_for,
+    request
 )
 from flask_mobility.decorators import mobile_template
+from flask_login import login_required, login_user, logout_user, current_user
 
 from ..models import ORM
 
 mod = Blueprint('admin', __name__)
 
+
+from functools import wraps
+def admin_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if not current_user.is_admin_user:
+            return "Can't access an admin page as user",403
+        return f(*args, **kwargs)
+    return wrap
 
 @mod.route('/admin/access', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_access.html")
@@ -20,6 +31,7 @@ def admin_access(template):
 
 @mod.route('/admin/home', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_home.html")
+@admin_required
 def admin_home(template):
     return render_template(
         template,
@@ -46,3 +58,7 @@ def humberger_overlay_connected_admin(template):
 @mobile_template("{mobile/Admin/}support_dashboard_admin.html")
 def support_dashboard_admin(template):
     return render_template(template)
+
+@mod.route('/admin/platform', methods=["GET"])
+def platform():
+    return render_template('admin_platform.html')
