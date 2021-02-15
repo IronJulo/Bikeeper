@@ -602,3 +602,11 @@ class ORM:
     # @staticmethod
     #     contacts=ORM.get_contacts_by_user(current_user.username_user)
     #     db.session.commit()
+
+    @staticmethod
+    def get_bikeeper_user_num(num: str) -> str:
+        device = DEVICE.query.filter_by(num_device=num).first()
+        if device is not None:
+            return device.USER.num_user
+        else:
+            raise AttributeError

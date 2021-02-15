@@ -52,7 +52,6 @@ def send_sms_to_bd():
     :rtype: Response
     """
     payload = request.json
-    print(payload)
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
     data = payload['data']
     exception_log = ""
@@ -195,3 +194,23 @@ def get_current_user_contacts(device_id):
     for contact in contacts:
         res.append(contact.serialize())
     return jsonify(res)
+
+
+@mod.route('/api/bikeeper/get_user_num/<string:device_id>/', methods=['GET'])
+def get_bikeeper_user_num(device_id):
+    """
+        Gets bikeeper's owner number
+        This gets the number of the bikeeper's owner and returns it.
+
+        :param device_id: id of the current device
+        :return: user number str
+        :rtype: Response
+        """
+    try:
+        user_num = ORM.get_bikeeper_user_num(device_id)
+    except AttributeError:
+        return error("Device number not found")
+    return jsonify(
+        type_message="reponse_num",
+        numero=user_num
+    )

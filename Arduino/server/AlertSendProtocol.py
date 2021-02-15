@@ -50,10 +50,7 @@ class AlertSend:
         self.type = self.data[2]
         self.long = (Decimal(self.data[3])*1000).normalize()
         self.lat = (Decimal(self.data[4])*1000).normalize()
-        if self.data[5] == "T":
-            self.charge = True
-        else:
-            self.charge = False
+        self.charge = self.data[5]
         self.lvl[0] = int(self.data[6])
         self.lvl[1] = int(self.data[7])
 
