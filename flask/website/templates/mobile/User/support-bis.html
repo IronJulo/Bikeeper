@@ -17,20 +17,42 @@
         {% block main %}
         <div class="container">
             <div class="row">
-                <div class="col-2"><a href="/home/"><i class="fa fa-chevron-left"></i></a></div>
-                <div class="col-8">TICKET #</div>
+                <div class="col-2"><a href="/support/"><i class="fa fa-chevron-left"></i></a></div>
+                <div class="col-8">TICKET #{{ id_ticket }}</div>
+                {% if current_user.is_admin_user %}
+                
+                <div class="col-1 check"><a href="#"><i class="fa fa-check"></i></a></div>
+                
+                {% endif %}
             </div>
         </div>
+        <div class="container">
+        {% for mes in messages.values() %}
+            
+            <div class="row msg">
+            {% if mes["is_admin_message"]==0 %}
+                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+                <div class="col-8 user">{{ mes["content"] }}</div>
+            {% else %}
+                <div class="col-2"></div>
+                <div class="col-8 admin">{{ mes["content"] }}</div>
+                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+            {% endif %}
+            
+            </div>
 
+
+        {% endfor %}
+        </div>
 
 
 
 
         <div class="container-fluid" id="input-message">
             <div class="row">
-                <div class="col-8"><input type="text" value="Write your message"></div>
+                <div class="col-8"><input type="text" value="Write your message" name="msg" id="msg"></div>
                 <div class="col-2"><button type="button"><i class="fa fa-paperclip"></i></button></div>
-                <div class="col-2"><button type="submit"><i class="fa fa-paper-plane"></i></button></div>
+                <div class="col-2"><button type="submit" class="submit" id="send-msg"><i class="fa fa-paper-plane"></i></button></div>
             </div>
         </div>
 

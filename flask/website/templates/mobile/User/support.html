@@ -42,10 +42,11 @@
 
                 
 
-
+                {% if not current_user.is_admin_user %}
                 <button type="button" class="btn btn-primary why-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Nous contacter
                 </button>
+                {% endif %}
 
 
 
@@ -56,9 +57,11 @@
                         <h5 class="modal-title" id="exampleModalLabel">Pourquoi nous contactez-vous ?</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <form>
+                      <form action="{{ url_for('support.support_new_ticket') }}" method='POST'>
                           <div class="modal-body">
-                            <textarea name="Text1" rows="5" class="why" maxlength="500" minlength="10">Je vous contacte parce que j'ai un problème au niveau de</textarea>
+                            <fieldset>
+                                <input type="text" name="ticket" placeholder='I need you because...'>
+                            </fieldset>
                           </div>
                           <div class="modal-footer">
                             <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Valider</button>

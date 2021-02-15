@@ -33,7 +33,6 @@ def support(template):
     last_messages={}
     for i_mes in messages.keys():
         last_messages[i_mes] = ORM.get_last_message_by_ticket_id(i_mes)
-    print(last_messages)
     return render_template(
         template,
         messages = messages,
@@ -41,10 +40,11 @@ def support(template):
         last_messages= last_messages
     )
 
-@mod.route('/support/<int:id_ticket>', methods=['GET'])
+@mod.route('/support/<int:id_ticket>/', methods=['GET'])
 def support_message(id_ticket):
     return render_template(
-        './mobile/User/support-bis.html',
+        'mobile/User/support-bis.html',
+        id_ticket = id_ticket,
         messages = ORM.get_message_by_ticket_id(id_ticket)
         )
 

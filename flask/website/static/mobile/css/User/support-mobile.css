@@ -72,3 +72,36 @@ h3{
   text-align: center;
   margin-bottom: 20px;
 }
+.pp{
+  height: 35px;
+  width: 35px;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 30px;
+}
+.admin,.user{
+  color: white;
+  padding-top:5px;
+  padding-bottom: 5px;
+}
+.admin{
+  background: #00BF9D;
+box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.24), 0px 2px 4px rgba(0, 0, 0, 0.16), 0px -1px 1px rgba(0, 0, 0, 0.08);
+border-radius: 24px 0px 24px 24px;
+}
+.user{
+  background: #1868FB;
+box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.24), 0px 2px 4px rgba(0, 0, 0, 0.16), 0px -1px 1px rgba(0, 0, 0, 0.08);
+border-radius: 0px 24px 24px 24px;
+}
+.msg{
+  margin-top: 30px;
+}
+.check{
+  font-size: 20px;
+  border: solid thin green;
+  padding: 0;
+  border-radius: 10px
+}
+.fa-check{
+  color: green;
+}
