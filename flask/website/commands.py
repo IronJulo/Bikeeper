@@ -13,7 +13,7 @@ from rich.progress import (
     TimeRemainingColumn,
     Progress,
 )
-
+import click
 from .app import app, db
 from .models import USER, MESSAGE, TICKET, DEVICE
 
@@ -142,6 +142,7 @@ def import_data(filename: str):
                 "messages": insert_message,
                 "tickets": insert_ticket
                 }.get(case)
+
     import os
     print(os.getcwd())
     with open(filename) as file:
@@ -162,5 +163,30 @@ def loaddb():
     console = Console()
     create_tables(console)
     import_data("./website/data.yml")
+
+    db.session.commit()
+
+
+@app.cli.command("adduser")
+@click.argument("username")
+@click.argument("num")
+@click.argument("firstname")
+@click.argument("lastname")
+@click.argument("email")
+@click.argument("town")
+@click.argument("postal_code")
+@click.argument("street")
+@click.argument("profile_picture")
+@click.argument("is_admin")
+def adduser(username, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin):
+    """
+    Create all tables and insert data in database.
+    """
+
+    password = sha256()
+    password.update(username.encode())  # taking username as password to test
+
+    db.session.add(USER(username, password.hexdigest(), num, firstname, lastname, email, town,
+                        postal_code, street, profile_picture, False))
 
     db.session.commit()
