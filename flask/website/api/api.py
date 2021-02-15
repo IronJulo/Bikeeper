@@ -1,3 +1,5 @@
+import json
+
 from flask import (
     Blueprint,
     render_template,
@@ -19,7 +21,7 @@ def ok():
     )
 
 
-def errror(err):
+def error(err):
     return jsonify(
         type_message="error",
         error=err
@@ -29,36 +31,37 @@ def errror(err):
 @mod.route('/api/sms/add/', methods=['POST'])
 def send_sms_to_bd():
     payload = request.json
+    print(payload)
     header = payload['header']  # {"key": "[bk]", "schema": "@", "sender": "06...."}
     data = payload['data']
     exception_log = ""
-    if header['schema'] == '@':  # Position
-        dic = jsonify(
-            type=data['type'],
-            longitude=data['longitude'],
-            latitude=data['latitude'],
-            charge=data['charge'],
-            level=data['level']
-        )
-    elif header['schema'] == 'W':  # Alert
-        dic = jsonify(
-            longitude=data['longitude'],
-            latitude=data['latitude'],
-            charge=data['charge'],
-            level=data['level'],
-            speed=data['speed'],
-            angle=data['angle']
-        )
+    if header['schema'] == 'W':  # Alert
+        dic = {
+            "type": data['type'],
+            "longitude": data['longitude'],
+            "latitude": data['latitude'],
+            "charge": data['charge'],
+            "level": data['level']
+        }
+    elif header['schema'] == '@':  # Position
+        dic = {
+            "longitude": data['longitude'],
+            "latitude": data['latitude'],
+            "charge": data['charge'],
+            "level": data['level'],
+            "speed": data['speed'],
+            "angle": data['angle']
+        }
     elif header['schema'] == '*':  # Normal
-        dic = jsonify(
-            longitude=data['longitude'],
-            latitude=data['latitude'],
-            charge=data['charge'],
-            level=data['level']
-        )
+        dic = {
+            "longitude": data['longitude'],
+            "latitude": data['latitude'],
+            "charge": data['charge'],
+            "level": data['level']
+        }
     else:
-        return errror("Schema type not supported")
-    ORM.new_log(dic, data['schema'], datetime.now(), exception_log, header['sender'])
+        return error("Schema type not supported")
+    ORM.new_log(json.dumps(dic), header['schema'], datetime.now(), exception_log, header['sender'])
     return ok()
 
 
@@ -71,7 +74,21 @@ def add_bikeeper_to_bd():
         row_parameters = data['row_parameters_device']
         username = data['username']
     except KeyError as keyerror:
-        return errror(f"{keyerror}")
+        return error(f"{keyerror}")
+    ORM.new_device(num, name, row_parameters, username)
+    return ok()
+
+
+@mod.route('/api/bikeeper/add_raw/', methods=['POST'])
+def add_raw_bikeeper_to_bd():
+    data = request.json
+    try:
+        num = data['num_device']
+        name = data['name_device']
+        row_parameters = ""
+        username = data['username']
+    except KeyError as keyerror:
+        return error(f"{keyerror}")
     ORM.new_device(num, name, row_parameters, username)
     return ok()
 
@@ -81,7 +98,7 @@ def remove_bikeeper(device_id):
     if ORM.remove_device(device_id):
         return ok()
     else:
-        return errror("No rows deleted")
+        return error("No rows deleted")
 
 
 @mod.route('/api/bikeeper/settings/<int:device_id>/update/', methods=['POST'])
@@ -98,3 +115,12 @@ def get_current_user_phone_from_db(device_id):
         type_message="response_current_phone",
         current_phone=current_phone
     )
+
+
+@mod.route('/api/bikeeper/contacts/<string:device_id>/', methods=['GET'])
+def get_current_user_contacts(device_id):
+    res = []
+    contacts = ORM.get_contacts(device_id)
+    for contact in contacts:
+        res.append(contact.serialize())
+    return jsonify(res)
