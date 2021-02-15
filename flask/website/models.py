@@ -11,6 +11,7 @@ from .app import db, session, login_manager
 import requests
 from hashlib import sha256
 import psutil
+import re 
 
 
 class CONTACT(db.Model):
@@ -234,6 +235,62 @@ class ORM:
         username = db.session.query(USER).filter(USER.username_user == pseudo).first()
         db.session.commit()
         return True if username is None else False
+
+    @staticmethod
+    def isValidRegister(informations):
+        username = informations["username"]
+        email = informations["email"]
+        password = informations["password"]
+        confirmpassword = informations["confirmpassword"]
+        phonenumber = informations["phonenumber"]
+        address = informations['address']
+        city = informations['city']
+        postalcode = informations['postalcode']
+
+        def is_valid_password(password):
+            return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and len(password) >= 5
+
+        def is_valid_email(email):
+            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
+            return re.search(regex,email)
+
+        def is_valid_tel(tel):
+            pattern = re.compile("(0/91)?[7-9][0-9]{9}") 
+            return pattern.match(tel)
+
+        def is_valid_postalcode(pc):
+            pattern = re.compile(r"\s*(\w\d\s*){3}\s*")
+            return pattern.match(pc)
+
+        
+        if not ORM.is_username_available(username):
+            erreur = "Username already taken. Please chose an other one."
+            return (False, erreur)
+        elif len(username) < 5:
+            erreur = "Incorrect username. Username must has a minimal length of 5 characters."
+            return (False, erreur)
+        elif not is_valid_email(email):
+            erreur = "Incorrect email format. Please try again."
+            return (False, erreur)  
+        elif password != confirmpassword:
+            erreur = "Passwords do not match. Please try again."
+            return (False, erreur)
+        elif not is_valid_password(password):
+            erreur = "Incorrect password. Password must :\n \
+                • contains at least one upper case letter,\n \
+                • contains at least one lower case letter,\n \
+                • contains at least one number,\n \
+                • has a minimal length of 5 characters."
+            return (False, erreur)
+        elif not is_valid_tel(phonenumber):
+            erreur = "Incorrect phone number format. Please try again."
+            return (False, erreur)
+        elif not is_valid_postalcode(postalcode):
+            erreur = "Incorrect postal code format. Please try again."
+            return (False, erreur)
+        else:
+            return (True,"Sucessful registration! Welcome "+username+"!")
+
 
     @staticmethod
     def is_admin(pseudo: str) -> bool:

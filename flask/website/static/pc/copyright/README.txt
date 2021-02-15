@@ -1,3 +1,2 @@
-A Pen created at CodePen.io. You can find this one at http://codepen.io/savalazic/pen/QKwERN.
-
- 
+Timeline http://codepen.io/savalazic/pen/QKwERN.
+Carousel https://codepen.io/simonpatrat/pen/zeGYdo
