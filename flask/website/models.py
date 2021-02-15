@@ -21,7 +21,7 @@ class CONTACT(db.Model):
     num_contact = db.Column(db.String(15))
     firstname_contact = db.Column(db.String(42))
     lastname_contact = db.Column(db.String(42))
-    profile_picture_contact = db.Column(db.String(42))
+    profile_picture_contact = db.Column(db.String(200))
     num_device = db.Column(db.String(15), db.ForeignKey("DEVICE.num_device"))
     DEVICE = db.relationship("DEVICE", backref=db.backref("CONTACT", lazy="dynamic"))
 
@@ -96,7 +96,7 @@ class USER(db.Model, UserMixin):
     town_user = db.Column(db.String(42))
     postal_code_user = db.Column(db.String(10))
     street_user = db.Column(db.String(95))
-    profile_picture_user = db.Column(db.String(100))
+    profile_picture_user = db.Column(db.String(200))
     is_admin_user = db.Column(db.Boolean)
 
     def __init__(self, username, password, num, firstname, lastname, email, town,

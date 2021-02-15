@@ -63,7 +63,7 @@
 
         <section class='group1'>
             
-            <div class='user-data'>
+            <div id="data" class='user-data'>
                 <h2>Your Data</h2>
                 <ul>
                     <li>Last Ride : <span>DATE</span></li>
@@ -77,7 +77,7 @@
         </section>
 
         <section class='group2'>
-            <div class="filters">
+            <div id="filters" class="filters">
                 <h2>Filters</h2>
                 <form class='filters'>
                     <div class='ride-date'>
@@ -105,7 +105,7 @@
                     </div>
                 </form>
             </div>
-            <div class="container-timeline">
+            <div id="timeline" class="container-timeline">
                 <h2>Timeline</h2>
                 <div class="timeline">
                     {% for i in range(0,5) %}
@@ -177,7 +177,8 @@
                 </div>
             </form>
             
-            <div id="my_osm_widget_map"></div>
+            <div id="position"></div>
+            <div id="temp"></div>
         </section>
     {% if current_user.is_admin_user %}    
         </div>
@@ -186,60 +187,10 @@
 </div>
 {% endblock main %}
 
-
-
 {% block script %}
-
-    <!-- Import Leaflet JS Library -->
+<!-- Import Leaflet JS Library -->
 <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
-
-<script>
-var url = window.location.href
-var arr = url.split("/");
-var result = arr[0] + "//" + arr[2]
- var myIcon = L.icon({
-            iconUrl: result + "/static/pc/assets/logo_bikeeper_without_text.png",
-            iconSize: [40, 40],
-            iconAnchor: [25, 50],
-            popupAnchor: [-3, -76],
-        });
-
-
-// On initialise la latitude et la longitude de Paris (centre de la carte)
-var lat = 47.902964;
-var lon = 1.909251;
-
-var mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
-  center: [lat, lon], /* set GPS Coordinates */
-  zoom: 17, /* define the zoom level */
-  zoomControl: true, /* false = no zoom control buttons displayed */
-  icon: myIcon,
-  scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
-});
-
-L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
-  maxZoom: 20, /* zoom limit of the map */
-  attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
-    '<a href="http://mapbox.com">Mapbox</a> | ' +
-    '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
-    'Guillaume Rouan 2016', /* set the map's caption */
-    id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
-}).addTo(mymap);
-
-L.marker([lat, lon], {
-            icon: myIcon
-        }).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
-
-</script>
-
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
-
 <script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
-
 {% endblock script %}
