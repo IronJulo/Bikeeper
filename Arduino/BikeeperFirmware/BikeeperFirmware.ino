@@ -82,17 +82,17 @@ bool journey = false;
 #define GPS_TX 3	
 
 #define GPS_BAUDRATE 9600
-//TinyGPSPlus gps;
+TinyGPSPlus gps;
 
 location_t location;		                // Declare the Location type
-//SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
+SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 
 void setup()
 {
     Serial.begin(9600);
 
     //GPS 
-    //gpsSerial.begin(GPS_BAUDRATE);
+    gpsSerial.begin(GPS_BAUDRATE);
     
 	//SIM 800L
 	sim800l.begin(9600);
@@ -110,7 +110,7 @@ void setup()
     message("OK", 1000, 0); 
 }
 
-/*static void smartDelay(unsigned long ms)
+static void smartDelay(unsigned long ms)
 {
   gpsSerial.listen();
   unsigned long start = millis();
@@ -121,11 +121,11 @@ void setup()
   } while (millis() - start < ms);
   sim800l.listen();
 
-}*/
+}
 
 void loop()
 {
-    /*gpsSerial.listen();
+    gpsSerial.listen();
     double oldlat = gps.location.lat();
     double oldlon = gps.location.lng();
     sim800l.listen();
@@ -136,7 +136,7 @@ void loop()
     Serial.println(F("longitude"));
     printFloat(oldlon, gps.location.isValid(), 12, 6);
     Serial.println();
-    Serial.println();*/
+    Serial.println();
 
 
     
@@ -171,7 +171,7 @@ void loop()
         Serial.println();
         message("OK", 1000, 0); 
     	}
-    //smartDelay(1000);
+    smartDelay(1000);
     //message("OK", 1000, 1);
 	Serial.print(F("answer : "));
     Serial.println(answer);
