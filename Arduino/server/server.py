@@ -2,6 +2,7 @@ import serial
 from PositionTrajetProtocol import *
 from AlertSendProtocol import *
 from NormalSendProtocol import *
+from utils import *
 
 ser = serial.Serial('COM3')
 ser.flushInput()
@@ -29,5 +30,8 @@ while True:
         
         dic2 = separated_values.to_dico()
         dic = {"header": dic1, "data": dic2}
-        
+        Utils.send_data_to_api(
+            url="http://127.0.0.1:5000/test/api/sms/add",
+            payload=dic
+        )
         print(dic)

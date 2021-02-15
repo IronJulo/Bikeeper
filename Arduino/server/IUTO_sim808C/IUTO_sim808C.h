@@ -42,7 +42,7 @@
  *  used to realize IUTO_SIM808 communication
  */ 
  
-#define GG_DEBUG
+//#define GG_DEBUG
 
 #ifdef GG_DEBUG
 #define GG_DEBUG_PRINTLN(x) Serial.println(x);Serial.flush()
