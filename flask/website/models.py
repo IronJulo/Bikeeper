@@ -11,7 +11,7 @@ from .app import db, session, login_manager
 import requests
 from hashlib import sha256
 import psutil
-import re 
+import re
 
 
 class CONTACT(db.Model):
@@ -248,21 +248,21 @@ class ORM:
         postalcode = informations['postalcode']
 
         def is_valid_password(password):
-            return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and len(password) >= 5
+            return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(
+                x.isdigit() for x in password) and len(password) >= 5
 
         def is_valid_email(email):
             regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-            return re.search(regex,email)
+            return re.search(regex, email)
 
         def is_valid_tel(tel):
-            pattern = re.compile("(0/91)?[7-9][0-9]{9}") 
+            pattern = re.compile("(0/91)?[7-9][0-9]{9}")
             return pattern.match(tel)
 
         def is_valid_postalcode(pc):
             pattern = re.compile(r"\s*(\w\d\s*){3}\s*")
             return pattern.match(pc)
 
-        
         if not ORM.is_username_available(username):
             erreur = "Username already taken. Please chose an other one."
             return (False, erreur)
@@ -271,7 +271,7 @@ class ORM:
             return (False, erreur)
         elif not is_valid_email(email):
             erreur = "Incorrect email format. Please try again."
-            return (False, erreur)  
+            return (False, erreur)
         elif password != confirmpassword:
             erreur = "Passwords do not match. Please try again."
             return (False, erreur)
@@ -289,8 +289,7 @@ class ORM:
             erreur = "Incorrect postal code format. Please try again."
             return (False, erreur)
         else:
-            return (True,"Sucessful registration! Welcome "+username+"!")
-
+            return (True, "Sucessful registration! Welcome " + username + "!")
 
     @staticmethod
     def is_admin(pseudo: str) -> bool:
@@ -625,10 +624,9 @@ class ORM:
         """
         return psutil.virtual_memory().percent
 
-
     @staticmethod
     def update_user(password, num, firstname, lastname, email, town, postal_code, street):
-        user=ORM.get_user(current_user.username_user)
+        user = ORM.get_user(current_user.username_user)
 
         encrypted_password = sha256()
         encrypted_password.update(password.encode())
@@ -653,11 +651,11 @@ class ORM:
     def get_contacts_by_user(pseudo: str) -> List[CONTACT]:
         contact_list = db.session.query(CONTACT).join(DEVICE).join(USER).filter(USER.username_user == pseudo).all()
         db.session.commit()
-        return contact_list 
+        return contact_list
 
     @staticmethod
     def get_contact_by_id(contact_id: int) -> CONTACT:
-        contact=db.session.query(CONTACT).filter(CONTACT.id_contact==contact_id).one()
+        contact = db.session.query(CONTACT).filter(CONTACT.id_contact == contact_id).one()
         db.session.commit()
         return contact
 
@@ -670,11 +668,11 @@ class ORM:
             raise AttributeError
 
     @staticmethod
-    def update_contact(num, firstname, lastname,contact_id):
-        contact=ORM.get_contact_by_id(contact_id)
-        contact.firstname_contact=firstname
-        contact.lastname_contact=lastname
-        contact.num_contact=num
+    def update_contact(num, firstname, lastname, contact_id):
+        contact = ORM.get_contact_by_id(contact_id)
+        contact.firstname_contact = firstname
+        contact.lastname_contact = lastname
+        contact.num_contact = num
         db.session.commit()
 
     @staticmethod
