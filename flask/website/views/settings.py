@@ -84,9 +84,19 @@ def settings_contact(template):
     return render_template(template,contacts=contacts)
 
 
-@mod.route('/settings/contacts/update/', methods=['GET'])
+@mod.route('/settings/contacts/update/', methods=['GET','POST'])
 def settings_contact_update():
-    return render_template("update_contact.html")
+    result=request.form
+    id_contact=result["id-contact"]
+    contact=ORM.get_contact_by_id(id_contact)
+    print('-'*100)
+    print(contact)
+    print('-'*100)
+    first=contact.firstname_contact
+    last=contact.lastname_contact
+    tel=contact.num_contact
+    return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel)
+
 
 
 @mod.route('/settings/contacts/update/check/', methods=['GET', 'POST'])
@@ -95,7 +105,8 @@ def settings_contact_update_check():
     first=result['first-name']
     last=result['last-name']
     tel=result['phone']
-    ORM.update_contact(tel,first,last)
+    id_contact=result['id-contact']
+    ORM.update_contact(tel,first,last,id_contact)
     return redirect(url_for("settings.settings_contact"))
 
 
@@ -109,8 +120,11 @@ def settings_contact_add_check():
     return redirect(url_for("settings.settings_contact"))
 
 
-@mod.route('/settings/contacts/remove/<int:id_contact>', methods=['GET', 'POST'])
-def settings_contact_remove(id_contact):
+@mod.route('/settings/contacts/remove/', methods=['POST'])
+def settings_contact_remove():
+    result=request.form
+    id_contact=result['id-contact']
+    print(id_contact)
     ORM.remove_contact(id_contact)
     return redirect(url_for('settings.settings_contact'))
 

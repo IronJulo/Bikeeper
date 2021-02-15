@@ -598,10 +598,11 @@ class ORM:
         db.session.commit()
         return contact_list 
 
-    # def update_contact(num, firstname, lastname):
-    # @staticmethod
-    #     contacts=ORM.get_contacts_by_user(current_user.username_user)
-    #     db.session.commit()
+    @staticmethod
+    def get_contact_by_id(contact_id: int) -> CONTACT:
+        contact=db.session.query(CONTACT).filter(CONTACT.id_contact==contact_id).one()
+        db.session.commit()
+        return contact
 
     @staticmethod
     def get_bikeeper_user_num(num: str) -> str:
@@ -610,3 +611,11 @@ class ORM:
             return device.USER.num_user
         else:
             raise AttributeError
+
+    @staticmethod
+    def update_contact(num, firstname, lastname,contact_id):
+        contact=ORM.get_contact_by_id(contact_id)
+        contact.firstname_contact=firstname
+        contact.lastname_contact=lastname
+        contact.num_contact=num
+        db.session.commit()
