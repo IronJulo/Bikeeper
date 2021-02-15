@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url_for('static', filename='pc/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ url_for('static', filename='pc/css/login-register.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='pc/css/carousel.css') }}">
 
     <title>Register - BiKeeper</title>
 </head>
@@ -22,23 +23,21 @@
             <span>BiKeeper</span>
         </div>
         <nav>
-            <a href="/login/">Login</a>
+            <a href="{{ url_for('login.login') }}">Login</a>
         </nav>
     </header>
 
-    <main class='register-main'>
+    <form class="register-main" action="{{ url_for('register.register_validate') }}" method="POST">
         <div class="flash">
             {% include "messages.html" %}
         </div>
-        <form action="/register/validate/" method="POST">
-            <div class="carousel-wrapper">
-                <span id="step-1"></span>
-                <span id="step-2"></span>
-                <span id="step-3"></span>
+        
+            <div class="C-carousel">
 
-                <div class="carousel-item item-1">
+                <div class="C-slide">
+                    <h1 class="C-slide-title C-slide-title--h1">Register to access your account</h1>
+
                     <div class="register-first-page">
-                        <h1>Register to access your account</h1>
                         <div>
                             <label for="username">Username</label>
                             <input type="text" name="username" id="username" placeholder='Enter your username here'>
@@ -56,12 +55,13 @@
                             <input type="password" id='confirmpassword' pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" name="confirmpassword" placeholder='Confirm your password'>
                         </div>
                     </div>
-                    <a class="arrow arrow-next" href="#step-2"></a>
+
                 </div>
 
-                <div class="carousel-item item-2">
+                <div class="C-slide">
+                    <div class="C-slide-title">Where will we deliver your device?</div>
+
                     <div class="register-second-page">
-                        <h1>Where will we deliver your device?</h1>
                         <div>
                             <label for="tel">Phone Number</label>
                             <input type="tel" id='tel' name="tel" placeholder='06.12.54.63.95'>
@@ -78,59 +78,61 @@
                             <label for="postalCode">Postal Code</label>
                             <input type="text" id='postalCode' pattern="[0-9]{5}" name="postalcode" placeholder='10029'>
                         </div>
+
                     </div>
-                    <a class="arrow arrow-prev" href="#step-1"></a>
-                    <a class="arrow arrow-next" href="#step-3"></a>
                 </div>
 
-                <div class="carousel-item item-3">
-                    <div class="register-third-page">
-                        <h1>Almost finished</h1>
-
-                        <div class="payment">
-                            <div>
-                                <p>Credit Card</p>
-                                <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" alt="Logo mastercard">
-                            </div>
-                            <div class='payment-information'>
+                <div class="C-slide">
+                    <div class="C-slide-title">Almost finished</div>
+                        <div class="register-third-page">   
+                            <div class="payment">
                                 <div>
-                                    <div class="cardnumber">
-                                        <label for="cardnumber">Card Number</label>
-                                        <input type="text" id='cardnumber' pattern='^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$' placeholder='1234-5678-9123-4567' name="cardnumber">
-                                    </div>
-
-                                    <div class="cardholder">
-                                        <label for="cardholder">Card Holder Name</label>
-                                        <input type="text" id='cardholder' placeholder='John Smith' name="cardholder">
-                                    </div>
+                                    <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" alt="Logo mastercard">
                                 </div>
-                                <div>
-                                    <div class="expiration">
-                                        <label for="expiration">Expiration Date</label>
-                                        <input type="text" id='expiration' pattern='/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/' placeholder='08/22' name="expiration">
+                                <div class='payment-information'>
+                                    <div>
+                                        <div class="cardnumber">
+                                            <label for="cardnumber">Card Number</label>
+                                            <input type="text" id='cardnumber' pattern='^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$' placeholder='1234-5678-9123-4567' name="cardnumber">
+                                        </div>
+    
+                                        <div class="cardholder">
+                                            <label for="cardholder">Card Holder Name</label>
+                                            <input type="text" id='cardholder' placeholder='John Smith' name="cardholder">
+                                        </div>
                                     </div>
-                                    <div class="cvv">
-                                        <label for="cvv">CVV/CVC</label>
-                                        <input type="text" id='cvv' pattern="^[0-9]{3, 4}$" placeholder='259' name="cvv">
+                                    <div>
+                                        <div class="expiration">
+                                            <label for="expiration">Expiration Date</label>
+                                            <input type="text" id='expiration' pattern='/^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/' placeholder='08/22' name="expiration">
+                                        </div>
+                                        <div class="cvv">
+                                            <label for="cvv">CVV/CVC</label>
+                                            <input type="text" id='cvv' pattern="^[0-9]{3, 4}$" placeholder='259' name="cvv">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class='register-button'>
-                            <button type="submit" class='login-btn'><span>Register</span></button>
-                            <a class='login-btn' href='/login/'>Cancel</a>
+                            <div class='register-button'>
+                                <button type="submit" class='login-btn'><span>Register</span></button>
+                                <a class='login-btn' href='/login/'>Cancel</a>
+                            </div>
                         </div>
                     </div>
-                    <a class="arrow arrow-prev" href="#step-2"></a>
                 </div>
+
+                <div class="pen-controls">
+                    <button class="js-change-carousel-direction" type="button" data-carousel-id="C-carousel-0">Change orientation</button>
+                </div>
+   
             </div>
+        
 
         </form>
 
-    </main>
-
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='pc/js/carousel.js') }}"></script>
 
 </body>
 

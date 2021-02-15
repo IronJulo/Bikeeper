@@ -108,26 +108,12 @@ header>div img {
     vertical-align: middle;
 }
 
-main {
-    text-align: center;
-    color: white;
-    width: 50%;
-    -webkit-transition: margin 2s;
-    -o-transition: margin 2s;
-    transition: all 2s;
-    margin-top: calc(0px - var(--taille-header));
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-30%);
-}
-
 main>h1 {
     color: inherit;
     margin-bottom: 2rem;
 }
 
-main>form>div {
+.login-main>form>div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -150,9 +136,10 @@ main>form a:hover {
     color: var(--orange);
 }
 
-main>form>div input {
+main>form>div input,
+.register-main input {
     border-radius: 2em;
-    color: #8a8a8a;
+    color: black;
     display: block;
     width: 60%;
     height: 3rem;
@@ -162,7 +149,12 @@ main>form>div input {
     outline: none;
 }
 
-main>form>div input:focus {
+.register-main input {
+    width: 100%;
+}
+
+main>form>div input:focus,
+.register-main input:focus {
     -webkit-box-shadow: 0 0 10px 2px hsla(204, 70%, 53%, 0.5);
     box-shadow: 0 0 10px 2px hsla(204, 70%, 53%, 0.5);
 }
@@ -196,27 +188,46 @@ main>form>div input:focus {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: center;
+    color: white;
+    width: 50%;
+    -webkit-transition: margin 2s;
+    -o-transition: margin 2s;
+    transition: all 2s;
+    margin-top: calc(0px - var(--taille-header));
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-30%);
 }
 
 .register-main {
-    height: calc(70vh - var(--taille-header));
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative
 }
 
 .register-main form {
-    height: 60vh;
-}
-
-.register-main form>div,
-.register-main form>div>div
-{
     height: 100%;
+    width: 100%;
 }
 
-.register-main>form div {
-    margin: 1em;
+.register-first-page,
+.register-second-page {
+    width: 25%;
+}
+
+.register-third-page {
+    width: 30%;
+}
+
+.register-first-page > div,
+.register-second-page > div,
+.register-third-page > div {
+    padding: .5em;
 }
 
 .register-first-page input,
@@ -224,23 +235,13 @@ main>form>div input:focus {
     margin: 0 auto;
 }
 
-.register-main>form>div.carousel-wrapper>div.item-3>div.register-third-page>div.payment {
+.register-main div.payment {
     background-color: white;
     border-radius: 1em;
     color: black;
     margin: 0 auto;
-}
-
-.register-main>form>div.carousel-wrapper>div.carousel-item {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.register-main>form>div.carousel-wrapper>div.carousel-item h1,
-.register-main>form>div.carousel-wrapper>div.carousel-item>div:first-child {
-    margin-top: 0;
+    text-align: center;
+    padding: 1em;
 }
 
 .payment>div:first-child * {
@@ -257,6 +258,8 @@ main>form>div input:focus {
     width: 60px;
     height: auto;
     margin-left: 1em;
+    display: block;
+    margin: 0 auto;
 }
 
 .payment-information {
@@ -264,10 +267,6 @@ main>form>div input:focus {
     display: -ms-flexbox;
     display: flex;
     width: 100%;
-}
-
-.register-main>form div div.payment-information>div {
-    margin-top: 0;
 }
 
 .payment-information>div div:first-child {
@@ -288,7 +287,7 @@ main>form>div input:focus {
     text-align: center;
 }
 
-.register-main>form div div.register-button {
+.register-main div.register-button {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -309,6 +308,9 @@ main>form>div input:focus {
 .register-button>a {
     text-decoration: none;
     font-size: 1.1rem;
+    text-align: center;
+    text-transform: none;
+    font-weight: 500;
 }
 
 .register-button>a:hover {
@@ -323,92 +325,6 @@ main>form>div input:focus {
 
 .register-third-page h1 {
     flex-basis: 100%;
-}
-
-
-/* CAROUSEL */
-
-.carousel-wrapper {
-    position: relative;
-    margin: 0 auto;
-}
-
-.carousel-item {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 25px 50px;
-    opacity: 0;
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-.arrow {
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    display: inline-block;
-    padding: 12px;
-}
-
-.arrow-prev {
-    left: 0;
-    position: absolute;
-    -webkit-transform: translateY(-50%) rotate(135deg);
-    -ms-transform: translateY(-50%) rotate(135deg);
-    transform: translateY(-50%) rotate(135deg);
-}
-
-.arrow-next {
-    right: 0;
-    position: absolute;
-    -webkit-transform: translateY(-50%) rotate(-45deg);
-    -ms-transform: translateY(-50%) rotate(-45deg);
-    transform: translateY(-50%) rotate(-45deg);
-}
-
-.light {
-    color: white;
-}
-
-@media (max-width: 480px) {
-    .arrow,
-    .light .arrow {
-        background-size: 10px;
-        background-position: 10px 50%;
-    }
-}
-
-
-/*Select every element*/
-
-[id^="step"] {
-    display: none;
-}
-
-.item-1 {
-    z-index: 2;
-    opacity: 1;
-}
-
-.item-3 {
-    margin-top: -100px;
-}
-
-*:target~.item-1 {
-    opacity: 0;
-}
-
-#step-1:target~.item-1 {
-    opacity: 1;
-}
-
-#step-2:target~.item-2,
-#step-3:target~.item-3 {
-    z-index: 3;
-    opacity: 1;
 }
 
 html::-webkit-scrollbar-thumb
