@@ -204,6 +204,20 @@ def get_current_user_contacts(device_id):
     )
 
 
+@mod.route('/api/stats/cpu/', methods=['GET'])
+def get_current_cpu_usage():
+    return jsonify(
+        response=ORM.get_current_cpu_usage()
+    )
+
+
+@mod.route('/api/stats/ram/', methods=['GET'])
+def get_current_ram_usage():
+    return jsonify(
+        response=ORM.get_current_ram_usage()
+    )
+
+
 @mod.route('/api/bikeeper/get_user_num/<string:device_id>/', methods=['GET'])
 def get_bikeeper_user_num(device_id):
     """
