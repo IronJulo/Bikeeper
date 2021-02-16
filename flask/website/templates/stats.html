@@ -193,12 +193,12 @@
     let logs = null;
 
     {% autoescape false %}
-    const username = '{{ current_user.username_user }}';
+    const username_stats = '{{ current_user.username_user }}';
     {% endautoescape %}
 
     const loadDateBikeepers = async () => { // updates the others fields to show the devices that have been used at this date
         let date = document.getElementById('ride-date').value;
-        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_bikeeper_from_user_at_time/' + username + "/" + date);
+        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_bikeeper_from_user_at_time/' + username_stats + "/" + date);
         const devices = await response.json();
         let form_device_number = document.getElementById('device-number');
         reset_form_by_id('device-number');
@@ -221,7 +221,7 @@
         let bikeeper = document.getElementById('device-number').value;
         const response_logs = await fetch('http://127.0.0.1:5000/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
         logs = await response_logs.json();
-        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/' + username + "/" + bikeeper + "/" + date);
+        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/' + username_stats + "/" + bikeeper + "/" + date);
         rides = await response.json();
         console.log(rides);
         reset_form_by_id('ride-number');
@@ -240,6 +240,9 @@
             form.removeChild(form.lastChild);
         }
     }
+
+    document.getElementById('ride-date').value = new Date().toJSON().slice(0, 10)
+    loadDateBikeepers();
 
     const url = window.location.href;
     const arr = url.split("/");
