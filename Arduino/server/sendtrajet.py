@@ -12,13 +12,18 @@ for i in range(10):
                 "data": {"type": "C"}}
     response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
 
+    lon = 1.908894000000000
+    lat = 47.90176300000000
+    speed = 50
+    angle = 0
+    sign = 1 if random.random() < 0.5 else -1
     for i in range(25):
-        lon = 4.156874215876547
-        lat = 5.156874215876547
-        lon += random.random()
-        lat += random.random()
-        payload = {"header": {"key": "[bk]", "schema": "*", "sender": "0769342048"},
-                "data": {"longitude": lon, "latitude": lat, "charge": "f", "level": [50, 42]}}
+        lon += random.random() * sign * 0.01
+        lat += random.random() * sign * 0.01
+        speed += random.randint(-9, 9)
+        angle += random.randint(-1, 1)
+        payload = {"header": {"key": "[bk]", "schema": "@", "sender": "0769342048"},
+                "data": {"longitude": lon, "latitude": lat, "charge": "f", "level": [50, 42], "speed": speed, "angle": angle}}
 
 
         response = requests.request("POST", url, headers=headers, data=json.dumps(payload))
