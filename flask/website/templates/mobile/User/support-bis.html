@@ -31,12 +31,12 @@
             
             <div class="row msg">
             {% if mes["is_admin_message"]==0 %}
-                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+                <div class="col-2"><img src="{{ usr_img[mes['username_user']] }}" class="pp"></div>
                 <div class="col-8 user">{{ mes["content"] }}</div>
             {% else %}
                 <div class="col-2"></div>
                 <div class="col-8 admin">{{ mes["content"] }}</div>
-                <div class="col-2"><img src="{{mes['other_user_picture']}}" class="pp"></div>
+                <div class="col-2"><img src="{{ usr_img[mes['username_user']] }}" class="pp"></div>
             {% endif %}
             
             </div>
