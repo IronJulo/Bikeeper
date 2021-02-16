@@ -3,7 +3,8 @@ from flask import (
     render_template,
     redirect,
     request,
-    url_for
+    url_for,
+    current_app
 )
 from flask_mobility.decorators import mobile_template
 

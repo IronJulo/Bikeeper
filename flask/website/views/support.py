@@ -40,6 +40,7 @@ def support(template):
         messages = messages,
         picture = ORM.get_picture_message_from_username(current_user.username_user),
         last_messages= last_messages,
+        devices = ORM.get_devices_by_username(current_user.username_user)
     )
 
 @mod.route('/support/<int:id_ticket>/', methods=['GET'])
@@ -57,7 +58,8 @@ def support_message(id_ticket):
         'mobile/User/support-bis.html',
         id_ticket = id_ticket,
         messages = messages,
-        usr_img = img_usr
+        usr_img = img_usr,
+        devices = ORM.get_devices_by_username(current_user.username_user)
         )
 
 @mod.route('/support/message/new', methods=['POST'])
@@ -88,11 +90,6 @@ def support_new_ticket():
     return redirect(url_for('support.support'))
 
 
-@mod.route('/support/<int:admin_id>/tickets/all', methods=['GET'])
-def get_tickets_admin_by_id(admin_id):
-    return ""
-
-
 @mod.route('/support/<int:user_id>/tickets/all', methods=['GET'])
 def get_user_tickets_by_id(user_id):
     res = "<ul>"
@@ -103,6 +100,7 @@ def get_user_tickets_by_id(user_id):
                f"<p>Is closed?: {ticket.is_closed_ticket}</p></li>"
     res += "</ul>"
     return res
+
 
 @mod.route('/support/tickets/open/all', methods=['GET'])
 def get_open_tickets():

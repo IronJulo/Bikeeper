@@ -6,7 +6,8 @@ from flask import (
     session,
     redirect,
     url_for,
-    request
+    request,
+    current_app
 )
 from flask_login import current_user
 
@@ -22,6 +23,7 @@ def statistics(template):
     search_user = request.form.get('search_user', default=None, type=str)
     username = ''
 
+    devices = ORM.get_devices_by_username(current_user.username_user)
     if search_user is not None:  # ADMIN
         res = ORM.search_user(search_user)[0]
         return render_template(
@@ -30,13 +32,9 @@ def statistics(template):
             phone=res.num_user,
             street=res.street_user,
             town=res.town_user,
-            postalcode=res.postal_code_user
+            devices=devices
         )
-    elif not current_user.is_admin_user:  # USER
-        return render_template(
-            template,
-            username=username
-        )
+
     else:
         return render_template(
             template,
