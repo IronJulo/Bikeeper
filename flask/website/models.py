@@ -15,6 +15,7 @@ from .utils import Utils
 import json
 import random
 
+
 class CONTACT(db.Model):
     """
     Store contacts to call when emergency. Linked to user.
@@ -275,7 +276,7 @@ class ORM:
         elif not Utils.is_valid_postalcode(postalcode):
             erreur = "Incorrect postal code format. Please try again."
             return (False, erreur)
-        elif city=="" and address=="":
+        elif city == "" and address == "":
             erreur = "Incomplete address. Please try again."
             return (False, erreur)
         else:
@@ -283,13 +284,13 @@ class ORM:
 
     @staticmethod
     def is_num_device_registered(num):
-        return db.session.query(DEVICE).filter(DEVICE.num_device==num).first() != None
+        return db.session.query(DEVICE).filter(DEVICE.num_device == num).first() != None
 
     @staticmethod
     def get_new_num_device():
         number = ''
         for i in range(10):
-            number += str(round(random.random()*9))
+            number += str(round(random.random() * 9))
 
         if ORM.is_num_device_registered(number):
             return ORM.get_new_num_device()
@@ -619,7 +620,7 @@ class ORM:
         Get device by id
         :return : A Device
         """
-        return DEVICE.query.filter_by(id=device_id).first()
+        return DEVICE.query.filter_by(num_device=device_id).first()
 
     @staticmethod
     def get_current_cpu_usage():
@@ -694,7 +695,7 @@ class ORM:
 
     @staticmethod
     def get_devices_by_username(username):
-        return db.session.query(DEVICE).join(USER).filter(USER.username_user == username).all()
+        return DEVICE.query.filter(DEVICE.username_user == username).all()
 
     @staticmethod
     def get_rides_from_bikeeper(device_id: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
@@ -705,6 +706,7 @@ class ORM:
         for log in logs:
             content = json.loads(log.content_log)
             content["datetime_log"] = str(log.datetime_log)
+            content["device_id"] = device_id
             if log.type_log == "+":
                 if content["type"] == "C":
                     new_journey = True
@@ -713,9 +715,36 @@ class ORM:
             if journey:
                 res[-1].append(content)
             if new_journey:
-                res.append([content])
+                res.append([])
                 new_journey = False
                 journey = True
+        return res
+
+    @staticmethod
+    def get_rides_from_user(username: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
+        devices = ORM.get_devices_by_username(username)
+        res = []
+        for device in devices:
+            res.extend(ORM.get_rides_from_bikeeper(device.num_device))
+        return res
+
+    @staticmethod
+    def get_rides_bikeeper_from_user_at_time(username: str, date: str) -> List[str]:
+        rides = ORM.get_rides_from_user(username)
+        res = []
+        for ride in rides:
+            if ride[0]["datetime_log"][:10] == date and ride[0]["device_id"] not in res:
+                res.append(ride[0]["device_id"])
+        return res
+
+    @staticmethod
+    def get_rides_from_user_at_time_with_bikeeper(username: str, device_id: str, date: str) -> List[
+        List[Dict[str, str or float or int or List[int]]]]:
+        rides = ORM.get_rides_from_user(username)
+        res = []
+        for ride in rides:
+            if ride[0]["datetime_log"][:10] == date and ride[0]["device_id"] == device_id:
+                res.append(ride)
         return res
 
     @staticmethod
@@ -724,5 +753,7 @@ class ORM:
             device_id = user.selected_device
         if ride_num is None:
             ride_num = 0
+        else:
+            ride_num = int(ride_num)
         return json.dumps(
             ORM.get_rides_from_bikeeper(device_id)[ride_num])
