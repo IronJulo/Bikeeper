@@ -224,6 +224,67 @@ main>form>div input:focus,
     width: 30%;
 }
 
+@media(max-width: 1620px) {
+    .register-third-page {
+        width: 35% !important;
+    }
+}
+
+@media(max-width: 1400px) {
+    .register-first-page,
+    .register-second-page {
+        width: 30%;
+    }
+
+    .register-third-page {
+        width: 40% !important;
+    }
+}
+
+@media(max-width: 1220px) {
+    .register-first-page,
+    .register-second-page {
+        width: 35%;
+    }
+
+    .register-third-page {
+        width: 45% !important;
+    }
+}
+
+@media(max-width: 1080px) {
+    .register-first-page,
+    .register-second-page {
+        width: 40%;
+    }
+
+    .register-third-page {
+        width: 50% !important;
+    }
+}
+
+@media(max-width: 975px) {
+    .register-first-page,
+    .register-second-page {
+        width: 50%;
+    }
+
+    .register-third-page {
+        width: 60% !important;
+    }
+}
+
+@media(max-width: 815px) {
+    .register-first-page,
+    .register-second-page {
+        width: 70%;
+    }
+
+    .register-third-page {
+        width: 90% !important;
+    }
+}
+
 .register-first-page > div,
 .register-second-page > div,
 .register-third-page > div {

@@ -158,6 +158,37 @@
       font-size: 42px;
     }
 }
+
+@media (max-width: 975px) {
+    div.active .C-slide-title {
+        font-size: 35px;
+    }
+}
+
+@media(max-width: 815px){
+    div.active .C-slide-title {
+        font-size: 30px;
+    }
+}
+
+@media (max-height: 800px) {
+    div.active .C-slide-title {
+      top: 10%;
+    }
+}
+
+@media (max-height: 700px) {
+    div.active .C-slide-title {
+      top: 5%;
+    }
+}
+
+@media (max-height: 700px) {
+    div.active .C-slide-title {
+      top: 0;
+    }
+}
+
 .active .C-slide-title {
     transform: translateY(0) translateX(0);
     opacity: 1;
