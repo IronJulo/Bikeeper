@@ -11,21 +11,25 @@
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
         {% for contact in contacts %}
         <div class="contact">
-            <div class="info">
-                <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
-                <h4><span>{{contact.firstname_contact}}</span> <span>{{contact.lastname_contact}}</span></h4>
-            </div>
             <form action="{{ url_for('settings.settings_contact_update') }}" id="update-contact" method='POST'>
+                <div class="info">
+                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
+                    <h4><span>{{contact.firstname_contact}}</span> <span>{{contact.lastname_contact}}</span></h4>
+                </div>
+                
                 <input type="hidden" name="id-contact" value='{{contact.id_contact}}'>
+               
+                <div class="action">
+                    <button type="submit" name="action" value="edit">Edit</button>
+                    <button type="submit" name="action" value="remove">Remove</button>
+                    
+                </div>
             </form>
-            <div class="action">
-                <button type="submit" form="update-contact">Edit</button>
-                <a href="{{ url_for('settings.settings_contact_remove') }}">Remove</a>
-            </div>
-
         </div>
         {% endfor %}
     </section>
+
+    
     <a href="{{ url_for('settings.settings_contact_add') }}"><i class="fa fa-plus"></i></a>
 </div>
 {% endblock main %}

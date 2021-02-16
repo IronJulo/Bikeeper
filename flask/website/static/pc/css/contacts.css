@@ -72,7 +72,7 @@ section div.contact div.info img {
     margin-right: 2em;
 }
 
-section div.contact>div.action>a:first-child {
+section div.contact div.action>button:first-child {
     display: block;
     font-size: 20px;
     text-decoration: none;
@@ -84,7 +84,7 @@ section div.contact>div.action>a:first-child {
     color: black;
 }
 
-section div.contact>div.action>a:last-child {
+section div.contact div.action>button:last-child {
     display: block;
     font-size: 20px;
     text-decoration: none;
@@ -103,14 +103,14 @@ section div.action {
     align-items: center;
 }
 
-section div.contact div.action a:first-child:hover {
+section div.contact div.action button:first-child:hover {
     cursor: pointer;
     transform: scale(0.95);
     transition: all .2s;
     border-color: var(--orange);
 }
 
-section div.contact div.action a:last-child:hover {
+section div.contact div.action button:last-child:hover {
     cursor: pointer;
     transform: scale(0.95);
     transition: all .2s;

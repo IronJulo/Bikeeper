@@ -604,7 +604,7 @@ class ORM:
         Remove a contact from database by a given contact_id
         :params : contact_id : int
         """
-        num_del_rows = CONTACT.query.filter_by(contact_id=contact_id).delete()
+        num_del_rows = CONTACT.query.filter_by(id_contact=contact_id).delete()
         db.session.commit()
         return True if num_del_rows >= 1 else False
 
