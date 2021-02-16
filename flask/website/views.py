@@ -27,6 +27,7 @@ def global_user():
 #     return render_template(template)
 
 
+
 @app.route('/guide/', methods=['GET'])
 def guide():
     return "Not implemented yet"

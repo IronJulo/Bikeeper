@@ -73,12 +73,13 @@ def insert_user(user_to_add):
     street = user_to_add["street"]
     profile_picture = user_to_add["profile_picture"]
     is_admin = user_to_add["is_admin"]
+    selected_device = user_to_add["selected_device"]
 
     password = sha256()
     password.update(username.encode())  # taking username as password to test
 
     db.session.add(USER(username, password.hexdigest(), num, firstname, lastname, email, town,
-                        postal_code, street, profile_picture, is_admin))
+                        postal_code, street, profile_picture, is_admin, selected_device))
 
 
 def insert_ticket(ticket_to_add):
@@ -165,6 +166,16 @@ def loaddb():
     import_data("./website/data.yml")
 
     db.session.commit()
+
+
+@app.cli.command()
+def removedb():
+    """
+    Remove all table from database.
+    """
+    db.session.remove()
+    print("Removing database")
+    db.drop_all()
 
 
 @app.cli.command("adduser")
