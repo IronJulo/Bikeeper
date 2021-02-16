@@ -3,12 +3,17 @@ from flask import (
     render_template,
     session,
     redirect,
+    send_from_directory,
     url_for,
     request
 )
 from flask_mobility.decorators import mobile_template
 from ..models import ORM
 from flask_login import current_user
+from werkzeug.utils import secure_filename
+from ..app import app
+import os
+import imghdr
 
 mod = Blueprint('settings', __name__)
 
@@ -28,6 +33,7 @@ ACCOUNT
 
 @mod.route('/settings/account/', methods=['GET'])
 def settings_account():
+    files = os.listdir(app.config['UPLOAD_PATH'])
     pseudo = current_user.username_user
     first = current_user.firstname_user
     last = current_user.lastname_user
@@ -38,17 +44,16 @@ def settings_account():
     code = current_user.postal_code_user
     rue = current_user.street_user
     return render_template("account.html", pseudo=pseudo, first=first, last=last, mdp=mdp, tel=tel, mail=mail,
-                           ville=ville, code=code, rue=rue)
+                           ville=ville, code=code, rue=rue, files=files)
 
 
-@mod.route('/settings/account/update/', methods=['GET', 'POST'])
+@mod.route('/settings/account/update/', methods=['GET'])
 def settings_account_update():
     result = request.form
     first = result['first-name']
     last = result['last-name']
     tel = result['phone']
     mail = result['email']
-    # image=result['avatar']
     mdp = result['password']
     code = result['postal-code']
     ville = result['town']
@@ -81,36 +86,36 @@ CONTACT
 @mod.route('/settings/contacts/', methods=['GET'])
 @mobile_template("{mobile/Settings/}contacts.html")
 def settings_contact(template):
-    contacts=ORM.get_contacts_by_user(current_user.username_user)
-    return render_template(template,contacts=contacts)
+    contacts = ORM.get_contacts_by_user(current_user.username_user)
+    return render_template(template, contacts=contacts)
 
 
-@mod.route('/settings/contacts/update/', methods=['GET','POST'])
+@mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
 def settings_contact_update():
-    result=request.form
-    id_contact=result["id-contact"]
-    action=result["action"]
-    if action=="edit":
-        contact=ORM.get_contact_by_id(id_contact)
-        first=contact.firstname_contact
-        last=contact.lastname_contact
-        tel=contact.num_contact
-        return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel)
-    print('-'*100)
+    result = request.form
+    id_contact = result["id-contact"]
+    action = result["action"]
+    if action == "edit":
+        contact = ORM.get_contact_by_id(id_contact)
+        first = contact.firstname_contact
+        last = contact.lastname_contact
+        tel = contact.num_contact
+        return render_template("update_contact.html", id_contact=id_contact, first=first, last=last, tel=tel)
+    print('-' * 100)
     print(id_contact)
-    print('-'*100)
+    print('-' * 100)
     ORM.remove_contact(id_contact)
     return redirect(url_for('settings.settings_contact'))
 
 
 @mod.route('/settings/contacts/update/check/', methods=['GET', 'POST'])
 def settings_contact_update_check():
-    result=request.form
-    first=result['first-name']
-    last=result['last-name']
-    tel=result['phone']
-    id_contact=result['id-contact']
-    ORM.update_contact(tel,first,last,id_contact)
+    result = request.form
+    first = result['first-name']
+    last = result['last-name']
+    tel = result['phone']
+    id_contact = result['id-contact']
+    ORM.update_contact(tel, first, last, id_contact)
     return redirect(url_for("settings.settings_contact"))
 
 
@@ -122,12 +127,12 @@ def settings_contact_add(template):
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
 def settings_contact_add_check():
-    result=request.form
-    first=result['first-name']
-    last=result['last-name']
-    tel=result['phone']
-    device="0664277796"
-    img='static/pc/assets/avatar.png'
+    result = request.form
+    first = result['first-name']
+    last = result['last-name']
+    tel = result['phone']
+    device = "0664277796"
+    img = 'static/pc/assets/avatar.png'
     ORM.new_contact(tel, first, last, img, device)
     return redirect(url_for("settings.settings_contact"))
 
@@ -187,3 +192,32 @@ def settings_subscriptions_cancel():
 @mod.route('/settings/subscription/change/', methods=['GET'])
 def settings_subscriptions_change():
     return redirect(url_for('settings.settings_subscriptions'))
+
+
+'''
+PROFILE
+'''
+
+
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return '.' + (format if format != 'jpeg' else 'jpg')
+
+
+@mod.route('/settings/account/', methods=['POST'])
+def upload_files():
+    uploaded_file = request.files['file']
+    filename = secure_filename(uploaded_file.filename)
+    if filename != "":
+        file_ext = os.path.splitext(filename)[1]
+        if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
+                file_ext != validate_image(uploaded_file.stream):
+            return "Invalid image", 400
+        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+    return '', 204
+
+

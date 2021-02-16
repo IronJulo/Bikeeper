@@ -18,10 +18,14 @@ app.config.update(
     SECRET_KEY="GH5H-QLPE4-MPN3-1THB",
     SEND_FILE_MAX_AGE_DEFAULT=0,
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
-    DEBUG_TB_INTERCEPT_REDIRECTS=False
+    DEBUG_TB_INTERCEPT_REDIRECTS=False,
+    MAX_CONTENT_LENGTH=1024 * 1024,
+    UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif'],
+    UPLOAD_PATH='static/user_profile_picture/'
+
 )
 
-#toolbar = DebugToolbarExtension(app)
+# toolbar = DebugToolbarExtension(app)
 
 Mobility(app)
 
@@ -64,6 +68,7 @@ from website.views import admin
 from website.api import api
 from website.views import stats
 from website.views import test
+from website.views import images
 
 app.register_blueprint(home.mod)
 app.register_blueprint(settings.mod)
@@ -77,3 +82,4 @@ app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
 app.register_blueprint(stats.mod)
 app.register_blueprint(test.mod)
+app.register_blueprint(images.mod)
