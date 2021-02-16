@@ -15,10 +15,10 @@ class Utils:
 
     @staticmethod
     def is_valid_tel(tel):
-        pattern = re.compile("(0/91)?[7-9][0-9]{9}")
+        pattern = re.compile("^[0-9]{10}$")
         return pattern.match(tel)
 
     @staticmethod
     def is_valid_postalcode(pc):
-        pattern = re.compile(r"\s*(\w\d\s*){3}\s*")
+        pattern = re.compile("^[0-9]{5}$")
         return pattern.match(pc)

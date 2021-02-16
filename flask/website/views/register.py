@@ -28,6 +28,7 @@ def register_validate():
     address = str(escape(request.form['address']))
     city = str(escape(request.form['city']))
     postalcode = str(escape(request.form['postalcode']))
+    selected_device = ORM.get_new_num_device()
 
     informations = {
         "username" : username,
@@ -46,7 +47,7 @@ def register_validate():
         m = sha256()
         m.update(password.encode())
         u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
-                f"https://eu.ui-avatars.com/api/{username}", False)
+                f"https://eu.ui-avatars.com/api/{username}", False, selected_device)
         db.session.add(u)
         db.session.commit()
 

@@ -18,8 +18,11 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    {% if not current_user.is_admin_user %}
                     <a href="{{ url_for('settings.settings_account')}}" class="dropdown-item">Profile</a>
+                    {% endif %}
                     <a href="{{ url_for('logout.logout')}}" class="dropdown-item">Logout</a>
+                    
                 </div>
             </div>
         {% else %}
