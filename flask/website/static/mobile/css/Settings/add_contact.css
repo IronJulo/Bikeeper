@@ -1,0 +1,76 @@
+h2{
+  margin-left: 20px;
+  margin-bottom: 30px;
+}
+.img-selector{
+  margin-bottom: 20px;
+}
+#avatar{
+  height: 50px;
+  width: 50px;
+  margin: auto
+}
+.avatar{
+  display: block;
+  text-align: center
+}
+#fileinput{
+  display: none
+}
+.lbl-inpt{
+  margin: auto;
+  width: 90%;
+  height: 40px;
+  text-align: center;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  padding-top: 10px
+}
+
+fieldset{
+  border: solid thin;
+  padding-left: 10px;
+  border-radius: 10px
+}
+legend{
+  float: none;
+  font-size: 14px;
+  width: auto;
+  padding-right: 2px;
+  margin-bottom: 0px
+}
+.inp input{
+  border: none;
+  margin-bottom: 5px;
+  width: 100%;
+}
+.inp div{
+  margin: auto;
+  margin-bottom: 20px;
+  width: 90%;
+  
+}
+.submit{
+  position: absolute;
+  bottom: 10px
+}
+.cancel, .validate{
+  height: 30px;
+  padding-top: 3px
+}
+.validate{
+  border: solid thin green;
+  border-radius: 10px;
+  text-align: center
+}
+.validate button{
+  border: none;
+    font-weight: 600;
+  width: 100%;
+}
+.cancel{
+  border: solid thin red;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+}

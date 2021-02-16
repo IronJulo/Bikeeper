@@ -1,0 +1,65 @@
+{% extends "mobile/base.html" %}
+{% block header %}
+        <div class="logo">
+            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Settings/add_contact.css') }}">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        
+
+
+        <!-- Use any element to open/show the overlay navigation menu -->
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+{% block main %}
+	<h2>Add contact</h2>
+	<form action="{{ url_for('settings.settings_contact_add_check') }}" method='POST'>
+		<div class="row img-selector">
+			<div class="col-1"></div>
+			<div class="col-2 avatar">
+				<img id='avatar' src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
+			</div>
+			<div class="col-1"></div>
+			<div class="col-8">
+				<label for="fileinput" class="lbl-inpt">Select image</label>
+				<input id='fileinput' type="file" name="avatar">
+			</div>
+		</div>
+		<div class="container inp">
+			<div class="form-first-name">
+                <fieldset>
+                    <legend>First Name</legend>
+                    <input type="text" name="first-name" placeholder='John' required>
+                </fieldset>
+            </div>
+            <div class="form-last-name">
+                <fieldset>
+                    <legend>Last Name</legend>
+                    <input type="text" name="last-name" placeholder='Doe' required>
+                </fieldset>
+            </div>
+            <div class="form-phone">
+                <fieldset>
+  	                <legend>Phone Number</legend>
+                    <input type="tel" name="phone" placeholder='+33 1 23 45 67 89' required>
+                </fieldset>
+            </div>
+		</div>
+		<div class="container submit">
+			<div class="row">
+				<div class="col-1"></div>
+        		<div class="col-4 validate"><button class='rotate-vert' type="submit">Add</button></div>
+         		<div class="col-2"></div>
+           		<div class="col-4 cancel"><a class='rotate-rouge' href="#"><p>Cancel</p></a></div>
+           		<div class="col-1"></div>
+            </div>
+		</div>
+    </form>
+{% endblock %}
