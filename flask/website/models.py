@@ -768,3 +768,13 @@ class ORM:
                 for log in LOG.query.filter(and_(LOG.num_device == device_id, LOG.datetime_log.like(date + "%"))).all()
                 if str(log.datetime_log)[:10] == date and log.type_log != "@"]
 
+
+    @staticmethod
+    def update_user_selected_device(id_device,username):
+        user = ORM.get_user(username)
+        user.selected_device = id_device
+        db.session.commit()
+        
+    @staticmethod
+    def get_current_device_by_username(username):
+        return db.session.query(USER.selected_device).filter(USER.username_user==username).first()

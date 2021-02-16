@@ -34,17 +34,12 @@ ACCOUNT
 @mod.route('/settings/account/', methods=['GET'])
 def settings_account():
     files = os.listdir(app.config['UPLOAD_PATH'])
-    pseudo = current_user.username_user
-    first = current_user.firstname_user
-    last = current_user.lastname_user
-    mdp = current_user.password_user
-    tel = current_user.num_user
-    mail = current_user.email_user
-    ville = current_user.town_user
-    code = current_user.postal_code_user
-    rue = current_user.street_user
-    return render_template("account.html", pseudo=pseudo, first=first, last=last, mdp=mdp, tel=tel, mail=mail,
-                           ville=ville, code=code, rue=rue, files=files)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(
+        "account.html",
+        devices = devices,
+        files=files
+        )
 
 
 @mod.route('/settings/account/update/', methods=['GET'])
@@ -58,7 +53,8 @@ def settings_account_update():
     code = result['postal-code']
     ville = result['town']
     rue = result['street']
-    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue, devices = devices)
     return redirect(url_for('settings.settings_account'))
 
 
@@ -70,7 +66,11 @@ DEVICES
 @mod.route('/settings/device/', methods=['GET'])
 @mobile_template("{mobile/Settings/}device.html")
 def settings_devices(template):
-    return render_template(template)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(
+        template,
+        devices = devices
+        )
 
 
 @mod.route('/settings/devices/update/', methods=['GET'])
@@ -86,24 +86,24 @@ CONTACT
 @mod.route('/settings/contacts/', methods=['GET'])
 @mobile_template("{mobile/Settings/}contacts.html")
 def settings_contact(template):
-    contacts = ORM.get_contacts_by_user(current_user.username_user)
-    return render_template(template, contacts=contacts)
+    contacts=ORM.get_contacts_by_user(current_user.username_user)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(template,contacts=contacts,devices = devices)
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
 def settings_contact_update():
-    result = request.form
-    id_contact = result["id-contact"]
-    action = result["action"]
-    if action == "edit":
-        contact = ORM.get_contact_by_id(id_contact)
-        first = contact.firstname_contact
-        last = contact.lastname_contact
-        tel = contact.num_contact
-        return render_template("update_contact.html", id_contact=id_contact, first=first, last=last, tel=tel)
-    print('-' * 100)
-    print(id_contact)
-    print('-' * 100)
+    result=request.form
+    id_contact=result["id-contact"]
+    action=result["action"]
+    if action=="edit":
+        contact=ORM.get_contact_by_id(id_contact)
+        first=contact.firstname_contact
+        last=contact.lastname_contact
+        tel=contact.num_contact
+        devices=ORM.get_devices_by_username(current_user.username_user)
+        return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel,devices=devices)
+
     ORM.remove_contact(id_contact)
     return redirect(url_for('settings.settings_contact'))
 
@@ -122,7 +122,8 @@ def settings_contact_update_check():
 @mod.route('/settings/contacts/add/', methods=['GET'])
 @mobile_template('{mobile/Settings/}add_contact.html')
 def settings_contact_add(template):
-    return render_template(template)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(template, devices = devices)
 
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
@@ -135,15 +136,6 @@ def settings_contact_add_check():
     img = 'static/pc/assets/avatar.png'
     ORM.new_contact(tel, first, last, img, device)
     return redirect(url_for("settings.settings_contact"))
-
-
-# @mod.route('/settings/contacts/remove/', methods=['GET','POST'])
-# def settings_contact_remove():
-#     result=request.form
-#     id_contact=result['id-contact']
-#     print(id_contact)
-#     ORM.remove_contact(id_contact)
-#     return redirect(url_for('settings.settings_contact'))
 
 
 '''
@@ -165,12 +157,14 @@ PAYMENT
 @mod.route('/settings/payment/', methods=['GET'])
 @mobile_template("{mobile/Settings/}edit_payment.html")
 def settings_payment(template):
-    return render_template(template)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(template, devices = devices)
 
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
 def settings_payment_edit():
-    return render_template('edit_payment.html')
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template('edit_payment.html', devices = devices)
 
 
 @mod.route('/settings/payment/edit/check/', methods=['GET', 'POST'])
@@ -181,7 +175,8 @@ def settings_payment_edit_check():
 @mod.route('/settings/subscription/', methods=['GET'])
 @mobile_template("{mobile/Settings/}subscription.html")
 def settings_subscriptions(template):
-    return render_template(template)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(template, devices = devices)
 
 
 @mod.route('/settings/subscription/cancel/', methods=['GET'])

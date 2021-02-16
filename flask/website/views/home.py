@@ -16,10 +16,12 @@ mod = Blueprint('home', __name__)
 @mobile_template('{mobile/User/}home.html')
 def home(template):
     ip_address = request.remote_addr
-    print("IP : ", ip_address)
     ORM.log_ip(ip_address)
-    print(ORM.get_new_num_device())
-    return render_template(template)
+    devices = ORM.get_devices_by_username(current_user.username_user)
+    return render_template(
+        template,
+        devices = devices
+        )
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
 def mob_localisation():

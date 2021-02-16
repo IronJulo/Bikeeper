@@ -17,7 +17,7 @@
                         <p>Change</p>
                     </div>
                     
-                    <h2>@{{pseudo}}</h2> 
+                    <h2>@{{current_user.username_user}}</h2> 
                     <span>Registered on DATE</span> <!-- TODO -->
                 </div>
                 <div class="form-password">
@@ -32,19 +32,19 @@
                 <div class="form-first-name">
                     <fieldset>
                         <legend>First Name</legend>
-                        <input type="text" name="first-name" value="{{first}}">
+                        <input type="text" name="first-name" value="{{current_user.firstname_user}}">
                     </fieldset>
                 </div>
                 <div class="form-last-name">
                     <fieldset>
                         <legend>Last Name</legend>
-                        <input type="text" name="last-name" value="{{last}}">
+                        <input type="text" name="last-name" value="{{current_user.lastname_user}}">
                     </fieldset>
                 </div>
                 <div class="form-phone">
                     <fieldset>
                         <legend>Phone Number</legend>
-                        <input type="tel" name="phone" value="{{tel}}">
+                        <input type="tel" name="phone" value="{{current_user.num_user}}">
                     </fieldset>
                 </div>
             </div>
@@ -53,25 +53,25 @@
                 <div class="form-email">
                     <fieldset>
                         <legend>Email</legend>
-                        <input type="email" name="email" value="{{mail}}">
+                        <input type="email" name="email" value="{{current_user.email_user}}">
                     </fieldset>
                 </div>
                 <div class="form-town">
                     <fieldset>
                         <legend>Town</legend>
-                        <input type="text" name="town" value="{{ville}}">
+                        <input type="text" name="town" value="{{current_user.town_user}}">
                     </fieldset>
                 </div>
                 <div class="form-address">
                     <fieldset>
                         <legend>Street</legend>
-                        <input type="text" name="street" value="{{rue}}">
+                        <input type="text" name="street" value="{{current_user.street_user}}">
                     </fieldset>
                 </div>
                 <div class="form-postal">
                     <fieldset>
                         <legend>Postal Code</legend>
-                        <input type="text" name="postal-code" pattern="[0-9]{5}" value="{{code}}">
+                        <input type="text" name="postal-code" pattern="[0-9]{5}" value="{{current_user.postal_code_user}}">
                     </fieldset>
                 </div>
             </div>

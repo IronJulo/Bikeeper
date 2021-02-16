@@ -67,10 +67,12 @@
                     Devices
                 </a>
               
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="#">Device 1</a>
-                  <a class="dropdown-item" href="#">Device 2</a>
-                  <a class="dropdown-item" href="#">Device 3</a>
+                <div class="dropdown-menu" id="devices" aria-labelledby="dropdownMenuLink">
+                    {% for device in devices %}
+                        <form action="{{ url_for('sidebar.sidebar_device_change') }}" method="POST">
+                            <button type='submit' name="device_change" value="{{device.num_device}}" class="dropdown-item">{{ device.name_device }}</button>
+                        </form>
+                    {% endfor %}
                 </div>
             </div>
         </li>
