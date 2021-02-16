@@ -284,3 +284,10 @@ def get_bikeeper_name_by_id(device_id):
     return jsonify(
         device.name_device
     )
+
+
+@mod.route('/api/bikeeper/get_logs_at_date/<string:device_id>/<string:date>', methods=['GET'])
+def get_logs_at_date(device_id, date):
+    return jsonify(
+        ORM.get_logs_at_date(device_id, date)
+    )
