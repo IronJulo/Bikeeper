@@ -2,196 +2,210 @@
 
 {% block style %}
     <!-- Import Leaflet CSS Style Sheet -->
-    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
     {% if current_user.is_admin_user %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
     {% else %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics.css') }}">
     {% endif %}
 {% endblock style %}
 
 {% block main %}
-<div class="flex">
-    {% if current_user.is_admin_user %}
-    <header class="header-admin">
-        <form action="{{ request.url }}" method="post">
-            <i class="fa fa-user"></i>
-            <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
-            <button type="submit">
-                <i class="fa fa-search"></i>
-            </button>
-        </form>
-        <div class='show-user'>
-            <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="">
-            <div>
-                <h2>{{username}}</h2>
-                <p>
-                    <span class="localisation-icon"><i class="fa fa-map-marker"></i></span>
-                    {{street}}, <span class="pays">{{town}}, {{postalcode}}</span>
-                </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam sunt temporibus eveniet magni debitis corrupti maxime totam repudiandae placeat? Alias commodi ut magni illum facilis id, dolor omnis veniam expedita!</p>
-            </div>
-        </div>
-        <div class='info-user'>
-            <ul>
-                <!-- <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li> -->
-                <li><i class="fa fa-mobile"></i>{{phone}}</li>
-                <li><i class="fa fa-calendar"></i> 2019, account created</li>
-                <li><i class="fa fa-credit-card"></i> €5/mo, Current Plan</li>
-            </ul>
-            <ul>
-                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235894</li>
-                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235895</li>
-                <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device"> #1235896</li>
-            </ul>
-        </div>
-        
-        {% if current_user.is_admin_user and not username=="" %}
-            <button>Block Account</button>
+    <div class="flex">
+        {% if current_user.is_admin_user %}
+            <header class="header-admin">
+                <form action="{{ request.url }}" method="post">
+                    <i class="fa fa-user"></i>
+                    <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
+                    <button type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+                <div class='show-user'>
+                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="">
+                    <div>
+                        <h2>{{ username }}</h2>
+                        <p>
+                            <span class="localisation-icon"><i class="fa fa-map-marker"></i></span>
+                            {{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span>
+                        </p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam sunt temporibus eveniet magni
+                            debitis corrupti maxime totam repudiandae placeat? Alias commodi ut magni illum facilis id,
+                            dolor omnis veniam expedita!</p>
+                    </div>
+                </div>
+                <div class='info-user'>
+                    <ul>
+                        <!-- <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li> -->
+                        <li><i class="fa fa-mobile"></i>{{ phone }}</li>
+                        <li><i class="fa fa-calendar"></i> 2019, account created</li>
+                        <li><i class="fa fa-credit-card"></i> €5/mo, Current Plan</li>
+                    </ul>
+                    <ul>
+                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
+                            #1235894
+                        </li>
+                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
+                            #1235895
+                        </li>
+                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
+                            #1235896
+                        </li>
+                    </ul>
+                </div>
+
+                {% if current_user.is_admin_user and not username=="" %}
+                    <button>Block Account</button>
+                {% endif %}
+            </header>
+
+            <div class="global-admin">
+            <div class="nadmin">
         {% endif %}
-    </header>
+        {% if current_user.is_admin_user and not username=="" or not current_user.is_admin_user %}
 
-    <div class="global-admin">
-        <div class="nadmin">
-    {% endif %}
-    {% if current_user.is_admin_user and not username=="" or not current_user.is_admin_user %}
+            <section class='group1'>
 
-        <section class='group1'>
-            
-            <div id="data" class='user-data'>
-                <h2>Your Data</h2>
-                <ul>
-                    <li>Last Ride : <span>DATE</span></li>
-                    <li>Last Ride Duration : <span>TIME</span></li>
-                </ul>
-            </div>
-            
-            <div class='bikeeper-data'>
-                <h2>Your BiKeeper Data</h2>
-            </div>
-        </section>
+                <div id="data" class='user-data'>
+                    <h2>Your Data</h2>
+                    <ul>
+                        <li>Last Ride : <span>DATE</span></li>
+                        <li>Last Ride Duration : <span>TIME</span></li>
+                    </ul>
+                </div>
 
-        <section class='group2'>
-            <div id="filters" class="filters">
-                <h2>Filters</h2>
-                <form class='filters'>
-                    <div class='ride-date'>
-                        <label for="ride-date">Ride Date : </label>
-                        <input type="date" name="ride-date" id="ride-date">
+                <div class='bikeeper-data'>
+                    <h2>Your BiKeeper Data</h2>
+                </div>
+            </section>
+
+            <section class='group2'>
+                <div id="filters" class="filters">
+                    <h2>Filters</h2>
+                    <form class='filters'>
+                        <div class='ride-date'>
+                            <label for="ride-date">Ride Date : </label>
+                            <input type="date" name="ride-date" id="ride-date">
+                        </div>
+                        <div class='ride-number'>
+                            <label for="ride-number">Ride Number : </label>
+                            <select name="ride-number" id="ride-number">
+                                <option value="ride1">Ride 1</option>
+                                <option value="ride2">Ride 2</option>
+                                <option value="ride3">Ride 3</option>
+                            </select>
+                        </div>
+                        <div class='device-number'>
+                            <label for="device-number">Ride Number : </label>
+                            <select name="device-number" id="device-number">
+                                <option value="device1">Device 1</option>
+                                <option value="device2">Device 2</option>
+                                <option value="device3">Device 3</option>
+                            </select>
+                        </div>
+                        <div class="submit">
+                            <button type="submit">Search</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="timeline" class="container-timeline">
+                    <h2>Timeline</h2>
+                    <div class="timeline">
+                        {% for i in range(0,5) %}
+                            <!-- METTRE LA COULEUR EN FONCTION DU LOG
+                                --timeline-main-color:#7BC6E1; INFORMATION
+                                --timeline-main-color:#DC1D21; ALERT
+                            -->
+                            <style>
+                                :root {
+                                    --timeline-main-color: #DC1D21;
+                                }
+                            </style>
+
+                            <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
+                                <div class="timeline__event__icon ">
+                                    <i class="fa fa-info-circle"></i>
+                                    <div class="timeline__event__date">
+                                        20-08-2019
+                                    </div>
+                                </div>
+                                <div class="timeline__event__content ">
+                                    <div class="timeline__event__title">
+                                        Birthday
+                                    </div>
+                                    <div class="timeline__event__description">
+                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam
+                                            eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt
+                                            reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class='ride-number'>
-                        <label for="ride-number">Ride Number : </label>
-                        <select name="ride-number" id="ride-number">
-                            <option value="ride1">Ride 1</option>
-                            <option value="ride2">Ride 2</option>
-                            <option value="ride3">Ride 3</option>
-                        </select>
+                </div>
+
+            </section>
+
+            <section class='group3'>
+                <div class="graph1">
+                    <div class="canvas1">
+                        <canvas id="speed"></canvas>
                     </div>
-                    <div class='device-number'>
-                        <label for="device-number">Ride Number : </label>
-                        <select name="device-number" id="device-number">
-                            <option value="device1">Device 1</option>
-                            <option value="device2">Device 2</option>
-                            <option value="device3">Device 3</option>
-                        </select>
+                    <div class="info1">
+                        <ul>
+                            <li>Max Speed : <span>158</span>km/h</li>
+                            <li>Average Speed : <span>72</span>km/h</li>
+                        </ul>
                     </div>
-                    <div class="submit">
-                        <button type="submit">Search</button>
+                </div>
+
+                <div class="graph2">
+                    <div class="canvas2">
+                        <canvas id="angle"></canvas>
+                    </div>
+                    <div class="info2">
+                        <ul>
+                            <li>Max Angle : <span>158</span>°</li>
+                            <li>Average Angle : <span>72</span>°</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="group4">
+                <form action="{{ request.url }}" method='GET'>
+                    <div class="btn-container">
+                        <input type="radio" name="food" id="local" checked hidden/>
+                        <label for="local">Local</label>
+                        <input type="radio" name="food" id="online" hidden/>
+                        <label for="online">Online</label>
                     </div>
                 </form>
-            </div>
-            <div id="timeline" class="container-timeline">
-                <h2>Timeline</h2>
-                <div class="timeline">
-                    {% for i in range(0,5) %}
-                    <!-- METTRE LA COULEUR EN FONCTION DU LOG 
-                        --timeline-main-color:#7BC6E1; INFORMATION
-                        --timeline-main-color:#DC1D21; ALERT
-                    -->
-                    <style>
-                        :root {
-                            --timeline-main-color: #DC1D21;
-                        }
-                    </style>
-                    
-                    <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
-                        <div class="timeline__event__icon ">
-                            <i class="fa fa-info-circle"></i>
-                            <div class="timeline__event__date">
-                                20-08-2019
-                            </div>
-                        </div>
-                        <div class="timeline__event__content ">
-                            <div class="timeline__event__title">
-                                Birthday
-                            </div>
-                            <div class="timeline__event__description">
-                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
-        </section>
 
-        <section class='group3'>
-            <div class="graph1">
-                <div class="canvas1">
-                    <canvas id="speed"></canvas>
-                </div>
-                <div class="info1">
-                    <ul>
-                        <li>Max Speed : <span>158</span>km/h</li>
-                        <li>Average Speed : <span>72</span>km/h</li>
-                    </ul>
-                </div>
+                <div id="position"></div>
+                <div id="temp"></div>
+            </section>
+        {% endif %}
+        {% if current_user.is_admin_user %}
             </div>
-
-            <div class="graph2">
-                <div class="canvas2">
-                    <canvas id="angle"></canvas>
-                </div>
-                <div class="info2">
-                    <ul>
-                        <li>Max Angle : <span>158</span>°</li>
-                        <li>Average Angle : <span>72</span>°</li>
-                    </ul>
-                </div>
             </div>
-        </section>
-
-        <section class="group4">
-            <form action="{{ request.url }}" method='GET'>
-                <div class="btn-container">
-                    <input type="radio" name="food" id="local" checked hidden/>
-                    <label for="local">Local</label>  
-                    <input type="radio" name="food" id="online" hidden/>
-                    <label for="online">Online</label>
-                </div>
-            </form>
-            
-            <div id="position"></div>
-            <div id="temp"></div>
-        </section>
-    {% endif %}
-    {% if current_user.is_admin_user %}    
-        </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 {% endblock main %}
 
 {% block script %}
-<!-- Import Leaflet JS Library -->
-<script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+    <!-- Import Leaflet JS Library -->
+    <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 
-<script>
-var url = window.location.href
-var arr = url.split("/");
-var result = arr[0] + "//" + arr[2]
- var myIcon = L.icon({
+    <script>
+        {% autoescape false %}
+        const rides = '{{rides}}';
+        {% endautoescape %}
+        console.log(rides)
+        const url = window.location.href;
+        const arr = url.split("/");
+        const result = arr[0] + "//" + arr[2];
+        const myIcon = L.icon({
             iconUrl: result + "/static/pc/assets/logo_bikeeper_without_text.png",
             iconSize: [40, 40],
             iconAnchor: [25, 50],
@@ -199,36 +213,36 @@ var result = arr[0] + "//" + arr[2]
         });
 
 
-// On initialise la latitude et la longitude de Paris (centre de la carte)
-var lat = 47.902964;
-var lon = 1.909251;
+        // On initialise la latitude et la longitude de Paris (centre de la carte)
+        const lat = 47.902964;
+        const lon = 1.909251;
 
-var mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
-  center: [lat, lon], /* set GPS Coordinates */
-  zoom: 17, /* define the zoom level */
-  zoomControl: true, /* false = no zoom control buttons displayed */
-  icon: myIcon,
-  scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
-});
+        const mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
+            center: [lat, lon], /* set GPS Coordinates */
+            zoom: 17, /* define the zoom level */
+            zoomControl: true, /* false = no zoom control buttons displayed */
+            icon: myIcon,
+            scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
+        });
 
-L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
-  maxZoom: 20, /* zoom limit of the map */
-  attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
-    '<a href="http://mapbox.com">Mapbox</a> | ' +
-    '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
-    'Guillaume Rouan 2016', /* set the map's caption */
-    id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
-}).addTo(mymap);
+        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
+            maxZoom: 20, /* zoom limit of the map */
+            attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
+                '<a href="http://mapbox.com">Mapbox</a> | ' +
+                '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
+                'Guillaume Rouan 2016', /* set the map's caption */
+            id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
+        }).addTo(mymap);
 
-L.marker([lat, lon], {
+        L.marker([lat, lon], {
             icon: myIcon
         }).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
 
-</script>
+    </script>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
-<script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
 {% endblock script %}
