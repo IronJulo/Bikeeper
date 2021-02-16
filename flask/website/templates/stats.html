@@ -87,20 +87,20 @@
                             <label for="ride-date">Ride Date : </label>
                             <input type="date" name="ride-date" id="ride-date">
                         </div>
+                        <div class='device-number'>
+                            <label for="device-number">Ride Number : </label>
+                            <select name="device-number" id="device-number">
+                                {% for device in devices %}
+                                <option value="{{ device.num_device }}">{{ device.name_device }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                         <div class='ride-number'>
                             <label for="ride-number">Ride Number : </label>
                             <select name="ride-number" id="ride-number">
                                 <option value="ride1">Ride 1</option>
                                 <option value="ride2">Ride 2</option>
                                 <option value="ride3">Ride 3</option>
-                            </select>
-                        </div>
-                        <div class='device-number'>
-                            <label for="device-number">Ride Number : </label>
-                            <select name="device-number" id="device-number">
-                                <option value="device1">Device 1</option>
-                                <option value="device2">Device 2</option>
-                                <option value="device3">Device 3</option>
                             </select>
                         </div>
                         <div class="submit">

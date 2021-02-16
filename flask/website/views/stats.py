@@ -34,13 +34,16 @@ def statistics(template):
             street=res.street_user,
             town=res.town_user,
             postalcode=res.postal_code_user,
-            rides=ORM.get_ride(res, device_id, ride_num)
+            rides=ORM.get_ride(res, device_id, ride_num),
+            devices=ORM.get_devices_by_username(res.username_user)
         )
     elif not current_user.is_admin_user:  # USER
         return render_template(
             template,
             username=username,
-            rides=ORM.get_ride(current_user, device_id, ride_num)
+            rides=ORM.get_ride(current_user, device_id, ride_num),
+            devices=ORM.get_devices_by_username(current_user.username_user)
+
         )
     else:
         return render_template(
