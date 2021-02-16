@@ -19,20 +19,19 @@
 {% endblock %}
 
 {% block main %}
-        <h2>Your account</h2>
-        <div class="main">
-            <div class="user-profile">
-                <div class="image">
-                    <div class="image-container">
-                        <img src="{{ url_for('static', filename = 'mobile/assets/alert.png') }}" style="border-radius: 50%" width="50%" height="auto">
-                    </div>
-                    <div class="button-image">
-                        <label for="profile_pic"></label>
-                        <input class = "select-image" id="profile_pic" name="profile_pic" type="file" accept=".png, .gif, .jpg">
-                    </div>
-                </div>
-            </div>
-            
+    	<h2>Your account</h2>
+    	<div class="main">
+    		<div class="user-profile">
+    			<div class="image">
+					<div class="image-container">
+						<img src="{{ url_for('static', filename = 'pc/assets/avatar.png') }}" style="border-radius: 50%" width="50%" height="auto">
+					</div>
+					<div class="button-image">
+						<label for="profile_pic"></label>
+						<input class = "select-image" id="profile_pic" name="profile_pic" type="file" accept=".png, .gif, .jpg">
+					</div>
+    			</div>
+    		</div>
             <div class="account">
                 <h3>Registered on {{ register_date }}</h3>
 
