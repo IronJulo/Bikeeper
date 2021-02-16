@@ -198,7 +198,14 @@ div.login>div a {
 }
 
 div.login>div a.dropdown-toggle {
-    padding: 1em 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+div.login>div a.dropdown-toggle span {
+    margin-left: .5em;
+    margin-right: .3em;
 }
 
 div.login>div.profile img {
@@ -247,4 +254,11 @@ html::-webkit-scrollbar
 html::-webkit-scrollbar-track
 {
     background: linear-gradient(90deg,#434343,#434343 1px,#111 0,#111);
+}
+
+#img-profile {
+    background-position: center;
+    height: 40px;
+    width: 40px;
+    background-size: cover;
 }

@@ -12,7 +12,7 @@
             <div class="form-group1">
                 <div class="form-avatar">
                     <div class="img-avatar">
-                        <img id='picture' src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
+                        <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
                         <input id='fileinput' type="file" name="avatar">
                         <p>Change</p>
                     </div>
