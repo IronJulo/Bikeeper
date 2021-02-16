@@ -13,7 +13,7 @@ from hashlib import sha256
 import psutil
 from .utils import Utils
 import json
-
+import random
 
 class CONTACT(db.Model):
     """
@@ -275,8 +275,26 @@ class ORM:
         elif not Utils.is_valid_postalcode(postalcode):
             erreur = "Incorrect postal code format. Please try again."
             return (False, erreur)
+        elif city=="" and address=="":
+            erreur = "Incomplete address. Please try again."
+            return (False, erreur)
         else:
             return (True, "Sucessful registration! Welcome " + username + "!")
+
+    @staticmethod
+    def is_num_device_registered(num):
+        return db.session.query(DEVICE).filter(DEVICE.num_device==num).first() != None
+
+    @staticmethod
+    def get_new_num_device():
+        number = ''
+        for i in range(10):
+            number += str(round(random.random()*9))
+
+        if ORM.is_num_device_registered(number):
+            return ORM.get_new_num_device()
+
+        return number
 
     @staticmethod
     def is_admin(pseudo: str) -> bool:
