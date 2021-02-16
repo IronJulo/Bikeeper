@@ -3,7 +3,7 @@ This module interact directly with the database. It make call to sqlalchemy ORM 
 """
 from datetime import datetime
 from typing import List, Dict
-from sqlalchemy import func
+from sqlalchemy import func, and_
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
@@ -757,3 +757,14 @@ class ORM:
             ride_num = int(ride_num)
         return json.dumps(
             ORM.get_rides_from_bikeeper(device_id)[ride_num])
+
+    @staticmethod
+    def get_logs_at_date(device_id: str, date: str):
+        return [{"content_log": json.loads(log.content_log),
+                 "datetime_log": str(log.datetime_log),
+                 "num_device": log.num_device,
+                 "exception_log": log.exception_log,
+                 "type_log": log.type_log}
+                for log in LOG.query.filter(and_(LOG.num_device == device_id, LOG.datetime_log.like(date + "%"))).all()
+                if str(log.datetime_log)[:10] == date and log.type_log != "@"]
+
