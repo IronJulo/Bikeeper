@@ -221,13 +221,13 @@ def get_current_ram_usage():
 @mod.route('/api/bikeeper/get_user_num/<string:device_id>/', methods=['GET'])
 def get_bikeeper_user_num(device_id):
     """
-        Gets bikeeper's owner number
-        This gets the number of the bikeeper's owner and returns it.
+    Gets bikeeper's owner number
+    This gets the number of the bikeeper's owner and returns it.
 
-        :param device_id: id of the current device
-        :return: user number str
-        :rtype: Response
-        """
+    :param device_id: id of the current device
+    :return: user number str
+    :rtype: Response
+    """
     try:
         user_num = ORM.get_bikeeper_user_num(device_id)
         ORM.new_log("", "I", datetime.now(), "", device_id)
@@ -236,4 +236,51 @@ def get_bikeeper_user_num(device_id):
     return jsonify(
         type_message="response_num",
         numero=user_num
+    )
+
+
+@mod.route('/api/bikeeper/get_rides_bikeeper_from_user_at_time/<string:username>/<string:date>', methods=['GET'])
+def get_rides_bikeeper_from_user_at_time(username: str, date: str):
+    """
+    Gets the user's bikeepers that has logs at a given date.
+
+    :param username: username of the user
+    :param date: date
+    :return: list of bikeepers id
+    :rtype: Response
+    """
+    return jsonify(
+        ORM.get_rides_bikeeper_from_user_at_time(username, date)
+    )
+
+
+@mod.route('/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/<string:username>/<string:device_id>/<string:date>',
+           methods=['GET'])
+def get_rides_from_user_at_time_with_bikeeper(username: str, device_id: str, date: str):
+    """
+    Gets a list of rides at a given date, bikeeper and user.
+
+    :param username: username of the user
+    :param date: date
+    :param device_id: device id
+    :return: list of rides
+    :rtype: Response
+    """
+    return jsonify(
+        ORM.get_rides_from_user_at_time_with_bikeeper(username, device_id, date)
+    )
+
+
+@mod.route('/api/bikeeper/get_bikeer_name_by_id/<string:device_id>', methods=['GET'])
+def get_bikeeper_name_by_id(device_id):
+    """
+    Gets the device name of a given device
+
+    :param device_id: device id
+    :return: name of the device
+    :rtype: Response
+    """
+    device = ORM.get_device(device_id)
+    return jsonify(
+        device.name_device
     )
