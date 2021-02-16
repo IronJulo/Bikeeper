@@ -88,15 +88,18 @@ def settings_contact(template):
 def settings_contact_update():
     result=request.form
     id_contact=result["id-contact"]
-    contact=ORM.get_contact_by_id(id_contact)
+    action=result["action"]
+    if action=="edit":
+        contact=ORM.get_contact_by_id(id_contact)
+        first=contact.firstname_contact
+        last=contact.lastname_contact
+        tel=contact.num_contact
+        return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel)
     print('-'*100)
-    print(contact)
+    print(id_contact)
     print('-'*100)
-    first=contact.firstname_contact
-    last=contact.lastname_contact
-    tel=contact.num_contact
-    return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel)
-
+    ORM.remove_contact(id_contact)
+    return redirect(url_for('settings.settings_contact'))
 
 
 @mod.route('/settings/contacts/update/check/', methods=['GET', 'POST'])
@@ -117,16 +120,23 @@ def settings_contact_add():
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
 def settings_contact_add_check():
+    result=request.form
+    first=result['first-name']
+    last=result['last-name']
+    tel=result['phone']
+    device="0664277796"
+    img='static/pc/assets/avatar.png'
+    ORM.new_contact(tel, first, last, img, device)
     return redirect(url_for("settings.settings_contact"))
 
 
-@mod.route('/settings/contacts/remove/', methods=['POST'])
-def settings_contact_remove():
-    result=request.form
-    id_contact=result['id-contact']
-    print(id_contact)
-    ORM.remove_contact(id_contact)
-    return redirect(url_for('settings.settings_contact'))
+# @mod.route('/settings/contacts/remove/', methods=['GET','POST'])
+# def settings_contact_remove():
+#     result=request.form
+#     id_contact=result['id-contact']
+#     print(id_contact)
+#     ORM.remove_contact(id_contact)
+#     return redirect(url_for('settings.settings_contact'))
 
 
 '''
