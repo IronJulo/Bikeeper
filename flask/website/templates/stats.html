@@ -69,8 +69,8 @@
                 <div id="data" class='user-data'>
                     <h2>Your Data</h2>
                     <ul>
-                        <li>Last Ride : <span>DATE</span></li>
-                        <li>Last Ride Duration : <span>TIME</span></li>
+                        <li>Last Ride: <span>DATE</span></li>
+                        <li>Last Ride Duration: <span>TIME</span></li>
                     </ul>
                 </div>
 
@@ -84,27 +84,18 @@
                     <h2>Filters</h2>
                     <form class='filters'>
                         <div class='ride-date'>
-                            <label for="ride-date">Ride Date : </label>
-                            <input type="date" name="ride-date" id="ride-date">
+                            <label for="ride-date">Ride Date: </label>
+                            <input onchange="loadDateBikeepers()" type="date" name="ride-date" id="ride-date">
                         </div>
                         <div class='device-number'>
-                            <label for="device-number">Ride Number : </label>
-                            <select name="device-number" id="device-number">
-                                {% for device in devices %}
-                                <option value="{{ device.num_device }}">{{ device.name_device }}</option>
-                                {% endfor %}
+                            <label for="device-number">Device Number: </label>
+                            <select onchange="loadRides()" name="device-number" id="device-number">
                             </select>
                         </div>
                         <div class='ride-number'>
-                            <label for="ride-number">Ride Number : </label>
+                            <label for="ride-number">Ride Number: </label>
                             <select name="ride-number" id="ride-number">
-                                <option value="ride1">Ride 1</option>
-                                <option value="ride2">Ride 2</option>
-                                <option value="ride3">Ride 3</option>
                             </select>
-                        </div>
-                        <div class="submit">
-                            <button type="submit">Search</button>
                         </div>
                     </form>
                 </div>
@@ -153,8 +144,8 @@
                     </div>
                     <div class="info1">
                         <ul>
-                            <li>Max Speed : <span>158</span>km/h</li>
-                            <li>Average Speed : <span>72</span>km/h</li>
+                            <li>Max Speed: <span>158</span>km/h</li>
+                            <li>Average Speed: <span>72</span>km/h</li>
                         </ul>
                     </div>
                 </div>
@@ -165,8 +156,8 @@
                     </div>
                     <div class="info2">
                         <ul>
-                            <li>Max Angle : <span>158</span>°</li>
-                            <li>Average Angle : <span>72</span>°</li>
+                            <li>Max Angle: <span>158</span>°</li>
+                            <li>Average Angle: <span>72</span>°</li>
                         </ul>
                     </div>
                 </div>
@@ -194,55 +185,86 @@
 {% endblock main %}
 
 {% block script %}
-    <!-- Import Leaflet JS Library -->
-    <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
+<!-- Import Leaflet JS Library -->
+<script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
 
-    <script>
-        {% autoescape false %}
-        const rides = '{{rides}}';
-        {% endautoescape %}
+<script>
+    let rides = null;
+
+    {% autoescape false %}
+    const username = '{{ current_user.username_user }}';
+    {% endautoescape %}
+
+    const loadDateBikeepers = async () => { // updates the others fields to show the devices that have been used at this date
+        let date = document.getElementById('ride-date').value;
+        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_bikeeper_from_user_at_time/' + username + "/" + date);
+        const devices = await response.json();
+        let form_device_number = document.getElementById('device-number');
+        for (let device of devices) {
+            let node = document.createElement("option");
+            const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_bikeer_name_by_id/' + device);
+            const device_name = await response.json();
+            node.appendChild(document.createTextNode(device_name))
+            node.value = device;
+            form_device_number.appendChild(node);
+        }
+        await loadRides();
+    }
+    const loadRides = async () => { // updates the field "rides" to show rides of a certain device and date
+        let date = document.getElementById('ride-date').value;
+        let bikeeper = document.getElementById('device-number').value;
+        const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/' + username + "/" + bikeeper + "/" + date);
+        rides = await response.json();
         console.log(rides)
-        const url = window.location.href;
-        const arr = url.split("/");
-        const result = arr[0] + "//" + arr[2];
-        const myIcon = L.icon({
-            iconUrl: result + "/static/pc/assets/logo_bikeeper_without_text.png",
-            iconSize: [40, 40],
-            iconAnchor: [25, 50],
-            popupAnchor: [-3, -76],
-        });
+        let form_device_number = document.getElementById('ride-number');
+        for (let i = 0; i < rides.length; i++) {
+            let node = document.createElement("option");
+            node.appendChild(document.createTextNode("Ride " + i))
+            node.value = i.toString();
+            form_device_number.appendChild(node);
+        }
+    }
+
+    const url = window.location.href;
+    const arr = url.split("/");
+    const result = arr[0] + "//" + arr[2];
+    const myIcon = L.icon({
+        iconUrl: result + "/static/pc/assets/logo_bikeeper_without_text.png",
+        iconSize: [40, 40],
+        iconAnchor: [25, 50],
+        popupAnchor: [-3, -76],
+    });
 
 
-        // On initialise la latitude et la longitude de Paris (centre de la carte)
-        const lat = 47.902964;
-        const lon = 1.909251;
+    // On initialise la latitude et la longitude de Paris (centre de la carte)
+    const lat = 47.902964;
+    const lon = 1.909251;
 
-        const mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
-            center: [lat, lon], /* set GPS Coordinates */
-            zoom: 17, /* define the zoom level */
-            zoomControl: true, /* false = no zoom control buttons displayed */
-            icon: myIcon,
-            scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
-        });
+    const mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
+        center: [lat, lon], /* set GPS Coordinates */
+        zoom: 17, /* define the zoom level */
+        zoomControl: true, /* false = no zoom control buttons displayed */
+        icon: myIcon,
+        scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
+    });
 
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
-            maxZoom: 20, /* zoom limit of the map */
-            attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
-                '<a href="http://mapbox.com">Mapbox</a> | ' +
-                '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
-                'Guillaume Rouan 2016', /* set the map's caption */
-            id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
-        }).addTo(mymap);
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
+        maxZoom: 20, /* zoom limit of the map */
+        attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
+            '<a href="http://mapbox.com">Mapbox</a> | ' +
+            '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
+            'Guillaume Rouan 2016', /* set the map's caption */
+        id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
+    }).addTo(mymap);
 
-        L.marker([lat, lon], {
-            icon: myIcon
-        }).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
+    L.marker([lat, lon], {
+        icon: myIcon
+    }).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
 
-    </script>
+</script>
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
 {% endblock script %}
