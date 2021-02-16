@@ -85,8 +85,10 @@ div.temp {
     height: 50px;
 }
 
-#weekly {
-    width: 80%;
-    display: block;
-    margin: 0 auto;
+#activityChart {
+    width: var(--taille-elements-width) !important;
+    display: block !important;
+    margin: 0 auto !important;
+    margin-top: 3em !important;
+    margin-bottom: 5em !important;
 }
