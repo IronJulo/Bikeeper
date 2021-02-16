@@ -11,7 +11,7 @@ function activeLink(tab) {
 
     }
     tab.classList.replace("inactive","active");
-    api = "http://127.0.0.1:5000/test/message/"+ getIdTicket() +"/all"
+    api = "/test/message/"+ getIdTicket() +"/all"
 }
 
 function getActive(){
