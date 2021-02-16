@@ -30,22 +30,34 @@ def support(template):
         open_tickets = ORM.get_open_ticket()
         for ticket in open_tickets:
             messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
-    last_messages={}
+    
+    last_messages = {}
     for i_mes in messages.keys():
         last_messages[i_mes] = ORM.get_last_message_by_ticket_id(i_mes)
+    
     return render_template(
         template,
         messages = messages,
         picture = ORM.get_picture_message_from_username(current_user.username_user),
-        last_messages= last_messages
+        last_messages= last_messages,
     )
 
 @mod.route('/support/<int:id_ticket>/', methods=['GET'])
 def support_message(id_ticket):
+    messages = ORM.get_message_by_ticket_id(id_ticket)
+    last_messages={}
+    img_usr = {}
+    usr = set()
+    for mes in messages.values():
+        usr.add(mes["username_user"])
+    for user in usr:
+        img_usr[user] = ORM.get_user(user).profile_picture_user
+
     return render_template(
         'mobile/User/support-bis.html',
         id_ticket = id_ticket,
-        messages = ORM.get_message_by_ticket_id(id_ticket)
+        messages = messages,
+        usr_img = img_usr
         )
 
 @mod.route('/support/message/new', methods=['POST'])
