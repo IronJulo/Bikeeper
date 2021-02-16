@@ -11,7 +11,7 @@ from .app import db, session, login_manager
 import requests
 from hashlib import sha256
 import psutil
-import re
+from .utils import Utils
 import json
 
 
@@ -90,19 +90,20 @@ class USER(db.Model, UserMixin):
     Store User accounts, username, password, phone number and other...
     """
     username_user = db.Column(db.String(42), primary_key=True)
-    password_user = db.Column(db.String(200))
-    num_user = db.Column(db.String(15))
-    firstname_user = db.Column(db.String(42))
-    lastname_user = db.Column(db.String(42))
-    email_user = db.Column(db.String(80))
-    town_user = db.Column(db.String(42))
-    postal_code_user = db.Column(db.String(10))
-    street_user = db.Column(db.String(95))
-    profile_picture_user = db.Column(db.String(200))
-    is_admin_user = db.Column(db.Boolean)
+    password_user = db.Column(db.String(200), nullable=False)
+    num_user = db.Column(db.String(15), nullable=False)
+    firstname_user = db.Column(db.String(42), nullable=False)
+    lastname_user = db.Column(db.String(42), nullable=False)
+    email_user = db.Column(db.String(80), nullable=False)
+    town_user = db.Column(db.String(42), nullable=False)
+    postal_code_user = db.Column(db.String(10), nullable=False)
+    street_user = db.Column(db.String(95), nullable=False)
+    profile_picture_user = db.Column(db.String(200), nullable=False)
+    is_admin_user = db.Column(db.Boolean, nullable=False)
+    selected_device = db.Column(db.String(42), nullable=True)
 
     def __init__(self, username, password, num, firstname, lastname, email, town,
-                 postal_code, street, profile_picture, is_admin):
+                 postal_code, street, profile_picture, is_admin, selected_device):
         self.username_user = username
         self.password_user = password
         self.num_user = num
@@ -114,6 +115,7 @@ class USER(db.Model, UserMixin):
         self.street_user = street
         self.profile_picture_user = profile_picture
         self.is_admin_user = is_admin
+        self.selected_device = selected_device
 
     def get_id(self):
         return self.username_user
@@ -248,45 +250,29 @@ class ORM:
         city = informations['city']
         postalcode = informations['postalcode']
 
-        def is_valid_password(password):
-            return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(
-                x.isdigit() for x in password) and len(password) >= 5
-
-        def is_valid_email(email):
-            regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-            return re.search(regex, email)
-
-        def is_valid_tel(tel):
-            pattern = re.compile("^[0-9]{10}$")
-            return pattern.match(tel)
-
-        def is_valid_postalcode(pc):
-            pattern = re.compile("^[0-9]{5}$")
-            return pattern.match(pc)
-
         if not ORM.is_username_available(username):
             erreur = "Username already taken. Please chose an other one."
             return (False, erreur)
         elif len(username) < 5:
             erreur = "Incorrect username. Username must has a minimal length of 5 characters."
             return (False, erreur)
-        elif not is_valid_email(email):
+        elif not Utils.is_valid_email(email):
             erreur = "Incorrect email format. Please try again."
             return (False, erreur)
         elif password != confirmpassword:
             erreur = "Passwords do not match. Please try again."
             return (False, erreur)
-        elif not is_valid_password(password):
+        elif not Utils.is_valid_password(password):
             erreur = "Incorrect password. Password must :\n \
                 • contains at least one upper case letter,\n \
                 • contains at least one lower case letter,\n \
                 • contains at least one number,\n \
                 • has a minimal length of 5 characters."
             return (False, erreur)
-        elif not is_valid_tel(phonenumber):
+        elif not Utils.is_valid_tel(phonenumber):
             erreur = "Incorrect phone number format. Please try again."
             return (False, erreur)
-        elif not is_valid_postalcode(postalcode):
+        elif not Utils.is_valid_postalcode(postalcode):
             erreur = "Incorrect postal code format. Please try again."
             return (False, erreur)
         else:
@@ -299,7 +285,7 @@ class ORM:
         :return: boolean, true if is admin
         """
         username = db.session.query(USER).filter(USER.username_user == pseudo and USER.is_admin_user == 1).first()
-        print("IS ADmin", username)
+        print("IS Admin", username)
         if username.is_admin_user is True:
             return True
         else:
@@ -562,7 +548,7 @@ class ORM:
     @staticmethod
     def new_ticket(title_ticket, is_closed_ticket, user):
         """
-        Create a new ticket
+         Create a new ticket
         :params : title_ticket
         :params : is_closed_ticket
         :params : user

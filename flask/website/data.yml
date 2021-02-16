@@ -13,6 +13,7 @@ users:
       "street": "5 rue du roi des pirates"
       "profile_picture": "https://assets.change.org/photos/9/xm/ov/HuXMoVlIDzauXCp-800x450-noPad.jpg?1562964866"
       "is_admin": False
+      "selected_device" : "0769342048"
   - user:
       "username": "user2"
       "num": "0789101162"
@@ -24,6 +25,7 @@ users:
       "street": "5 rue du roi des voleurs"
       "profile_picture": "https://i.pinimg.com/originals/b9/cb/0c/b9cb0c0ef9d2b8f1dee686dcb24bc9d2.jpg"
       "is_admin": False
+      "selected_device" : "0664277796"
   - user:
       "username": "user3"
       "num": "0789101162"
@@ -35,6 +37,7 @@ users:
       "street": "69 rue des 420"
       "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
+      "selected_device" : "0564277796"
   - user:
       "username": "user4"
       "num": "0785101162"
@@ -46,6 +49,7 @@ users:
       "street": "69 rue des 420"
       "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
+      "selected_device" : "0964277796"
 
   - user:
       "username": "admin"
@@ -58,6 +62,7 @@ users:
       "street": "167 rue des coquelicots"
       "profile_picture": "https://eu.ui-avatars.com/api/admin"
       "is_admin": True
+      "selected_device" : null
 
   - user:
       "username": "admin2"
@@ -70,6 +75,7 @@ users:
       "street": "48 rue des coquelicots"
       "profile_picture": "https://eu.ui-avatars.com/api/admin2"
       "is_admin": True
+      "selected_device" : null
 
 # Tickets
 tickets:
@@ -156,13 +162,26 @@ device:
 
 
   - device:
-      "num_device": "0781546427"
-      "name_device": "DorianHardy"
+      "num_device": "0781546421"
+      "name_device": "DorianHardy2"
       "row_parameters_device": ""
-      "user": "user2"
+      "user": "user1"
 
   - device:
      "num_device": "0664277796"
      "name_device": "Andrew"
      "row_parameters_device": ""
+     "user": "user2"
+
+  - device:
+     "num_device": "0564277796"
+     "name_device": "Xavier"
+     "row_parameters_device": ""
      "user": "user3"
+
+
+  - device:
+     "num_device": "0964277796"
+     "name_device": "Balkany"
+     "row_parameters_device": ""
+     "user": "user4"
