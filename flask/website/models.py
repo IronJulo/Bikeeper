@@ -12,6 +12,7 @@ import requests
 from hashlib import sha256
 import psutil
 import re
+import json
 
 
 class CONTACT(db.Model):
@@ -686,7 +687,28 @@ class ORM:
     @staticmethod
     def search_user(word):
         return db.session.query(USER).filter(USER.username_user.like("%" + word + "%")).all()
-    
+
     @staticmethod
     def get_devices_by_username(username):
-        return db.session.query(DEVICE).join(USER).filter(USER.username_user==username).all()
+        return db.session.query(DEVICE).join(USER).filter(USER.username_user == username).all()
+
+    @staticmethod
+    def get_rides_from_bikeeper(device_id: str) -> List[List[LOG]]:
+        logs = LOG.query.filter(LOG.num_device == device_id).all()
+        res = []
+        new_journey = False
+        journey = False
+        for log in logs:
+            if log.type_log == "+":
+                content = json.loads(log.content_log)
+                if content["type"] == "C":
+                    new_journey = True
+                elif content["type"] == "D":
+                    journey = False
+            if journey:
+                res[-1].append(log)
+            if new_journey:
+                res.append([log])
+                new_journey = False
+                journey = True
+        return res
