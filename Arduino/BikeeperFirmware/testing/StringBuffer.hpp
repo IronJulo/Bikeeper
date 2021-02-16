@@ -15,12 +15,14 @@ class StringBuffer
         void store(int i);
         void store(double d);
 
+        void replaceTo(short index, char c);
+
         void rewind();
         void skip(short n);
 
         short indexOf(char c);
         short indexOf(char *c, short len);
-        char *substring(char *in, short from, short to);
+        void substring(char *in, short from, short to);
 
         short length();
 

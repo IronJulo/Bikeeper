@@ -75,13 +75,13 @@ StringBuffer::indexOf(char c)
 }
 
 
-char *
-substring(char *in, short from, short to){
-    char res[to - from];
-    for (int i = from; i < to; i++){
-        res[i-from] = in[i];
+void
+StringBuffer::substring(char *in, short from, short to){
+    if (from >=0/* && to <= m_index*/){
+        for (int i = from; i < to; i++){
+            in[i-from] = m_storage[i];
+        }
     }
-    return res ;
 }
 
 short
@@ -101,4 +101,9 @@ char*
 StringBuffer::getStorage()
 {
     return m_storage;
+}
+
+void
+StringBuffer::replaceTo(short index, char c){
+    m_storage[index] = c;
 }

@@ -11,11 +11,14 @@ class I_Sim800L
     public :
         I_Sim800L(SoftwareSerial *serial, StringBuffer *stringBuffer);
 
+        void begin(unsigned int baudrate);
+        void listen();
         void send(const char *to, const char *msg);
-        void init();
+        void init(char userPhoneNumber[], const char serverPhoneNumber[]);
         void readii(unsigned int timeout);
         void deleteAllSms();
-        bool smartRead(const char waiting, unsigned int timeout);
+        bool smartRead(const char waiting[], short waitingSize, unsigned int timeout);
+        void initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]);
     private:
         template <typename T>
           void sendCommand(T cmd)
