@@ -13,11 +13,12 @@
         {% if current_user.is_authenticated %}
             <div class="dropdown profile show">
                 <a class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ current_user.profile_picture_user }}" alt="image de {{ current_user.username_user }}">
+                    <div id='img-profile' style="background-image: url({{ current_user.profile_picture_user }});"></div>
                     <span>{{ current_user.username_user }}</span>
                 </a>
-              
+
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a href="{{ url_for('settings.settings_account')}}" class="dropdown-item">Profile</a>
                     <a href="{{ url_for('logout.logout')}}" class="dropdown-item">Logout</a>
                 </div>
             </div>
