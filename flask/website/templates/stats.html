@@ -190,6 +190,7 @@
 
 <script>
     let rides = null;
+    let logs = null;
 
     {% autoescape false %}
     const username = '{{ current_user.username_user }}';
@@ -200,6 +201,8 @@
         const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_bikeeper_from_user_at_time/' + username + "/" + date);
         const devices = await response.json();
         let form_device_number = document.getElementById('device-number');
+        reset_form_by_id('device-number');
+        reset_form_by_id('ride-number');
         for (let device of devices) {
             let node = document.createElement("option");
             const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_bikeer_name_by_id/' + device);
@@ -208,20 +211,33 @@
             node.value = device;
             form_device_number.appendChild(node);
         }
-        await loadRides();
+        if (devices.length !== 0) {
+            await loadRides();
+        }
     }
+
     const loadRides = async () => { // updates the field "rides" to show rides of a certain device and date
         let date = document.getElementById('ride-date').value;
         let bikeeper = document.getElementById('device-number').value;
+        const response_logs = await fetch('http://127.0.0.1:5000/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
+        logs = await response_logs.json();
         const response = await fetch('http://127.0.0.1:5000/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/' + username + "/" + bikeeper + "/" + date);
         rides = await response.json();
-        console.log(rides)
-        let form_device_number = document.getElementById('ride-number');
+        console.log(rides);
+        reset_form_by_id('ride-number');
+        let form_ride_number = document.getElementById('ride-number');
         for (let i = 0; i < rides.length; i++) {
             let node = document.createElement("option");
             node.appendChild(document.createTextNode("Ride " + i))
             node.value = i.toString();
-            form_device_number.appendChild(node);
+            form_ride_number.appendChild(node);
+        }
+    }
+
+    function reset_form_by_id(name) {
+        let form = document.getElementById(name);
+        while (form.firstChild) {
+            form.removeChild(form.lastChild);
         }
     }
 
