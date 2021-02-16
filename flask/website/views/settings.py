@@ -62,9 +62,10 @@ DEVICES
 '''
 
 
-@mod.route('/settings/devices/', methods=['GET'])
-def settings_devices():
-    return render_template("device.html")
+@mod.route('/settings/device/', methods=['GET'])
+@mobile_template("{mobile/Settings/}device.html")
+def settings_devices(template):
+    return render_template(template)
 
 
 @mod.route('/settings/devices/update/', methods=['GET'])
@@ -146,8 +147,9 @@ CREDIT CARD MOBILE
 
 
 @mod.route('/settings/card/', methods=['GET'])
-def settings_card():
-    return render_template("mobile/Settings/credit-card.html")
+@mobile_template("{mobile/Settings/}credit-card.html")
+def settings_card(template):
+    return render_template(template)
 
 
 '''
@@ -156,8 +158,9 @@ PAYMENT
 
 
 @mod.route('/settings/payment/', methods=['GET'])
-def settings_payment():
-    return render_template('payment.html')
+@mobile_template("{mobile/Settings/}edit_payment.html")
+def settings_payment(template):
+    return render_template(template)
 
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
@@ -170,16 +173,17 @@ def settings_payment_edit_check():
     return redirect(url_for('settings.settings_payment'))
 
 
-@mod.route('/settings/subscriptions/', methods=['GET'])
-def settings_subscriptions():
-    return render_template("subscription.html")
+@mod.route('/settings/subscription/', methods=['GET'])
+@mobile_template("{mobile/Settings/}subscription.html")
+def settings_subscriptions(template):
+    return render_template(template)
 
 
-@mod.route('/settings/subscriptions/cancel/', methods=['GET'])
+@mod.route('/settings/subscription/cancel/', methods=['GET'])
 def settings_subscriptions_cancel():
     return redirect(url_for('logout.logout'))
 
 
-@mod.route('/settings/subscriptions/change/', methods=['GET'])
+@mod.route('/settings/subscription/change/', methods=['GET'])
 def settings_subscriptions_change():
     return redirect(url_for('settings.settings_subscriptions'))

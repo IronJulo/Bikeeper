@@ -23,22 +23,25 @@ h2{
 
 h3{
 	font-size: 20px;
-	text-align: center;
-	margin-right: 0.7em;
+	text-align: left;
+	margin-bottom: 2em;
 }
 
-div.settings-card{
-	box-shadow: 5px 3px 3px darkgray;
-    border: 1px;
-    border-radius: 20px;
-    margin-bottom: 2em;
+div.contact{
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	margin-bottom: 1.5em;
+}
+
+div.info{
+	display: flex;
+	align-items: normal;
+	justify-content: left;
 
 }
-div.settings-card:active{
-	background-color: #999999;
+
+div.action{
+	margin-left: 4em;
 }
 
 label.Icon{
@@ -51,3 +54,17 @@ a:active{
 	color: black;
 }
 
+img.img-avatar {
+	width: 60px;
+	height: auto;
+	margin-right: 1em;
+}
+
+#add{
+	float: right;
+}
+#close{
+	width: 33px;
+	height: auto;
+	margin-left: 3em;
+}

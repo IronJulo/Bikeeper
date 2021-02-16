@@ -1,16 +1,44 @@
 {% extends "mobile/base.html" %}
 
+{% block style %}
+{% endblock %}
+
 {% block header %}
-<div class="logo">
-    <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-    <h1>BiKeeper</h1></a>
-</div>
-{% include "components/mobile-sidebar.html" %}
-<!-- Use any element to open/show the overlay navigation menu -->
-<nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+
+        {% include "components/mobile-sidebar-admin.html" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/credit-card.css') }}">
+
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
 
 {% block main %}
-    <h2>Credit card mOBILE</h2>
+    <h2>Your Credit card</h2>
+    <div class="credit-card">
+        <div class="info">
+            <div class="type">
+                <h4>Credit card</h4>
+                <img src="{{ url_for('static', filename='mobile/assets/mastercard.png') }}" alt="master card logo" class="card">
+            </div>
+            <div class="number">
+                <h4>Card Number</h4>
+                <span class="card-number">1234-****-****-4567</span>
+            </div>
+            <div class="name">
+                <h4>Card Holder name</h4>
+                <span class="card-name">John Doe</span>
+            </div>
+        </div>
+        <div class="bloc">
+            <a href="{{ url_for('settings.settings_payment_edit') }}" class="update">Update informations</a>
+        </div>
+    </div>
+
+    </div>
 
 {% endblock %}

@@ -1,27 +1,76 @@
-{% extends "mobile/base.html" %} {% from "components/mobile-btn-large.html" import newLargeButton with context %} {% block header %}
-<header>
-    <div class="logo">
-        <a href="/mob/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-            <h1>BiKeeper</h1>
-        </a>
+{% extends "mobile/base.html" %}
+
+{% block style %}
+{% endblock %}
+
+{% block header %}
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+
+        {% include "components/mobile-sidebar-admin.html" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/settings.css') }}">
+
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+
+{% block main %}
+<section class="cards">
+    <a href="{{url_for('settings.settings_account')}}">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+            <div class="settings-card-text">
+                <h3>Account Parameters</h3>
+            </div>
+
+        <img src="{{ url_for('static', filename='mobile/assets/id_card.svg') }}">
     </div>
-    {% include "components/mobile-sidebar.html" %}
-    <!-- Use any element to open/show the overlay navigation menu -->
-    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
-</header>
-{% endblock header %} {% block main %}
-<div class="container">
+    </a>
 
-    {{ newLargeButton("/settings/account/", "Account Parameters", "mobile/assets/location_outline.png", "account") }}
-    {{ newLargeButton("/bikeeper/settings", "BiKeeper Settings", "mobile/assets/settings.png", "settings") }}
-    {{ newLargeButton("/settings/contacts","Contacts","mobile/assets/user.png","find") }}
-    {{ newLargeButton("/settings/card", "My Credit Card", "mobile/assets/credit_card_alt.png", "Credit") }}
-    {{ newLargeButton("/mob/settings/plan/", "My Subscriptions", "mobile/assets/info_circle_outline.png","Subscriptions") }}
+    <a href="{{url_for('settings.settings_devices')}}">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>BiKeeper Settings</h3>
+        </div>
+        <img src="{{ url_for('static', filename='mobile/assets/settings.svg') }}">
+    </div>
+    </a>
 
+    <a href="{{url_for('settings.settings_contact')}}">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>Contacts</h3>
+        </div>
 
-</div>
+        <img src="{{ url_for('static', filename='mobile/assets/contact.svg') }}">
+    </div>
+    </a>
 
+    <a href="{{url_for('settings.settings_payment')}}">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>Payments</h3>
+        </div>
 
+        <img src="{{ url_for('static', filename='mobile/assets/credit_card_alt.svg') }}">
+    </div>
+    </a>
 
-{% endblock main %}
-{% block script %} {% endblock script %}
+    <a href="{{url_for('settings.settings_subscriptions')}}">
+    <div class="settings-card">
+        <div class="settings-card-img"></div>
+        <div class="settings-card-text">
+            <h3>My subscription</h3>
+        </div>
+
+        <img src="{{ url_for('static', filename='mobile/assets/info_circle_outline.svg') }}">
+    </div>
+    </a>
+</section>
+{% endblock %}

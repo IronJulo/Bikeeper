@@ -1,0 +1,107 @@
+{% extends "mobile/base.html" %}
+
+{% block header %}
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+
+        {% include "components/mobile-sidebar-admin.html" %}
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/device.css') }}">
+
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+
+{% block main %}
+<div class="flex">
+    <section>
+        <h1>Your Device (Device 1)</h1>
+        <form action="{{ url_for('settings.settings_devices_update') }}" method='POST'>
+            <h3>Parameters</h3>
+            <div class="slidecontainer group1">
+                <label for="movement">
+                    Minimum Movement Distance : <span id="value-movement"></span>m
+                </label>
+                <div>
+                    <span>5m</span>
+                    <input type="range" min="5" max="50" value="27" class="slider" id="movement">
+                    <span>50m</span>
+                </div>
+
+            </div>
+            <div class="slidecontainer group2">
+                <label for="delay">
+                    SMS Sending Delay : <span id="value-delay"></span>s
+                </label>
+                <div>
+                    <span>20s</span>
+                    <input type="range" min="20" max="120" value="70" class="slider" id="delay">
+                    <span>120s</span>
+                </div>
+            </div>
+            <div class="group3">
+                <label for="name">
+                    Device name :
+                </label>
+                <input type="text" name="name" value='Device 1'>
+            </div>
+            <div class="form-submit">
+                <!-- My Buttons -->
+                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
+                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenterDevice">Update</button>
+
+
+
+            </div>
+        </form>
+    </section>
+    <!-- Bootstrap -->
+    <div class="modal fade" id="modalCenterDevice" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitleDevice" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLongTitleDevice">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter your password to confirm changes.</p>
+                    <fieldset>
+                        <input type="password" name="confirmpassword" placeholder='********'>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block script %}
+<script>
+    var slider = document.getElementById("movement");
+    var output = document.getElementById("value-movement");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
+
+    var slider2 = document.getElementById("delay");
+    var output2 = document.getElementById("value-delay");
+    output2.innerHTML = slider2.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider2.oninput = function() {
+        output2.innerHTML = this.value;
+    }
+</script>
+{% endblock script %}
