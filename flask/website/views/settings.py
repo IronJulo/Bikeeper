@@ -114,8 +114,9 @@ def settings_contact_update_check():
 
 
 @mod.route('/settings/contacts/add/', methods=['GET'])
-def settings_contact_add():
-    return render_template("add_contact.html")
+@mobile_template('{mobile/Settings/}add_contact.html')
+def settings_contact_add(template):
+    return render_template(template)
 
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
