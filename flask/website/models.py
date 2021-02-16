@@ -2,7 +2,7 @@
 This module interact directly with the database. It make call to sqlalchemy ORM to deal with tables.
 """
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 from sqlalchemy import func
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
@@ -679,22 +679,32 @@ class ORM:
         return db.session.query(DEVICE).join(USER).filter(USER.username_user == username).all()
 
     @staticmethod
-    def get_rides_from_bikeeper(device_id: str) -> List[List[LOG]]:
+    def get_rides_from_bikeeper(device_id: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
         logs = LOG.query.filter(LOG.num_device == device_id).all()
         res = []
         new_journey = False
         journey = False
         for log in logs:
+            content = json.loads(log.content_log)
+            content["datetime_log"] = str(log.datetime_log)
             if log.type_log == "+":
-                content = json.loads(log.content_log)
                 if content["type"] == "C":
                     new_journey = True
                 elif content["type"] == "D":
                     journey = False
             if journey:
-                res[-1].append(log)
+                res[-1].append(content)
             if new_journey:
-                res.append([log])
+                res.append([content])
                 new_journey = False
                 journey = True
         return res
+
+    @staticmethod
+    def get_ride(user: USER, device_id: str, ride_num: int):
+        if device_id is None:
+            device_id = user.selected_device
+        if ride_num is None:
+            ride_num = 0
+        return json.dumps(
+            ORM.get_rides_from_bikeeper(device_id)[ride_num])
