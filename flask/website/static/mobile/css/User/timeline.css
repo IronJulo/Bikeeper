@@ -11,6 +11,7 @@ body * {
 
   position: relative;
   box-shadow: 0.5rem 0.5rem 2rem 0 rgba(0, 0, 0, 0.2);
+  margin: auto
 }
 .timeline:before {
   content: '';
@@ -19,7 +20,7 @@ body * {
   left: calc(1% + 10px);
   bottom: 0px;
   width: 4px;
-  background: #ddd;
+  background: #ccc;
 }
 .timeline:after {
   content: "";
