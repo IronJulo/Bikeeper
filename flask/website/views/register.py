@@ -41,7 +41,7 @@ def register_validate():
         "postalcode" : postalcode,
     }
 
-    valid, message = ORM.isValidRegister(informations)
+    valid, message = ORM.is_valid_register(informations)
 
     if valid:
         m = sha256()

@@ -2,141 +2,154 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/account.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
 {% endblock style %}
 
 {% block main %}
-<div class="flex">
-    <section>
-        <h1>Your account</h1>
-        <form action="{{ url_for('settings.settings_account_update') }}" id="update-account" method='POST'>
-            <div class="form-group1">
-                <div class="form-avatar">
-                    <div class="img-avatar">
-                        <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
-                        <input id='fileinput' type="file" name="avatar">
-                        <p>Change</p>
+    <div class="flex">
+        <section>
+            <h1>Your account</h1>
+            <form action="{{ url_for('settings.upload_files') }}" id="imageUpload"
+                  class="dropzone">
+                <div class="img-avatar">
+                    <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
+                    <p>Current Picture</p>
+                </div>
+            </form>
+
+            <form action="{{ url_for('settings.settings_account_update') }}" id="update-account" method='POST'>
+                <div class="form-group1">
+                    <div class="form-avatar">
+
+                        <h2>@{{ current_user.username_user }}</h2>
+                        <span>Registered on DATE</span> <!-- TODO -->
                     </div>
-                    
-                    <h2>@{{current_user.username_user}}</h2> 
-                    <span>Registered on DATE</span> <!-- TODO -->
-                </div>
-                <div class="form-password">
-                    <fieldset>
-                        <legend>Password</legend>
-                        <input type="password" name="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{5,}$" >
-                    </fieldset>
-                </div>
-            </div>
 
-            <div class="form-group2">
-                <div class="form-first-name">
-                    <fieldset>
-                        <legend>First Name</legend>
-                        <input type="text" name="first-name" value="{{current_user.firstname_user}}">
-                    </fieldset>
-                </div>
-                <div class="form-last-name">
-                    <fieldset>
-                        <legend>Last Name</legend>
-                        <input type="text" name="last-name" value="{{current_user.lastname_user}}">
-                    </fieldset>
-                </div>
-                <div class="form-phone">
-                    <fieldset>
-                        <legend>Phone Number</legend>
-                        <input type="tel" name="phone" value="{{current_user.num_user}}">
-                    </fieldset>
-                </div>
-            </div>
+                    <div class="form-group2">
+                        <div class="form-first-name">
+                            <fieldset>
+                                <legend>First Name</legend>
+                                <input type="text" name="first-name" value="{{ current_user.firstname_user }}">
+                            </fieldset>
+                        </div>
+                        <div class="form-last-name">
+                            <fieldset>
+                                <legend>Last Name</legend>
+                                <input type="text" name="last-name" value="{{ current_user.lastname_user }}">
+                            </fieldset>
+                        </div>
+                        <div class="form-phone">
+                            <fieldset>
+                                <legend>Phone Number</legend>
+                                <input type="tel" name="phone" value="{{ current_user.num_user }}">
+                            </fieldset>
+                        </div>
+                    </div>
 
-            <div class="form-group3">
-                <div class="form-email">
-                    <fieldset>
-                        <legend>Email</legend>
-                        <input type="email" name="email" value="{{current_user.email_user}}">
-                    </fieldset>
-                </div>
-                <div class="form-town">
-                    <fieldset>
-                        <legend>Town</legend>
-                        <input type="text" name="town" value="{{current_user.town_user}}">
-                    </fieldset>
-                </div>
-                <div class="form-address">
-                    <fieldset>
-                        <legend>Street</legend>
-                        <input type="text" name="street" value="{{current_user.street_user}}">
-                    </fieldset>
-                </div>
-                <div class="form-postal">
-                    <fieldset>
-                        <legend>Postal Code</legend>
-                        <input type="text" name="postal-code" pattern="[0-9]{5}" value="{{current_user.postal_code_user}}">
-                    </fieldset>
-                </div>
-            </div>
+                    <div class="form-group3">
+                        <div class="form-email">
+                            <fieldset>
+                                <legend>Email</legend>
+                                <input type="email" name="email" value="{{ current_user.email_user }}">
+                            </fieldset>
+                        </div>
+                        <div class="form-town">
+                            <fieldset>
+                                <legend>Town</legend>
+                                <input type="text" name="town" value="{{ current_user.town_user }}">
+                            </fieldset>
+                        </div>
+                        <div class="form-address">
+                            <fieldset>
+                                <legend>Street</legend>
+                                <input type="text" name="street" value="{{ current_user.street_user }}">
+                            </fieldset>
+                        </div>
+                        <div class="form-postal">
+                            <fieldset>
+                                <legend>Postal Code</legend>
+                                <input type="text" name="postal-code" pattern="[0-9]{5}"
+                                       value="{{ current_user.postal_code_user }}">
+                            </fieldset>
+                        </div>
+                    </div>
 
-            <div class="form-submit">
-                <!-- My Buttons -->
-                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
+                    <div class="form-submit">
+                        <!-- My Buttons -->
+                        <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
+                        <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update
+                        </button>
 
-                <!-- Bootstrap -->
-                
+                        <!-- Bootstrap -->
 
-            </div>
-        </form>
-    </section>
-    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <p>Enter your actual password to confirm changes.</p>
-                    <fieldset>
-                        <input type="password" name="confirmpassword" value='********'>
-                    </fieldset>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="update-account" class="btn btn-primary">Save changes</button>
+            </form>
+        </section>
+        <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your actual password to confirm changes.</p>
+                        <fieldset>
+                            <input type="password" name="confirmpassword" value='********'>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" form="update-account" class="btn btn-primary">Save changes</button>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock main %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='dropzone/dropzone.min.js') }}"></script>
     <script>
-        $(function() {
-        $('#picture').on('click', function() {
-            $('#fileinput').trigger('click');
-        });
-        });
 
-        $(function(){
-            $('#fileinput').change(function(){
-            var input = this;
-            var url = $(this).val();
-            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-                var reader = new FileReader();
-          
-                reader.onload = function (e) {
-                    $('#picture').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
+        Dropzone.options.imageUpload = {
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 3,
+            accept: function (file, done) {
+                console.log("uploaded");
+                done();
+            },
+            init: function () {
+                this.on('addedfile', function (file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+                this.on("success", function () {
+                    console.log()
+                    let current_username = document.querySelector("#img-profile+span").textContent
+                    console.log("Refreshing image");
+                    $.ajax({
+                        url: "/api/user/profile/" + current_username,
+                        success: function (result) {
+                            document.getElementById("picture").src = result.response;
+                            document.getElementById("img-profile").style.backgroundImage = "url('" + result.response + "')";
+                        },
+                        error: function (err) {
+                        }
+                    });
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    alert("No more files please!");
+                });
             }
-              
-            });
-          
-          });
+        };
     </script>
 {% endblock script %}

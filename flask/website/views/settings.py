@@ -14,6 +14,9 @@ from werkzeug.utils import secure_filename
 from ..app import app
 import os
 import imghdr
+import hashlib
+from random import randint
+from flask_login import current_user
 
 mod = Blueprint('settings', __name__)
 
@@ -37,9 +40,9 @@ def settings_account():
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(
         "account.html",
-        devices = devices,
+        devices=devices,
         files=files
-        )
+    )
 
 
 @mod.route('/settings/account/update/', methods=['GET'])
@@ -54,7 +57,7 @@ def settings_account_update():
     ville = result['town']
     rue = result['street']
     devices = ORM.get_devices_by_username(current_user.username_user)
-    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue, devices = devices)
+    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
     return redirect(url_for('settings.settings_account'))
 
 
@@ -69,8 +72,8 @@ def settings_devices(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(
         template,
-        devices = devices
-        )
+        devices=devices
+    )
 
 
 @mod.route('/settings/devices/update/', methods=['GET'])
@@ -86,23 +89,24 @@ CONTACT
 @mod.route('/settings/contacts/', methods=['GET'])
 @mobile_template("{mobile/Settings/}contacts.html")
 def settings_contact(template):
-    contacts=ORM.get_contacts_by_user(current_user.username_user)
+    contacts = ORM.get_contacts_by_user(current_user.username_user)
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template,contacts=contacts,devices = devices)
+    return render_template(template, contacts=contacts, devices=devices)
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
 def settings_contact_update():
-    result=request.form
-    id_contact=result["id-contact"]
-    action=result["action"]
-    if action=="edit":
-        contact=ORM.get_contact_by_id(id_contact)
-        first=contact.firstname_contact
-        last=contact.lastname_contact
-        tel=contact.num_contact
-        devices=ORM.get_devices_by_username(current_user.username_user)
-        return render_template("update_contact.html",id_contact=id_contact,first=first,last=last,tel=tel,devices=devices)
+    result = request.form
+    id_contact = result["id-contact"]
+    action = result["action"]
+    if action == "edit":
+        contact = ORM.get_contact_by_id(id_contact)
+        first = contact.firstname_contact
+        last = contact.lastname_contact
+        tel = contact.num_contact
+        devices = ORM.get_devices_by_username(current_user.username_user)
+        return render_template("update_contact.html", id_contact=id_contact, first=first, last=last, tel=tel,
+                               devices=devices)
 
     ORM.remove_contact(id_contact)
     return redirect(url_for('settings.settings_contact'))
@@ -123,7 +127,7 @@ def settings_contact_update_check():
 @mobile_template('{mobile/Settings/}add_contact.html')
 def settings_contact_add(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices = devices)
+    return render_template(template, devices=devices)
 
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
@@ -158,13 +162,13 @@ PAYMENT
 @mobile_template("{mobile/Settings/}edit_payment.html")
 def settings_payment(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices = devices)
+    return render_template(template, devices=devices)
 
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
 def settings_payment_edit():
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template('edit_payment.html', devices = devices)
+    return render_template('edit_payment.html', devices=devices)
 
 
 @mod.route('/settings/payment/edit/check/', methods=['GET', 'POST'])
@@ -176,7 +180,7 @@ def settings_payment_edit_check():
 @mobile_template("{mobile/Settings/}subscription.html")
 def settings_subscriptions(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices = devices)
+    return render_template(template, devices=devices)
 
 
 @mod.route('/settings/subscription/cancel/', methods=['GET'])
@@ -205,14 +209,22 @@ def validate_image(stream):
 
 @mod.route('/settings/account/', methods=['POST'])
 def upload_files():
-    uploaded_file = request.files['file']
-    filename = secure_filename(uploaded_file.filename)
-    if filename != "":
-        file_ext = os.path.splitext(filename)[1]
-        if file_ext not in app.config['UPLOAD_EXTENSIONS'] or \
-                file_ext != validate_image(uploaded_file.stream):
-            return "Invalid image", 400
-        uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
-    return '', 204
+    if current_user.is_authenticated:
 
+        uploaded_file = request.files['file']
+        filename = secure_filename(uploaded_file.filename)
+        extention = filename.split(".")
+        filename = hashlib.md5((filename + "Bikeeper" + str(randint(0, 9))).encode()).hexdigest() + "." + extention[
+            1]  # Salt
+        print(filename)
 
+        if filename != "":
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in app.config['UPLOAD_EXTENSIONS'] or file_ext != validate_image(uploaded_file.stream):
+                return "Invalid image", 400
+            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
+            print("new path : ", str(os.path.join(app.config['UPLOAD_PATH'] + filename)))
+            ORM.replace_image(current_user.username_user, str(os.path.join(app.config['UPLOAD_PATH'] + filename)))
+        return '', 204
+
+    return redirect(url_for('index.index'))
