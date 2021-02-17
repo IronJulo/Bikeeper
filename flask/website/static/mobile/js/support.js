@@ -7,20 +7,13 @@ function activeLink() {
     return api
 }
 
-function getActive(){
-  return document.querySelector("ul.nav > li.active");
+
+function getChat(){
+  return document.querySelector(String("#chat-"+getIdTicket()));
 }
 
-function getLinkActive(){
-  return document.querySelector("ul.nav li.active a");
-}
-
-function getActiveUL(){
-  return document.querySelector(String("#ul-"+getIdTicket()));
-}
-
-function clearDiv(){
-  getActiveUL().innerHTML = "";
+function clearChat(){
+  getChat().innerHTML = "";
 }
 
 function getIdTicket(){
@@ -40,7 +33,7 @@ function get(url) {
 }
 
 function draw(message) {
-      var div = getActiveUL();
+      var div = getChat();
       const admin_message = message["is_admin_message"];
       user = message['username_user'];
       other_picture = message["other_user_picture"]
@@ -79,7 +72,7 @@ $(document).ready(function () {
         get(api).then((data) => {
                 //Si data a changé :
                 if (data !== oldData) { // si on doit redraw car nouveau changement
-                  clearDiv();
+                  clearChat();
                     try {
                         //on actualise jsonData
                         jsonData = JSON.parse(data);
@@ -125,35 +118,38 @@ function getDate(){
 $(function() {
   $('#send-msg').on('click', function() {
     var contenu_message = document.getElementById("msg").value;
-    var is_admin_msg = 0;
+    if (contenu_message.localeCompare("")!=0) {
+      var is_admin_msg = 0;
 
-    if (is_admin=="True"){
-        is_admin_msg = 1;
-    }
-
-    console.log("message envoyé")
-
-    var datetime_msg = getDate();
-    var id_ticket = getIdTicket();
-    var username = getUsername();
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "/support/message/new", true); 
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        console.log("le message est envoyé")
+      if (is_admin=="True"){
+          is_admin_msg = 1;
       }
-    };
-    var data = {
-        content:contenu_message,
-        is_admin:is_admin_msg,
-        date:datetime_msg,
-        id_ticket:id_ticket,
-        username:username,
-    };
+
+      console.log("message envoyé")
+
+      var datetime_msg = getDate();
+      var id_ticket = getIdTicket();
+      var username = getUsername();
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.open("POST", "/support/message/new", true); 
+      xhttp.setRequestHeader("Content-Type", "application/json");
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log("le message est envoyé")
+        }
+      };
+      var data = {
+          content:contenu_message,
+          is_admin:is_admin_msg,
+          date:datetime_msg,
+          id_ticket:id_ticket,
+          username:username,
+      };
+      
+      xhttp.send(JSON.stringify(data));
+    }
     
-    xhttp.send(JSON.stringify(data));
   });
 });
 
