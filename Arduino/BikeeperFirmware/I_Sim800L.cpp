@@ -29,7 +29,6 @@ void
 I_Sim800L::init(char userPhoneNumber[], const char serverPhoneNumber[])
 {
     m_stringBuffer->clear();
-    begin(9600);
     listen();
     
     Serial.println("Initialisation...");
