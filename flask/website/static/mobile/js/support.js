@@ -78,6 +78,7 @@ $(document).ready(function () {
                         jsonData = JSON.parse(data);
                     } catch (e) {
                         console.error("Parsing error:", e);
+                    }
                     if (jsonData != null) {
                         for (let message in jsonData) {
                             // console.log("Drawing message")
