@@ -85,6 +85,17 @@ class DEVICE(db.Model):
         self.row_parameters_device = parameters
         db.session.commit()
 
+class SUBSCRIPTION(db.Model):
+    """
+    Store subscription options
+    """
+    name_subscription = db.Column(db.String(42), primary_key=True, nullable=False)
+    price_subscription = db.Column(db.Integer, nullable=False)
+    USER = db.relationship("USER", backref=db.backref("SUBSCRIPTION", lazy=True))
+
+    def __init__(self, name_subscription, price_subscription):
+       self.name_subscription = name_subscription
+       self.price_subscription = price_subscription
 
 class USER(db.Model, UserMixin):
     """
@@ -102,9 +113,13 @@ class USER(db.Model, UserMixin):
     profile_picture_user = db.Column(db.String(200), nullable=False)
     is_admin_user = db.Column(db.Boolean, nullable=False)
     selected_device = db.Column(db.String(42), nullable=True)
+    is_account_blocked = db.Column(db.Boolean, nullable=False)
+    date_creation_user = db.Column(db.DateTime(), default=datetime.utcnow, nullable=False)
+    name_subscription = db.Column(db.String(42), db.ForeignKey("SUBSCRIPTION.name_subscription"), nullable=False)
 
     def __init__(self, username, password, num, firstname, lastname, email, town,
-                 postal_code, street, profile_picture, is_admin, selected_device):
+                 postal_code, street, profile_picture, is_admin, selected_device,
+                 is_account_blocked, date_creation_user, name_subscription):
         self.username_user = username
         self.password_user = password
         self.num_user = num
@@ -117,6 +132,9 @@ class USER(db.Model, UserMixin):
         self.profile_picture_user = profile_picture
         self.is_admin_user = is_admin
         self.selected_device = selected_device
+        self.is_account_blocked = is_account_blocked
+        self.date_creation_user = date_creation_user
+        self.name_subscription = name_subscription
 
     def get_id(self):
         """
@@ -882,3 +900,11 @@ class ORM:
         :return: str: the device_id of the current device used by the given user
         """
         return db.session.query(USER.selected_device).filter(USER.username_user == username).first()
+
+    @staticmethod
+    def get_subscription_by_username(username):
+        """
+        :param: str username: 
+        :return: subscription: the subscription linked to the username
+        """
+        return db.session.query(SUBSCRIPTION).join(USER).filter(USER.username_user == username).first()
