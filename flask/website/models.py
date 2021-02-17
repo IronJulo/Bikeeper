@@ -65,6 +65,16 @@ class LOG(db.Model):
         self.exception_log = exception_log
         self.num_device = num_device
 
+    def serialize(self):
+        return {
+            "id_log": self.id_log,
+            "content_log": self.content_log,
+            "type_log": self.type_log,
+            "datetime_log": self.datetime_log,
+            "exception_log": self.exception_log,
+            "num_device": self.num_device
+        }
+
 
 class DEVICE(db.Model):
     """
@@ -807,7 +817,7 @@ class ORM:
     def get_rides_from_user(username: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
         """
         :param: str username: the wanted user
-        :return: list[str]: the list of rides made by the user with the given username
+        :return: List[List[Dict[str, str or float or int or List[int]]]]: the list of rides made by the user with the given username
         """
         devices = ORM.get_devices_by_username(username)
         res = []
@@ -836,7 +846,8 @@ class ORM:
         :params: str username: the wanted user
         :params: str date: the wanted user
         :params: str device_id: the wanted device's id
-        :return: list[str]: the list of rides made by the user with the given username with the given device at the given date
+        :return: List[List[Dict[str, str or float or int or List[int]]]]: the list of rides made by the user with the
+        given username with the given device at the given date
         """
         rides = ORM.get_rides_from_user(username)
         res = []
@@ -937,3 +948,17 @@ class ORM:
 
         print("Need to remove : ", "./website" + old_picture)
         clean_old_image("./website" + old_picture)
+
+    @staticmethod
+    def get_last_ride_info(device_id: str) -> dict:
+        starts = ORM.get_last_ride_by_content_log(device_id, "{\"type\": \"C\"}")
+        ends = ORM.get_last_ride_by_content_log(device_id, "{\"type\": \"D\"}")
+        res = ends.serialize()
+        res["total_time"] = str(ends.datetime_log - starts.datetime_log)
+        return res
+
+    @staticmethod
+    def get_last_ride_by_content_log(device_id: str, content_log: str) -> LOG:
+        return LOG.query.filter(
+            and_(LOG.num_device == device_id, LOG.type_log == "+", LOG.content_log == content_log)).order_by(
+            LOG.id_log.desc()).first()

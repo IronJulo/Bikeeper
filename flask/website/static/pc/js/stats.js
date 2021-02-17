@@ -73,13 +73,22 @@ const Speed = new Chart(document.getElementById('speed').getContext('2d'), { // 
     }
 });
 
+
+const updateHeaderInfo = async () => {
+    let bikeeper = document.getElementById('device-number').value;
+    const response = await fetch('/api/bikeeper/get_last_ride_bikeeper/' + bikeeper);
+    const last_ride = await response.json();
+    document.getElementById("last-ride").innerText = last_ride.datetime_log;
+    document.getElementById("last-ride-duration").innerText = last_ride.total_time;
+}
+
 function updateSpeedChart(data, labels) {
     let colors = new Array(data.length).fill('rgba(135,206,235,1)');
     Speed.data.datasets[0].data = data;
     Speed.data.datasets[0].pointBackgroundColor = colors;
     Speed.data.labels = labels;
     document.getElementById("max-speed").innerText = data.reduce((a, b) => { return Math.max(a, b) });
-    document.getElementById("average-speed").innerText = data.reduce((a,b) => a + b, 0) / data.length;
+    document.getElementById("average-speed").innerText = (data.reduce((a,b) => a + b, 0) / data.length).toString();
     Speed.update();
 }
 
@@ -89,7 +98,7 @@ function updateAngleChart(data, labels) {
     Angle.data.datasets[0].pointBackgroundColor = colors;
     Angle.data.labels = labels;
     document.getElementById("max-angle").innerText = data.reduce((a, b) => { return Math.max(a, b) });
-    document.getElementById("average-speed").innerText = data.reduce((a,b) => a + b, 0) / data.length;
+    document.getElementById("average-angle").innerText = (data.reduce((a,b) => a + b, 0) / data.length).toString();
     Angle.update();
 }
 
@@ -115,6 +124,7 @@ const loadDateBikeepers = async () => { // updates the others fields to show the
     if (devices.length !== 0) {
         await createTimelineElements();
         await loadRides();
+        await updateHeaderInfo();
     }
 }
 
@@ -125,7 +135,6 @@ const loadRides = async () => { // updates the field "rides" to show rides of a 
     logs = await response_logs.json();
     const response = await fetch('/api/bikeeper/get_rides_from_user_at_time_with_bikeeper/' + username_stats + "/" + bikeeper + "/" + date);
     rides = await response.json();
-    console.log(rides);
     reset_form_by_id('ride-number');
     let form_ride_number = document.getElementById('ride-number');
     for (let i = 0; i < rides.length; i++) {
@@ -134,6 +143,7 @@ const loadRides = async () => { // updates the field "rides" to show rides of a 
         node.value = i.toString();
         form_ride_number.appendChild(node);
     }
+    await updateHeaderInfo();
     if (form_ride_number.value !== "") {
         await displayRideData();
     }
@@ -143,9 +153,8 @@ const createTimelineElements = async() => {
     let date = document.getElementById('ride-date').value;
     let bikeeper = document.getElementById('device-number').value;
     const response = await fetch('/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
-    timeline_logs = await response.json();
+    let timeline_logs = await response.json();
     const allowed_logs = ["W","+"]
-    console.log(timeline_logs);
     let div_timeline = document.getElementsByClassName('timeline')[0];
     reset_timeline_by_class('timeline');
     for (const log of timeline_logs.reverse()) {
@@ -179,14 +188,14 @@ const createTimelineElements = async() => {
             timeline_date.appendChild(date_content);
             if (log.type_log !== "W") {
                 let t = "";
-                if (log.content_log.type == "A") {
+                if (log.content_log.type === "A") {
                     t = "Le véhicule a été garé.";
                 }
-                if (log.content_log.type == "B") {
+                if (log.content_log.type === "B") {
                     t = "Le véhicule n'est plus garé.";
-                } else if (log.content_log.type == "C") {
+                } else if (log.content_log.type === "C") {
                     t = "Un trajet a commencé.";
-                } else if (log.content_log.type == "D") {
+                } else if (log.content_log.type === "D") {
                     t = "Un trajet s'est terminé.";
                 }
 
@@ -202,19 +211,19 @@ const createTimelineElements = async() => {
             } else {
                 let t = "";
                 let text_content = "";
-                if (log.content_log.type == "V") {
+                if (log.content_log.type === "V") {
                     t = "Vibration détectée";
                     text_content = "Une vibration a été détectée sur votre Bikeeper aux coordonnées suivantes :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
                         "Latitude : " + log.content_log.latitude + "\n" +
                         "Quelqu'un ou quelque chose a peut être heurté votre véhicule.";
-                } else if (log.content_log.type == "G") {
+                } else if (log.content_log.type === "G") {
                     t = "Signal GPS détecté";
                     text_content = "Votre Bikeeper a commencé à bouger depuis les coordonnées suivantes :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
                         "Latitude : " + log.content_log.latitude + "\n" +
                         "Il est possible que quelqu'un essaie de le voler";
-                } else if (log.content_log.type == "F") {
+                } else if (log.content_log.type === "F") {
                     t = "Chute du véhicule détectée";
                     text_content = "Votre Bikeeper est tombé aux coordonnées suivantes :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
