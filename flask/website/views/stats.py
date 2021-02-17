@@ -28,6 +28,8 @@ def statistics(template):
         if len(res)!=0:
             res = res [0]
             devices = ORM.get_devices_by_username(res.username_user)
+            price = ORM.get_price_from_subscription_name(res.name_subscription)[0]
+            print(price)
         else:
             flash("User not found.","error")
             return redirect(url_for('stats.statistics'))
@@ -39,7 +41,10 @@ def statistics(template):
             street = res.street_user,
             town = res.town_user,
             devices = devices,
-            picture = res.profile_picture_user
+            picture = res.profile_picture_user,
+            date = res.date_creation_user,
+            subscription = res.name_subscription,
+            price = price
         )
 
     else:
