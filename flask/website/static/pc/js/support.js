@@ -51,7 +51,7 @@ function draw(message) {
       var div = getActiveUL();
       const admin_message = message["is_admin_message"];
       user = message['username_user'];
-      other_picture = message["other_user_picture"]
+      user_picture = message["user_picture"]
       estAdmin = isAdmin();
 
       if (admin_message==1 && estAdmin=="True" || admin_message==0 && estAdmin=="False"){
@@ -59,12 +59,12 @@ function draw(message) {
         + "<span>"+ user +"</span>"
         + "<p>" + message["content"] + "</p>"
         + "</div>"
-        + "<img src=\""+ getImageUser() +"\" alt=\"\"/>"
+        + "<div style=\"background-image: url('" + getImageUser() + "')\"></div>"
         + "</li>"
       }
       else if (admin_message==0 && estAdmin=="True" || admin_message==1 && estAdmin=="False"){
         div.innerHTML +="<li class=\"replies\">"
-        + "<img src=\"" + other_picture + "\" alt=\"\"/>"
+        + "<div style=\"background-image: url('" + user_picture + "')\"></div>"
         + "<div>"
         + "<span>"+ user +"</span>"
         + "<p>" + message["content"] +"</p>"

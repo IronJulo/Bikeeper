@@ -427,7 +427,7 @@ class ORM:
                 "id_ticket": message.id_ticket,
                 "is_admin_message": message.is_admin_message,
                 "username_user": message.username_user,
-                "other_user_picture": ORM.get_other_user_picture_from_ticket_id(message.id_ticket)
+                "user_picture": ORM.get_picture_message_from_username(message.username_user)
             }
 
             i += 1
