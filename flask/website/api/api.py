@@ -292,9 +292,9 @@ def get_logs_at_date(device_id, date):
         ORM.get_logs_at_date(device_id, date)
     )
 
+
 @mod.route('/api/current_device/<string:username>', methods=['GET'])
 def get_current_selected_device(username):
-    
     return jsonify(
         response=ORM.get_current_device_by_username(username)[0]
     )
