@@ -27,7 +27,7 @@ def init(dic1):
     url = f"http://127.0.0.1:5000/api/bikeeper/get_user_num/{dic1['sender']}"
     response = requests.request("GET", url)
     if response.json["type_message"] == "response_num":
-        ser.write((response.json()["numero"] + ';0769342048').encode())
+        ser.write((response.json()["numero"] + f';{dic1["sender"]}').encode())
 
 
 def alert_fall(dic1, lat, lon):
@@ -53,6 +53,8 @@ while True:
         if s == "@":
             send_log(dic1, PositionTrajet(data).to_dico())
         elif s == "W":
+            if data[2] == "F":
+                alert_fall(dic1, data[2], data[3])
             send_log(dic1, AlertSend(data).to_dico())
         elif s == "*":
             send_log(dic1, NormalSend(data).to_dico())
@@ -60,9 +62,5 @@ while True:
             send_log(dic1, {"type": data[2]})
         elif s == "I":
             init(dic1)
-        elif s == "M":
-            pass
-        elif s == "F":
-            alert_fall(dic1, data[2], data[3])
 
     ser.flushInput()
