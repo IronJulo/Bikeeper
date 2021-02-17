@@ -119,6 +119,9 @@ class USER(db.Model, UserMixin):
         self.selected_device = selected_device
 
     def get_id(self):
+        """
+        :return: int, the user id
+        """
         return self.username_user
 
     def __repr__(self):
@@ -242,6 +245,10 @@ class ORM:
 
     @staticmethod
     def isValidRegister(informations):
+        """
+        :param informations: register's informations in a dictionnary
+        :return: boolean + message tuple, true if informations valid
+        """
         username = informations["username"]
         email = informations["email"]
         password = informations["password"]
@@ -284,10 +291,17 @@ class ORM:
 
     @staticmethod
     def is_num_device_registered(num):
-        return db.session.query(DEVICE).filter(DEVICE.num_device == num).first() != None
+        """
+        :param: str num: the device's id we want to check
+        :return: boolean, true if the num already exist
+        """
+        return db.session.query(DEVICE).filter(DEVICE.num_device==num).first() != None
 
     @staticmethod
     def get_new_num_device():
+        """
+        :return: str, an available new device id (used for creation of a new device)
+        """
         number = ''
         for i in range(10):
             number += str(round(random.random() * 9))
@@ -430,6 +444,9 @@ class ORM:
 
     @staticmethod
     def messages_to_json(messages):
+        """
+        Turn the given messages into a json form
+        """
         return jsonify(messages)
 
     @staticmethod
@@ -455,6 +472,10 @@ class ORM:
 
     @staticmethod
     def get_picture_message_from_username(username):
+        """
+        :param: username: string, is the wanted user
+        :return: str, the profile picture of the wanted user
+        """
         res = db.session.query(USER.profile_picture_user) \
             .join(MESSAGE) \
             .filter(MESSAGE.username_user == username) \
@@ -640,6 +661,18 @@ class ORM:
 
     @staticmethod
     def update_user(password, num, firstname, lastname, email, town, postal_code, street):
+        """
+        Update current user informations
+        :param : string password: the new user's password
+        :param : string num: the new user's phone number
+        :param : string firstname: the new user's firstname
+        :param : string lastname: the new user's lastname
+        :param : string email: the new user's email
+        :param : string town: the new user's town
+        :param : string postal_code: the new user's postal_code
+        :param : string street: the new user's street
+        :param : string profile_picture: the new user's profile picture (WORK IN PROGRESS)
+        """
         user = ORM.get_user(current_user.username_user)
 
         encrypted_password = sha256()
@@ -659,22 +692,38 @@ class ORM:
 
     @staticmethod
     def get_contacts(device_id: str) -> List[CONTACT]:
+        """
+        :param: int device_id: the wanted device's id
+        :return: list[CONTACT]: the list of contact linked to the indicated device
+        """
         return CONTACT.query.filter(CONTACT.num_device == device_id).all()
 
     @staticmethod
     def get_contacts_by_user(pseudo: str) -> List[CONTACT]:
+        """
+        :param: str pseudo: the wanted user's pseudo
+        :return: list[CONTACT]: the list of contact linked to the indicated user
+        """
         contact_list = db.session.query(CONTACT).join(DEVICE).join(USER).filter(USER.username_user == pseudo).all()
         db.session.commit()
         return contact_list
 
     @staticmethod
     def get_contact_by_id(contact_id: int) -> CONTACT:
+        """
+        :param: int contact_id: the wanted contact's id
+        :return: CONTACT: the contact associated with the given id
+        """
         contact = db.session.query(CONTACT).filter(CONTACT.id_contact == contact_id).one()
         db.session.commit()
         return contact
 
     @staticmethod
     def get_bikeeper_user_num(num: str) -> str:
+        """
+        :param: str num: the wanted device's id 
+        :return: str: the user's phone number associated with the device
+        """
         device = DEVICE.query.filter_by(num_device=num).first()
         if device is not None:
             return device.USER.num_user
@@ -683,6 +732,13 @@ class ORM:
 
     @staticmethod
     def update_contact(num, firstname, lastname, contact_id):
+        """
+        Update current user informations
+        :param : int contact_id: the id of the contact we want to change
+        :param : string num: the new contact's phone number
+        :param : string firstname: the new contact's firstname
+        :param : string lastname: the new contact's lastname
+        """
         contact = ORM.get_contact_by_id(contact_id)
         contact.firstname_contact = firstname
         contact.lastname_contact = lastname
@@ -690,15 +746,27 @@ class ORM:
         db.session.commit()
 
     @staticmethod
-    def search_user(word):
+    def search_user(word) -> List[USER]:
+        """
+        :param: str word: the word we use to search the user
+        :return: list[USER]: the list of users that have a usename that have the given word in it
+        """
         return db.session.query(USER).filter(USER.username_user.like("%" + word + "%")).all()
 
     @staticmethod
-    def get_devices_by_username(username):
-        return DEVICE.query.filter(DEVICE.username_user == username).all()
+    def get_devices_by_username(username) -> List[DEVICE]:
+        """
+        :param: str word: the word we use to search the user
+        :return: list[DEVICE]: the list of devices that belong to the user that has the given username
+        """
+        return db.session.query(DEVICE).join(USER).filter(USER.username_user == username).all()
 
     @staticmethod
     def get_rides_from_bikeeper(device_id: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
+        """
+        :param: str device_id: the wanted device's id
+        :return: list[str]: the list of rides made with the device with the given device id
+        """
         logs = LOG.query.filter(LOG.num_device == device_id).all()
         res = []
         new_journey = False
@@ -722,6 +790,10 @@ class ORM:
 
     @staticmethod
     def get_rides_from_user(username: str) -> List[List[Dict[str, str or float or int or List[int]]]]:
+        """
+        :param: str username: the wanted user
+        :return: list[str]: the list of rides made by the user with the given username
+        """
         devices = ORM.get_devices_by_username(username)
         res = []
         for device in devices:
@@ -730,6 +802,11 @@ class ORM:
 
     @staticmethod
     def get_rides_bikeeper_from_user_at_time(username: str, date: str) -> List[str]:
+        """
+        :params: str username: the wanted user
+        :params: str date: the wanted user
+        :return: list[str]: the list of rides made by the user with the given username at the given date
+        """
         rides = ORM.get_rides_from_user(username)
         res = []
         for ride in rides:
@@ -740,6 +817,12 @@ class ORM:
     @staticmethod
     def get_rides_from_user_at_time_with_bikeeper(username: str, device_id: str, date: str) -> List[
         List[Dict[str, str or float or int or List[int]]]]:
+        """
+        :params: str username: the wanted user
+        :params: str date: the wanted user
+        :params: str device_id: the wanted device's id
+        :return: list[str]: the list of rides made by the user with the given username with the given device at the given date
+        """
         rides = ORM.get_rides_from_user(username)
         res = []
         for ride in rides:
@@ -749,6 +832,12 @@ class ORM:
 
     @staticmethod
     def get_ride(user: USER, device_id: str, ride_num: int):
+        """
+        :param: str device_id: the wanted device's id
+        :param: int ride_num: the wanted ride number
+        :param: USER user: the wanted device's id
+        :return: str: the ride of the given device and the give ride number as a json string
+        """
         if device_id is None:
             device_id = user.selected_device
         if ride_num is None:
@@ -760,6 +849,11 @@ class ORM:
 
     @staticmethod
     def get_logs_at_date(device_id: str, date: str):
+        """
+        :param: str device_id: the wanted device's id
+        :param: str device_id: the wanted ride number
+        :return: str: the logs of the given device at the given date
+        """
         return [{"content_log": json.loads(log.content_log),
                  "datetime_log": str(log.datetime_log),
                  "num_device": log.num_device,
@@ -771,10 +865,19 @@ class ORM:
 
     @staticmethod
     def update_user_selected_device(id_device,username):
+        """
+        Update the current device used by the user with the given username with the given id_device 
+        :param: str device_id: the wanted device's id
+        :param: str username: the wanted user
+        """
         user = ORM.get_user(username)
         user.selected_device = id_device
         db.session.commit()
         
     @staticmethod
     def get_current_device_by_username(username):
+        """
+        :param: str device_id: the wanted device's id
+        :return: str: the device_id of the current device used by the given user
+        """
         return db.session.query(USER.selected_device).filter(USER.username_user==username).first()
