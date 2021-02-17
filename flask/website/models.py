@@ -3,7 +3,7 @@ This module interact directly with the database. It make call to sqlalchemy ORM 
 """
 from datetime import datetime
 from typing import List, Dict
-from sqlalchemy import func, and_
+from sqlalchemy import func, and_, or_
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
@@ -877,7 +877,7 @@ class ORM:
     def get_logs_at_date(device_id: str, date: str):
         """
         :param: str device_id: the wanted device's id
-        :param: str device_id: the wanted ride number
+        :param: str date: the wanted date
         :return: str: the logs of the given device at the given date
         """
         return [{"content_log": json.loads(log.content_log),
@@ -951,6 +951,10 @@ class ORM:
 
     @staticmethod
     def get_last_ride_info(device_id: str) -> dict:
+        """
+        :param: str device_id: the wanted device's id
+        :return: str: last ride infos
+        """
         starts = ORM.get_last_ride_by_content_log(device_id, "{\"type\": \"C\"}")
         ends = ORM.get_last_ride_by_content_log(device_id, "{\"type\": \"D\"}")
         res = ends.serialize()
@@ -959,6 +963,23 @@ class ORM:
 
     @staticmethod
     def get_last_ride_by_content_log(device_id: str, content_log: str) -> LOG:
+        """
+        :param: str device_id: the wanted device's id
+        :return: str: last ride
+        """
         return LOG.query.filter(
             and_(LOG.num_device == device_id, LOG.type_log == "+", LOG.content_log == content_log)).order_by(
             LOG.id_log.desc()).first()
+
+    @staticmethod
+    def get_battery_lvl(device_id) -> Dict[str, List[int] or str]:
+        """
+        :param: str device_id: the wanted device's id
+        :return: str: the battery infos
+        """
+        content_log = json.loads(LOG.query.filter(
+            and_(LOG.num_device == device_id,
+                 or_(LOG.type_log == "@", LOG.type_log == "W", LOG.type_log == "*"))).order_by(
+            LOG.id_log.desc()).first().content_log)
+        return {"level": content_log["level"],
+                "charge": content_log["charge"]}
