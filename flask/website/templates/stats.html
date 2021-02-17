@@ -114,7 +114,7 @@
                         </div>
                         <div class='ride-number'>
                             <label for="ride-number">Ride Number: </label>
-                            <select onchange="drawTrack()" name="ride-number" id="ride-number">
+                            <select onchange="displayRideData()" name="ride-number" id="ride-number">
                             </select>
                         </div>
                     </form>
@@ -164,8 +164,8 @@
                     </div>
                     <div class="info1">
                         <ul>
-                            <li>Max Speed: <span>158</span>km/h</li>
-                            <li>Average Speed: <span>72</span>km/h</li>
+                            <li>Max Speed: <span id="max-speed"> - </span>km/h</li>
+                            <li>Average Speed: <span id="average-speed"> - </span>km/h</li>
                         </ul>
                     </div>
                 </div>
@@ -176,8 +176,8 @@
                     </div>
                     <div class="info2">
                         <ul>
-                            <li>Max Angle: <span>158</span>°</li>
-                            <li>Average Angle: <span>72</span>°</li>
+                            <li>Max Angle: <span id="max-angle"> - </span>°</li>
+                            <li>Average Angle: <span id="average-angle"> - </span>°</li>
                         </ul>
                     </div>
                 </div>

@@ -6,14 +6,15 @@ gradientStroke.addColorStop(0.30, "#FFFF00");
 gradientStroke.addColorStop(0.5, "#00FF00");
 gradientStroke.addColorStop(0.70, "#FFFF00");
 gradientStroke.addColorStop(1, "#FF4500");
-var myChart = new Chart(ctx, {
+
+const Angle = new Chart(ctx, { // Angle chart
     type: 'line',
     title: 'Angle',
     data: {
-        labels: ['Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text'],
+        labels: [],
         datasets: [{
             label: 'Hard',
-            data: [12, 19, -45, 25, -15, 3, 28, 52, -25, 48, -13, -3, 15, 34, 52, 28, -14, -33, 0, 42],
+            data: [],
             backgroundColor: gradientStroke,
             borderWidth: 1
         },
@@ -47,18 +48,17 @@ var myChart = new Chart(ctx, {
     }
 });
 
-ctx = document.getElementById('speed').getContext('2d');
-var myChart = new Chart(ctx, {
+const Speed = new Chart(document.getElementById('speed').getContext('2d'), { // Speed chart
     type: 'line',
     title: 'Speed',
     data: {
-        labels: ['Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text', 'Text',],
+        labels: [],
         datasets: [{
             fill: false,
             label: 'speed',
-            data: [12, 19, 3, 5, 2, 3, 28, 52, -25, 48, -13, -3, 15, 34, 52, 28, -14, -33, 0, 42],
+            data: [],
             borderColor: ['rgba(135,206,235,1)'],
-            pointBackgroundColor: ['rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)', 'rgba(135,206,235,1)',],
+            pointBackgroundColor: [],
             borderWidth: 1
         }]
     },
@@ -73,8 +73,28 @@ var myChart = new Chart(ctx, {
     }
 });
 
-let rides = null;
-let logs = null;
+function updateSpeedChart(data, labels) {
+    let colors = new Array(data.length).fill('rgba(135,206,235,1)');
+    Speed.data.datasets[0].data = data;
+    Speed.data.datasets[0].pointBackgroundColor = colors;
+    Speed.data.labels = labels;
+    document.getElementById("max-speed").innerText = data.reduce((a, b) => { return Math.max(a, b) });
+    document.getElementById("average-speed").innerText = data.reduce((a,b) => a + b, 0) / data.length;
+    Speed.update();
+}
+
+function updateAngleChart(data, labels) {
+    let colors = new Array(data.length).fill('rgba(135,206,235,1)');
+    Angle.data.datasets[0].data = data;
+    Angle.data.datasets[0].pointBackgroundColor = colors;
+    Angle.data.labels = labels;
+    document.getElementById("max-angle").innerText = data.reduce((a, b) => { return Math.max(a, b) });
+    document.getElementById("average-speed").innerText = data.reduce((a,b) => a + b, 0) / data.length;
+    Angle.update();
+}
+
+let rides = null; // rides data
+let logs = null; // logs data
 
 
 const loadDateBikeepers = async () => { // updates the others fields to show the devices that have been used at this date
@@ -114,11 +134,11 @@ const loadRides = async () => { // updates the field "rides" to show rides of a 
         form_ride_number.appendChild(node);
     }
     if (form_ride_number.value !== "") {
-        await drawTrack();
+        await displayRideData();
     }
 }
 
-function reset_form_by_id(name) {
+function reset_form_by_id(name) { // reset a form
     let form = document.getElementById(name);
     while (form.firstChild) {
         form.removeChild(form.lastChild);
@@ -166,21 +186,28 @@ L.marker([lat, lon], {
 
 let polyline = null;
 
-const drawTrack = async () => {
+const displayRideData = async () => { // Called when a user selects a ride display dataon the charts, map and timeline
     if (polyline != null) {
         polyline.remove();
     }
     let riden_num = document.getElementById('ride-number').value;
     let coordinates = [];
+    let speeds = [];
+    let angles = [];
+    let labels = [];
     for (let points of rides[riden_num]) {
         coordinates.push({
             "lat": points.latitude,
             "lng": points.longitude
-        })
+        });
+        speeds.push(points["speed"]);
+        angles.push(points["angle"]);
+        labels.push(points["datetime_log"].slice(11, 16));
     }
-    console.log(coordinates);
     polyline = L.polyline(coordinates, {weight: 6, color: 'darkred'}).addTo(mymap);
 
     // zoom the map to the polyline
     mymap.fitBounds(polyline.getBounds());
+    updateSpeedChart(speeds, labels);
+    updateAngleChart(angles, labels);
 }
