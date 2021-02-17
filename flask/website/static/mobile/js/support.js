@@ -39,7 +39,7 @@ function draw(message) {
       other_picture = message["other_user_picture"]
       estAdmin = isAdmin();
 
-      console.log(message)
+
 
 
       if (admin_message==1 && estAdmin=="True" || admin_message==0 && estAdmin=="False"){
@@ -78,13 +78,8 @@ $(document).ready(function () {
                         jsonData = JSON.parse(data);
                     } catch (e) {
                         console.error("Parsing error:", e);
-                    }
-                    console.log(jsonData);
-                    //jsonData = jsonData[parseInt(getIdTicket(),10)];
-                    //console.log(jsonData);
                     if (jsonData != null) {
                         for (let message in jsonData) {
-                          console.log(message);
                             // console.log("Drawing message")
                             draw(jsonData[message])
                         }
