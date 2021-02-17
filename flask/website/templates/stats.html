@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
     {% if current_user.is_admin_user %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
     {% else %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics.css') }}">
     {% endif %}
@@ -22,6 +24,9 @@
     <div class="flex">
         {% if current_user.is_admin_user %}
             <header class="header-admin">
+                <div class="flash">
+                    {% include "messages.html" %}
+                </div>
                 <form action="{{ request.url }}" method="post">
                     <i class="fa fa-user"></i>
                     <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
@@ -30,39 +35,46 @@
                     </button>
                 </form>
                 <div class='show-user'>
-                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="">
+                    {% if current_user.is_admin_user and username == "" %}
+                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="an avatar">
+                    {% else %}
+                    <div id='profile-picture-search' style="background-image: url('{{ picture }}')"></div>
+                    {% endif %}
                     <div>
-                        <h2>{{ username }}</h2>
-                        <p>
-                            <span class="localisation-icon"><i class="fa fa-map-marker"></i></span>
-                            {{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span>
-                        </p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam sunt temporibus eveniet magni
-                            debitis corrupti maxime totam repudiandae placeat? Alias commodi ut magni illum facilis id,
-                            dolor omnis veniam expedita!</p>
+                        <div class='info-user'>
+                            <h2>{{ username }}</h2>
+                            <ul>
+                                {% for device in devices %}
+                                <li>
+                                    <img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
+                                    <span>{{device.num_device}}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><span class="localisation-icon"><i class="fa fa-map-marker"></i></span></td>
+                                    <td>{{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-mobile"></i></td>
+                                    <td>{{ phone }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-calendar"></i></td>
+                                    <td>2019, account created</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa fa-credit-card"></i></td>
+                                    <td>€5/mo, Current Plan</td>
+                                </tr>                            
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class='info-user'>
-                    <ul>
-                        <!-- <li><i class="fa fa-address-card"></i> 123 Avenue du Général de Gaulle</li> -->
-                        <li><i class="fa fa-mobile"></i>{{ phone }}</li>
-                        <li><i class="fa fa-calendar"></i> 2019, account created</li>
-                        <li><i class="fa fa-credit-card"></i> €5/mo, Current Plan</li>
-                    </ul>
-                    <ul>
-                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
-                            #1235894
-                        </li>
-                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
-                            #1235895
-                        </li>
-                        <li><img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
-                            #1235896
-                        </li>
-                    </ul>
-                </div>
-
-                {% if current_user.is_admin_user and not username=="" %}
+                {% if current_user.is_admin_user and not username == "" %}
                     <button>Block Account</button>
                 {% endif %}
             </header>
@@ -70,7 +82,7 @@
             <div class="global-admin">
             <div class="nadmin">
         {% endif %}
-        {% if current_user.is_admin_user and not username=="" or not current_user.is_admin_user %}
+        {% if current_user.is_admin_user and not username == "" or not current_user.is_admin_user %}
 
             <section class='group1'>
 
