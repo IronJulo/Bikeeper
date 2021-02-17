@@ -13,6 +13,7 @@ from flask_login import current_user
 
 from ..models import ORM
 from flask_mobility.decorators import mobile_template
+from flask.helpers import flash
 
 mod = Blueprint("stats", __name__)
 
@@ -21,22 +22,28 @@ mod = Blueprint("stats", __name__)
 @mobile_template('{mobile/User/}stats.html')
 def statistics(template):
     search_user = request.form.get('search_user', default=None, type=str)
-    username = ''
 
-    devices = ORM.get_devices_by_username(current_user.username_user)
     if search_user is not None:  # ADMIN
-        res = ORM.search_user(search_user)[0]
+        res = ORM.search_user(search_user)
+        if len(res)!=0:
+            res = res [0]
+            devices = ORM.get_devices_by_username(res.username_user)
+        else:
+            flash("User not found.","error")
+            return redirect(url_for('stats.statistics'))
+
         return render_template(
             template,
-            username=res.username_user,
-            phone=res.num_user,
-            street=res.street_user,
-            town=res.town_user,
-            devices=devices
+            username = res.username_user,
+            phone = res.num_user,
+            street = res.street_user,
+            town = res.town_user,
+            devices = devices,
+            picture = res.profile_picture_user
         )
 
     else:
         return render_template(
             template,
-            username=username
+            username='',
         )

@@ -18,8 +18,8 @@ class Utils:
         :param: str email, the email adress we want to check
         :return: boolean, true if valid
         """
-        regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
-        return re.search(regex, email)
+        pattern = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
+        return pattern.match(email)
 
     @staticmethod
     def is_valid_tel(tel):
