@@ -295,7 +295,7 @@ class ORM:
         :param: str num: the device's id we want to check
         :return: boolean, true if the num already exist
         """
-        return db.session.query(DEVICE).filter(DEVICE.num_device==num).first() != None
+        return db.session.query(DEVICE).filter(DEVICE.num_device == num).first() is not None
 
     @staticmethod
     def get_new_num_device():
@@ -723,7 +723,7 @@ class ORM:
     @staticmethod
     def get_bikeeper_user_num(num: str) -> str:
         """
-        :param: str num: the wanted device's id 
+        :param: str num: the wanted device's id
         :return: str: the user's phone number associated with the device
         """
         device = DEVICE.query.filter_by(num_device=num).first()
@@ -864,22 +864,21 @@ class ORM:
                 for log in LOG.query.filter(and_(LOG.num_device == device_id, LOG.datetime_log.like(date + "%"))).all()
                 if str(log.datetime_log)[:10] == date and log.type_log != "@"]
 
-
     @staticmethod
-    def update_user_selected_device(id_device,username):
+    def update_user_selected_device(id_device, username):
         """
-        Update the current device used by the user with the given username with the given id_device 
+        Update the current device used by the user with the given username with the given id_device
         :param: str device_id: the wanted device's id
         :param: str username: the wanted user
         """
         user = ORM.get_user(username)
         user.selected_device = id_device
         db.session.commit()
-        
+
     @staticmethod
     def get_current_device_by_username(username):
         """
         :param: str device_id: the wanted device's id
         :return: str: the device_id of the current device used by the given user
         """
-        return db.session.query(USER.selected_device).filter(USER.username_user==username).first()
+        return db.session.query(USER.selected_device).filter(USER.username_user == username).first()
