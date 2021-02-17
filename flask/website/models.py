@@ -1001,3 +1001,11 @@ class ORM:
         :return: string: the subscription features list
         """
         return db.session.query(SUBSCRIPTION.features_subscription).filter(SUBSCRIPTION.name_subscription != "Admin").first()
+    
+    @staticmethod
+    def get_price_from_subscription_name(name):
+        """
+        :param: string: the name of the subscription
+        :return: int: the price of the subscription
+        """
+        return db.session.query(SUBSCRIPTION.price_subscription).join(USER).filter(USER.name_subscription == name).first()

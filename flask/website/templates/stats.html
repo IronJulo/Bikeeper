@@ -67,11 +67,17 @@
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-calendar"></i></td>
-                                    <td>2019, account created</td>
+                                    <td>{% if current_user.is_admin_user and not username == "" %}
+                                        {{date}}, account created
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-credit-card"></i></td>
-                                    <td>€5/mo, Current Plan</td>
+                                    <td>{% if current_user.is_admin_user and not username == "" %}
+                                        €{{price}}/mo, Current Plan : {{subscription}}
+                                        {% endif %}
+                                    </td>
                                 </tr>                            
                             </tbody>
                         </table>
