@@ -112,7 +112,7 @@
                         </div>
                         <div class='device-number'>
                             <label for="device-number">Device Number: </label>
-                            <select onchange="loadRides()" name="device-number" id="device-number">
+                            <select onchange="createTimelineElements();loadRides()" name="device-number" id="device-number">
                             </select>
                         </div>
                         <div class='ride-number'>
@@ -125,36 +125,16 @@
                 <div id="timeline" class="container-timeline">
                     <h2>Timeline</h2>
                     <div class="timeline">
-                        {% for i in range(0,5) %}
                             <!-- METTRE LA COULEUR EN FONCTION DU LOG
                                 --timeline-main-color:#7BC6E1; INFORMATION
                                 --timeline-main-color:#DC1D21; ALERT
-                            -->
+
                             <style>
                                 :root {
                                     --timeline-main-color: #DC1D21;
                                 }
                             </style>
-
-                            <div class="timeline__event  animated fadeInUp delay-3s timeline__event--type1">
-                                <div class="timeline__event__icon ">
-                                    <i class="fa fa-info-circle"></i>
-                                    <div class="timeline__event__date">
-                                        20-08-2019
-                                    </div>
-                                </div>
-                                <div class="timeline__event__content ">
-                                    <div class="timeline__event__title">
-                                        Birthday
-                                    </div>
-                                    <div class="timeline__event__description">
-                                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel, nam! Nam
-                                            eveniet ut aliquam ab asperiores, accusamus iure veniam corporis incidunt
-                                            reprehenderit accusantium id aut architecto harum quidem dolorem in!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                            -->
                     </div>
                 </div>
 
