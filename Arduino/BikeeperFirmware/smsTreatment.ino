@@ -1,119 +1,111 @@
-void treatSMS(String answer)
+#include "Utils.hpp"
+
+void treatSMS()
 {
+	short senderIndex = sms_buffer.indexOf("+33", 3);
+	char senderNumber[13];
 
-    if (userPhoneNumber == "") // Check if the phone number is not defined
-    {
-        if (senderPhoneNumber == SERVER_PHONE_NUMBER) // Check who is sending us SMS (if it's the SERVER)
-        {
+	sms_buffer.substring(senderNumber, senderIndex, senderIndex + 13);
+	sms_buffer.replaceTo(senderIndex, 'a'); // Replace first number (sender number) '+' bu 'a' TODO delete useless
+	sms_buffer.toLower();
+	
+	message_buffer.clear();
 
-            int userPhonenumberIndex = answer.indexOf("+33");
-            if (userPhonenumberIndex >= 0)
-            {
-                userPhoneNumber = answer.substring(userPhonenumberIndex, userPhonenumberIndex + 12);
-                sendSMSTo(userPhoneNumber, StringSyncOk);
-                message("OK", 1000, 0);
-                Serial.println(F("The user phone number is :")); // TODO delete
-                Serial.println(userPhoneNumber);              // TODO delete
-            }
-        }
-    }
-    else
-    {
-        if (senderPhoneNumber == SERVER_PHONE_NUMBER || senderPhoneNumber == userPhoneNumber)
-        {
-            answer.toLowerCase();
-            int messageIndex = answer.indexOf("park");
-            String commandReceived = answer.substring(74, answer.length() - 5);                           //74 is the lenght of the data before the actual sms
-            commandReceived.trim();
-            //commandReceived.replace(String(char(10)), "");
-            //commandReceived.replace(String(char(13)), "");
-            Serial.println(F("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"));
-            Serial.println(commandReceived == "park");
-            Serial.println(commandReceived.length());
-            Serial.println(commandReceived);
+	if (arraysCompare(senderNumber, SERVER_PHONE_NUMBER) || arraysCompare(senderNumber, userPhoneNumber))
+	{
+		if (sms_buffer.indexOf("unpark", 4) != -1) // User sent unpark bike command
+		{
+			if (parked)
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringBikeUnparked])));
+				sim800L.send(userPhoneNumber, message_buffer.getStorage());
+				delay(100);
+				parked = false;
+			}
+			else
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringBikeNotParked])));
+				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+				delay(100);
+				parked = true;
+			}
+		}
+		else if (sms_buffer.indexOf("park", 4) != -1) // User sent park bike command
+		{
+			if (!parked)
+			{
+				if (!journey)
+				{
+					strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringBikeParked])));
+					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+					delay(100);
+					parked = true;
+				}
+				else
+				{
+					Serial.println("On est la on est ici ");
+					strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStopedAndParked])));
+					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+					delay(100);
+					parked = true;
+				}
+			}
+			else
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringBikeAlreadyParked])));
+				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+				delay(100);
+			}
+		}
 
-            if (commandReceived != "")
-            {
-                if (commandReceived == "unpark")
-                {
-                    if (parked)
-                    {
-                        sendSMSTo(userPhoneNumber, StringBikeUnparked);
-                        message("OK", 1000, 0);
-                        parked = false;
-                    }
-                    else
-                    {
-                        sendSMSTo(userPhoneNumber, StringBikeNotParked);
-                        message("OK", 1000, 0);
-                        parked = true;
-                    }
-                }
+		else if (sms_buffer.indexOf("position", 8) != -1) // User sent position request command
+		{
+			/*TODO*/
+		}
 
-                if (commandReceived == "park")
-                {
-                    if (!parked)
-                    {
-                        if (journey)
-                        {
-                            sendSMSTo(userPhoneNumber, StringJourneyStopedAndParked);
-                            message("OK", 1000, 0);
-                            parked = true;
-                            journey = false;
-                        }
-                        else
-                        {
-                            sendSMSTo(userPhoneNumber, StringBikeParked);
-                            message("OK", 1000, 0);
-                            parked = true;
-                        }
-                    }
-                    else
-                    {
-                        sendSMSTo(userPhoneNumber, StringBikeAlreadyParked);
-                        message("OK", 1000, 0);
-                    }
-                }
-                if (commandReceived == "start")
-                {
-                    if (journey)
-                    {
-                        sendSMSTo(userPhoneNumber, StringJourneyStartedPleaseStop);
-                        message("OK", 1000, 0);
-                    }
-                    else
-                    {
-                        if (parked)
-                        {
-                            sendSMSTo(userPhoneNumber, StringJourneyStartedAndUnparked);
-                            message("OK", 1000, 0);
-                            journey = true;
-                            parked = false;
-                        }
-                        else
-                        {
-                            sendSMSTo(userPhoneNumber, StringJourneyStarted);
-                            message("OK", 1000, 0);
-                            journey = true;
-                        }
-                    }
-                }
-
-                if (commandReceived == "stop")
-                {
-                    if (journey)
-                    {
-                        sendSMSTo(userPhoneNumber, StringJourneyStopped);
-                        message("OK", 1000, 0);
-                        journey = false;
-                    }
-                    else
-                    {
-                        sendSMSTo(userPhoneNumber, StringJourneyNotStarted);
-                        message("OK", 1000, 0);
-                    }
-                }
-            }
-        }
-    }
+		else if (sms_buffer.indexOf("start", 5) != -1) // User sent start journey command
+		{
+			if (journey)
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStartedPleaseStop])));
+				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+				delay(100);
+			}
+			else
+			{
+				if (parked)
+				{
+					strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStartedAndUnparked])));
+					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+					delay(100);
+					journey = true;
+					parked = false;
+				}
+				else
+				{
+					strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStarted])));
+					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+					delay(100);
+					journey = true;
+				}
+			}
+		}
+		else if (sms_buffer.indexOf("stop", 4) != -1) // User sent stop journey command
+		{
+			if (journey)
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStopped])));
+				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+				delay(100);
+				journey = false;
+			}
+			else
+			{
+				strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyNotStarted])));
+				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
+				delay(100);
+			}
+		}
+	}
+	message_buffer.clear();
 }

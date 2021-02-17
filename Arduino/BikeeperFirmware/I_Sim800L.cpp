@@ -3,6 +3,8 @@
 
 #include "I_Sim800L.hpp"
 #include "StringBuffer.hpp"
+#include "StringsSms.hpp"
+
 
 I_Sim800L::I_Sim800L(SoftwareSerial *serial, StringBuffer *stringBuffer) : 
     m_softwareSerial(serial),
@@ -32,41 +34,43 @@ I_Sim800L::init(char userPhoneNumber[], const char serverPhoneNumber[])
     
     Serial.println("Initialisation...");
 
-    m_softwareSerial->println("AT"); // Start to talk to the SIM800L
-    smartRead("OK", 2, 1000);
+    setModeAT();                                                             // Start to talk to the SIM800L
+    smartRead("OK", 2, 1000);                                               // Wait for ok
 
-    m_softwareSerial->println("AT+CMGD=,4");
-    smartRead("OK", 2, 1000);
+    I_Sim800L::deleteALL();                                                  // Delete all sms received sent read unread
+    smartRead("OK", 2, 1000);                                               // Wait for ok
 
-    m_softwareSerial->println("AT+CMGF=1"); // Mode Texte TODO delete
+
+    send(serverPhoneNumber, INIT_MESSAGE);
+
+    smartRead("OK", 2, 1000); 
+
+
+    m_softwareSerial->println("AT+CMGF=1");                                 // Mode Texte TODO delete
     m_softwareSerial->println("\r");
-    m_stringBuffer->clear();
+    m_stringBuffer->clear();                                                // Clear buffer 
 
-    while (userPhoneNumber[0] != '+')
+    
+
+    while (userPhoneNumber[0] != '+')                                       // While the user phone number as not been received
     {
-        m_softwareSerial->println("AT+CMGD=1,2");
+        deleteALLRead();
         m_softwareSerial->println("\r");
         
-        m_softwareSerial->println("AT+CMGR=1");    
+        setModeTexte();
         m_softwareSerial->println("\r");
 
-        if (smartRead("+CMTI", 5, 1000))
+        if (smartRead("+CMTI", 5, 1000))                                    // If we have received an sms
         {
-            m_softwareSerial->println("AT+CMGR=1");    
+            setModeTexte();                                                // Set the sim800l to read
             m_softwareSerial->println("\r");
-            smartRead("+CMTI", 5, 1000);
-            initTreatement(userPhoneNumber, serverPhoneNumber);
+            smartRead("+CMTI", 5, 1000);                                    // Read sms (store it in the buffer)
+            initTreatement(userPhoneNumber, serverPhoneNumber);             // Treat the received sms
 
         }
-        Serial.println("user phone number");
-        Serial.println(userPhoneNumber);
-        Serial.println();
-        
+        Serial.println("waiting for server response");
     }
-    //m_softwareSerial->println("AT+CMGDA=1");
-    //m_softwareSerial->println("AT+CMGDA=DEL ALL");
-
-    smartRead("+CMGS", 5, 30000);
+    
 }
 
 void 
@@ -102,7 +106,6 @@ I_Sim800L::smartRead(const char waiting[], short waitingSize, unsigned int timeo
         }
         if (m_stringBuffer->indexOf(waiting, waitingSize) != -1)
         {
-            Serial.println("rien ne vas plus ");
             res = true;
             delay(100);
             while (m_softwareSerial->available())
@@ -116,7 +119,13 @@ I_Sim800L::smartRead(const char waiting[], short waitingSize, unsigned int timeo
 }
 void
 I_Sim800L::initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]){
-    if (m_stringBuffer->indexOf(serverPhoneNumber, 12) != -1){    //TODO 12 -> 13 
+    short senderIndex = m_stringBuffer->indexOf("+33", 3);
+    char senderNumber[13];
+    m_stringBuffer->substring(senderNumber, senderIndex, senderIndex+13);
+    Serial.print("senderNumber : ");
+    Serial.println(senderNumber);
+    if (senderIndex != -1){                                                                 //TODO 12 -> 13 
+
         m_stringBuffer->replaceTo(m_stringBuffer->indexOf("+33", 3), 'a');
 
         short index = m_stringBuffer->indexOf("+33", 3);
@@ -125,3 +134,40 @@ I_Sim800L::initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]
         }
     }
 } 
+
+void 
+I_Sim800L::setModeAT()
+{
+    m_softwareSerial->println("AT");
+}
+
+void 
+I_Sim800L::deleteALL()
+{
+    m_softwareSerial->println("AT+CMGD=,4");
+}
+
+void 
+I_Sim800L::deleteALLRead()
+{
+    m_softwareSerial->println("AT+CMGD=1,2");
+}
+
+void 
+I_Sim800L::setModeTexte()
+{
+    m_softwareSerial->println("AT+CMGR=1");
+}
+
+void
+I_Sim800L::carriageReturn()
+{
+    m_softwareSerial->println("\r");
+}
+
+/*bool
+I_Sim800L::compareArrays(const char *left, const char *right)
+{
+
+}*/
+
