@@ -76,10 +76,34 @@ const Speed = new Chart(document.getElementById('speed').getContext('2d'), { // 
 
 const updateHeaderInfo = async () => {
     let bikeeper = document.getElementById('device-number').value;
-    const response = await fetch('/api/bikeeper/get_last_ride_bikeeper/' + bikeeper);
+    let response = await fetch('/api/bikeeper/get_last_ride_bikeeper/' + bikeeper);
     const last_ride = await response.json();
     document.getElementById("last-ride").innerText = last_ride.datetime_log;
     document.getElementById("last-ride-duration").innerText = last_ride.total_time;
+
+    response = await fetch('/api/bikeeper/get_battery_level/' + bikeeper);
+    const battery_info = await response.json();
+
+    let img_name;
+    const level_avg = (battery_info.level[0] + battery_info.level[1]) / 2;
+    if (level_avg > 90) {
+        img_name = '/static/pc/assets/battery_full_charge.png';
+    } else if (level_avg > 75) {
+        img_name = '/static/pc/assets/battery_75_charge.png';
+    } else if (level_avg > 50) {
+        img_name = '/static/pc/assets/battery_50_charge.png';
+    } else if (level_avg > 25) {
+        img_name = '/static/pc/assets/battery_25_charge.png';
+    } else {
+        img_name = '/static/pc/assets/battery_low_charge.png';
+    }
+
+    document.getElementById("battery-img").src = img_name;
+    if (battery_info.charge === "t") {
+        document.getElementById("is-charging").innerText = "The battery is charging"
+    } else if (battery_info.charge === "f") {
+        document.getElementById("is-charging").innerText = "The battery isn't charging"
+    }
 }
 
 function updateSpeedChart(data, labels) {
@@ -87,8 +111,10 @@ function updateSpeedChart(data, labels) {
     Speed.data.datasets[0].data = data;
     Speed.data.datasets[0].pointBackgroundColor = colors;
     Speed.data.labels = labels;
-    document.getElementById("max-speed").innerText = data.reduce((a, b) => { return Math.max(a, b) });
-    document.getElementById("average-speed").innerText = (data.reduce((a,b) => a + b, 0) / data.length).toString();
+    document.getElementById("max-speed").innerText = data.reduce((a, b) => {
+        return Math.max(a, b)
+    });
+    document.getElementById("average-speed").innerText = (data.reduce((a, b) => a + b, 0) / data.length).toString();
     Speed.update();
 }
 
@@ -97,8 +123,10 @@ function updateAngleChart(data, labels) {
     Angle.data.datasets[0].data = data;
     Angle.data.datasets[0].pointBackgroundColor = colors;
     Angle.data.labels = labels;
-    document.getElementById("max-angle").innerText = data.reduce((a, b) => { return Math.max(a, b) });
-    document.getElementById("average-angle").innerText = (data.reduce((a,b) => a + b, 0) / data.length).toString();
+    document.getElementById("max-angle").innerText = data.reduce((a, b) => {
+        return Math.max(a, b)
+    });
+    document.getElementById("average-angle").innerText = (data.reduce((a, b) => a + b, 0) / data.length).toString();
     Angle.update();
 }
 
@@ -149,12 +177,12 @@ const loadRides = async () => { // updates the field "rides" to show rides of a 
     }
 }
 
-const createTimelineElements = async() => {
+const createTimelineElements = async () => {
     let date = document.getElementById('ride-date').value;
     let bikeeper = document.getElementById('device-number').value;
     const response = await fetch('/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
     let timeline_logs = await response.json();
-    const allowed_logs = ["W","+"]
+    const allowed_logs = ["W", "+"]
     let div_timeline = document.getElementsByClassName('timeline')[0];
     reset_timeline_by_class('timeline');
     for (const log of timeline_logs.reverse()) {
@@ -243,9 +271,9 @@ const createTimelineElements = async() => {
 }
 
 
-function reset_timeline_by_class(classe){
+function reset_timeline_by_class(classe) {
     let timeline = document.getElementsByClassName(classe)[0];
-    while (timeline.firstChild){
+    while (timeline.firstChild) {
         timeline.removeChild(timeline.lastChild);
     }
 }

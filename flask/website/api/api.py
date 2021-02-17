@@ -334,3 +334,15 @@ def get_user_picture(username):
     return jsonify(
         response=ORM.get_user(username).profile_picture_user
     )
+
+
+@mod.route('/api/bikeeper/get_battery_level/<string:device_id>', methods=['GET'])
+def get_battery_level(device_id):
+    """
+    Get current user picture stored in database
+    :param device_id: the device_id
+    :rtype: Response
+    """
+    return jsonify(
+        ORM.get_battery_lvl(device_id)
+    )
