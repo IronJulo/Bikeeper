@@ -439,8 +439,10 @@ class ORM:
         """
         return: last message of the tickets
         """
-        messages = ORM.get_message_by_ticket_id(ticket_id)
-        return messages[max(messages.keys())]
+        dict_message = ORM.get_message_by_ticket_id(ticket_id)
+        if not dict_message:
+            return {}
+        return dict_message[max(dict_message.keys())]
 
     @staticmethod
     def messages_to_json(messages):

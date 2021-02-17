@@ -26,25 +26,11 @@
                 {% endif %}
             </div>
         </div>
-        <div class="container">
-        {% for mes in messages.values() %}
-            
-            <div class="row msg">
-            {% if mes["is_admin_message"]==0 %}
-                <div class="col-2"><img src="{{ usr_img[mes['username_user']] }}" class="pp"></div>
-                <div class="col-8 user">{{ mes["content"] }}</div>
-            {% else %}
-                <div class="col-2"></div>
-                <div class="col-8 admin">{{ mes["content"] }}</div>
-                <div class="col-2"><img src="{{ usr_img[mes['username_user']] }}" class="pp"></div>
-            {% endif %}
-            
-            </div>
-
-
-        {% endfor %}
-        </div>
-
+        <section class='chat'>
+            <div class="container" id="ul-{{ id_ticket }}"></div>
+    
+        </section>
+        <div class="blank"></div>
 
 
 
@@ -56,36 +42,37 @@
             </div>
         </div>
 
+
+
+
+
+
     {% endblock %}
-    <script type="text/javascript">
-        {% autoescape false %}
-        var current_user = '{{current_user.username_user}}';
-        var is_admin = '{{current_user.is_admin_user}}';
-        var user_image = '{{picture}}';
-        {% endautoescape %}
 
-        function isAdmin(){
-            return is_admin;
-        }
 
-        function getUsername() {
-            return current_user;
-        }
+{% block script %}
+<script type="text/javascript">
+    {% autoescape false %}
+    var current_user = '{{current_user.username_user}}';
+    var is_admin = '{{current_user.is_admin_user}}';
+    var user_image = '{{picture}}';
+    {% endautoescape %}
 
-        function getImageUser(){
-            return user_image;
-        }
-        function openNav() {
-          document.getElementById("myNav").style.width = "100%";
-        }
+    function isAdmin(){
+        return is_admin;
+    }
 
-        /* Close when someone clicks on the "x" symbol inside the overlay */
-        function closeNav() {
-          document.getElementById("myNav").style.width = "0%";
-        } 
+    function getUsername() {
+        return current_user;
+    }
 
-    </script>
-    <script src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
+    function getImageUser(){
+        return user_image;
+    }
+
+</script>
+<script src="{{ url_for('static', filename='mobile/js/support.js') }}" defer></script>
+{% endblock script %}
 
 
 
