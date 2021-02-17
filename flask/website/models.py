@@ -103,11 +103,15 @@ class SUBSCRIPTION(db.Model):
     """
     name_subscription = db.Column(db.String(42), primary_key=True, nullable=False)
     price_subscription = db.Column(db.Integer, nullable=False)
+    localisation_subscription = db.Column(db.String(200), nullable=True)
+    features_subscription = db.Column(db.String(2000), nullable=True)
     USER = db.relationship("USER", backref=db.backref("SUBSCRIPTION", lazy=True))
 
-    def __init__(self, name_subscription, price_subscription):
-        self.name_subscription = name_subscription
-        self.price_subscription = price_subscription
+    def __init__(self, name_subscription, price_subscription, localisation_subscription, features_subscription):
+       self.name_subscription = name_subscription
+       self.price_subscription = price_subscription
+       self.localisation_subscription = localisation_subscription
+       self.features_subscription = features_subscription
 
 
 class USER(db.Model, UserMixin):
@@ -983,3 +987,17 @@ class ORM:
             LOG.id_log.desc()).first().content_log)
         return {"level": content_log["level"],
                 "charge": content_log["charge"]}
+
+    @staticmethod
+    def get_subscriptions():
+        """
+        :return: subscription: the subscription list
+        """
+        return db.session.query(SUBSCRIPTION).filter(SUBSCRIPTION.name_subscription != "Admin").all()
+
+    @staticmethod
+    def get_subscriptions_features():
+        """
+        :return: string: the subscription features list
+        """
+        return db.session.query(SUBSCRIPTION.features_subscription).filter(SUBSCRIPTION.name_subscription != "Admin").first()

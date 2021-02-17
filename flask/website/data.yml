@@ -4,12 +4,30 @@ subscriptions:
   - subscription:
       "name_subscription": "France"
       "price_subscription": 5
+      "localisation_subscription" : "This plan only works in France territories"
+      "features_subscription" : 
+        - "Unlimited NotificationUnlimited Notification"
+        - "Top Customer Support"
+        - "Mobile & Desktop web interfaces"
+        - "Alert your friends"
+        - "Smart Notification"
+        - "World Wide Localisation"
   - subscription:
       "name_subscription": "World"
       "price_subscription": 7
+      "localisation_subscription" : "This plan works everywhere"
+      "features_subscription" : 
+        - "Unlimited NotificationUnlimited Notification"
+        - "Top Customer Support"
+        - "Mobile & Desktop web interfaces"
+        - "Alert your friends"
+        - "Smart Notification"
+        - "World Wide Localisation"
   - subscription:
       "name_subscription": "Admin"
       "price_subscription": 0
+      "localisation_subscription" : null
+      "features_subscription" : null
 
 # Users
 users:

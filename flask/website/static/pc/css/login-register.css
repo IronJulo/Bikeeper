@@ -382,6 +382,7 @@ main>form>div input:focus,
     display: flex;
     flex-wrap: wrap;
     max-width: 60vw;
+    justify-content: center;
 }
 
 .register-third-page h1 {
@@ -407,4 +408,152 @@ html::-webkit-scrollbar-track
 
 div.flash {
     text-align: center;
+}
+
+div.C-slide > div > div.subscription-form {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+div.C-slide > div > div.subscription-form input {
+    width: 1.2em;
+    margin: 0 auto;
+}
+
+div.C-slide > div > div.subscription-form > div {
+    margin-top: 2em;
+}
+
+div.C-slide > div > div.subscription-form > div label span {
+    font-size: 1rem;
+}
+
+
+section.section-sub  h4 {
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+section.section-sub  ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+section.section-sub ul,
+section.section-sub h4,
+section.section-sub p:last-of-type {
+    margin-bottom: 7vh;
+}
+
+section.section-sub label {
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 2em;
+    padding: .4em .8em;
+    color: black;
+    text-decoration: none;
+    width: fit-content;
+}
+
+section.section-sub a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+section.section-sub label span:first-child {
+    font-size: 1rem;
+}
+
+section.section-sub label span:last-child {
+    font-size: .8rem;
+}
+
+section.section-sub h2 {
+    color: #472c11;
+}
+
+section.section-sub label {
+    background-color: #eeeeee;
+    color: black;
+}
+
+section.section-sub h2 {
+    color: #1ED1AC;
+}
+
+section.section-sub label {
+    background-color: #1ED1AC;
+}
+
+@media(max-width:1100px){
+    div.flex > section.section-sub {
+        height: max-content;
+    }
+
+    :root {
+        --taille-elements-width:calc((95vw - var(--taille-sidebar))/3);
+    }
+}
+
+@media(max-height:800px){
+    div.flex > section.section-sub {
+        height: max-content;
+    }
+}
+
+section.section-sub {
+    background-color: white;
+    border-radius: 1em;
+    text-align: center;
+    padding: 3em;
+    position: relative;
+    margin: 0 1em;
+    color: black;
+    width: 30vw;
+}
+
+div.register-subscription {
+    display: flex;
+}
+
+div.active div.sub {
+    top: 2%;
+}
+
+div.sub-radio {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+}
+
+div.sub-radio input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    outline: none;
+    display: none;
+}
+
+div.sub-radio span {
+    border: solid 2px #1ED1AC;
+    padding: .5em;
+    border-radius: 1em;
+}
+
+div.sub-radio span:hover {
+    cursor: pointer;
+    background-color: #1ED1AC;
+    color: white;
+    transition: all .2s;
+}
+
+.selected-sub{
+    border: solid 4px #1ED1AC;
+    transform: scale(1.05);
+    transition: all .2s;
 }

@@ -6,6 +6,8 @@ from flask_mobility.decorators import mobile_template
 from ..app import db
 from ..models import USER
 from flask.helpers import flash
+import datetime
+from ..utils import Utils
 
 mod = Blueprint('register', __name__)
 
@@ -13,8 +15,12 @@ mod = Blueprint('register', __name__)
 @mod.route('/register/', methods=['GET', 'POST'])
 @mobile_template('{mobile/Authentification/}register.html')
 def register(template):
+    subscriptions = ORM.get_subscriptions()
+    features = Utils.str_collon_to_list(ORM.get_subscriptions_features()[0])
     return render_template(
         template,
+        subscriptions = subscriptions,
+        features = features
     )
 
 
@@ -29,6 +35,9 @@ def register_validate():
     city = str(escape(request.form['city']))
     postalcode = str(escape(request.form['postalcode']))
     selected_device = ORM.get_new_num_device()
+    is_account_blocked = False
+    date_creation_user = datetime.datetime.now()
+    name_subscription = str(escape(request.form['sub']))
 
     informations = {
         "username" : username,
@@ -46,8 +55,10 @@ def register_validate():
     if valid:
         m = sha256()
         m.update(password.encode())
-        u = USER(username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
-                f"https://eu.ui-avatars.com/api/{username}", False, selected_device)
+        u = USER(
+            username, m.hexdigest(), phonenumber, "", "", email, city, postalcode, address,
+                f"https://eu.ui-avatars.com/api/{username}", False, selected_device, is_account_blocked,
+                date_creation_user, name_subscription)
         db.session.add(u)
         db.session.commit()
 

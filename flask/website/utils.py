@@ -38,3 +38,11 @@ class Utils:
         """
         pattern = re.compile("^[0-9]{5}$")
         return pattern.match(pc)
+
+    @staticmethod
+    def str_collon_to_list(str):
+        """
+        :param: str subscription, the subscriptions features to transform in list from ;
+        :return: list,
+        """
+        return str.split(";")[:-1]
