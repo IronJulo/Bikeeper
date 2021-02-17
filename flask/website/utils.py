@@ -9,8 +9,7 @@ class Utils:
         :param: str password, the password we want to check
         :return: boolean, true if valid
         """
-        return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(
-            x.isdigit() for x in password) and len(password) >= 5
+        return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and len(password) >= 5
 
     @staticmethod
     def is_valid_email(email):
@@ -19,7 +18,7 @@ class Utils:
         :return: boolean, true if valid
         """
         pattern = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
-        return pattern.match(email)
+        return True if pattern.match(email) is not None else False
 
     @staticmethod
     def is_valid_tel(tel):
@@ -28,7 +27,7 @@ class Utils:
         :return: boolean, true if valid
         """
         pattern = re.compile("^[0-9]{10}$")
-        return pattern.match(tel)
+        return True if pattern.match(tel) is not None else False
 
     @staticmethod
     def is_valid_postalcode(pc):
@@ -37,7 +36,7 @@ class Utils:
         :return: boolean, true if valid
         """
         pattern = re.compile("^[0-9]{5}$")
-        return pattern.match(pc)
+        return True if pattern.match(pc) is not None else False
 
     @staticmethod
     def str_collon_to_list(str):

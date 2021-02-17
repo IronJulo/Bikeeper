@@ -1,1 +1,1 @@
- sudo docker run --rm -it -v $(pwd):/data -p 7777:80 klokantech/openmaptiles-server
+sudo docker run -it -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl
