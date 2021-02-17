@@ -138,7 +138,6 @@ def remove_bikeeper(device_id):
     This removes the current device from the database using ORM function.
 
     :param device_id: id of current device
-    :type device id: string
     :return: Ok message if it worked, error message otherwise
     :rtype: Response
     """
@@ -236,6 +235,20 @@ def get_bikeeper_user_num(device_id):
     return jsonify(
         type_message="response_num",
         numero=user_num
+    )
+
+
+@mod.route('/api/bikeeper/get_last_ride_bikeeper/<string:device_id>', methods=['GET'])
+def get_last_ride_bikeeper(device_id: str):
+    """
+    Gets the user's bikeepers that has logs at a given date.
+
+    :param device_id: username of the user
+    :return: last ride info
+    :rtype: Response
+    """
+    return jsonify(
+        ORM.get_last_ride_info(device_id)
     )
 
 
