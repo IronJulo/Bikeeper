@@ -15,7 +15,7 @@ from rich.progress import (
 )
 import click
 from .app import app, db
-from .models import USER, MESSAGE, TICKET, DEVICE
+from .models import USER, MESSAGE, TICKET, DEVICE, SUBSCRIPTION
 
 progress = Progress(
     TextColumn("[bold blue]{task.fields[filename]}", justify="right"),
@@ -74,12 +74,16 @@ def insert_user(user_to_add):
     profile_picture = user_to_add["profile_picture"]
     is_admin = user_to_add["is_admin"]
     selected_device = user_to_add["selected_device"]
+    is_account_blocked = user_to_add["is_account_blocked"]
+    date_creation_user = datetime.datetime.now()
+    name_subscription = user_to_add["name_subscription"]
 
     password = sha256()
     password.update(username.encode())  # taking username as password to test
 
     db.session.add(USER(username, password.hexdigest(), num, firstname, lastname, email, town,
-                        postal_code, street, profile_picture, is_admin, selected_device))
+                        postal_code, street, profile_picture, is_admin, selected_device,
+                        is_account_blocked, date_creation_user, name_subscription))
 
 
 def insert_ticket(ticket_to_add):
@@ -130,6 +134,16 @@ def insert_device(device_to_add):
     user = device_to_add["user"]
     db.session.add(DEVICE(num_device, name_device, row_parameters_device, user))
 
+def insert_subscription(subscription_to_add):
+    """
+    Add subscription to database
+    :params: subscription
+    """
+    subscription_to_add = subscription_to_add["subscription"]
+    name_subscription = subscription_to_add["name_subscription"]
+    price_subscription = subscription_to_add["price_subscription"]
+
+    db.session.add(SUBSCRIPTION(name_subscription, price_subscription))
 
 def import_data(filename: str):
     """
@@ -138,7 +152,9 @@ def import_data(filename: str):
     """
 
     def switch(case):
-        return {"users": insert_user,
+        return {
+                "subscriptions": insert_subscription,
+                "users": insert_user,
                 "device": insert_device,
                 "messages": insert_message,
                 "tickets": insert_ticket
@@ -181,15 +197,9 @@ def removedb():
 @app.cli.command("adduser")
 @click.argument("username")
 @click.argument("num")
-@click.argument("firstname")
-@click.argument("lastname")
 @click.argument("email")
-@click.argument("town")
-@click.argument("postal_code")
-@click.argument("street")
 @click.argument("profile_picture")
-@click.argument("is_admin")
-def adduser(username, num, firstname, lastname, email, town, postal_code, street, profile_picture, is_admin):
+def adduser(username, num, email, profile_picture):
     """
     Create all tables and insert data in database.
     """
@@ -197,7 +207,7 @@ def adduser(username, num, firstname, lastname, email, town, postal_code, street
     password = sha256()
     password.update(username.encode())  # taking username as password to test
 
-    db.session.add(USER(username, password.hexdigest(), num, firstname, lastname, email, town,
-                        postal_code, street, profile_picture, False))
+    db.session.add(USER(username, password.hexdigest(), num, "John", "Doe", email, "town",
+                        "12345", "street", profile_picture, False, False, datetime.datetime.now(), "France"))
 
     db.session.commit()

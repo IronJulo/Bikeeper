@@ -1,5 +1,16 @@
 # This file describe data insertion during database creation
 
+subscriptions:
+  - subscription:
+      "name_subscription": "France"
+      "price_subscription": 5
+  - subscription:
+      "name_subscription": "World"
+      "price_subscription": 7
+  - subscription:
+      "name_subscription": "Admin"
+      "price_subscription": 0
+
 # Users
 users:
   - user:
@@ -14,6 +25,8 @@ users:
       "profile_picture": "https://assets.change.org/photos/9/xm/ov/HuXMoVlIDzauXCp-800x450-noPad.jpg?1562964866"
       "is_admin": False
       "selected_device" : "0769342048"
+      "is_account_blocked" : False
+      "name_subscription" : "World"
   - user:
       "username": "user2"
       "num": "0789101162"
@@ -26,6 +39,8 @@ users:
       "profile_picture": "https://i.pinimg.com/originals/b9/cb/0c/b9cb0c0ef9d2b8f1dee686dcb24bc9d2.jpg"
       "is_admin": False
       "selected_device" : "0664277796"
+      "is_account_blocked" : False
+      "name_subscription" : "France"
   - user:
       "username": "user3"
       "num": "0789101162"
@@ -38,6 +53,8 @@ users:
       "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
       "selected_device" : "0564277796"
+      "is_account_blocked" : False
+      "name_subscription" : "France"
   - user:
       "username": "user4"
       "num": "0785101162"
@@ -50,7 +67,8 @@ users:
       "profile_picture": "https://eu.ui-avatars.com/api/user3"
       "is_admin": False
       "selected_device" : "0964277796"
-
+      "is_account_blocked" : False
+      "name_subscription" : "France"
   - user:
       "username": "admin"
       "num": "0781546427"
@@ -63,7 +81,9 @@ users:
       "profile_picture": "https://eu.ui-avatars.com/api/admin"
       "is_admin": True
       "selected_device" : null
-
+      "is_account_blocked" : False
+      "id_subscription" : 1
+      "name_subscription" : "Admin"
   - user:
       "username": "admin2"
       "num": "0654321012"
@@ -76,6 +96,8 @@ users:
       "profile_picture": "https://eu.ui-avatars.com/api/admin2"
       "is_admin": True
       "selected_device" : null
+      "is_account_blocked" : False
+      "name_subscription" : "Admin"
 
 # Tickets
 tickets:

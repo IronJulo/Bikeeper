@@ -29,7 +29,7 @@
                 </div>
                 <form action="{{ request.url }}" method="post">
                     <i class="fa fa-user"></i>
-                    <input type="search" name="search_user" id="search_user" placeholder="Jane Doe">
+                    <input type="search" name="search_user" id="search_user" placeholder="Username">
                     <button type="submit">
                         <i class="fa fa-search"></i>
                     </button>
@@ -56,7 +56,10 @@
                             <tbody>
                                 <tr>
                                     <td><span class="localisation-icon"><i class="fa fa-map-marker"></i></span></td>
-                                    <td>{{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span></td>
+                                    <td>{% if current_user.is_admin_user and not username == "" %}
+                                        {{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span>
+                                        {% endif %}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><i class="fa fa-mobile"></i></td>
