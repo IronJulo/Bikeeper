@@ -189,14 +189,14 @@ const createTimelineElements = async() => {
             if (log.type_log !== "W") {
                 let t = "";
                 if (log.content_log.type === "A") {
-                    t = "Le véhicule a été garé.";
+                    t = "The vehicle has been parked.";
                 }
                 if (log.content_log.type === "B") {
-                    t = "Le véhicule n'est plus garé.";
+                    t = "The vehicle is not longer parked.";
                 } else if (log.content_log.type === "C") {
-                    t = "Un trajet a commencé.";
+                    t = "A journey has begun.";
                 } else if (log.content_log.type === "D") {
-                    t = "Un trajet s'est terminé.";
+                    t = "A journey ended up.";
                 }
 
 
@@ -212,24 +212,24 @@ const createTimelineElements = async() => {
                 let t = "";
                 let text_content = "";
                 if (log.content_log.type === "V") {
-                    t = "Vibration détectée";
-                    text_content = "Une vibration a été détectée sur votre Bikeeper aux coordonnées suivantes :\n" +
+                    t = "Vibration detected";
+                    text_content = "A vibration has been detected at those coordinates :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
                         "Latitude : " + log.content_log.latitude + "\n" +
-                        "Quelqu'un ou quelque chose a peut être heurté votre véhicule.";
+                        "Someone or something may have it your vehicle.";
                 } else if (log.content_log.type === "G") {
-                    t = "Signal GPS détecté";
-                    text_content = "Votre Bikeeper a commencé à bouger depuis les coordonnées suivantes :\n" +
+                    t = "GPS Signal detected";
+                    text_content = "Your device begun to move from those coordinates :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
                         "Latitude : " + log.content_log.latitude + "\n" +
-                        "Il est possible que quelqu'un essaie de le voler";
+                        "Maybe someone is trying to steal your vehicle.";
                 } else if (log.content_log.type === "F") {
-                    t = "Chute du véhicule détectée";
-                    text_content = "Votre Bikeeper est tombé aux coordonnées suivantes :\n" +
+                    t = "Vehicle fall detected";
+                    text_content = "Your device has fallen at those coordinates :\n" +
                         "Longitude : " + log.content_log.longitude + "\n" +
                         "Latitude : " + log.content_log.latitude + "\n";
                 }
-                let title_content = document.createTextNode("Alerte - " + t)
+                let title_content = document.createTextNode("Alert - " + t)
                 let style_content = document.createTextNode(":root {\n" +
                     "                                    --timeline-main-color: #DC1D21;\n" +
                     "                                }");
