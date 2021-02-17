@@ -20,8 +20,8 @@ app.config.update(
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     DEBUG_TB_INTERCEPT_REDIRECTS=False,
     MAX_CONTENT_LENGTH=1024 * 1024,
-    UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif'],
-    UPLOAD_PATH='static/user_profile_picture/'
+    UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
+    UPLOAD_PATH='./website/static/user_profile_picture/'
 
 )
 

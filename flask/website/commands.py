@@ -134,6 +134,7 @@ def insert_device(device_to_add):
     user = device_to_add["user"]
     db.session.add(DEVICE(num_device, name_device, row_parameters_device, user))
 
+
 def insert_subscription(subscription_to_add):
     """
     Add subscription to database
@@ -145,6 +146,7 @@ def insert_subscription(subscription_to_add):
 
     db.session.add(SUBSCRIPTION(name_subscription, price_subscription))
 
+
 def import_data(filename: str):
     """
     Load data in yml file into database
@@ -153,15 +155,13 @@ def import_data(filename: str):
 
     def switch(case):
         return {
-                "subscriptions": insert_subscription,
-                "users": insert_user,
-                "device": insert_device,
-                "messages": insert_message,
-                "tickets": insert_ticket
-                }.get(case)
+            "subscriptions": insert_subscription,
+            "users": insert_user,
+            "device": insert_device,
+            "messages": insert_message,
+            "tickets": insert_ticket
+        }.get(case)
 
-    import os
-    print(os.getcwd())
     with open(filename) as file:
         documents = yaml.full_load(file)
 

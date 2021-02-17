@@ -7,13 +7,14 @@ from sqlalchemy import func, and_
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
-from .app import db, session, login_manager
+from .app import db, session, login_manager, app
 import requests
 from hashlib import sha256
 import psutil
 from .utils import Utils
 import json
 import random
+import os
 
 
 class CONTACT(db.Model):
@@ -85,6 +86,7 @@ class DEVICE(db.Model):
         self.row_parameters_device = parameters
         db.session.commit()
 
+
 class SUBSCRIPTION(db.Model):
     """
     Store subscription options
@@ -94,8 +96,9 @@ class SUBSCRIPTION(db.Model):
     USER = db.relationship("USER", backref=db.backref("SUBSCRIPTION", lazy=True))
 
     def __init__(self, name_subscription, price_subscription):
-       self.name_subscription = name_subscription
-       self.price_subscription = price_subscription
+        self.name_subscription = name_subscription
+        self.price_subscription = price_subscription
+
 
 class USER(db.Model, UserMixin):
     """
@@ -234,9 +237,7 @@ class ORM:
         :param pseudo: user's nickname
         :return: USER: user instance
         """
-        user = db.session.query(USER).get(pseudo)
-        db.session.commit()
-        return user
+        return db.session.query(USER).get(pseudo)
 
     @staticmethod
     def get_user_tickets(pseudo: str) -> List[TICKET]:
@@ -244,12 +245,10 @@ class ORM:
         :param pseudo: user's nickname
         :return: list of user's tickets
         """
-        ticket_list = session.query(TICKET) \
+        return db.session.query(TICKET) \
             .join(USER, TICKET.username_user == USER.username_user, isouter=True) \
             .filter(TICKET.username_user == pseudo and USER.is_admin_user == 0) \
             .all()
-        session.commit()
-        return ticket_list
 
     @staticmethod
     def is_username_available(pseudo: str) -> bool:
@@ -262,7 +261,7 @@ class ORM:
         return True if username is None else False
 
     @staticmethod
-    def isValidRegister(informations):
+    def is_valid_register(informations):  # TODO refactoring please
         """
         :param informations: register's informations in a dictionnary
         :return: boolean + message tuple, true if informations valid
@@ -278,16 +277,16 @@ class ORM:
 
         if not ORM.is_username_available(username):
             erreur = "Username already taken. Please chose an other one."
-            return (False, erreur)
+            return False, erreur
         elif len(username) < 5:
             erreur = "Incorrect username. Username must has a minimal length of 5 characters."
-            return (False, erreur)
+            return False, erreur
         elif not Utils.is_valid_email(email):
             erreur = "Incorrect email format. Please try again."
-            return (False, erreur)
+            return False, erreur
         elif password != confirmpassword:
             erreur = "Passwords do not match. Please try again."
-            return (False, erreur)
+            return False, erreur
         elif not Utils.is_valid_password(password):
             erreur = "Incorrect password. Password must :\n \
                 • contains at least one upper case letter,\n \
@@ -416,11 +415,7 @@ class ORM:
         """
         :return: number of Bikeepers,
         """
-        res = session.query(func.count(DEVICE.num_device)) \
-            .first()
-        print("Bikeepers : ")
-        print(res[0])
-        db.session.commit()
+        res = session.query(func.count(DEVICE.num_device)).first()
         return res[0]
 
     @staticmethod
@@ -896,6 +891,7 @@ class ORM:
     @staticmethod
     def get_current_device_by_username(username):
         """
+        Get the current device by username
         :param: str device_id: the wanted device's id
         :return: str: the device_id of the current device used by the given user
         """
@@ -908,3 +904,36 @@ class ORM:
         :return: subscription: the subscription linked to the username
         """
         return db.session.query(SUBSCRIPTION).join(USER).filter(USER.username_user == username).first()
+
+    @staticmethod
+    def replace_image(username, new_path):
+        """
+        Replace the old image by the new one
+        :param: str username: username
+        :param: str new_path:
+        """
+
+        def clean_old_image(path):
+            """
+            Try to remove old image when it necessary
+            :param: str path: path to remove
+            """
+            if "http" in path:
+                print("It's an url no need to remove")
+            else:
+                if os.path.exists(path):
+                    print("Removing.....")
+                    os.remove(path)
+
+        user = ORM.get_user(username)
+        # Get current picture
+        old_picture = user.profile_picture_user
+        print("Old picture : ", old_picture)
+        print("new_path : ", new_path)
+        # update with new one
+        user.profile_picture_user = new_path.replace("./website", "")
+        db.session.commit()
+        # remove old image
+
+        print("Need to remove : ", "./website" + old_picture)
+        clean_old_image("./website" + old_picture)

@@ -288,6 +288,12 @@ def get_bikeeper_name_by_id(device_id):
 
 @mod.route('/api/bikeeper/get_logs_at_date/<string:device_id>/<string:date>', methods=['GET'])
 def get_logs_at_date(device_id, date):
+    """
+    Get logs corresponding to a date
+    :param device_id: device id
+    :param date: date
+    :rtype: Response
+    """
     return jsonify(
         ORM.get_logs_at_date(device_id, date)
     )
@@ -295,6 +301,23 @@ def get_logs_at_date(device_id, date):
 
 @mod.route('/api/current_device/<string:username>', methods=['GET'])
 def get_current_selected_device(username):
+    """
+    Get the current selected device stored in database
+    :param username: the current username
+    :rtype: Response
+    """
     return jsonify(
         response=ORM.get_current_device_by_username(username)[0]
+    )
+
+
+@mod.route('/api/user/profile/<string:username>', methods=['GET'])
+def get_user_picture(username):
+    """
+    Get current user picture stored in database
+    :param username: the current username
+    :rtype: Response
+    """
+    return jsonify(
+        response=ORM.get_user(username).profile_picture_user
     )
