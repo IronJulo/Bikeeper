@@ -143,8 +143,17 @@ def insert_subscription(subscription_to_add):
     subscription_to_add = subscription_to_add["subscription"]
     name_subscription = subscription_to_add["name_subscription"]
     price_subscription = subscription_to_add["price_subscription"]
+    localisation_subscription = subscription_to_add["localisation_subscription"]
+    features_subscription = subscription_to_add["features_subscription"]
 
-    db.session.add(SUBSCRIPTION(name_subscription, price_subscription))
+    plain_text_features_subscription = ""
+
+    if features_subscription is not None:
+    
+        for feature in features_subscription:
+            plain_text_features_subscription += feature + ";"
+
+    db.session.add(SUBSCRIPTION(name_subscription, price_subscription, localisation_subscription, plain_text_features_subscription))
 
 
 def import_data(filename: str):

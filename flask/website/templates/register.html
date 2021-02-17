@@ -83,8 +83,41 @@
                 </div>
 
                 <div class="C-slide">
+                    <div class="C-slide-title sub">Subscriptions</div>
+                    <div class="register-subscription">
+                        {% for sub in subscriptions %}
+                            {% if sub.name_subscription == "France" %}
+                            <section class='section-sub'>
+                            {% else %}
+                            <section class='section-sub selected-sub'>
+                            {% endif %}
+                                <h2>{{sub.name_subscription}}</h2>
+                                <div>
+                                <h4>{{sub.localisation_subscription}}</h4>
+                                    <ul>
+                                        {% for feature in  features %}
+                                            {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
+                                                <s>{{feature}}</s>
+                                            {% else %}
+                                                <li>{{feature}}</li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul> 
+                                </div>
+                                
+                                <div class="sub-radio">
+                                    <div><span onclick="selectSub(this)">Choose this plan - €{{sub.price_subscription}}/mo</span></div>
+                                    <input type="radio" name="sub" value="{{sub.name_subscription}}" checked>
+                                </div>
+                            </section>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+
+                <div class="C-slide">
                     <div class="C-slide-title">Almost finished</div>
-                        <div class="register-third-page">   
+                        <div class="register-third-page">
                             <div class="payment">
                                 <div>
                                     <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" alt="Logo mastercard">
@@ -133,6 +166,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='pc/js/carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='pc/js/register.js') }}"></script>
 
 </body>
 
