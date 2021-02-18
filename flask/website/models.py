@@ -779,7 +779,7 @@ class ORM:
         :param: str word: the word we use to search the user
         :return: list[USER]: the list of users that have a usename that have the given word in it
         """
-        return db.session.query(USER).filter(USER.username_user.like("%" + word + "%")).all()
+        return db.session.query(USER).filter(USER.username_user.like("%" + word + "%"), USER.is_admin_user==False).all()
 
     @staticmethod
     def get_devices_by_username(username) -> List[DEVICE]:
@@ -1115,7 +1115,6 @@ class ORM:
         """
         user = ORM.get_user(username)
         user.is_account_blocked = 0
-        print(user)
         db.session.commit()
 
     @staticmethod
