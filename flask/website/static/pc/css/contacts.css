@@ -77,7 +77,7 @@ section div.contact div.action>button:first-child {
     font-size: 20px;
     text-decoration: none;
     font-weight: 500;
-    border: solid black 2px;
+    border: solid var(--vert) 2px;
     border-radius: 1em;
     padding: 0 1em;
     text-align: center;
@@ -93,7 +93,7 @@ section div.contact div.action>button:last-child {
     border-radius: 1em;
     padding: 0 1em;
     text-align: center;
-    color: var(--rouge);
+    color: black;
 }
 
 section div.info,
@@ -114,10 +114,14 @@ section div.contact div.action button:last-child:hover {
     cursor: pointer;
     transform: scale(0.95);
     transition: all .2s;
-    border-color: var(--rouge-hover);
+    border-color: var(--orange);
 }
 
 section div.contact h4 {
     font-size: 1.5rem;
     margin-right: 2em;
+}
+
+#update-contact {
+    display: flex !important;
 }

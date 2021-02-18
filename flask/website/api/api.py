@@ -320,7 +320,7 @@ def get_current_selected_device(username):
     :rtype: Response
     """
     return jsonify(
-        response=ORM.get_current_device_by_username(username)[0]
+        response=ORM.get_current_num_device_by_username(username)
     )
 
 

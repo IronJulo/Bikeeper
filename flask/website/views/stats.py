@@ -25,13 +25,13 @@ def statistics(template):
 
 	if search_user is not None:  # ADMIN
 		res = ORM.search_user(search_user)
-		if len(res) != 0:
-			res = res[0]
+		if len(res)!=0:
+			res = res [0]
 			devices = ORM.get_devices_by_username(res.username_user)
 			price = ORM.get_price_from_subscription_name(res.name_subscription)[0]
-			print(price)
+					
 		else:
-			flash("User not found.", "error")
+			flash("User not found.","error")
 			return redirect(url_for('stats.statistics'))
 
 		return render_template(

@@ -7,8 +7,11 @@
 {% block main %}
 <div class="flex">
     <section>
-        <h1>Your Device (Device 1)</h1>
-        <form action="{{ url_for('settings.settings_devices_update') }}" method='POST'>
+        <div class="flash">
+            {% include "messages.html" %}
+        </div>
+        <h1>Your Device ({{selected_device}})</h1>
+        <form action="{{ url_for('settings.settings_devices_update') }}" id="form-devices" method='POST'>
             <h3>Parameters</h3>
             <div class="slidecontainer group1">
                 <label for="movement">
@@ -16,7 +19,7 @@
                 </label>
                 <div>
                     <span>5m</span>
-                    <input type="range" min="5" max="50" value="27" class="slider" id="movement">
+                    <input type="range" min="5" max="50" value="27" class="slider" name="movement" id="movement">
                     <span>50m</span>
                 </div>
                 
@@ -27,7 +30,7 @@
                 </label>
                 <div>
                     <span>20s</span>
-                    <input type="range" min="20" max="120" value="70" class="slider" id="delay">
+                    <input type="range" min="20" max="120" value="70" class="slider" name="delay" id="delay">
                     <span>120s</span>
                 </div>
             </div>
@@ -35,15 +38,12 @@
                 <label for="name">
                     Device name :
                 </label>
-                <input type="text" name="name" value='Device 1'>
+                <input type="text" name="name" value='{{selected_device}}'>
             </div>
             <div class="form-submit">
                 <!-- My Buttons -->
-                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
+                <a class='rotate-rouge' href="{{ request.url }}">Cancel</a>
                 <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenterDevice">Update</button>
-
-                
-
             </div>
         </form>
     </section>
@@ -60,12 +60,12 @@
                 <div class="modal-body">
                     <p>Enter your password to confirm changes.</p>
                     <fieldset>
-                        <input type="password" name="confirmpassword" placeholder='********'>
+                        <input type="password" form="form-devices" name="confirmpassword" placeholder='********'>
                     </fieldset>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" form="form-devices" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
