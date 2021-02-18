@@ -371,3 +371,15 @@ def get_last_log_position(device_id):
     return jsonify(
         ORM.get_last_log_position(device_id).serialize()
     )
+
+
+@mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST'])
+def update_current_selected_device(username, id_device):
+    """
+    Update the current selected device stored in database
+    :param username: the current username
+    :rtype: Response
+    """
+    ORM.update_user_selected_device(id_device, username)
+    print(ORM.get_current_device_by_username(username))
+    return jsonify(response=ORM.get_current_device_by_username(username))

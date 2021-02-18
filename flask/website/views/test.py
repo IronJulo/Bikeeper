@@ -123,15 +123,3 @@ def sumbit_data_test():
 def is_parked(id_device):
     return jsonify(parked=ORM.is_parked(id_device))
 
-@mod.route('/test/update_device/<string:username>/<int:id_device>', methods=['POST'])
-def update_current_selected_device(username, id_device):
-    """
-    Update the current selected device stored in database
-    :param username: the current username
-    :rtype: Response
-    """
-    print("test")
-    ORM.update_user_selected_device(id_device, username)
-    print("tesssssssssssst")
-    print(ORM.get_current_device_by_username(username))
-    return jsonify(response=ORM.get_current_device_by_username(username))

@@ -53,10 +53,9 @@
             <div id="dropdown">
                 <div class="row">
                 {% for device in devices %}
-                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
-                <div class="col-10"><a class="dropdown-item" onclick="post(  '{{current_user.username_user}}','{{device.num_device}}')">{{device.name_device}}</a></div>
-                
-                
+                <form action="{{ url_for('sidebar.sidebar_device_change') }}" method="POST">
+                    <button type='submit' name="device_change" value="{{device.num_device}}" class="dropdown-item">{{ device.name_device }}</button>
+                </form>
                 {% endfor %}
                 </div>
             </div>
@@ -80,7 +79,7 @@
 
     }
     function post(username,id_device) {
-        let url = "/test/update_device/"+ username + "/" + id_device + "/";
+        let url = "/api/test/update_device/"+ username + "/" + id_device + "/";
         console.log(url);
         return new Promise((resolve, reject) => {
             const req = new XMLHttpRequest();

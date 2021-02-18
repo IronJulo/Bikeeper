@@ -350,4 +350,121 @@ const displayRideData = async () => { // Called when a user selects a ride displ
     mymap.fitBounds(polyline.getBounds());
     updateSpeedChart(speeds, labels);
     updateAngleChart(angles, labels);
+
+
+    // #################################################################################################
+    // #################################################################################################
+    // #################################################################################################
+
+    var api=null;
+    let parkData = null;
+
+
+    function activeLink() {
+        api = "http://127.0.0.1:5000/test/device/"+ getIdDevice()
+        return api
+    }
+
+
+    function getPark(){
+      return String("parked");
+    }
+    function getTextOfSelectedNumberDevice() {
+        return document.getElementById("device-number")[document.getElementById("device-number").options.selectedIndex].text;
+    }
+
+    function clearPark(){
+      getPark().innerHTML = "";
+    }
+
+    function getIdDevice(){
+      return document.getElementById("device-number").value;
+    }
+
+    function get(url) {
+        return new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+            req.open('GET', url);
+            req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
+            req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+            req.send();
+        });
+    }
+
+    function draw(is_parked) {
+      console.log("Draw");
+      console.log(getIdDevice())
+          let park = "." + getPark();
+          let parked = is_parked.parked;
+          let text = "<div class='row'><div class='col-6 goche'>Selected device : " + getTextOfSelectedNumberDevice() + "</div>";
+          text += "<div class='col-6 drouate'>Status : ";
+          if (parked) {
+            console.log("Pause")
+            text += " Parked <i class='fa fa-pause'></i>";
+          }
+          else {
+            console.log("Play")
+            text += " Moving <i class='fa fa-play'></i>"
+          }
+          document.querySelector(park).innerHTML = text + "</div></div>";
+    }
+
+
+    let oldData = null;
+
+    $(document).ready(function () {
+        setInterval(function () {  // loop every 5 seconds
+            activeLink()
+            if (api!=null){
+                get(api).then((data) => {
+                    //Si data a changé :
+                    try {
+                            //on actualise parkData
+                            parkData = JSON.parse(data);
+                        } catch (e) {
+                            console.error("Parsing error:", e);
+                        }
+
+
+
+                    if (oldData==null || (parkData.parked > oldData || parkData.parked < oldData)) { // si on doit redraw car nouveau changement
+                      
+                      
+                      clearPark();
+                        
+                        if (parkData != null) {
+                          oldData = parkData.parked
+                          console.log(oldData)
+                            draw(parkData)
+                        }
+
+                    } else {
+                      oldData = parkData.parked
+                    }
+                }
+            )
+          }
+        }, 1000);
+    });
+
+    function getDate(){
+      var today = new Date();
+      var month = today.getMonth()+1;
+      var seconds = today.getSeconds();
+      if (month<10){
+          month = '0'+month;
+      }
+      if (seconds<10){
+          seconds = '0'+seconds;
+      }
+      var date = today.getFullYear()+'-'+month+'-'+today.getDate();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + seconds;
+      return date+' '+time;
+    }
+
+
+
+
+
+
 }

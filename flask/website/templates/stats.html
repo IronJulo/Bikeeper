@@ -175,6 +175,11 @@
                     </div>
                 </div>
             </section>
+            <section class="group5">
+                <div class="container-fluid">
+                    <div class="parked park"></div>
+                </div>
+            </section>
 
             <section class="group4">
                 <form action="{{ request.url }}" method='GET'>
@@ -188,6 +193,7 @@
                 <div id="my_osm_widget_map"></div>
                 <div id="temp"></div>
             </section>
+            
         {% endif %}
         {% if current_user.is_admin_user %}
             </div>
