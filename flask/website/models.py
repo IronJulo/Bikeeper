@@ -108,10 +108,10 @@ class SUBSCRIPTION(db.Model):
     USER = db.relationship("USER", backref=db.backref("SUBSCRIPTION", lazy=True))
 
     def __init__(self, name_subscription, price_subscription, localisation_subscription, features_subscription):
-       self.name_subscription = name_subscription
-       self.price_subscription = price_subscription
-       self.localisation_subscription = localisation_subscription
-       self.features_subscription = features_subscription
+        self.name_subscription = name_subscription
+        self.price_subscription = price_subscription
+        self.localisation_subscription = localisation_subscription
+        self.features_subscription = features_subscription
 
 
 class USER(db.Model, UserMixin):
@@ -1000,12 +1000,14 @@ class ORM:
         """
         :return: string: the subscription features list
         """
-        return db.session.query(SUBSCRIPTION.features_subscription).filter(SUBSCRIPTION.name_subscription != "Admin").first()
-    
+        return db.session.query(SUBSCRIPTION.features_subscription).filter(
+            SUBSCRIPTION.name_subscription != "Admin").first()
+
     @staticmethod
     def get_price_from_subscription_name(name):
         """
         :param: string: the name of the subscription
         :return: int: the price of the subscription
         """
-        return db.session.query(SUBSCRIPTION.price_subscription).join(USER).filter(USER.name_subscription == name).first()
+        return db.session.query(SUBSCRIPTION.price_subscription).join(USER).filter(
+            USER.name_subscription == name).first()
