@@ -12,13 +12,17 @@ class StringBuffer
         StringBuffer(char *storage, short length);
 
         void store(char c);
-        void store(int i);
-        void store(double d);
+        void storeInt(int i);
+        void storeInt3(int i);
+        void storeShort(short i);
+        void store(const char *arr);
+        void storeDouble(double val, short len, short prec);
 
         void replaceTo(short index, char c);
         void toLower();
 
         void rewind();
+        void skipTo(short index);
 
         short indexOf(const char *c);
         short indexOf(const char *c, short len);

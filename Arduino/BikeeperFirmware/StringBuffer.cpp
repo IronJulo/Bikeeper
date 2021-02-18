@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <string.h>
 #include <math.h>
 #include <SoftwareSerial.h>
@@ -18,17 +19,70 @@ void StringBuffer::store(char c)
 	}
 }
 
-void StringBuffer::store(int i)
+/*void StringBuffer::storeInt(int i)
 {
 	if (m_index < m_length)
 	{
-		m_storage[m_index++] = i;
+		char buff[4] = { '0' };
+		itoa(value, buff + (value < 100) + (value < 10), 10);
+		memcpy(into, buff, 3);
+	}
+}*/
+
+
+void StringBuffer::storeInt3(int i)
+{
+	if (m_index < m_length)
+	{
+		char buff[4] = { '0' };
+		itoa( i, buff + ( i < 100) + ( i < 10), 10);
+		memcpy(m_storage + m_index, buff, 3);
+		m_index += 3;
+	}
+}
+void StringBuffer::storeShort(short i)
+{
+	if (m_index < m_length)
+	{
+		while (i)
+		{
+			m_storage[m_index++] = i % 10 + '0';
+			i /= 10;
+		}
+	}
+}
+
+void StringBuffer::storeDouble(double val, short len, short prec)
+{
+	m_index > 0 ? m_index-- : m_index;
+	Serial.println(m_storage);
+
+	store(val < 0 ? '-' : '+');
+	dtostrf(fabs(val), len, prec, m_storage + m_index);
+	m_index = m_index + len;
+	Serial.println(m_storage);
+	//Serial.println(m_storage);
+	//store(buff);
+	//memcpy(*m_storage + m_index, buff, len + 1);
+}
+
+void StringBuffer::store(const char *arr)
+{
+	m_index > 0 ? m_index-- : m_index;
+	for (short i = 0; i < strlen(arr); i++)
+	{
+		store(arr[i]);
 	}
 }
 
 void StringBuffer::rewind()
 {
 	m_index = 0;
+}
+
+void StringBuffer::skipTo(short index)
+{
+	m_index = index;
 }
 
 short StringBuffer::indexOf(const char *c, short len)
@@ -81,6 +135,7 @@ void StringBuffer::substring(char *in, short from, short to)
 			in[i - from] = m_storage[i];
 		}
 	}
+	in[to - from] = '0';
 }
 
 short StringBuffer::length()

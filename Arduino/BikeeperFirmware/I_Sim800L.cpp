@@ -75,7 +75,7 @@ I_Sim800L::init(char userPhoneNumber[], const char serverPhoneNumber[])
 void 
 I_Sim800L::send(const char *to, const char *msg)
 {
-    noInterrupts();
+    //noInterrupts();
     Serial.println("Sending SMS...");
     sendCommand("AT+CMGF=1\r");
     delay(1000);
@@ -87,7 +87,7 @@ I_Sim800L::send(const char *to, const char *msg)
     sendCommand((char)26);
     sendCommand('\n');
     Serial.println("Text Sent.");
-    interrupts();
+    //interrupts();
 }
 
 bool 
@@ -119,10 +119,6 @@ I_Sim800L::smartRead(const char waiting[], short waitingSize, unsigned int timeo
 void
 I_Sim800L::initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]){
     short senderIndex = m_stringBuffer->indexOf("+33", 3);
-    char senderNumber[13];
-    m_stringBuffer->substring(senderNumber, senderIndex, senderIndex+13);
-    Serial.print("senderNumber : ");
-    Serial.println(senderNumber);
     if (senderIndex != -1){                                                                 //TODO 12 -> 13 
 
         m_stringBuffer->replaceTo(m_stringBuffer->indexOf("+33", 3), 'a');
@@ -130,8 +126,11 @@ I_Sim800L::initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]
         short index = m_stringBuffer->indexOf("+33", 3);
         if (index != -1){
             m_stringBuffer->substring(userPhoneNumber, index, index+12);
+            userPhoneNumber[12] = '\0';
+            Serial.println(userPhoneNumber);
         }
     }
+
 } 
 
 void 

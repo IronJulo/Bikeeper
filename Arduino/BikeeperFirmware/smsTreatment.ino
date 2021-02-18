@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "Utils.hpp"
 
 void treatSMS()
@@ -21,6 +23,7 @@ void treatSMS()
 				sim800L.send(userPhoneNumber, message_buffer.getStorage());
 				delay(100);
 				parked = false;
+				/* TODO SEND sms to server (B) */
 			}
 			else
 			{
@@ -40,14 +43,16 @@ void treatSMS()
 					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
 					delay(100);
 					parked = true;
+					/* TODO SEND sms to server (A) */
 				}
 				else
 				{
-					Serial.println("On est la on est ici ");
 					strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringJourneyStopedAndParked])));
 					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
 					delay(100);
 					parked = true;
+					/* TODO SEND sms to server (D) */
+					/* TODO SEND sms to server (A) */
 				}
 			}
 			else
@@ -60,7 +65,15 @@ void treatSMS()
 
 		else if (sms_buffer.indexOf("position", 8) != -1) // User sent position request command
 		{
-			/*TODO*/
+			message_buffer.clear();
+
+			message_buffer.store(StringCoordinatesStart);
+			message_buffer.storeDouble(location.longitude, 16, 13);
+			message_buffer.store(StringCoordinatesMiddle);
+			message_buffer.storeDouble(location.latitude, 14, 12);
+
+			sim800L.send(userPhoneNumber, message_buffer.getStorage());
+			delay(100);
 		}
 
 		else if (sms_buffer.indexOf("start", 5) != -1) // User sent start journey command
@@ -80,6 +93,8 @@ void treatSMS()
 					delay(100);
 					journey = true;
 					parked = false;
+					/* TODO SEND sms to server (B) */
+					/* TODO SEND sms to server (C) */
 				}
 				else
 				{
@@ -87,6 +102,7 @@ void treatSMS()
 					sim800L.send(userPhoneNumber,  message_buffer.getStorage());
 					delay(100);
 					journey = true;
+					/* TODO SEND sms to server (C) */
 				}
 			}
 		}
@@ -98,6 +114,7 @@ void treatSMS()
 				sim800L.send(userPhoneNumber,  message_buffer.getStorage());
 				delay(100);
 				journey = false;
+				/* TODO SEND sms to server (D) */
 			}
 			else
 			{
