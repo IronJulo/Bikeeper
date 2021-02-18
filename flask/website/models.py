@@ -7,7 +7,7 @@ from sqlalchemy import func, and_, or_
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
-from .app import db, session, login_manager, app
+from .app import db, session, login_manager
 import requests
 from hashlib import sha256
 import psutil
@@ -992,6 +992,16 @@ class ORM:
         """
         return LOG.query.filter(
             and_(LOG.num_device == device_id, LOG.type_log == "+", LOG.content_log == content_log)).order_by(
+            LOG.id_log.desc()).first()
+
+    @staticmethod
+    def get_last_log_position(device_id: str) -> LOG:
+        """
+        :param: str device_id: the wanted device's id
+        :return: str: last ride
+        """
+        return LOG.query.filter(
+            and_(LOG.num_device == device_id, LOG.content_log.like('%"latitude":%'))).order_by(
             LOG.id_log.desc()).first()
 
     @staticmethod
