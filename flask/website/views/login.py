@@ -19,6 +19,7 @@ from flask_mobility.decorators import mobile_template
 from flask_login import login_required, login_user, logout_user, current_user
 from ..models import ORM
 from hashlib import sha256
+from flask.helpers import flash
 
 mod = Blueprint('login', __name__)
 
@@ -50,12 +51,16 @@ def login(template):
     elif f.validate_on_submit():
         user = f.get_authenticated_user()
         if user:
-            login_user(user)
-            if current_user.is_admin_user:
-                next = f.next.data or url_for("admin.admin_home")
+            if not ORM.is_blocked_account_user(user.username_user):
+                login_user(user)
+                if user.is_admin_user:
+                    next = f.next.data or url_for("admin.admin_home")
+                else:
+                    next = f.next.data or url_for("home.home")
+                return redirect(next)
             else:
-                next = f.next.data or url_for("home.home")
-            return redirect(next)
+                flash("Your account has been blocked. Please contact us if it is an error.","error")
+                return redirect(url_for("login.login"))
     return render_template(
         template,
         form=f,

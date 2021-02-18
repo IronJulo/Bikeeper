@@ -25,12 +25,15 @@ def admin_required(f):
 
 @mod.route('/admin/access', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_access.html")
+@login_required
+@admin_required
 def admin_access(template):
     return render_template(template)
 
 
 @mod.route('/admin/home', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_home.html")
+@login_required
 @admin_required
 def admin_home(template):
     return render_template(
@@ -44,21 +47,29 @@ def admin_home(template):
 
 @mod.route('/admin/support', methods=['GET'])
 @mobile_template("{mobile/Admin/}admin_support.html")
+@login_required
+@admin_required
 def admin_support(template):
     return render_template(template)
 
 
 @mod.route('/admin/humberger', methods=['GET'])
 @mobile_template("{mobile/Admin/}humberger_overlay_connected_admin.html")
+@login_required
+@admin_required
 def humberger_overlay_connected_admin(template):
     return render_template(template)
 
 
 @mod.route('/admin/dashboard', methods=['GET'])
 @mobile_template("{mobile/Admin/}support_dashboard_admin.html")
+@login_required
+@admin_required
 def support_dashboard_admin(template):
     return render_template(template)
 
 @mod.route('/admin/platform', methods=["GET"])
+@login_required
+@admin_required
 def platform():
     return render_template('admin_platform.html')

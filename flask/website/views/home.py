@@ -16,6 +16,7 @@ mod = Blueprint('home', __name__)
 
 @mod.route('/home/', methods=['GET', 'POST'])
 @mobile_template('{mobile/User/}home.html')
+@login_required
 def home(template):
     ip_address = request.remote_addr
     ORM.log_ip(ip_address)
@@ -29,5 +30,6 @@ def home(template):
 
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
+@login_required
 def mob_localisation():
     return render_template("mobile/User/localisation.html")

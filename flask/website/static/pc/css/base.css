@@ -114,6 +114,15 @@ html {
     transform: translate3D(0,40px,0) !important;
 }
 
+.sidebar-navigation form button:active {
+    background-color: transparent;
+    outline: none;
+}
+
+.sidebar-navigation form button:hover {
+    text-decoration: underline;
+}
+
 header.base {
     position: fixed;
     background-color: white;
@@ -227,6 +236,10 @@ div.dropdown-menu {
 div.dropdown-menu a:hover {
     color: var(--rouge);
     text-decoration: underline;
+}
+
+div.dropdown-menu a:active {
+    background-color: transparent;
 }
 
 div.modal-body fieldset {

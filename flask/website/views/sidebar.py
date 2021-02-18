@@ -8,11 +8,11 @@ from flask import (
 )
 from flask_mobility.decorators import mobile_template
 from ..models import ORM
-from flask_login import current_user
+from flask_login import current_user, login_required
 
 mod = Blueprint('sidebar', __name__)
 
-
+@login_required
 @mod.route("/sidebar/device/change/", methods=['GET', 'POST'])
 def sidebar_device_change():
     number = request.form.get("device_change")

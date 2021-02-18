@@ -1115,6 +1115,7 @@ class ORM:
         """
         user = ORM.get_user(username)
         user.is_account_blocked = 0
+        print(user)
         db.session.commit()
 
     @staticmethod
@@ -1122,5 +1123,15 @@ class ORM:
         """
         Block an user
         :param: string: the user username
+        :return: False if the user is not blocked, True if he is
         """
-        return db.session.query(USER.is_account_blocked).filter(USER.username_user == username).first()[0]
+        return db.session.query(USER.is_account_blocked).filter(USER.username_user == username).first()[0] == 1
+
+    @staticmethod
+    def get_number_of_devices_by_username(username):
+        """
+        Get number of devices of an user
+        :param: string: an username
+        :return: int: the number of devices
+        """
+        return db.session.query(func.count(DEVICE.username_user)).filter(DEVICE.username_user == username).scalar()

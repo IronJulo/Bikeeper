@@ -17,7 +17,7 @@ import os
 import imghdr
 import hashlib
 from random import randint
-from flask_login import current_user
+from flask_login import current_user, login_required
 from hashlib import sha256
 from flask.helpers import flash
 
@@ -26,6 +26,7 @@ mod = Blueprint('settings', __name__)
 
 @mod.route('/settings/', methods=['GET'])
 @mobile_template("{mobile/Settings/}settings.html")
+@login_required
 def settings(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(
@@ -41,6 +42,7 @@ ACCOUNT
 
 @mod.route('/settings/account/', methods=['GET'])
 @mobile_template("{mobile/Settings/}account.html")
+@login_required
 def settings_account(template):
     files = os.listdir(app.config['UPLOAD_PATH'])
     devices = ORM.get_devices_by_username(current_user.username_user)
@@ -55,6 +57,7 @@ def settings_account(template):
 
 
 @mod.route('/settings/account/update/', methods=['POST'])
+@login_required
 def settings_account_update():
     result = request.form
     first = result['first-name']
@@ -90,6 +93,7 @@ DEVICES
 
 @mod.route('/settings/device/', methods=['GET'])
 @mobile_template("{mobile/Settings/}device.html")
+@login_required
 def settings_devices(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     selected = ORM.get_current_name_device_by_username(current_user.username_user)
@@ -102,6 +106,7 @@ def settings_devices(template):
 
 
 @mod.route('/settings/devices/update/', methods=['GET','POST'])
+@login_required
 def settings_devices_update():
     name = request.form.get("name")
     movement = request.form.get("movement")
@@ -124,6 +129,7 @@ CONTACT
 
 @mod.route('/settings/contacts/', methods=['GET'])
 @mobile_template("{mobile/Settings/}contacts.html")
+@login_required
 def settings_contact(template):
     contacts = ORM.get_contacts_by_user(current_user.username_user)
     devices = ORM.get_devices_by_username(current_user.username_user)
@@ -138,6 +144,7 @@ def settings_contact(template):
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
+@login_required
 def settings_contact_update():
     result = request.form
     id_contact = result["id-contact"]
@@ -156,6 +163,7 @@ def settings_contact_update():
 
 
 @mod.route('/settings/contacts/update/check/', methods=['GET', 'POST'])
+@login_required
 def settings_contact_update_check():
     result = request.form
     first = result['first-name']
@@ -168,12 +176,14 @@ def settings_contact_update_check():
 
 @mod.route('/settings/contacts/add/', methods=['GET'])
 @mobile_template('{mobile/Settings/}add_contact.html')
+@login_required
 def settings_contact_add(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(template, devices=devices)
 
 
 @mod.route('/settings/contacts/add/check/', methods=['GET', 'POST'])
+@login_required
 def settings_contact_add_check():
     result = request.form
     first = result['first-name']
@@ -194,6 +204,7 @@ CREDIT CARD MOBILE
 
 @mod.route('/settings/card/', methods=['GET'])
 @mobile_template("{mobile/Settings/}credit-card.html")
+@login_required
 def settings_card(template):
     return render_template(template)
 
@@ -205,6 +216,7 @@ PAYMENT
 
 @mod.route('/settings/payment/', methods=['GET'])
 @mobile_template("{mobile/Settings/}payment.html")
+@login_required
 def settings_payment(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(template, devices=devices) 
@@ -212,6 +224,7 @@ def settings_payment(template):
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
 @mobile_template("{mobile/Settings/}edit_payment.html")
+@login_required
 def settings_payment_edit(template):
     confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
     password = ORM.get_password_user_by_username(current_user.username_user)
@@ -225,6 +238,7 @@ def settings_payment_edit(template):
 
 
 @mod.route('/settings/payment/edit/check/', methods=['GET', 'POST'])
+@login_required
 def settings_payment_edit_check():
     number = request.form.get("number")
     holder_name = request.form.get("holder")
@@ -244,6 +258,7 @@ def settings_payment_edit_check():
 
 @mod.route('/settings/subscription/', methods=['GET'])
 @mobile_template("{mobile/Settings/}subscription.html")
+@login_required
 def settings_subscriptions(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     subscriptions = ORM.get_subscriptions()
@@ -260,6 +275,7 @@ def settings_subscriptions(template):
 
 
 @mod.route('/settings/subscription/update/', methods=['POST'])
+@login_required
 def settings_subscriptions_update():
     sub = request.form.get('sub')
 
@@ -301,6 +317,7 @@ def validate_image(stream): #TODO move in Utils
 
 
 @mod.route('/settings/account/', methods=['POST'])
+@login_required
 def upload_files():
     if current_user.is_authenticated:
 
