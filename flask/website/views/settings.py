@@ -179,8 +179,9 @@ def settings_contact_add_check():
     tel = result['phone']
     device = ORM.get_current_num_device_by_username(current_user.username_user)
     img = '/static/pc/assets/avatar.png'
-
+    
     ORM.new_contact(tel, first, last, img, device)
+    flash("Contact has been added.","success")
     return redirect(url_for("settings.settings_contact"))
 
 
@@ -201,20 +202,43 @@ PAYMENT
 
 
 @mod.route('/settings/payment/', methods=['GET'])
-@mobile_template("{mobile/Settings/}edit_payment.html")
+@mobile_template("{mobile/Settings/}payment.html")
 def settings_payment(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices=devices)
+    return render_template(template, devices=devices) 
 
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
-def settings_payment_edit():
-    devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template('edit_payment.html', devices=devices)
+@mobile_template("{mobile/Settings/}edit_payment.html")
+def settings_payment_edit(template):
+    confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
+    password = ORM.get_password_user_by_username(current_user.username_user)
+
+    if confirmpassword == password:
+        devices = ORM.get_devices_by_username(current_user.username_user)
+        return render_template(template, devices=devices)
+
+    flash("Incorrect Password.","error")
+    return redirect(url_for("settings.settings_payment"))
 
 
 @mod.route('/settings/payment/edit/check/', methods=['GET', 'POST'])
 def settings_payment_edit_check():
+    number = request.form.get("number")
+    holder_name = request.form.get("holder")
+    expiration = request.form.get("expiration")
+    cvv = request.form.get("cvv")
+
+    confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
+    password = ORM.get_password_user_by_username(current_user.username_user)
+    print("-"*100)
+    print(confirmpassword)
+    print("-"*100)
+    if confirmpassword == password:
+        flash("Payment service is not available for the moment. Changes were not applies.","error")
+        return redirect(url_for('settings.settings_payment'))
+        
+    flash("Payment service is not available for the moment. Changes were not applies.","error")
     return redirect(url_for('settings.settings_payment'))
 
 

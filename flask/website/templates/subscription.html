@@ -6,44 +6,35 @@
 
 {% block main %}
 <div class="flex">
-    <section class='france'>
-        <h2>France</h2>
-        <div>
-           <h4>This plan only works in France territories</h4>
-            <ul>
-                <li>Unlimited Notification</li>
-                <li>Top Customer Support</li>
-                <li>Mobile & Desktop web interfaces</li>
-                <li>Alert your friends</li>
-                <li>Smart Notification</li>
-                <li><s>World Wide Localisation</s></li>
-            </ul> 
-        </div>
-        
-        <a href="{{url_for('settings.settings_subscriptions_change')}}">
-            <span>Your plan - </span>
-            <span>€5/mo</span>
-        </a>
-    </section>
-    <section class='world'>
-        <h2>World</h2>
-        <div>
-            <h4>This plan works everywhere</h4>
-            <ul>
-                <li>Unlimited Notification</li>
-                <li>Top Customer Support</li>
-                <li>Mobile & Desktop web interfaces</li>
-                <li>Alert your friends</li>
-                <li>Smart Notification</li>
-                <li>World Wide Localisation</li>
-            </ul>
-        </div>
-        
-        <a href="{{url_for('settings.settings_subscriptions_change')}}">
-            <span>Choose plan - </span>
-            <span>€7/mo</span>
-        </a>
-    </section>
+    <div class="flash">
+        {% include "messages.html" %}
+    </div>
+    {% for sub in subscriptions %}
+        {% if sub.name_subscription == "France" %}
+        <section class='section-sub'>
+        {% else %}
+        <section class='section-sub selected-sub'>
+        {% endif %}
+            <h2>{{sub.name_subscription}}</h2>
+            <div>
+            <h4>{{sub.localisation_subscription}}</h4>
+                <ul>
+                    {% for feature in  features %}
+                        {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
+                            <s>{{feature}}</s>
+                        {% else %}
+                            <li>{{feature}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul> 
+            </div>
+            
+            <div class="sub-radio">
+                <div><span onclick="selectSub(this)">Choose this plan - €{{sub.price_subscription}}/mo</span></div>
+                <input type="radio" name="sub" value="{{sub.name_subscription}}" checked>
+            </div>
+        </section>
+    {% endfor %}
     <section class='cancel'>
         <h2>Cancel</h2>
         <div>
