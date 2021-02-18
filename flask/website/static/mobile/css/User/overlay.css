@@ -56,3 +56,22 @@
 .overlay div.container{
   margin-left: 10px
 }
+
+#dropdown{
+  display: none;
+  z-index: 10;
+  width: 90%;
+  box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.35);
+  background-color: rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  margin-top: 10px;
+
+}
+#dropdown img{
+  margin-top: 10px;
+  margin-left: 8px
+}
+#dropdown a{
+  font-weight: normal;
+  font-size: 25px
+}
