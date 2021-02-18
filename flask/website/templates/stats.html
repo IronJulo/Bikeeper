@@ -36,49 +36,50 @@
                 </form>
                 <div class='show-user'>
                     {% if current_user.is_admin_user and username == "" %}
-                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="an avatar">
+                        <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="an avatar">
                     {% else %}
-                    <div id='profile-picture-search' style="background-image: url('{{ picture }}')"></div>
+                        <div id='profile-picture-search' style="background-image: url('{{ picture }}')"></div>
                     {% endif %}
                     <div>
                         <div class='info-user'>
-                            <h2>{{ username }}</h2>
+                            <h2 id="user-name">{{ username }}</h2>
                             <ul>
                                 {% for device in devices %}
-                                <li>
-                                    <img src="{{ url_for('static', filename='pc/assets/device.svg') }}" alt="icone device">
-                                    <span>{{device.num_device}}</span>
-                                </li>
+                                    <li>
+                                        <img src="{{ url_for('static', filename='pc/assets/device.svg') }}"
+                                             alt="icone device">
+                                        <span>{{ device.num_device }}</span>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <table>
                             <tbody>
-                                <tr>
-                                    <td><span class="localisation-icon"><i class="fa fa-map-marker"></i></span></td>
-                                    <td>{% if current_user.is_admin_user and not username == "" %}
-                                        {{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-mobile"></i></td>
-                                    <td>{{ phone }}</td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-calendar"></i></td>
-                                    <td>{% if current_user.is_admin_user and not username == "" %}
-                                        {{date}}, account created
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><i class="fa fa-credit-card"></i></td>
-                                    <td>{% if current_user.is_admin_user and not username == "" %}
-                                        €{{price}}/mo, Current Plan : {{subscription}}
-                                        {% endif %}
-                                    </td>
-                                </tr>                            
+                            <tr>
+                                <td><span class="localisation-icon"><i class="fa fa-map-marker"></i></span></td>
+                                <td>{% if current_user.is_admin_user and not username == "" %}
+                                    {{ street }}, <span class="pays">{{ town }}, {{ postalcode }}</span>
+                                {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-mobile"></i></td>
+                                <td>{{ phone }}</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-calendar"></i></td>
+                                <td>{% if current_user.is_admin_user and not username == "" %}
+                                    {{ date }}, account created
+                                {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i class="fa fa-credit-card"></i></td>
+                                <td>{% if current_user.is_admin_user and not username == "" %}
+                                    €{{ price }}/mo, Current Plan : {{ subscription }}
+                                {% endif %}
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -120,7 +121,8 @@
                         </div>
                         <div class='device-number'>
                             <label for="device-number">Device Number: </label>
-                            <select onchange="createTimelineElements();loadRides()" name="device-number" id="device-number">
+                            <select onchange="createTimelineElements();loadRides()" name="device-number"
+                                    id="device-number">
                             </select>
                         </div>
                         <div class='ride-number'>
@@ -133,16 +135,16 @@
                 <div id="timeline" class="container-timeline">
                     <h2>Timeline</h2>
                     <div class="timeline">
-                            <!-- METTRE LA COULEUR EN FONCTION DU LOG
-                                --timeline-main-color:#7BC6E1; INFORMATION
-                                --timeline-main-color:#DC1D21; ALERT
+                        <!-- METTRE LA COULEUR EN FONCTION DU LOG
+                            --timeline-main-color:#7BC6E1; INFORMATION
+                            --timeline-main-color:#DC1D21; ALERT
 
-                            <style>
-                                :root {
-                                    --timeline-main-color: #DC1D21;
-                                }
-                            </style>
-                            -->
+                        <style>
+                            :root {
+                                --timeline-main-color: #DC1D21;
+                            }
+                        </style>
+                        -->
                     </div>
                 </div>
 
@@ -197,11 +199,20 @@
 {% block script %}
 <!-- Import Leaflet JS Library -->
 <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
-
+<!-- Import Autocomplete JS Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js"></script>
 <script>
     {% autoescape false %}
-    const username_stats = '{{ current_user.username_user }}';
+    let username_stats = '{{ current_user.username_user }}';
     {% endautoescape %}
+
+    $('#search_user').autocomplete({ // show suggestions when searching users as admin
+        serviceUrl: '/api/bikeeper/search_user/' + document.getElementById('search_user').value,
+        dataType: 'json',
+    });
+    if (document.getElementById("user-name") !== null) { // for admin page
+        username_stats = document.getElementById("user-name").innerText;
+    }
 </script>
 
 
