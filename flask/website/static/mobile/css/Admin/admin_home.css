@@ -2,6 +2,8 @@ html {
 }
 
 body{
+	display:flex;
+	flex-direction:column;
 
 }
 
@@ -11,95 +13,88 @@ header{
     left: 0;
     right: 0;
 	display: flex;
+	flex-direction:row;
 }
 
 span{
 	font-size: 60px;
 	font-weight: bold;
 	font-family: sans-serif;
-	margin-bottom: 5vh;
-	vertical-align: middle;
 }
 
 h2{
-	font-size: 40px;
+	font-size: 25px;
 	font-weight: bold;
 	text-align: center;
-	margin-bottom: 5vh;
+	margin-bottom: 1em;
+
 }
 
 ul.list{
 	list-style: none;
+	padding-left:5%;
 }
 
-img{
-	height: 120px;
-	width: 120px;
-}
-
-img.logo{
-	height: 140px;
-	width: 140px;
-	vertical-align: middle;
-}
-
-
-img.hamburger{
-	height: 65px;
-	width: 65px;
-	vertical-align: middle;
-	margin-top: 2vh;
-	margin-left: 45vw;
-}
 
 img.img_user{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_data{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_mail{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_new{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_ride{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_alert{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 img.img_cancel{
-	height: 70px;
-	width: 70px;
+	height: 30px;
+	width: 30px;
 }
 
 li{
-	font-size: 40px;
+	font-size: 17px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
-	padding: 0.5em;
-	margin: 2em;
+	margin-bottom: 2em;
+	padding:1em;
 	color: white;
 	border-radius: 1em;
-	width: 800px;
+	width: 85%;
 	height: auto;
-	text-align: center;
-	
+	display:flex;
+	align-items:center;
+	justify-content:center;
+
 }
+
+li>*:first-child{
+	position:absolute;
+}
+
+li>*:last-child{
+	margin-left:auto;
+}
+
 
 li.user{
 	background: #5593CD;
@@ -121,18 +116,8 @@ li.ride{
 	background: #5593CD;
 }
 
-li.alert{
+li.notif{
 	background: #78D381;
-	font-size: 40px;
-	font-family: 'Roboto', sans-serif;
-	font-weight: bold;
-	padding: 0.5em;
-	margin: 2em;
-	color: white;
-	border-radius: 1em;
-	width: 800px;
-	height: auto;
-	text-align: center;
 }
 
 li.cancel{

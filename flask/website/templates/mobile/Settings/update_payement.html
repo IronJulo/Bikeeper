@@ -6,7 +6,8 @@
             <h1>BiKeeper</h1></a>
         </div>
 
-        {% include "components/mobile-sidebar-admin.html" %}
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
         <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/subscription.css') }}">

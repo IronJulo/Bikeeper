@@ -31,7 +31,8 @@ div.settings-card{
 	box-shadow: 5px 3px 3px darkgray;
     border: 1px;
     border-radius: 20px;
-    margin-bottom: 2em;
+    padding:1em;
+    margin-bottom: 3em;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -39,6 +40,7 @@ div.settings-card{
 }
 div.settings-card:active{
 	background-color: #999999;
+	color: black;
 }
 
 label.Icon{

@@ -1,14 +1,28 @@
-{% extends "base.html" %}
+{% extends "mobile/base.html" %}
 
 {% block style %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/payment.css') }}">
-{% endblock style %}
+{% endblock %}
+
+{% block header %}
+        <div class="logo">
+            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/edit_payement.css') }}">
+
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
 
 {% block main %}
 <div class="flex">
     <section>
-        <h1>Credit Card</h1>
-        <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" alt="mastercard logo">
+        <h2>Credit Card</h2>
+        <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" class="img-card" alt="mastercard logo">
 
         <form action="{{ url_for('settings.settings_account_update') }}" method='POST'>
             
@@ -62,7 +76,7 @@
                                 </fieldset>
                             </div>
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
