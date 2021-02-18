@@ -62,7 +62,10 @@ def statistics(template):
 @mod.route('/statistics/unblock', methods=['GET', 'POST'])
 def statistics_unblock():
 	username = request.form.get("username")
-	ORM.unblock_user(username)
+	if ORM.get_number_of_devices_by_username(username) > 0:
+		ORM.unblock_user(username)
+	else:
+		flash("This user has left our community. He cannot be unblocked.","error")
 	return redirect(url_for('stats.statistics'))
 
 @login_required
