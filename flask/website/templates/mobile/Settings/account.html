@@ -5,95 +5,150 @@
 {% endblock %}
 
 {% block header %}
-        <div class="logo">
-            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+    <div class="logo">
+        <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}"
+                         alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
-        </div>
+    </div>
 
-        {% include "components/mobile-sidebar.html" %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/account_parameters_update.css') }}">
+    {% include "components/mobile-sidebar.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename = 'mobile/css/Settings/account_parameters_update.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/profile-picture.css') }}">
 
-        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu">
+    </nav>
 {% endblock %}
 
 {% block main %}
-    	<h2>Your account</h2>
-    	<div class="main">
-    		<div class="user-profile">
-    			<div class="image">
-					<div class="image-container">
-						<img src="{{ url_for('static', filename = 'pc/assets/avatar.png') }}" style="border-radius: 50%" width="50%" height="auto">
-					</div>
-					<div class="button-image">
-						<label for="profile_pic"></label>
-						<input class = "select-image" id="profile_pic" name="profile_pic" type="file" accept=".png, .gif, .jpg">
-					</div>
-    			</div>
-    		</div>
-            <div class="account">
-                <h3>Registered on {{ register_date }}</h3>
+    <h2>Your account</h2>
+    <div class="main">
+        <div class="user-profile">
+            <form action="{{ url_for('settings.upload_files') }}" id="imageUpload" class="dropzone">
 
-                    <fieldset>
-                        <legend>First name</legend>
-                        <input class="form-input" type="text" name="Fname" id="Fname" placeholder="Elon" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Last name</legend>
-                        <input class="form-input" type="text" name="Lname" id="Lname" placeholder="Musk" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Phone number</legend>
-                        <input class="form-input" type="tel" name="numtel" id="numtel" placeholder="+33 7 85 69 24 15" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Email</legend>
-                        <input class="form-input" type="email" name="mail" id="mail" placeholder="Elonmusk@tesla.com" required />
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Adress</legend>
-                        <input class="form-input" type="text" name="Adress" id="Adress" placeholder="289 Elkview Drive, Vero Beach, Florida" required />
-                    </fieldset>
-
-            </div>
+                <div class="img-avatar">
+                    <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
+                    <p>Current Picture</p>
+                </div>
+                <div class="dz-message" data-dz-message><span>Click here to upload images</span></div>
+            </form>
         </div>
-        <footer>
-            <button class="update" type="button">Update informations</button>
-            <button class="cancel" type="button">Cancel</button>
-        </footer>
- {% endblock %}
+        <div class="account">
+            <h3>Registered on {{ register_date }}</h3>
+            <div id="current-user" style="display: none">{{ current_user.username_user }}</div>
+            <form action="{{ url_for('settings.settings_account_update') }}" id="update-account" method='POST'>
+                <fieldset>
+                    <legend>First name</legend>
+                    <input class="form-input" type="text" name="first-name" value="{{ current_user.firstname_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Last name</legend>
+                    <input class="form-input" type="text" name="last-name" value="{{ current_user.lastname_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Phone number</legend>
+                    <input class="form-input" type="tel" name="phone" value="{{ current_user.num_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Email</legend>
+                    <input class="form-input" type="email" name="email" value="{{ current_user.email_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Town</legend>
+                    <input class="form-input" type="text" name="town" value="{{ current_user.town_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Street</legend>
+                    <input class="form-input" type="text" name="street" value="{{ current_user.street_user }}">
+                </fieldset>
+
+                <fieldset>
+                    <legend>Postal Code</legend>
+                    <input class="form-input" type="text" name="postal-code" pattern="[0-9]{5}"
+                           value="{{ current_user.postal_code_user }}">
+                </fieldset>
+                <footer>
+                    <button class="update" type="submit">Update informations</button>
+                    <button class="cancel" type="button" onclick="window.location.reload();">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
 
 {% block script %}
     <script>
-        $(function() {
-        $('#picture').on('click', function() {
-            $('#fileinput').trigger('click');
-        });
+        $(function () {
+            $('#picture').on('click', function () {
+                $('#fileinput').trigger('click');
+            });
         });
 
-        $(function(){
-            $('#fileinput').change(function(){
-            var input = this;
-            var url = $(this).val();
-            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-                var reader = new FileReader();
+        $(function () {
+            $('#fileinput').change(function () {
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    var reader = new FileReader();
 
-                reader.onload = function (e) {
-                    $('#picture').attr('src', e.target.result);
+                    reader.onload = function (e) {
+                        $('#picture').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
                 }
-                reader.readAsDataURL(input.files[0]);
-            }
 
             });
 
-          });
+        });
+    </script>
+    <script src="{{ url_for('static', filename='dropzone/dropzone.min.js') }}"></script>
+    <script>
+
+        Dropzone.options.imageUpload = {
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 3,
+            accept: function (file, done) {
+                console.log("uploaded");
+                done();
+            },
+            init: function () {
+                this.on('addedfile', function (file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+                this.on("success", function () {
+                    console.log()
+                    var current_username = document.getElementById("current-user").textContent
+
+                    console.log("current username " + current_username);
+                    $.ajax({
+                        url: "/api/user/profile/" + current_username,
+                        success: function (result) {
+                            document.getElementById("picture").src = result.response;
+                            document.getElementById("img-profile").style.backgroundImage = "url('" + result.response + "')";
+                        },
+                        error: function (err) {
+                        }
+                    });
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    alert("No more files please!");
+                });
+            }
+        };
     </script>
 {% endblock script %}
 
