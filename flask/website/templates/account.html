@@ -8,6 +8,9 @@
 {% block main %}
     <div class="flex">
         <section>
+            <div class="flash">
+                {% include "messages.html" %}
+            </div>
             <h1>Your account</h1>
             <form action="{{ url_for('settings.upload_files') }}" id="imageUpload"
                   class="dropzone">
@@ -22,10 +25,16 @@
                     <div class="form-avatar">
 
                         <h2>@{{ current_user.username_user }}</h2>
-                        <span>Registered on DATE</span> <!-- TODO -->
+                        <span>Registered on {{ current_user.date_creation_user }}</span>
                     </div>
 
                     <div class="form-group2">
+                        <div class="form-password">
+                            <fieldset>
+                                <legend>Password</legend>
+                                <input type="text" name="password">
+                            </fieldset>
+                        </div>
                         <div class="form-first-name">
                             <fieldset>
                                 <legend>First Name</legend>
@@ -100,7 +109,7 @@
                     <div class="modal-body">
                         <p>Enter your actual password to confirm changes.</p>
                         <fieldset>
-                            <input type="password" name="confirmpassword" value='********'>
+                            <input type="password" form="update-account" name="confirmpassword">
                         </fieldset>
                     </div>
                     <div class="modal-footer">

@@ -29,8 +29,9 @@
         {% endfor %}
     </section>
 
-    
+    {% if number < 5 %}
     <a href="{{ url_for('settings.settings_contact_add') }}"><i class="fa fa-plus"></i></a>
+    {% endif %}
 </div>
 {% endblock main %}
 

@@ -1,4 +1,6 @@
 import re
+from flask_login import current_user
+from hashlib import sha256
 
 
 class Utils:
@@ -42,7 +44,38 @@ class Utils:
 	@staticmethod
 	def str_collon_to_list(str):
 		"""
-        :param: str subscription, the subscriptions features to transform in list from ;
-        :return: list,
-        """
+		:param: str subscription, the subscriptions features to transform in list from ;
+		:return: list,
+		"""
 		return str.split(";")[:-1]  # TODO return True or False
+
+	@staticmethod
+	def get_encrypt_password(password):
+		encrypt = sha256()
+		encrypt.update(password.encode())
+		return encrypt.hexdigest()
+		
+	@staticmethod
+	def is_valid_change_account(password, phonenumber, email, city, street, postalcode):
+		if not Utils.is_valid_password(password):
+			erreur = "Incorrect password. Password must :\n \
+                • contains at least one upper case letter,\n \
+                • contains at least one lower case letter,\n \
+                • contains at least one number,\n \
+                • has a minimal length of 5 characters."
+			return (False, erreur)
+		elif not Utils.is_valid_tel(phonenumber):
+			erreur = "Incorrect phone number format. Please try again."
+			return (False, erreur)
+		elif not Utils.is_valid_email(email):
+			erreur = "Incorrect email format. Please try again."
+			return (False, erreur)
+		elif city == "" and street == "":
+			erreur = "Incomplete address. Please try again."
+			return (False, erreur)
+		elif not Utils.is_valid_postalcode(postalcode):
+			erreur = "Incorrect postal code format. Please try again."
+			return (False, erreur)
+		else:
+			return (True, "Account has been updated!")
+    	

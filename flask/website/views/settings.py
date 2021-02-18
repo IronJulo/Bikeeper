@@ -9,6 +9,7 @@ from flask import (
 )
 from flask_mobility.decorators import mobile_template
 from ..models import ORM
+from ..utils import Utils
 from flask_login import current_user
 from werkzeug.utils import secure_filename
 from ..app import app
@@ -17,6 +18,8 @@ import imghdr
 import hashlib
 from random import randint
 from flask_login import current_user
+from hashlib import sha256
+from flask.helpers import flash
 
 mod = Blueprint('settings', __name__)
 
@@ -24,8 +27,10 @@ mod = Blueprint('settings', __name__)
 @mod.route('/settings/', methods=['GET'])
 @mobile_template("{mobile/Settings/}settings.html")
 def settings(template):
+    devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(
-        template
+        template,
+        devices = devices
     )
 
 
@@ -58,8 +63,22 @@ def settings_account_update():
     code = result['postal-code']
     ville = result['town']
     rue = result['street']
-    ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
-    return redirect(url_for('settings.settings_account'))
+
+    confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
+    password = ORM.get_password_user_by_username(current_user.username_user)
+    if confirmpassword == password:
+        validation, message = Utils.is_valid_change_account(mdp, tel, mail, ville, rue, code)
+        if validation:
+            ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
+            flash(message, "success")
+            return redirect(url_for('settings.settings_account'))
+
+        flash(message, "error")
+        return redirect(url_for('settings.settings_account'))
+        
+    flash("Incorrect Password. Changes were not applied!","error")
+    return redirect(url_for("settings.settings_account"))
+   
 
 
 '''
@@ -71,14 +90,28 @@ DEVICES
 @mobile_template("{mobile/Settings/}device.html")
 def settings_devices(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
+    selected = ORM.get_current_name_device_by_username(current_user.username_user)
+
     return render_template(
         template,
-        devices=devices
+        devices = devices,
+        selected_device = selected
     )
 
 
-@mod.route('/settings/devices/update/', methods=['GET'])
+@mod.route('/settings/devices/update/', methods=['GET','POST'])
 def settings_devices_update():
+    name = request.form.get("name")
+    movement = request.form.get("movement")
+    delay = request.form.get("delay")
+
+    confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
+    password = ORM.get_password_user_by_username(current_user.username_user)
+    if confirmpassword == password:
+        ORM.update_device_parameters(current_user.username_user, name)
+        flash("Changes have been applied!","success")
+        return redirect(url_for("settings.settings_devices"))
+    flash("Incorrect Password. Changes were not applied.","error")
     return redirect(url_for("settings.settings_devices"))
 
 
@@ -92,7 +125,14 @@ CONTACT
 def settings_contact(template):
     contacts = ORM.get_contacts_by_user(current_user.username_user)
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, contacts=contacts, devices=devices)
+    number_contacts = ORM.get_number_of_contacts_by_username(current_user.username_user)
+
+    return render_template(
+        template, 
+        contacts = contacts, 
+        devices = devices,
+        number = number_contacts
+        )
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
@@ -137,8 +177,9 @@ def settings_contact_add_check():
     first = result['first-name']
     last = result['last-name']
     tel = result['phone']
-    device = "0664277796"
-    img = 'static/pc/assets/avatar.png'
+    device = ORM.get_current_num_device_by_username(current_user.username_user)
+    img = '/static/pc/assets/avatar.png'
+
     ORM.new_contact(tel, first, last, img, device)
     return redirect(url_for("settings.settings_contact"))
 

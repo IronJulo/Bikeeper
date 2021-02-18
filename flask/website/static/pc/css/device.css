@@ -30,7 +30,7 @@ section {
     transform: translateX(-50%);
 }
 
-form {
+div.flex > section > form {
     width: 100%;
     display: flex;
     flex-wrap: wrap;

@@ -567,7 +567,7 @@ class ORM:
 
     @staticmethod
     def new_user(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
-                 is_admin):
+                 is_admin, is_account_blocked, date_creation_user, name_subscription):
         """
         Create a new user
         :params : username
@@ -581,9 +581,12 @@ class ORM:
         :params : street
         :params : profile_picture
         :params : is_admin
+        :params : is_account_blocked
+        :params : date_creation_user
+        :params : name_subscription
         """
         user = USER(username, password, num, firstname, lastname, email, town, postal_code, street, profile_picture,
-                    is_admin)
+                    is_admin, is_account_blocked, date_creation_user, name_subscription)
         db.session.add(user)
         db.session.commit()
 
@@ -733,9 +736,8 @@ class ORM:
         :param: str pseudo: the wanted user's pseudo
         :return: list[CONTACT]: the list of contact linked to the indicated user
         """
-        contact_list = db.session.query(CONTACT).join(DEVICE).join(USER).filter(USER.username_user == pseudo).all()
-        db.session.commit()
-        return contact_list
+        return db.session.query(CONTACT).join(DEVICE).filter(DEVICE.username_user == pseudo).all()
+        
 
     @staticmethod
     def get_contact_by_id(contact_id: int) -> CONTACT:
@@ -743,9 +745,7 @@ class ORM:
         :param: int contact_id: the wanted contact's id
         :return: CONTACT: the contact associated with the given id
         """
-        contact = db.session.query(CONTACT).filter(CONTACT.id_contact == contact_id).one()
-        db.session.commit()
-        return contact
+        return db.session.query(CONTACT).filter(CONTACT.id_contact == contact_id).one()
 
     @staticmethod
     def get_bikeeper_user_num(num: str) -> str:
@@ -904,13 +904,32 @@ class ORM:
         db.session.commit()
 
     @staticmethod
+    def get_current_num_device_by_username(username):
+        """
+        Get the current device by username
+        :param: str device_id: the wanted device's id
+        :return: str: the device_id of the current device used by the given user
+        """
+        return db.session.query(USER.selected_device).filter(USER.username_user == username).first()[0]
+
+    @staticmethod
     def get_current_device_by_username(username):
         """
         Get the current device by username
         :param: str device_id: the wanted device's id
         :return: str: the device_id of the current device used by the given user
         """
-        return db.session.query(USER.selected_device).filter(USER.username_user == username).first()
+        return db.session.query(DEVICE).join(USER).filter(USER.username_user == username, USER.selected_device == DEVICE.num_device).first()
+
+    @staticmethod
+    def get_current_name_device_by_username(username):
+        """
+        Get the current device name by its id
+        :param: str device_id: a device id
+        :return: str: the device name of the device id parameter
+        """
+        id_device = ORM.get_current_num_device_by_username(username)
+        return db.session.query(DEVICE.name_device).filter(DEVICE.num_device == id_device).first()[0]
 
     @staticmethod
     def get_subscription_by_username(username):
@@ -1011,3 +1030,26 @@ class ORM:
         """
         return db.session.query(SUBSCRIPTION.price_subscription).join(USER).filter(
             USER.name_subscription == name).first()
+
+    @staticmethod
+    def update_device_parameters(username, name): #TODO add movement and delay
+        """
+        Update device parameters
+        :param: string: the name of the device
+        """
+        device = ORM.get_current_device_by_username(username)
+        device.name_device = name
+        db.session.commit()
+
+    @staticmethod
+    def get_password_user_by_username(username):
+        """
+        Get password from a user
+        :param: string: a username
+        :return: string: the sha password
+        """
+        return db.session.query(USER.password_user).filter(USER.username_user == username).first()[0]
+
+    @staticmethod
+    def get_number_of_contacts_by_username(username):
+        return db.session.query(func.count(CONTACT.id_contact)).join(DEVICE).filter(DEVICE.username_user == username).scalar()
