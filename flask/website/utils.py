@@ -3,45 +3,46 @@ import re
 
 class Utils:
 
-    @staticmethod
-    def is_valid_password(password):
-        """
+	@staticmethod
+	def is_valid_password(password):
+		"""
         :param: str password, the password we want to check
         :return: boolean, true if valid
         """
-        return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(x.isdigit() for x in password) and len(password) >= 5
+		return any(x.isupper() for x in password) and any(x.islower() for x in password) and any(
+			x.isdigit() for x in password) and len(password) >= 5
 
-    @staticmethod
-    def is_valid_email(email):
-        """
+	@staticmethod
+	def is_valid_email(email):
+		"""
         :param: str email, the email adress we want to check
         :return: boolean, true if valid
         """
-        pattern = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
-        return True if pattern.match(email) is not None else False
+		pattern = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
+		return True if pattern.match(email) is not None else False
 
-    @staticmethod
-    def is_valid_tel(tel):
-        """
+	@staticmethod
+	def is_valid_tel(tel):
+		"""
         :param: str tel, the phone number we want to check
         :return: boolean, true if valid
         """
-        pattern = re.compile("^[0-9]{10}$")
-        return True if pattern.match(tel) is not None else False
+		pattern = re.compile("^[0-9]{10}$")
+		return True if pattern.match(tel) is not None else False
 
-    @staticmethod
-    def is_valid_postalcode(pc):
-        """
+	@staticmethod
+	def is_valid_postalcode(pc):
+		"""
         :param: str password, the postal code we want to check
         :return: boolean, true if valid
         """
-        pattern = re.compile("^[0-9]{5}$")
-        return True if pattern.match(pc) is not None else False
+		pattern = re.compile("^[0-9]{5}$")
+		return True if pattern.match(pc) is not None else False
 
-    @staticmethod
-    def str_collon_to_list(str):
-        """
+	@staticmethod
+	def str_collon_to_list(str):
+		"""
         :param: str subscription, the subscriptions features to transform in list from ;
         :return: list,
         """
-        return str.split(";")[:-1]
+		return str.split(";")[:-1]  # TODO return True or False
