@@ -12,16 +12,20 @@ from ..models import ORM
 
 mod = Blueprint('home', __name__)
 
+
 @mod.route('/home/', methods=['GET', 'POST'])
 @mobile_template('{mobile/User/}home.html')
 def home(template):
     ip_address = request.remote_addr
     ORM.log_ip(ip_address)
     devices = ORM.get_devices_by_username(current_user.username_user)
+    selected_device = current_user.selected_device
     return render_template(
         template,
-        devices = devices
+        devices = devices,
+        selected_device=selected_device
         )
+
 
 @mod.route('/mob/localisation/', methods=['GET', 'POST'])
 def mob_localisation():
