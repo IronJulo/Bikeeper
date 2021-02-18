@@ -8,6 +8,9 @@
 {% block main %}
 <div class="flex">
     <section>
+        <div class="flash">
+            {% include "messages.html" %}
+        </div>
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
         {% for contact in contacts %}
         <div class="contact">

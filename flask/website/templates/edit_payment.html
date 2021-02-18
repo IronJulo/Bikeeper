@@ -10,7 +10,7 @@
         <h1>Credit Card</h1>
         <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" alt="mastercard logo">
 
-        <form action="{{ url_for('settings.settings_account_update') }}" method='POST'>
+        <form action="{{ url_for('settings.settings_payment_edit_check') }}" id="edit-payment-form" method='POST'>
             
             <div class="form-number">
                 <fieldset>
@@ -44,34 +44,35 @@
                 <!-- My Buttons -->
                 <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
                 <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
-
-                <!-- Bootstrap -->
-                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Enter your password to confirm changes.</p>
-                                <fieldset>
-                                    <input type="password" name="confirmpassword" placeholder='********'>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+            
         </form>
+
+        
     </section>
+</div>
+
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+                <fieldset>
+                    <input type="password" form="edit-payment-form" name="confirmpassword" placeholder='********'>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="submit" form="edit-payment-form" class="btn btn-primary">Yes</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
 

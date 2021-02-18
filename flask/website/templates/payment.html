@@ -7,6 +7,9 @@
 {% block main %}
 <div class="flex">
     <section>
+        <div class="flash">
+            {% include "messages.html" %}
+        </div>
         <h3>Your Credit Card</h3>
         <div class='credit-card'>
             <div class="haut">
@@ -19,9 +22,6 @@
         </div>
     
         <a href="#" data-toggle="modal" data-target="#modalCenter"><i class="fa fa-chevron-right"></i></a>
-
-        
-
     </section>
     
     <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
