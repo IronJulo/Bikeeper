@@ -2,37 +2,36 @@ html {
 }
 
 body{
-	display: flex;
+
 }
 
 div.main{
-	margin-left: auto;
-	margin-right: auto;
-	width: 65%; /* largeur obligatoire pour être centré */
+	width: 100%; /* largeur obligatoire pour être centré */
+	display:flex;
+	flex-direction:column;
+	align-items:flex-end;
+
+
 }
 
 div.info-border{
     border: solid black;
 	text-align: center;
-	margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
-	transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
-	
+	margin-left: 10%;
+	margin-right:10%;
+	margin-top:10%;
+
 }
 
 img.close_button{
-	float: right;
-	height: 100px;
-	width: 100px;
-	margin-top: 30vh;
-    
+	height: 70px;
+	width: 70px;
 }
 
 p{
-	font-size: 50px;
+	font-size: 30px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: bold;
 	color: #DC1D21;
-	padding: 5%;
-	
 }
 

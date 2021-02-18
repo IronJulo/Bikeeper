@@ -1,0 +1,155 @@
+html {
+}
+
+body{
+
+}
+
+header{
+    background-color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+	display: flex;
+}
+
+h1{
+
+}
+
+h2{
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+}
+
+h4{
+	font-size: 20px;
+	text-align: left;
+	margin-right: 4em;
+	color: grey;
+}
+
+span{
+	color: grey;
+}
+
+img.img-card{
+	height: 80px;
+	width: auto;
+}
+div.flex{
+	display: flex;
+}
+
+section{
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+div.credit-card{
+
+}
+
+div.info{
+	border: solid thin;
+	border: grey;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	margin-bottom: 3em;
+}
+
+div.type{
+	margin-left: 1em;
+	display: flex;
+	align-items: center;
+}
+div.number{
+	margin-left: 1em;
+}
+div.name{
+	margin-left: 1em;
+}
+div.bloc{
+	text-align: center;
+}
+
+div.form-submit{
+	align-content: space-between;
+}
+
+input{
+    border: none;
+    background-color: rgba(255,255,255,0);
+    border-radius: 2px;
+	font-size:18px;
+    width: 100%;
+    height: 2em;
+}
+input:focus{
+	outline: none;
+}
+
+legend{
+	font-weight: 500;
+	font-size: 24px;
+	font-family: Roboto;
+}
+fieldset{
+    border: solid thin;
+    border-radius: 10px;
+    margin-top:3em;
+}
+
+label.Icon{
+	width: 10px;
+	height: 10px;
+}
+
+img.card{
+	height: 75px;
+	width: auto;
+}
+
+a.update{
+	font-size: 20px;
+	font-weight: bold;
+	border:  solid thin #14FF00;
+	border-radius: 20px;
+	padding: 0.7em;
+
+}
+a.update:active{
+
+}
+
+a:active{
+	background-color: #999999;
+	text-decoration: none;
+	color: black;
+}
+
+button.cancel{
+	align-items: center;
+	font-weight: bold;
+	color: #D90B21;
+	border-radius:16px;
+	border-style:solid;
+	border-width: 1px;
+	border-color: #D90B21;
+	background-color: white;
+	margin: 7%;
+	padding: 10px;
+	flex-basis: 40%;
+	font-size: 22px;
+}
+
+button.cancel:active{
+	border-color: #D90B21;
+	background-color: #D90B21;
+	color: white;
+
+
+}
