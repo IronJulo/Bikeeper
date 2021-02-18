@@ -4,7 +4,7 @@ from hashlib import sha256
 from ..models import ORM
 from flask_mobility.decorators import mobile_template
 from ..app import db
-from ..models import USER
+from ..models import USER, DEVICE
 from flask.helpers import flash
 import datetime
 from ..utils import Utils
@@ -60,6 +60,10 @@ def register_validate():
                 f"https://eu.ui-avatars.com/api/{username}", False, selected_device, is_account_blocked,
                 date_creation_user, name_subscription)
         db.session.add(u)
+
+        d = DEVICE(selected_device, Utils.read_prefixes(), None, username)
+        db.session.add(d)
+
         db.session.commit()
 
         flash(message,"success")

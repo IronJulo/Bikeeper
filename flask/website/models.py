@@ -640,7 +640,6 @@ class ORM:
         latitude = response["latitude"]
         longitude = response["longitude"]
 
-        print("Lat : ", latitude, "Long :", longitude)
         now = datetime.now()
         db.session.add(
             IPLogger(ip=ip_address, time_info=datetime.now(), longitude=longitude, latitude=latitude)
@@ -1000,6 +999,7 @@ class ORM:
         :param: str device_id: the wanted device's id
         :return: str: last ride
         """
+        
         return LOG.query.filter(
             and_(LOG.num_device == device_id, LOG.content_log.like('%"latitude":%'))).order_by(
             LOG.id_log.desc()).first()

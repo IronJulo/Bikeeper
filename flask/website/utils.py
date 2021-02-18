@@ -1,6 +1,7 @@
 import re
 from flask_login import current_user
 from hashlib import sha256
+import random
 
 
 class Utils:
@@ -78,4 +79,8 @@ class Utils:
 			return (False, erreur)
 		else:
 			return (True, "Account has been updated!")
-    	
+
+	@staticmethod
+	def read_prefixes():
+		lines = open("./website/prefixes.txt").read().splitlines()
+		return "Bikeeper - " + str(random.choice(lines))
