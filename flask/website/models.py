@@ -1039,7 +1039,7 @@ class ORM:
         :return: int: the price of the subscription
         """
         return db.session.query(SUBSCRIPTION.price_subscription).join(USER).filter(
-            USER.name_subscription == name).first()
+            USER.name_subscription == name).first()[0]
 
     @staticmethod
     def update_device_parameters(username, name): #TODO add movement and delay
@@ -1054,14 +1054,19 @@ class ORM:
     @staticmethod
     def get_password_user_by_username(username):
         """
-        Get password from a user
-        :param: string: a username
+        Get password from an user
+        :param: string: an username
         :return: string: the sha password
         """
         return db.session.query(USER.password_user).filter(USER.username_user == username).first()[0]
 
     @staticmethod
     def get_number_of_contacts_by_username(username):
+        """
+        Get number of contacts of an user
+        :param: string: an username
+        :return: int: the number of contacts
+        """
         return db.session.query(func.count(CONTACT.id_contact)).join(DEVICE).filter(DEVICE.username_user == username).scalar()
 
     @staticmethod
@@ -1072,3 +1077,50 @@ class ORM:
             return True
         state = json.loads(log.content_log)["type"]
         return state == "A"
+
+    @staticmethod
+    def get_subscription_name_by_username(username):
+        """
+        Get the subscription of an user
+        :param: string: an username
+        :return: string: the subscription name
+        """
+        return db.session.query(USER.name_subscription).filter(USER.username_user == username).first()[0]
+
+    @staticmethod
+    def update_subscription_user_by_username(username, subscription):
+        """
+        Update an user subscription
+        :param: string: an username
+        """
+        user = ORM.get_user(username)
+        user.name_subscription = subscription
+        db.session.commit()
+
+    @staticmethod
+    def block_user(username):
+        """
+        Block an user
+        :param: string: the user username
+        """
+        user = ORM.get_user(username)
+        user.is_account_blocked = 1
+        db.session.commit()
+
+    @staticmethod
+    def unblock_user(username):
+        """
+        Unlock an user
+        :param: string: the user username
+        """
+        user = ORM.get_user(username)
+        user.is_account_blocked = 0
+        db.session.commit()
+
+    @staticmethod
+    def is_blocked_account_user(username):
+        """
+        Block an user
+        :param: string: the user username
+        """
+        return db.session.query(USER.is_account_blocked).filter(USER.username_user == username).first()[0]

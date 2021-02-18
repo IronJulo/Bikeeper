@@ -9,44 +9,82 @@
     <div class="flash">
         {% include "messages.html" %}
     </div>
-    {% for sub in subscriptions %}
-        {% if sub.name_subscription == "France" %}
-        <section class='section-sub'>
-        {% else %}
-        <section class='section-sub selected-sub'>
-        {% endif %}
-            <h2>{{sub.name_subscription}}</h2>
+    
+    <form action="{{ url_for('settings.settings_subscriptions_update') }}" id="form-sub" method='POST'>
+        {% for sub in subscriptions %}
+            {% if subscription_name != sub.name_subscription %}
+            <section onclick="selectSubscription(this)" class='section-sub'>
+            {% else %}
+            <section onclick="selectSubscription(this)" class='section-sub selected-sub'>
+            {% endif %}
+                <h2>{{sub.name_subscription}}</h2>
+                <div>
+                <h4>{{sub.localisation_subscription}}</h4>
+                    <ul>
+                        {% for feature in  features %}
+                            {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
+                                <s>{{feature}}</s>
+                            {% else %}
+                                <li>{{feature}}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul> 
+                </div>
+                
+                <div class="sub-radio">
+                    {% if subscription_name != sub.name_subscription %}
+                    <button type="button" onclick="checkRadio(this)" data-toggle="modal" data-target="#modalCenter">
+                        <input type="radio" name="sub" value="{{sub.name_subscription}}">
+                        Choose this plan - €{{sub.price_subscription}}/mo
+                    </button>
+                    {% else %}
+                    <button type="button">Your current plan</button>
+                    {% endif %}
+                </div>
+            </section>
+        {% endfor %}
+        <section onclick="selectSubscription(this)" class='cancel'>
+            <h2>Cancel</h2>
             <div>
-            <h4>{{sub.localisation_subscription}}</h4>
-                <ul>
-                    {% for feature in  features %}
-                        {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
-                            <s>{{feature}}</s>
-                        {% else %}
-                            <li>{{feature}}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul> 
+                <h4>Cancel your subscription</h4>
+                <p>Warning, this is an important action. Select this option will remove your privileges.</p>
+                <p>Please send your BiKeeper at 15 Avenue de Paris if you want to leave our community.</p>
             </div>
-            
+
             <div class="sub-radio">
-                <div><span onclick="selectSub(this)">Choose this plan - €{{sub.price_subscription}}/mo</span></div>
-                <input type="radio" name="sub" value="{{sub.name_subscription}}" checked>
+                <button type="button" onclick="checkRadio(this)" data-toggle="modal" data-target="#modalCenter">
+                    <input type="radio" name="sub" value="cancel">
+                    Cancel
+                </button>
             </div>
         </section>
-    {% endfor %}
-    <section class='cancel'>
-        <h2>Cancel</h2>
-        <div>
-            <h4>Cancel your subscription</h4>
-            <p>Warning, this is an important action. Select this option will remove your privileges.</p>
-            <p>Please send your BiKeeper at 15 Avenue de Paris if you want to leave our community.</p>
-        </div>
+    </form>
+</div>
 
-        <a href="{{url_for('settings.settings_subscriptions_cancel')}}">Cancel</a>
-    </section>
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+                <fieldset>
+                    <input type="password" form="form-sub" name="confirmpassword" placeholder='********'>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="form-sub" class="btn btn-danger">Yes</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
 
 {% block script %}
+<script src="{{ url_for('static', filename='pc/js/subscription.js') }}"></script>
 {% endblock script %}
