@@ -9,6 +9,7 @@ from flask import (
 from flask_mobility.decorators import mobile_template
 from flask_login import login_required, current_user
 from ..models import ORM
+from ..utils import Utils
 
 mod = Blueprint('home', __name__)
 
