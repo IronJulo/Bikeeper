@@ -36,7 +36,7 @@ for the arduino uno
 #include "I_Sim800L.hpp"
 #include "StringBuffer.hpp"
 #include "StringsSms.hpp"
-/*#include "SmsFormatter.hpp"*/
+#include "SmsFormatter.hpp"
 #include "Utils.hpp"
 
 /*#include "Headers/messageHeader.h"
@@ -62,7 +62,7 @@ StringBuffer sms_buffer(sms_storage, sizeof(sms_storage));
 
 char message_storage[70];
 StringBuffer message_buffer(message_storage, sizeof(message_storage));
-//SmsFormatter smsFormatter(&message_buffer);                              //Not used all the time but to simplify coordinate
+SmsFormatter smsFormatter(&message_buffer); //Not used all the time but to simplify coordinate
 
 I_Sim800L sim800L(&softwareSim800l, &sms_buffer);
 /* Sim800L */
@@ -103,8 +103,8 @@ bool bikeMoved = false;
 /* Angle Detection */
 
 bool bikeFallen = false;
-#define FALL_CALL_TIMEOUT 60000 // 1 minute 
-#define FALL_ANGLE /* TODO */ // 1 minute 
+#define FALL_CALL_TIMEOUT 60000 // 1 minute
+signed short angle = 0; 
 unsigned long fallTime = 0;
 /* Angle Detection */
 void setup()
@@ -128,6 +128,7 @@ void setup()
 	sim800L.deleteALL();
 	sim800L.setModeTexte();
 	sim800L.smartRead("OK", 2, 500);
+	interrupts();
 }
 
 void loop()
@@ -136,15 +137,29 @@ void loop()
 	actualizeDeviceBattery();
 	actualizeBikeBattery();
 	actualizeIsBatteryCharging();
-
 	if (parked)
 	{
 		//interrupts();
 		if (vibartion)
 		{
+			message_buffer.clear();
+
 			vibartion = false;
 			Serial.println("vibred moto*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
+			smsFormatter.makeAlertSms('W', 'V', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+			Serial.println(message_buffer.getStorage());
+
+			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, angle);
+			Serial.println(message_buffer.getStorage());
+
+			smsFormatter.makeHeartbeatSms('*', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+			Serial.println(message_buffer.getStorage());
+
+			smsFormatter.makeStateUpdateSms("F", 'A');
+			Serial.println(message_buffer.getStorage());
+
 			/* TODO CODE send sms vibration */
+			message_buffer.clear();
 		}
 
 		if (bikeMoved)
@@ -160,13 +175,10 @@ void loop()
 		noInterrupts();
 	}*/
 
-	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT)							// If the bike has fallen && user didn't respond in 60000 miliseconds 
+	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in 60000 miliseconds
 	{
 		/* TODO CODE send sms bike fallen */
 	}
-
-
-
 
 	Serial.println(F("latitude"));
 	printFloat(location.latitude, 1, 11, 6);
@@ -240,7 +252,7 @@ void readIncommingSms()
 
 void actualizeLocation()
 {
-	noInterrupts();
+	//noInterrupts();
 	gpsSerial.listen();
 	printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
 	Serial.println();
@@ -257,7 +269,7 @@ void actualizeLocation()
 	location.latitude = gps.location.lat();
 	location.longitude = gps.location.lng();
 	sim800L.listen();
-	interrupts();
+	//interrupts();
 }
 
 void actualizeDeviceBattery()

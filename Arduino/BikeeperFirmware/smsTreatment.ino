@@ -68,9 +68,9 @@ void treatSMS()
 			message_buffer.clear();
 
 			message_buffer.store(StringCoordinatesStart);
-			message_buffer.store(location.longitude, 16, 13);
+			message_buffer.storeDouble(location.longitude, 16, 13);
 			message_buffer.store(StringCoordinatesMiddle);
-			message_buffer.store(location.latitude, 14, 12);
+			message_buffer.storeDouble(location.latitude, 14, 12);
 
 			sim800L.send(userPhoneNumber, message_buffer.getStorage());
 			delay(100);
