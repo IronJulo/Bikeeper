@@ -3,7 +3,7 @@ This module interact directly with the database. It make call to sqlalchemy ORM 
 """
 from datetime import datetime
 from typing import List, Dict
-from sqlalchemy import func, and_, or_
+from sqlalchemy import func, and_, or_, not_
 from sqlalchemy.types import TIMESTAMP, DateTime
 from flask_login import UserMixin, current_user
 from flask import jsonify
@@ -1063,3 +1063,12 @@ class ORM:
     @staticmethod
     def get_number_of_contacts_by_username(username):
         return db.session.query(func.count(CONTACT.id_contact)).join(DEVICE).filter(DEVICE.username_user == username).scalar()
+
+    @staticmethod
+    def is_parked(id_device):
+
+        log = LOG.query.filter(and_(not_(LOG.content_log.like('%D%')),LOG.type_log == "+", LOG.num_device == id_device)).order_by(LOG.id_log.desc()).first()
+        if log==None:
+            return True
+        state = json.loads(log.content_log)["type"]
+        return state == "A"

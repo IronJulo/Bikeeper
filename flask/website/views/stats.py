@@ -51,5 +51,6 @@ def statistics(template):
 		return render_template(
 			template,
 			username='',
-			devices=ORM.get_devices_by_username(current_user.username_user)
+			devices=ORM.get_devices_by_username(current_user.username_user),
+			id_device =current_user.selected_device
 		)

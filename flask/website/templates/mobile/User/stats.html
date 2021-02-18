@@ -48,6 +48,10 @@
                         <p>Last ride time :</p>
                     </div>
                 </div>
+                <div class="container-fluid">
+                    {{id_device}}
+                <div class="parked-{{id_device}} park"></div>
+                </div>
             </div>
             
         </div>
@@ -123,6 +127,7 @@
                 </div>
             </div>
 
+
         </div>
 
         {% endblock %}
@@ -164,4 +169,25 @@
         initMap();
     };
     </script>
+    <script type="text/javascript">
+    {% autoescape false %}
+    var current_user = '{{current_user.username_user}}';
+    var is_admin = '{{current_user.is_admin_user}}';
+    var user_image = '{{picture}}';
+    {% endautoescape %}
+
+    function isAdmin(){
+        return is_admin;
+    }
+
+    function getUsername() {
+        return current_user;
+    }
+
+    function getImageUser(){
+        return user_image;
+    }
+
+</script>
+<script src="{{ url_for('static', filename='mobile/js/home.js') }}" defer></script>
 {% endblock %}
