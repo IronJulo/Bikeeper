@@ -4,11 +4,13 @@ from flask import (
 )
 
 from ..app import app
+from flask_login import login_required
 
 mod = Blueprint('images', __name__)
 
 
 @mod.route('/uploads/<filename>')
+@login_required
 def upload(filename):
     return send_from_directory(app.config['UPLOAD_PATH'], filename)
 

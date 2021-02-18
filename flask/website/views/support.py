@@ -14,7 +14,7 @@ from flask_login import login_required, current_user
 
 mod = Blueprint('support', __name__)
 
-
+@login_required
 @mod.route('/support/', methods=['GET'])
 @mobile_template('{mobile/User/}support.html')
 def support(template):
@@ -43,6 +43,7 @@ def support(template):
         devices = ORM.get_devices_by_username(current_user.username_user)
     )
 
+@login_required
 @mod.route('/support/<int:id_ticket>/', methods=['GET'])
 def support_message(id_ticket):
     return render_template(
@@ -52,6 +53,7 @@ def support_message(id_ticket):
         picture = ORM.get_picture_message_from_username(current_user.username_user),
         )
 
+@login_required
 @mod.route('/support/message/new', methods=['POST'])
 def support_message_new():
     if request.method == 'POST':
@@ -67,7 +69,7 @@ def support_message_new():
 
         return Response(status=200)
 
-
+@login_required
 @mod.route('/support/ticket/new', methods=['POST'])
 def support_new_ticket():
     title = request.form.get('ticket')
@@ -79,7 +81,7 @@ def support_new_ticket():
     db.session.commit()
     return redirect(url_for('support.support'))
 
-
+@login_required
 @mod.route('/support/<int:user_id>/tickets/all', methods=['GET'])
 def get_user_tickets_by_id(user_id):
     res = "<ul>"
@@ -91,7 +93,7 @@ def get_user_tickets_by_id(user_id):
     res += "</ul>"
     return res
 
-
+@login_required
 @mod.route('/support/tickets/open/all', methods=['GET'])
 def get_open_tickets():
     res = "<ul>"
