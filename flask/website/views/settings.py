@@ -44,11 +44,13 @@ ACCOUNT
 def settings_account(template):
     files = os.listdir(app.config['UPLOAD_PATH'])
     devices = ORM.get_devices_by_username(current_user.username_user)
-
+    subscription_name = ORM.get_subscription_name_by_username(current_user.username_user)
+    
     return render_template(
         template,
-        devices=devices,
-        files=files
+        devices = devices,
+        files = files,
+        subscription_name = subscription_name,
     )
 
 
@@ -231,9 +233,7 @@ def settings_payment_edit_check():
 
     confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
     password = ORM.get_password_user_by_username(current_user.username_user)
-    print("-"*100)
-    print(confirmpassword)
-    print("-"*100)
+
     if confirmpassword == password:
         flash("Payment service is not available for the moment. Changes were not applies.","error")
         return redirect(url_for('settings.settings_payment'))
@@ -246,17 +246,44 @@ def settings_payment_edit_check():
 @mobile_template("{mobile/Settings/}subscription.html")
 def settings_subscriptions(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices=devices)
+    subscriptions = ORM.get_subscriptions()
+    features = Utils.str_collon_to_list(ORM.get_subscriptions_features()[0])
+    subscription_name = ORM.get_subscription_name_by_username(current_user.username_user)
+
+    return render_template(
+        template,
+        devices = devices,
+        subscriptions = subscriptions,
+        features = features,
+        subscription_name = subscription_name
+    )
 
 
-@mod.route('/settings/subscription/cancel/', methods=['GET'])
-def settings_subscriptions_cancel():
-    return redirect(url_for('logout.logout'))
+@mod.route('/settings/subscription/update/', methods=['POST'])
+def settings_subscriptions_update():
+    sub = request.form.get('sub')
 
+    confirmpassword = Utils.get_encrypt_password(request.form.get("confirmpassword"))
+    password = ORM.get_password_user_by_username(current_user.username_user)
 
-@mod.route('/settings/subscription/change/', methods=['GET'])
-def settings_subscriptions_change():
-    return redirect(url_for('settings.settings_subscriptions'))
+    if confirmpassword == password:
+        if sub == "cancel":
+            ORM.remove_device(current_user.selected_device)
+            if not len(ORM.get_devices_by_username(current_user.username_user)):
+                current_user.selected_device = None
+                ORM.block_user(current_user.username_user)
+            else:
+                current_user.selected_device = ORM.get_devices_by_username(current_user.username_user)[0]
+
+            flash("We're sorry to see you leave us.","error")
+            return redirect(url_for('logout.logout'))
+
+        ORM.update_subscription_user_by_username(current_user.username_user,sub)
+        flash("Subscription has been changed.","success")
+        return redirect(url_for('settings.settings'))
+        
+    flash("Incorrect Password. Changes were not applied.","error")
+    return redirect(url_for('settings.settings'))
 
 
 '''
@@ -264,7 +291,7 @@ PROFILE
 '''
 
 
-def validate_image(stream):
+def validate_image(stream): #TODO move in Utils
     header = stream.read(512)
     stream.seek(0)
     format = imghdr.what(None, header)

@@ -28,7 +28,7 @@ def statistics(template):
 		if len(res)!=0:
 			res = res [0]
 			devices = ORM.get_devices_by_username(res.username_user)
-			price = ORM.get_price_from_subscription_name(res.name_subscription)[0]
+			price = ORM.get_price_from_subscription_name(res.name_subscription)
 					
 		else:
 			flash("User not found.","error")
