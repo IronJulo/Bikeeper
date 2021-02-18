@@ -359,3 +359,15 @@ def search_user():
     return jsonify(
         suggestions=[{"value": user.username_user} for user in ORM.search_user(query)]
     )
+
+
+@mod.route('/api/bikeeper/get_last_log_position/<string:device_id>', methods=['GET'])
+def get_last_log_position(device_id):
+    """
+    Get last log that gives the location
+    :param device_id: the device id
+    :rtype: Response
+    """
+    return jsonify(
+        ORM.get_last_log_position(device_id).serialize()
+    )
