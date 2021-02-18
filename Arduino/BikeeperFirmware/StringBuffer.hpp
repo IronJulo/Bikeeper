@@ -13,12 +13,14 @@ class StringBuffer
 
         void store(char c);
         void store(int i);
-        void store(double d);
+        void store(const char *arr);
+        void store(double val, short len, short prec);
 
         void replaceTo(short index, char c);
         void toLower();
 
         void rewind();
+        void skipTo(short index);
 
         short indexOf(const char *c);
         short indexOf(const char *c, short len);

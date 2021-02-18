@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include <string.h>
 #include <math.h>
 #include <SoftwareSerial.h>
@@ -26,10 +27,39 @@ void StringBuffer::store(int i)
 	}
 }
 
+void StringBuffer::store(double val, short len, short prec)
+{
+	m_index > 0 ? m_index-- : m_index;
+	Serial.println(m_storage);
+
+	store(val < 0 ? '-' : '+');
+	dtostrf(fabs(val), len, prec, m_storage + m_index);
+	m_index = m_index + len;
+	Serial.println(m_storage);
+	//Serial.println(m_storage);
+	//store(buff);
+	//memcpy(*m_storage + m_index, buff, len + 1);
+}
+
+void StringBuffer::store(const char *arr)
+{
+	m_index > 0 ? m_index-- : m_index;
+	for(short i = 0; i < strlen(arr); i++)
+	{
+		store(arr[i]);
+	}
+}
+
 void StringBuffer::rewind()
 {
 	m_index = 0;
 }
+
+void StringBuffer::skipTo(short index)
+{
+	m_index = index;
+}
+
 
 short StringBuffer::indexOf(const char *c, short len)
 {

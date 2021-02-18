@@ -119,8 +119,8 @@ I_Sim800L::smartRead(const char waiting[], short waitingSize, unsigned int timeo
 void
 I_Sim800L::initTreatement(char userPhoneNumber[], const char serverPhoneNumber[]){
     short senderIndex = m_stringBuffer->indexOf("+33", 3);
-    char senderNumber[13];
-    m_stringBuffer->substring(senderNumber, senderIndex, senderIndex+13);
+    char senderNumber[12];
+    m_stringBuffer->substring(senderNumber, senderIndex, senderIndex+12);
     Serial.print("senderNumber : ");
     Serial.println(senderNumber);
     if (senderIndex != -1){                                                                 //TODO 12 -> 13 

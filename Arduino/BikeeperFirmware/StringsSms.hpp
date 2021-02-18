@@ -14,6 +14,8 @@ const char StringJourneyStartedAndUnparked[] PROGMEM = "Journey started & your b
 const char StringJourneyStarted[] PROGMEM = "Journey started ride safe";
 const char StringJourneyStopped[] PROGMEM = "Journey stoped";
 const char StringJourneyNotStarted[] PROGMEM = "Journey not started you can start one";
+const char StringCoordinatesStart[] = "Pos \rLon :  ";
+const char StringCoordinatesMiddle[] = "\rLat :  ";
 
 const short indexStringSyncOk PROGMEM = 0;
 const short indexStringBikeUnparked PROGMEM = 1;
@@ -26,6 +28,7 @@ const short indexStringJourneyStartedAndUnparked PROGMEM = 7;
 const short indexStringJourneyStarted PROGMEM = 8;
 const short indexStringJourneyStopped PROGMEM = 9;
 const short indexStringJourneyNotStarted = 10;
+
 
 const char *const string_table[] PROGMEM = {
 	StringSyncOk,
@@ -57,6 +60,6 @@ UI strings used to comunicate with user */
 #define StringJourneyNotStarted "Journey not started you can start one"*/
 
 /* Protocols messages (not all some are built)  */
-#define INIT_MESSAGE "[bk];M;"
+#define INIT_MESSAGE "[bk];I;"
 
 #endif
