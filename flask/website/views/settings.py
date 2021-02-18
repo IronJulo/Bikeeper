@@ -35,17 +35,19 @@ ACCOUNT
 
 
 @mod.route('/settings/account/', methods=['GET'])
-def settings_account():
+@mobile_template("{mobile/Settings/}account.html")
+def settings_account(template):
     files = os.listdir(app.config['UPLOAD_PATH'])
     devices = ORM.get_devices_by_username(current_user.username_user)
+
     return render_template(
-        "account.html",
+        template,
         devices=devices,
         files=files
     )
 
 
-@mod.route('/settings/account/update/', methods=['GET'])
+@mod.route('/settings/account/update/', methods=['POST'])
 def settings_account_update():
     result = request.form
     first = result['first-name']
@@ -56,7 +58,6 @@ def settings_account_update():
     code = result['postal-code']
     ville = result['town']
     rue = result['street']
-    devices = ORM.get_devices_by_username(current_user.username_user)
     ORM.update_user(mdp, tel, first, last, mail, ville, code, rue)
     return redirect(url_for('settings.settings_account'))
 
