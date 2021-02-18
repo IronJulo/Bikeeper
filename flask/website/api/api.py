@@ -346,3 +346,16 @@ def get_battery_level(device_id):
     return jsonify(
         ORM.get_battery_lvl(device_id)
     )
+
+
+@mod.route('/api/bikeeper/search_user/', methods=['GET'])
+def search_user():
+    """
+    Get user research
+    :param query: the query
+    :rtype: Response
+    """
+    query = request.args.to_dict()["query"]
+    return jsonify(
+        suggestions=[{"value": user.username_user} for user in ORM.search_user(query)]
+    )
