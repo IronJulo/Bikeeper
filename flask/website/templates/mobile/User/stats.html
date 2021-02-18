@@ -48,9 +48,18 @@
                         <p>Last ride time :</p>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    {{id_device}}
-                <div class="parked-{{id_device}} park"></div>
+                <div class="container-fluid slctd-dvc">
+                    Selected device : 
+                    {% for device in devices %}
+                    {% if device.num_device == id_device %}
+                    {{ device.name_device }}
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="status container-fluid">
+                    Status : 
+                    <div class="parked-{{id_device}} park"></div>
+                </div>
                 </div>
             </div>
             
@@ -189,5 +198,5 @@
     }
 
 </script>
-<script src="{{ url_for('static', filename='mobile/js/home.js') }}" defer></script>
+<script src="{{ url_for('static', filename='mobile/js/stats.js') }}" defer></script>
 {% endblock %}

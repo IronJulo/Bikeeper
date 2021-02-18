@@ -38,11 +38,11 @@ function draw(is_parked) {
       let parked = is_parked.parked;
       if (parked) {
         console.log("Pause")
-        document.querySelector(park).innerHTML = "<i class='fa fa-pause'></i>";
+        document.querySelector(park).innerHTML = " Parked <i class='fa fa-pause'></i>";
       }
       else {
         console.log("Play")
-        document.querySelector(park).innerHTML = "<i class='fa fa-play'></i>"
+        document.querySelector(park).innerHTML = " Moving <i class='fa fa-play'></i>"
       }
 }
 
