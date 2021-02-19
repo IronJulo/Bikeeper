@@ -1,7 +1,11 @@
 main{
   width : calc(100% - var(--taille-sidebar))
 }
-
+#title{
+  margin-top: 15px;
+  margin-left: 15px;
+  font-weight: 600
+}
 .link {
   color: rgb(220, 29, 33)
 }

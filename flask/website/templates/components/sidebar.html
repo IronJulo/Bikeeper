@@ -1,4 +1,7 @@
 <aside class="sidebar sidebar-navigation">
+    {% if not current_user.is_admin_user %}
+    <a href="/faq/" id="help">Besoin d'aide ?</a>
+    {% endif %}
     <ul>
         {% if not current_user.is_admin_user %}
         <li>
