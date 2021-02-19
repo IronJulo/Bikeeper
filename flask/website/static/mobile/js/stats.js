@@ -3,7 +3,7 @@ let parkData = null;
 
 
 function activeLink() {
-    api = "http://127.0.0.1:5000/test/device/"+ getIdDevice()
+    api = "http://127.0.0.1:5000/api/device/"+ getIdDevice()
     return api
 }
 

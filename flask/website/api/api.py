@@ -383,3 +383,8 @@ def update_current_selected_device(username, id_device):
     ORM.update_user_selected_device(id_device, username)
     print(ORM.get_current_device_by_username(username))
     return jsonify(response=ORM.get_current_device_by_username(username))
+
+
+@mod.route("/api/device/<int:id_device>", methods=["GET"])
+def is_parked(id_device):
+    return jsonify(parked=ORM.is_parked(id_device))
