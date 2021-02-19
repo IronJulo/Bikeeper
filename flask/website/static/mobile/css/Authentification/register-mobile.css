@@ -1,6 +1,7 @@
 body{
     margin: 0%;
     padding: 0%;
+    background-color: transparent;
 }
 
 h1{
@@ -61,16 +62,6 @@ main{
     flex-wrap: wrap
 }
 
-
-
-
-
-
-
-
-
-
-
 #credit-card{
     float: center;
     background-color: rgba(255,255,255,0.9);
@@ -127,4 +118,70 @@ button{
     height:1vh;
     background:white;
     border-radius: 10px
+}
+
+section.section-sub {
+    background-color: white;
+    border-radius: 1em;
+    text-align: center;
+    padding: 1em;
+    position: relative;
+    margin: 1em auto;
+    color: black;
+    width: 90%;
+}
+
+section.section-sub ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.register-subscription {
+    display: flex;
+    flex-direction: column;
+}
+
+div.active div.sub {
+    top: 2%;
+}
+
+div.sub-radio {
+    position: relative;
+    margin-top: 2em;
+}
+
+div.sub-radio input {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    outline: none;
+    display: none;
+}
+
+div.sub-radio span {
+    border: solid 2px #1ED1AC;
+    padding: .5em;
+    border-radius: 1em;
+}
+
+div.sub-radio span:hover {
+    cursor: pointer;
+    background-color: #1ED1AC;
+    color: white;
+    transition: all .2s;
+}
+
+div.register-subscription > h2 {
+    color: white;
+    font-size: 32px;
+}
+
+main:first-of-type {
+    margin-top: 9em;
+
+}
+
+div.flash {
+    text-align: center;
 }

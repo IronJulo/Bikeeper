@@ -13,14 +13,6 @@
 {% endblock style %}
 
 {% block main %}
-    <style>
-        #my_osm_widget_map { /* use the same name as <div id=""> */
-            width: 100%; /* important! if you need full width display */
-            height: 400px;
-            margin: 0;
-            border-radius: 5px;
-        }
-    </style>
     <div class="flex">
         {% if current_user.is_admin_user %}
             <header class="header-admin">

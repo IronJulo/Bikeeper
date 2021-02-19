@@ -403,11 +403,6 @@ div.flex > section.group4 {
     height: 200px;
 }
 
-#position {
-    width: 100%;
-    height: 500px;
-    display: block;
-}
 
 #temp {
     height: 200px;
@@ -420,3 +415,9 @@ section.group5 .col-6{
     font-size: 25px
 }
 
+#my_osm_widget_map { /* use the same name as <div id=""> */
+    width: 100%; /* important! if you need full width display */
+    height: 400px;
+    margin: 0;
+    border-radius: 5px;
+}
