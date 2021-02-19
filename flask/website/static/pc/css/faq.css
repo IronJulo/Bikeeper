@@ -1,0 +1,38 @@
+main{
+  width : calc(100% - var(--taille-sidebar))
+}
+
+.link {
+  color: rgb(220, 29, 33)
+}
+.question{
+  margin-top: 45px;
+  font-size: 20px;
+}
+.anwser{
+  color: rgba(0,0,0,0.60)
+}
+.anwser, .link{
+  padding-left: 10px;
+}
+p{
+  margin-bottom: 0;
+}
+.box{
+  padding-bottom: 30px
+}
+/* .accordion-button{
+  color: rgb(220, 29, 33)!important;,
+} 
+.accordion-button.collapsed{
+  color: black!important;
+}
+*/
+.accordion-button{
+  color: black!important;
+  font-size: 20px;
+  font-weight: 600
+}
+.accordion{
+  padding-left: 10px
+}
