@@ -40,6 +40,7 @@ void StringBuffer::storeInt3(int i)
 		m_index += 3;
 	}
 }
+/* TODO */
 void StringBuffer::storeShort(short i)
 {
 	if (m_index < m_length)
@@ -55,15 +56,10 @@ void StringBuffer::storeShort(short i)
 void StringBuffer::storeDouble(double val, short len, short prec)
 {
 	m_index > 0 ? m_index-- : m_index;
-	Serial.println(m_storage);
 
 	store(val < 0 ? '-' : '+');
 	dtostrf(fabs(val), len, prec, m_storage + m_index);
 	m_index = m_index + len;
-	Serial.println(m_storage);
-	//Serial.println(m_storage);
-	//store(buff);
-	//memcpy(*m_storage + m_index, buff, len + 1);
 }
 
 void StringBuffer::store(const char *arr)

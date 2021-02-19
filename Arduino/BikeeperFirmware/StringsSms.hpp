@@ -14,6 +14,11 @@ const char StringJourneyStartedAndUnparked[] PROGMEM = "Journey started & your b
 const char StringJourneyStarted[] PROGMEM = "Journey started ride safe";
 const char StringJourneyStopped[] PROGMEM = "Journey stoped";
 const char StringJourneyNotStarted[] PROGMEM = "Journey not started you can start one";
+const char StringVibrationDetected[] PROGMEM = "Vibration detected check your bike";
+const char StringMovementDetected[] PROGMEM = "Bike movement detected check your bike";
+const char StringLowBatteryDetected[] PROGMEM = "Low battery check your bike";
+const char StringFallDetected[] PROGMEM = "Fall detected are you fine ? \'OK\'";
+const char StringOkBeSafe[] PROGMEM = "Ok be safe";
 const char StringCoordinatesStart[] = "Pos \rLon :  ";
 const char StringCoordinatesMiddle[] = "\rLat :  ";
 
@@ -28,6 +33,11 @@ const short indexStringJourneyStartedAndUnparked PROGMEM = 7;
 const short indexStringJourneyStarted PROGMEM = 8;
 const short indexStringJourneyStopped PROGMEM = 9;
 const short indexStringJourneyNotStarted = 10;
+const short indexStringVibrationDetected = 11;
+const short indexStringMovementDetected = 12;
+const short indexStringLowBatteryDetected = 13;
+const short indexStringFallDetected = 14;
+const short indexStringStringOkBeSafe = 15;
 
 
 const char *const string_table[] PROGMEM = {
@@ -41,7 +51,11 @@ const char *const string_table[] PROGMEM = {
 	StringJourneyStartedAndUnparked,
 	StringJourneyStarted,
 	StringJourneyStopped,
-	StringJourneyNotStarted
+	StringJourneyNotStarted,
+	StringVibrationDetected,
+	StringMovementDetected,
+	StringLowBatteryDetected,
+	StringOkBeSafe
 	};
 
 /* Ram Stored strings*/
