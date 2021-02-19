@@ -147,7 +147,7 @@ def remove_bikeeper(device_id):
         return error("No rows deleted")
 
 
-@mod.route('/api/bikeeper/settings/<int:device_id>/update/', methods=['POST'])
+@mod.route('/api/bikeeper/settings/<string:device_id>/update/', methods=['POST'])
 def update_bikeeper_settings_to_bd(device_id):
     """
     Update current device settings to the database
