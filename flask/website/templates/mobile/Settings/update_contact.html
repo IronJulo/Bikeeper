@@ -4,20 +4,17 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Settings/add_contact.css') }}">
-<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/update-contact.css') }}">
 {% endblock %}
 
 {% block header %}
         <div class="logo">
-            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
         </div>
         {% include "components/mobile-sidebar.html" %}
-        <!-- Use any element to open/show the overlay navigation menu -->
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
-
 
 {% block main %}
 <div class="flex">
@@ -25,8 +22,8 @@
         <i class="fa fa-chevron-left"></i>
     </a>
     <section>
-        <h1>Add contact</h1>
-        <form action="{{ url_for('settings.settings_contact_add_check') }}" method='POST'>
+        <h1>Update contact</h1>
+        <form action="{{ url_for('settings.settings_contact_update_check') }}" method='POST'>
             <div class="form-group1">
                 <div class="form-avatar">
                     <div class="img-avatar">
@@ -41,55 +38,33 @@
                 <div class="form-first-name">
                     <fieldset>
                         <legend>First Name</legend>
-                        <input type="text" name="first-name" required>
+                        <input type="text" name="first-name" value='{{first}}'>
                     </fieldset>
                 </div>
                 <div class="form-last-name">
                     <fieldset>
                         <legend>Last Name</legend>
-                        <input type="text" name="last-name" required>
+                        <input type="text" name="last-name" value='{{last}}'>
                     </fieldset>
                 </div>
                 <div class="form-phone">
                     <fieldset>
                         <legend>Phone Number</legend>
-                        <input type="tel" name="phone" required>
+                        <input type="tel" name="phone" value='{{tel}}'>
                     </fieldset>
                 </div>
+                <input type="hidden" name="id-contact" value="{{id_contact}}">
             </div>
 
             <div class="form-submit">
-                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="submit">Add</button>
+                <a href="{{ request.referrer }}">Cancel</a>
+                <button type="submit">Apply</button>
             </div>
         </form>
     </section>
 </div>
-{% endblock %}
-{% block script %}
-    <script>
-        $(function() {
-        $('#picture').on('click', function() {
-            $('#fileinput').trigger('click');
-        });
-        });
+{% endblock main %}
 
-            $('#fileinput').change(function(){
-        $(function(){
-            var input = this;
-            var url = $(this).val();
-            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-                var reader = new FileReader();
-            
-                reader.onload = function (e) {
-                    $('#avatar').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-                
-            });
-            
-            });
-    </script>
+{% block script %}
+
 {% endblock script %}

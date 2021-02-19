@@ -1,0 +1,180 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(60vw - var(--taille-sidebar));
+}
+
+div.flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    position: relative;
+}
+
+section {
+    background-color: white;
+    border-radius: 1em;
+    text-align: center;
+    position: relative;
+    width: 100%;
+}
+
+section h1 {
+    margin: 0;
+    width: auto;
+    height: auto;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+form > div {
+    margin-top: 1em;
+}
+
+form>div.form-group1,
+form>div.form-group2
+{
+    display: flex;
+    flex: 0 0 48%;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div.img-avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+div.img-avatar img {
+    width: 10em;
+    margin-right: .5em;
+}
+
+div.img-avatar p {
+    font-size: 1.2em;
+    margin-left: 1em;
+    border: solid black 2px;
+    border-radius: 1em;
+    padding: .2em 1em;
+}
+
+div.img-avatar p:hover {
+   cursor: pointer;
+   transform: scale(0.95);
+   transition: all .2s;
+   border-color: var(--orange);
+}
+
+input[type=file]{
+    display: none;
+}
+
+input {
+    border: none;
+    background-color: rgba(255,255,255,0);
+    border-radius: 2px;
+	font-size:18px;
+    width: 100%;
+    height: 2em;
+	text-indent: 1em;
+}
+
+input.form-input:focus{
+	outline: none;
+}
+
+legend{
+	font-weight: 700;
+	font-size: 24px;
+	font-family: Roboto;
+	text-align: center;
+	margin: 0;
+	text-decoration: underline;
+}
+
+fieldset:not(:first-of-type){
+    margin-top:3em;
+}
+
+fieldset {
+	border: solid thin;
+	border-top: dashed thin;
+    border-radius: 10px;
+    width: 80%;
+    margin-top: 1em;
+}
+
+form>div.form-group1 div,
+form>div.form-group2 div {
+    width: 100%;
+}
+
+
+form div.form-submit {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3em;
+    align-self: center;
+}
+
+form div.form-submit>a,
+form div.form-submit>button {
+    padding: 0.4em 3em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: .3em;
+}
+
+form div.form-submit>a {
+    border: solid var(--rouge) 2px;
+    display: block;
+}
+
+form div.form-submit>button {
+    border: solid var(--vert) 2px;
+    background-color: transparent;
+    outline: none;
+    margin: 1em 0;
+}
+
+form div.form-group2>div {
+    display: flex;
+    justify-content: center;
+}
+
+#close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(40%, -40%);
+}
+
+#close:hover i {
+    color: var(--rouge-hover);
+    transform: scale(0.90);
+    transition: all .2s;
+}
+
+#close i {
+    color: var(--rouge);
+    font-size: 2.5rem;
+}

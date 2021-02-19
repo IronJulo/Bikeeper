@@ -17,7 +17,7 @@
             <form action="{{ url_for('settings.settings_contact_update') }}" id="update-contact" method='POST'>
                 <div class="info">
                     <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
-                    <h4><span>{{contact.firstname_contact}}</span> <span>{{contact.lastname_contact}}</span></h4>
+                    <h4>{{contact.firstname_contact}} {{contact.lastname_contact}}</h4>
                 </div>
                 
                 <input type="hidden" name="id-contact" value='{{contact.id_contact}}'>
@@ -25,7 +25,6 @@
                 <div class="action">
                     <button type="submit" name="action" value="edit">Edit</button>
                     <button type="submit" name="action" value="remove">Remove</button>
-                    
                 </div>
             </form>
         </div>
