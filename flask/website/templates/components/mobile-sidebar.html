@@ -1,4 +1,7 @@
+<div id="myNav" class="overlay">
 
+    <!-- Button to close the overlay navigation -->
+    <img src="{{ url_for('static', filename='mobile/assets/close.png') }}" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
     <!-- Overlay content -->
     <div class="container">
         {% if not current_user.is_admin_user %}
@@ -59,18 +62,18 @@
             </div>
         </a>
         <div class="rectangle2"></div>
-        <a href="{{ url_for('logout.logout')}}">
-            <div class="row">
-                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></div>
-                <div class="col-10">Disconnect</div>
-            </div>
-        </a>
-        <div class="rectangle2"></div>
         {% if not current_user.is_admin_user %}
         <a href="#" onclick="dropdown()">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
                 <div class="col-10">Device</div>
+            </div>
+        </a>
+        <div class="rectangle2"></div>
+        <a href="{{ url_for('logout.logout')}}">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></div>
+                <div class="col-10">Disconnect</div>
             </div>
         </a>
         <div class="drpdwn">
@@ -90,3 +93,28 @@
     </div>
 </div>
 <script type="text/javascript">
+    function dropdown() {
+        console.log(document.getElementById("dropdown").style.display)
+        if (document.getElementById("dropdown").style.display.localeCompare("") ==0 || document.getElementById("dropdown").style.display.localeCompare("none")==0 ){
+            document.getElementById("dropdown").style.display="block";
+            console.log("oui")
+        }
+        else{
+            document.getElementById("dropdown").style.display="none";
+            console.log("non")
+        }
+        
+
+    }
+    function post(username,id_device) {
+        let url = "/api/test/update_device/"+ username + "/" + id_device + "/";
+        console.log(url);
+        return new Promise((resolve, reject) => {
+            const req = new XMLHttpRequest();
+            req.open('POST', url);
+            req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
+            req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+            req.send();
+        });
+}
+</script>

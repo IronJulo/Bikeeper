@@ -25,9 +25,18 @@ const get_today_logs = async () => {
 }
 
 get_today_rides_count().then(r => document.getElementById('rides').innerText+= " (" + r + ")" );
-get_today_logs().then(function(r){
-    document.getElementById('notifications').innerText+= " (" + r[1] + ")";
-    document.getElementById('alerts').innerText+= " (" + r[0] + ")";
-});
+// get_today_logs().then(function(r){
+//     document.getElementById('notifications').innerText+= " (" + r[1] + ")";
+//     document.getElementById('alerts').innerText+= " (" + r[0] + ")";
+//     console.log(r[0])
+// });
+
+get_today_logs().then(r => document.getElementById('alerts').innerText+= " (" + r[0] + ")");
+
+if (document.getElementById("notifications"))
+  get_today_logs().then(r => document.getElementById('notifications').innerText+= " (" + r[1] + ")");
+
+
+
 
 
