@@ -1,25 +1,32 @@
 {% extends "mobile/base.html" %}
 
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/device.css') }}">
+{% endblock %}
+
 {% block header %}
         <div class="logo">
             <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
         </div>
-
         {% include "components/mobile-sidebar.html" %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/device.css') }}">
-
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
 
 {% block main %}
 <div class="flex">
+    <a href="{{ url_for('settings.settings') }}"" class="goback">
+        <i class="fa fa-chevron-left"></i>
+    </a>
     <section>
-        <h1>Your Device (Device 1)</h1>
-        <form action="{{ url_for('settings.settings_devices_update') }}" method='POST'>
+        <div class="flash">
+            {% include "messages.html" %}
+        </div>
+        <h1>Your Device ({{selected_device}})</h1>
+        <form action="{{ url_for('settings.settings_devices_update') }}" id="form-devices" method='POST'>
             <h3>Parameters</h3>
             <div class="slidecontainer group1">
                 <label for="movement">
@@ -46,15 +53,12 @@
                 <label for="name">
                     Device name :
                 </label>
-                <input type="text" name="name" value='Device 1'>
+                <input type="text" name="name" value='{{selected_device}}'>
             </div>
             <div class="form-submit">
                 <!-- My Buttons -->
-                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenterDevice">Update</button>
-
-
-
+                <a href="{{ url_for('settings.settings') }}">Cancel</a>
+                <button type="button" data-toggle="modal" data-target="#modalCenterDevice">Update</button>
             </div>
         </form>
     </section>
@@ -70,13 +74,13 @@
                 </div>
                 <div class="modal-body">
                     <p>Enter your password to confirm changes.</p>
-                    <fieldset>
-                        <input type="password" name="confirmpassword" placeholder='********'>
+                    <fieldset class="modal-fd">
+                        <input type="password" form="form-devices" name="confirmpassword" placeholder='********'>
                     </fieldset>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="submit" form="form-devices" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
