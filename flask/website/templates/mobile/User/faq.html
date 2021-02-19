@@ -1,0 +1,44 @@
+{% extends "mobile/base.html" %}
+{% block header %}
+        <div class="logo">
+            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mobile/css/User/faq.css') }}">
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+{% block main %}
+
+<h2>Sommaire : </h2>
+<ul>
+	{% for category in topic %}
+	<li>{{category}}</li>
+	{% endfor %}
+</ul>
+
+
+
+{% for category in topic %}
+
+<div class="category">
+	<h2>{{category}}</h2>
+	{% for question in data %}
+	{% if data[question]["topic"] == category %}
+	<div class="container-fluid">
+		<h4>{{question}}</h4><br>
+		{{data[question]["anwser"]}}
+		{% if data[question]["optional-link"]!=""  %}
+		<br><a href="{{data[question]['optional-link']}}">Cliquez ici !</a>
+		{% endif %}
+	</div>
+	{% endif %}
+	{% endfor %}
+</div>
+
+
+{% endfor %}
+{% endblock %}
