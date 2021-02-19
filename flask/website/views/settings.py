@@ -144,8 +144,9 @@ def settings_contact(template):
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
+@mobile_template("{mobile/Settings/}update_contact.html")
 @login_required
-def settings_contact_update():
+def settings_contact_update(template):
     result = request.form
     id_contact = result["id-contact"]
     action = result["action"]
@@ -155,7 +156,7 @@ def settings_contact_update():
         last = contact.lastname_contact
         tel = contact.num_contact
         devices = ORM.get_devices_by_username(current_user.username_user)
-        return render_template("update_contact.html", id_contact=id_contact, first=first, last=last, tel=tel,
+        return render_template(template, id_contact=id_contact, first=first, last=last, tel=tel,
                                devices=devices)
 
     ORM.remove_contact(id_contact)

@@ -5,7 +5,7 @@
     --vert-hover: #0d9900;
     --orange: #ff9100;
     --taille-header:66px;
-    --taille-sidebar: 15vw;
+    --taille-sidebar: 7.5em;
     --taille-elements-width: calc(60vw - var(--taille-sidebar));
     --taille-card: 14vw;
 }
@@ -194,6 +194,10 @@ button.close span {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-43%, -55%);
 	color: white;
+}
+
+div.flex {
+	position: relative;
 }

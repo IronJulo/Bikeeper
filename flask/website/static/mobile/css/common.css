@@ -1,1 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+.goback {
+    position: absolute;
+    font-size: 20px;
+    left: 5%;
+    top: 0;
+    z-index: 1;
+}
