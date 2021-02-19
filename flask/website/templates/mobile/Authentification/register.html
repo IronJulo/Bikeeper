@@ -2,9 +2,10 @@
 {% extends "mobile/base.html" %}
 
 {% block style %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/register-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/register-mobile.css') }}">
 {% endblock %}
 
 
@@ -21,8 +22,10 @@
 {% endblock %}   
 
 {% block main %}
-        <div id="header"></div>
         <form action="{{url_for('register.register_validate')}}" method="POST">
+            <div class="flash">
+                {% include "messages.html" %}
+            </div>
             <div class="information">
                 <h2>Create your account</h2>
                 <div>
@@ -35,11 +38,11 @@
                 </div>
                 <div>
                     <label for="password">Password</label>
-                    <input type="password" id='password' pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" name="password" placeholder='Enter your password' required>
+                    <input type="password" id='password' name="password" placeholder='Enter your password' required>
                 </div>
                 <div>
                     <label for="confirmpassword">Confirm your password</label>
-                    <input type="password" id='confirmpassword' pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,}$" name="confirmpassword" placeholder='Confirm your password' required>
+                    <input type="password" id='confirmpassword' name="confirmpassword" placeholder='Confirm your password' required>
                 </div>
             </div>
 
@@ -60,8 +63,38 @@
                 </div>
                 <div>
                     <label for="postalCode">Postal Code</label>
-                    <input type="text" id='postalCode' pattern="[0-9]{5}" name="postalCode" placeholder='10029' required>
+                    <input type="text" id='postalCode' name="postalcode" placeholder='10029' required>
                 </div>
+            </div>
+
+            <div class="register-subscription">
+                <h2>Subscriptions</h2>
+                {% for sub in subscriptions %}
+                    {% if sub.name_subscription == "France" %}
+                    <section class='section-sub'>
+                    {% else %}
+                    <section class='section-sub selected-sub'>
+                    {% endif %}
+                        <h2>{{sub.name_subscription}}</h2>
+                        <div>
+                        <h4>{{sub.localisation_subscription}}</h4>
+                            <ul>
+                                {% for feature in  features %}
+                                    {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
+                                        <s>{{feature}}</s>
+                                    {% else %}
+                                        <li>{{feature}}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul> 
+                        </div>
+                        
+                        <div class="sub-radio">
+                            <div><span onclick="selectSub(this)">Choose this plan - €{{sub.price_subscription}}/mo</span></div>
+                            <input type="radio" name="sub" value="{{sub.name_subscription}}" checked>
+                        </div>
+                    </section>
+                {% endfor %}
             </div>
 
 
@@ -70,22 +103,26 @@
                 <img src="{{ url_for('static', filename='mobile/assets/mastercard.png') }}" alt="master card logo">
                 <fieldset>
                     <legend>Card number</legend>
-                    <input type="text" id='username' name="username" placeholder='1234 - 5678 - 9123 - 4567' required>
+                    <input type="text" id='username' name="username" placeholder='1234 - 5678 - 9123 - 4567'>
                 </fieldset>
                 <fieldset>
                     <legend>Card Holder Name</legend>
-                    <input type="text" id='username' name="username" placeholder='John Doe' required>
+                    <input type="text" id='username' name="username" placeholder='John Doe'>
                 </fieldset>
                 <fieldset>
                     <legend>Expiration Date</legend>
-                    <input type="text" id='username' name="username" placeholder='08/22' required>
+                    <input type="text" id='username' name="username" placeholder='08/22'>
                 </fieldset>
                 <fieldset>
                     <legend>CVV/CVC</legend>
-                    <input type="text" id='username' name="username" placeholder='666' required>
+                    <input type="text" id='username' name="username" placeholder='666'>
                 </fieldset>   
             </div>                                 
             <button type="submit" class="register"><span>Register</span></button>
         </form>
         <div id="rectangle"></div>
 {% endblock %}   
+
+{% block script %}
+<script src="{{ url_for('static', filename='pc/js/subscription.js') }}"></script>
+{% endblock %}

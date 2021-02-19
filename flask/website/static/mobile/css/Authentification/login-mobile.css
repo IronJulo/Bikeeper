@@ -1,9 +1,7 @@
-
-
-
 body{
     margin: 0%;
-    padding: 0%
+    padding: 0%;
+    background-color: transparent;
 }
 
 
@@ -45,7 +43,7 @@ form button{
     color: white;
     border: None;
     border-radius: 2em;
-    margin: 6em auto;
+    margin: 3em auto;
     padding: .5em 1em;
     outline: none;
 }
@@ -96,5 +94,10 @@ form div label{
   color: lightgray;
 }
 
+main:first-of-type {
+    margin-top: 9em;
+}
 
-
+div.flash {
+    text-align: center;
+}

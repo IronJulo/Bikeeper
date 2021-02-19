@@ -61,6 +61,8 @@ def login(template):
             else:
                 flash("Your account has been blocked. Please contact us if it is an error.","error")
                 return redirect(url_for("login.login"))
+        else:
+            flash("Incorrect logins.","error")
     return render_template(
         template,
         form=f,
