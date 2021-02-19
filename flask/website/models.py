@@ -1138,3 +1138,8 @@ class ORM:
         :return: int: the number of devices
         """
 		return db.session.query(func.count(DEVICE.username_user)).filter(DEVICE.username_user == username).scalar()
+
+    @staticmethod
+    def get_faq_json():
+        with open("./website/faq.json") as f:
+            return json.load(f)

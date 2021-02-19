@@ -86,6 +86,7 @@ from website.views import stats
 from website.views import test
 from website.views import images
 from website.views import sidebar
+from website.views import documentation
 
 app.register_blueprint(home.mod)
 app.register_blueprint(settings.mod)
@@ -102,3 +103,4 @@ app.register_blueprint(stats.mod)
 app.register_blueprint(test.mod)
 app.register_blueprint(images.mod)
 app.register_blueprint(sidebar.mod)
+app.register_blueprint(documentation.mod)
