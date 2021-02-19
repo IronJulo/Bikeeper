@@ -3,13 +3,8 @@
   color: rgba(0,0,255,0.6)
 }
 
-.sommaire, .container{
-  box-shadow: 2px 1px 2px 1px rgba(0,0,0,0.30);
-  width: 90%
-}
-.sommaire{
-  margin-bottom: 50px
-}
+
+
 .question{
   margin-top: 35px;
 }
@@ -21,4 +16,13 @@ p{
 }
 .box{
   padding-bottom: 10px
+}
+#title{
+  padding-left: 20px;
+  margin-bottom: 15px;
+  font-size: 30px;
+
+}
+.accordion-button{
+padding-left: 35px;
 }
