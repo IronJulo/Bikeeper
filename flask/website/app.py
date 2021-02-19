@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 login_manager = LoginManager(app)
-login_manager.login_view = "login"
+login_manager.login_view = "login.login"
 
 app.config.update(
     SECRET_KEY="GH5H-QLPE4-MPN3-1THB",
