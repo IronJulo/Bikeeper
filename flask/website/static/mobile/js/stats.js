@@ -81,7 +81,7 @@ $(document).ready(function () {
             }
         )
       }
-    }, 1000);
+    }, 5000);
 });
 
 function getDate(){

@@ -444,7 +444,7 @@ const displayRideData = async () => { // Called when a user selects a ride displ
                 }
             )
           }
-        }, 1000);
+        }, 5000);
     });
 
     function getDate(){
