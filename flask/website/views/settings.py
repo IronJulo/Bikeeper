@@ -31,7 +31,7 @@ def settings(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
     return render_template(
         template,
-        devices = devices
+        devices=devices
     )
 
 
@@ -47,12 +47,12 @@ def settings_account(template):
     files = os.listdir(app.config['UPLOAD_PATH'])
     devices = ORM.get_devices_by_username(current_user.username_user)
     subscription_name = ORM.get_subscription_name_by_username(current_user.username_user)
-    
+
     return render_template(
         template,
-        devices = devices,
-        files = files,
-        subscription_name = subscription_name,
+        devices=devices,
+        files=files,
+        subscription_name=subscription_name,
     )
 
 
@@ -80,10 +80,9 @@ def settings_account_update():
 
         flash(message, "error")
         return redirect(url_for('settings.settings_account'))
-        
-    flash("Incorrect Password. Changes were not applied!","error")
+
+    flash("Incorrect Password. Changes were not applied!", "error")
     return redirect(url_for("settings.settings_account"))
-   
 
 
 '''
@@ -100,12 +99,12 @@ def settings_devices(template):
 
     return render_template(
         template,
-        devices = devices,
-        selected_device = selected
+        devices=devices,
+        selected_device=selected
     )
 
 
-@mod.route('/settings/devices/update/', methods=['GET','POST'])
+@mod.route('/settings/devices/update/', methods=['GET', 'POST'])
 @login_required
 def settings_devices_update():
     name = request.form.get("name")
@@ -116,9 +115,9 @@ def settings_devices_update():
     password = ORM.get_password_user_by_username(current_user.username_user)
     if confirmpassword == password:
         ORM.update_device_parameters(current_user.username_user, name)
-        flash("Changes have been applied!","success")
+        flash("Changes have been applied!", "success")
         return redirect(url_for("settings.settings_devices"))
-    flash("Incorrect Password. Changes were not applied.","error")
+    flash("Incorrect Password. Changes were not applied.", "error")
     return redirect(url_for("settings.settings_devices"))
 
 
@@ -136,11 +135,11 @@ def settings_contact(template):
     number_contacts = ORM.get_number_of_contacts_by_username(current_user.username_user)
 
     return render_template(
-        template, 
-        contacts = contacts, 
-        devices = devices,
-        number = number_contacts
-        )
+        template,
+        contacts=contacts,
+        devices=devices,
+        number=number_contacts
+    )
 
 
 @mod.route('/settings/contacts/update/', methods=['GET', 'POST'])
@@ -192,9 +191,9 @@ def settings_contact_add_check():
     tel = result['phone']
     device = ORM.get_current_num_device_by_username(current_user.username_user)
     img = '/static/pc/assets/avatar.png'
-    
+
     ORM.new_contact(tel, first, last, img, device)
-    flash("Contact has been added.","success")
+    flash("Contact has been added.", "success")
     return redirect(url_for("settings.settings_contact"))
 
 
@@ -220,7 +219,7 @@ PAYMENT
 @login_required
 def settings_payment(template):
     devices = ORM.get_devices_by_username(current_user.username_user)
-    return render_template(template, devices=devices) 
+    return render_template(template, devices=devices)
 
 
 @mod.route('/settings/payment/edit/', methods=['GET', 'POST'])
@@ -234,7 +233,7 @@ def settings_payment_edit(template):
         devices = ORM.get_devices_by_username(current_user.username_user)
         return render_template(template, devices=devices)
 
-    flash("Incorrect Password.","error")
+    flash("Incorrect Password.", "error")
     return redirect(url_for("settings.settings_payment"))
 
 
@@ -250,10 +249,10 @@ def settings_payment_edit_check():
     password = ORM.get_password_user_by_username(current_user.username_user)
 
     if confirmpassword == password:
-        flash("Payment service is not available for the moment. Changes were not applies.","error")
+        flash("Payment service is not available for the moment. Changes were not applies.", "error")
         return redirect(url_for('settings.settings_payment'))
-        
-    flash("Payment service is not available for the moment. Changes were not applies.","error")
+
+    flash("Payment service is not available for the moment. Changes were not applies.", "error")
     return redirect(url_for('settings.settings_payment'))
 
 
@@ -268,10 +267,10 @@ def settings_subscriptions(template):
 
     return render_template(
         template,
-        devices = devices,
-        subscriptions = subscriptions,
-        features = features,
-        subscription_name = subscription_name
+        devices=devices,
+        subscriptions=subscriptions,
+        features=features,
+        subscription_name=subscription_name
     )
 
 
@@ -292,14 +291,14 @@ def settings_subscriptions_update():
             else:
                 current_user.selected_device = ORM.get_devices_by_username(current_user.username_user)[0]
 
-            flash("We're sorry to see you leave us.","error")
+            flash("We're sorry to see you leave us.", "error")
             return redirect(url_for('logout.logout'))
 
-        ORM.update_subscription_user_by_username(current_user.username_user,sub)
-        flash("Subscription has been changed.","success")
+        ORM.update_subscription_user_by_username(current_user.username_user, sub)
+        flash("Subscription has been changed.", "success")
         return redirect(url_for('settings.settings'))
-        
-    flash("Incorrect Password. Changes were not applied.","error")
+
+    flash("Incorrect Password. Changes were not applied.", "error")
     return redirect(url_for('settings.settings'))
 
 
@@ -308,7 +307,7 @@ PROFILE
 '''
 
 
-def validate_image(stream): #TODO move in Utils
+def validate_image(stream):  # TODO move in Utils
     header = stream.read(512)
     stream.seek(0)
     format = imghdr.what(None, header)
@@ -325,8 +324,7 @@ def upload_files():
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
         extention = filename.split(".")
-        filename = hashlib.md5((filename + "Bikeeper" + str(randint(0, 9))).encode()).hexdigest() + "." + extention[
-            1]  # Salt
+        filename = hashlib.md5((filename + "Bikeeper" + str(randint(0, 9))).encode()).hexdigest() + "." + extention[1]  # Salt
         print(filename)
 
         if filename != "":
@@ -336,6 +334,30 @@ def upload_files():
             uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], filename))
             print("new path : ", str(os.path.join(app.config['UPLOAD_PATH'] + filename)))
             ORM.replace_image(current_user.username_user, str(os.path.join(app.config['UPLOAD_PATH'] + filename)))
+        return '', 204
+
+    return redirect(url_for('index.index'))
+
+
+@mod.route('/settings/account/', methods=['POST'])
+@login_required
+def upload_files_contact():
+    if current_user.is_authenticated:
+
+        uploaded_file = request.files['file']
+        filename = secure_filename(uploaded_file.filename)
+        extention = filename.split(".")
+        filename = "" +   "." + extention[1]  # Salt
+        print(filename)
+
+        if filename != "":
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in app.config['UPLOAD_EXTENSIONS'] or file_ext != validate_image(uploaded_file.stream):
+                return "Invalid image", 400
+            uploaded_file.save(os.path.join(app.config['UPLOAD_PATH_CONTACT'], filename))
+            print("new path : ", str(os.path.join(app.config['UPLOAD_PATH_CONTACT'] + filename)))
+            ORM.replace_image(current_user.username_user,
+                              str(os.path.join(app.config['UPLOAD_PATH_CONTACT'] + filename)))
         return '', 204
 
     return redirect(url_for('index.index'))
