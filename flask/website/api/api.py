@@ -336,6 +336,18 @@ def get_user_picture(username):
     )
 
 
+@mod.route('/api/contact/profile/<string:contact_id>', methods=['GET'])
+def get_contact_picture(contact_id):
+    """
+    Get current user picture stored in database
+    :param contact_id: the wanted contact_id
+    :rtype: Response
+    """
+    return jsonify(
+        response=ORM.get_contact_by_id(contact_id).profile_picture_contact
+    )
+
+
 @mod.route('/api/bikeeper/get_battery_level/<string:device_id>', methods=['GET'])
 def get_battery_level(device_id):
     """
@@ -373,7 +385,7 @@ def get_last_log_position(device_id):
     )
 
 
-@mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST'])
+@mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST']) #TODO replace /test/
 def update_current_selected_device(username, id_device):
     """
     Update the current selected device stored in database

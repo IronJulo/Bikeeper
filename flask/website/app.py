@@ -6,7 +6,9 @@ from flask_mobility import Mobility
 from sqlalchemy.orm import sessionmaker
 from flask_login import LoginManager
 from flask_debugtoolbar import DebugToolbarExtension
+from flask import render_template
 from flask_cors import CORS
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 CORS(app)
@@ -19,9 +21,10 @@ app.config.update(
     SEND_FILE_MAX_AGE_DEFAULT=0,
     SQLALCHEMY_TRACK_MODIFICATIONS=True,
     DEBUG_TB_INTERCEPT_REDIRECTS=False,
-    MAX_CONTENT_LENGTH=1024 * 1024,
+    MAX_CONTENT_LENGTH=2048 * 2048,
     UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
-    UPLOAD_PATH='./website/static/user_profile_picture/'
+    UPLOAD_PATH='./website/static/user_profile_picture/',
+    UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/'
 
 )
 
@@ -56,6 +59,8 @@ engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=Fa
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
+
 from website.views import home
 from website.views import settings
 from website.views import login
@@ -65,6 +70,7 @@ from website.views import logout
 from website.views import support
 from website.views import users
 from website.views import admin
+from website.views import errors
 from website.api import api
 from website.views import stats
 from website.views import test
@@ -79,6 +85,7 @@ app.register_blueprint(index.mod)
 app.register_blueprint(logout.mod)
 app.register_blueprint(support.mod)
 app.register_blueprint(users.mod)
+app.register_blueprint(errors.mod)
 app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
 app.register_blueprint(stats.mod)

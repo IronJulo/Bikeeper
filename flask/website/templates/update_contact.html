@@ -2,23 +2,25 @@
 
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/update_contact.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
 {% endblock style %}
 
 {% block main %}
 <div class="flex">
     <section>
         <h1>Update contact</h1>
+         <form action="{{ url_for('settings.upload_files_contact') }} + {{id_contact}}" id="imageUpload"
+                  class="dropzone">
+                <div class="img-avatar">
+                    <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
+                    <p>Current Picture</p>
+                </div>
+            </form>
         <form action="{{ url_for('settings.settings_contact_update_check') }}" method='POST'>
             <div class="form-group1">
-                <div class="form-avatar">
-                    <div class="img-avatar">
-                        <img id='avatar' src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your avatar">
-                        <input id='fileinput' type="file" name="avatar">
-                        <p id='picture'>Select image</p>
-                    </div>
-                </div>
-            </div>
 
+            </div>
+            <div style="display: none" id="current-id-contact">{{id_contact}}</div>
             <div class="form-group2">
                 <div class="form-first-name">
                     <fieldset>
@@ -51,32 +53,44 @@
 {% endblock main %}
 
 {% block script %}
+    <script src="{{ url_for('static', filename='dropzone/dropzone.min.js') }}"></script>
     <script>
-    /*
-        $(function() {
-        $('#picture').on('click', function() {
-            $('#fileinput').trigger('click');
-        });
-        });
 
-        $(function(){
-            $('#fileinput').change(function(){
-            var input = this;
-            var url = $(this).val();
-            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-                var reader = new FileReader();
+        Dropzone.options.imageUpload = {
+            maxFiles: 1,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            maxFilesize: 3,
+            accept: function (file, done) {
+                console.log("uploaded");
+                done();
+            },
+            init: function () {
+                this.on('addedfile', function (file) {
+                    if (this.files.length > 1) {
+                        this.removeFile(this.files[0]);
+                    }
+                });
+                this.on("success", function () {
+                    console.log()
+                    let current_contact = document.querySelector("#img-profile+span").textContent
 
-                reader.onload = function (e) {
-                    $('#avatar').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(input.files[0]);
+                    console.log("Refreshing image");
+                    $.ajax({
+                        url: "/api/contact/profile/" + current_contact,
+                        success: function (result) {
+                            document.getElementById("picture").src = result.response;
+                            document.getElementById("img-profile").style.backgroundImage = "url('" + result.response + "')";
+                        },
+                        error: function (err) {
+
+                        }
+                    });
+                });
+                this.on("maxfilesexceeded", function (file) {
+                    alert("No more files please!");
+                });
             }
-
-            });
-
-        });
-        */
-
+        };
     </script>
+
 {% endblock script %}
