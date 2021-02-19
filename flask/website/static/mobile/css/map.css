@@ -1,8 +1,8 @@
 
 #map {
-    /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
     height: 600px!important;
     z-index: 1;
-  
-    
+    position: absolute!important;
+    bottom: 1em;
+    width: 100%!important;
 }

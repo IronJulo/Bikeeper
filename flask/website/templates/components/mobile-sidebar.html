@@ -13,16 +13,16 @@
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Vector.svg') }}" alt="vector"></div>
                 <div class="col-10">Home</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
         {% if not current_user.is_admin_user %}
         <a href="/statistics/">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/graphicon1.svg') }}" alt="stat"></div>
                 <div class="col-10">Statistics</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
         {% endif %}
         {% if current_user.is_admin_user %}
         <a href="#404">
@@ -30,8 +30,8 @@
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
                 <div class="col-10">Users</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
         {% endif %}
         {% if current_user.is_admin_user %}
         <a href="/admin/access/">
@@ -39,8 +39,8 @@
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/layers.svg') }}" alt="setting"></div>
                 <div class="col-10">Platform</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
         {% endif %}
         {% if not current_user.is_admin_user %}
         <a href="/settings/">
@@ -48,17 +48,16 @@
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
                 <div class="col-10">Settings</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
         {% endif %}
         <a href="/support/">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/support.svg') }}" alt="support"></div>
                 <div class="col-10">Support</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
-        
         {% if not current_user.is_admin_user %}
         <div class="drpdwn">
             <div id="dropdown">
@@ -76,17 +75,16 @@
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
                 <div class="col-10">Device</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        
-        <div class="rectangle2"></div>
         {% endif %}
         <a href="{{ url_for('logout.logout')}}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/log_out.svg') }}" alt="log_out" id="Disconnect"></div>
                 <div class="col-10">Disconnect</div>
             </div>
+            <div class="rectangle2"></div>
         </a>
-        <div class="rectangle2"></div>
     </div>
 </div>
 <script type="text/javascript">

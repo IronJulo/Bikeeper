@@ -1,86 +1,162 @@
-html {
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc((85vw - var(--taille-sidebar))/3);
+    --taille-elements-height: calc(60vh - var(--taille-header));
+    --taille-card: 14vw;
+    --taille-mastercard: 80px;
 }
 
-body{
-
+div.flex, form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+	flex-direction: column;
+	position: relative;
 }
 
-header{
+div.flex > form > section {
     background-color: white;
-    top: 0;
+    border-radius: 1em;
+    text-align: center;
+    padding: 3em;
+    position: relative;
+    width: var(--taille-elements-width);
+    height: var(--taille-elements-height);
+    margin: 0 1em;
+}
+
+div.flex > form > section  h4 {
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+div.flex > form > section  ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+div.flex > form > section ul,
+div.flex > form > section h4,
+div.flex > form > section p:last-of-type {
+    margin-bottom: 7vh;
+}
+
+div.flex > form > section a {
+    position: absolute;
+    bottom: 1em;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 2em;
+    padding: .4em .8em;
+    color: white;
+    text-decoration: none;
+    width: fit-content;
+}
+
+div.flex > form > section a span:first-child {
+    font-size: 1rem;
+}
+
+div.flex > form > section a span:last-child {
+    font-size: .8rem;
+}
+
+section.section-sub h2 {
+    color: #1ED1AC;
+}
+
+section.section-sub a {
+    background-color: #1ED1AC;
+}
+
+section.cancel h2 {
+    color: var(--rouge);
+}
+
+
+@media(max-width:1100px){
+    div.flex > form > section.section-sub {
+        height: max-content;
+    }
+
+    :root {
+        --taille-elements-width:calc((95vw - var(--taille-sidebar))/3);
+    }
+}
+
+@media(max-height:800px){
+    div.flex > form > section.section-sub {
+        height: max-content;
+    }
+}
+
+
+div.sub-radio button {
+    border: solid 2px #1ED1AC;
+    padding: .5em;
+    border-radius: 1em;
+    outline: none;
+}
+
+
+section.cancel div.sub-radio button {
+    border: solid 2px var(--rouge);
+}
+
+section div.sub-radio {
+    position: absolute;
     left: 0;
     right: 0;
+    bottom: 5%;
+}
+
+input[type=radio] {
+    display: none;
+}
+
+section.section-sub,
+section.cancel {
+	width: 90% !important;
+	border: solid 4px #472c11;
+	margin: 1em 0 !important;
+}
+
+section.section-sub:first-of-type {
+	margin-top: 2em!important;
+}
+
+.modal-fd {
 	display: flex;
-}
-
-
-h2{
-	font-size: 25px;
-	font-weight: bold;
-	text-align: center;
-}
-
-h3{
-	font-size: 20px;
-	text-align: left;
-	margin-bottom: 2em;
-}
-
-section{
-	border: solid;
-	border-radius: 15px;
-	margin-bottom: 2em;
-	padding-bottom: 2em;
-
-}
-
-div.info{
-	border-top: solid;
-	margin-bottom: 2em;
-
-}
-
-div.action{
-	margin-left: 4em;
-}
-
-label.Icon{
-	width: 10px;
-	height: 10px;
-}
-a.plan{
-	border-radius: 20px;
-	padding: 0.6em;
-	background-color: lightgrey;
-	font-weight: bold;
 	justify-content: center;
-	margin-left: 25%;
-}
-a:active{
-	background-color: #999999;
-	text-decoration: none;
-	color: black;
 }
 
-button.cancel{
-	align-items: center;
-	font-weight: bold;
-	color: #D90B21;
-	border-radius:16px;
-	border-style:solid;
-	border-width: 1px;
-	border-color: #D90B21;
-	background-color: white;
-	margin: 7%;
-	padding: 10px;
-	flex-basis: 40%;
-	font-size: 22px;
+.modal-fd input {
+	width: 100%;
 }
 
-button.cancel:active{
-	border-color: #D90B21;
-	background-color: #D90B21;
+button.close {
+	width: 1.2em;
+    height: 1.2em;
+    outline: none;
+    border: none;
+    border-radius: 2em;
+	position: relative;
+	background-color: var(--rouge);
+}
+
+button.close span {
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-43%, -55%);
 	color: white;
-
-
 }

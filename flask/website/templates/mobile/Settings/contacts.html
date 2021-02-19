@@ -1,6 +1,10 @@
 {% extends "mobile/base.html" %}
 
 {% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/contacts.css') }}">
 {% endblock %}
 
 {% block header %}
@@ -8,34 +12,41 @@
             <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
         </div>
-
         {% include "components/mobile-sidebar.html" %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/contacts.css') }}">
-
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
 
 {% block main %}
-<div class="flex">
+<div class="flex">        
+    <a href="{{ url_for('settings.settings') }}" class="goback">
+        <i class="fa fa-chevron-left"></i>
+    </a>
     <section>
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
-        {% for i in range(0,5) %}
+        {% for contact in contacts %}
         <div class="contact">
-            <div class="info">
-                <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" class="img-avatar" alt="your contact avatar">
-                <h4><span class="nom">Nom</span> <span class="prenom">Prenom</span></h4>
-            </div>
-            <div class="action">
-                <a href="{{ url_for('settings.settings_contact_update') }}"><img src="{{ url_for('static', filename='mobile/assets/settings.png') }}"></a>
-                <a href="{{ url_for('settings.settings_contact_remove') }}"><img src="{{ url_for('static', filename='mobile/assets/close.png') }}" id="close"></a>
-            </div>
+            <form action="{{ url_for('settings.settings_contact_update') }}" id="update-contact" method='POST'>
+                <div class="info">
+                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
+                    <h4>{{contact.firstname_contact}} {{contact.lastname_contact}}</h4>
+                </div>
+                
+                <input type="hidden" name="id-contact" value='{{contact.id_contact}}'>
+               
+                <div class="action">
+                    <button type="submit" name="action" value="edit"><i class="fa fa-user-edit"></i></button>
+                    <button type="submit" name="action" value="remove"><i class="fa fa-trash-alt"></i></button>
+                </div>
+            </form>
         </div>
         {% endfor %}
     </section>
-    <a href="{{ url_for('settings.settings_contact_add') }}"><img src="{{ url_for('static', filename='mobile/assets/add.svg') }}" alt="add" id="add"></a>
+    <div id="add-contact">
+        <a href="{{ url_for('settings.settings_contact_add') }}">
+            <i class="fa fa-plus"></i>
+        </a>
+    </div>
+    
 </div>
 {% endblock main %}
 
