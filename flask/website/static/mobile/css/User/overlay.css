@@ -35,9 +35,8 @@ div.container a {
   height: 40px;
   width: 40px;
   position: absolute;
-  right: 5%;
+  right: 10%;
   top: 5%;
-  transform: translate(-95%,-50%);
 }
 
 .overlay-content>div>img{
