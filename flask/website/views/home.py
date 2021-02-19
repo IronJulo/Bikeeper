@@ -29,7 +29,9 @@ def home(template):
         )
 
 
-@mod.route('/mob/localisation/', methods=['GET', 'POST'])
+@mod.route('/localisation/', methods=['GET', 'POST'])
 @login_required
-def mob_localisation():
-    return render_template("mobile/User/localisation.html")
+def localisation():
+    return render_template(
+        "mobile/User/localisation.html"
+        )
