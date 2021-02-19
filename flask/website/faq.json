@@ -1,0 +1,53 @@
+{
+    "How long does the subscription last?" : {
+        "topic":"subscription",
+        "anwser":"The subscription lasts until you cancel it.",
+        "optional-link":""
+    },
+    "What are the advantages of the \"World\" version compared to the \"France\" version?" : {
+        "topic":"subscription",
+        "anwser":"With the \"France\" version, the different functionalities only apply in France. The world version therefore applies everywhere.",
+        "optional-link":""
+    },
+    "I have a certain version of the subscription. How can I get an other version of my subscription?" : {
+        "topic":"subscription",
+        "anwser":"You can change your subscription type whenever you want. The change will apply at the end of the month.",
+        "optional-link":""
+    },
+    "What will the contacts registered in Bikeeper be used for?" : {
+        "topic":"contact",
+        "anwser":"If an accident occurs while using the Bikeeper, it will automatically notify your contacts.",
+        "optional-link":""
+    },
+    "I would like to contact you, how can I do it?" : {
+        "topic":"general",
+        "anwser":"You need to open a ticket in the \"support\" category. You will then be put in touch with one of our administrators.",
+        "optional-link":"/support/"
+    },
+    "My Bikeeper device is damaged/not working. What do I do?" : {
+        "topic":"basic",
+        "anwser":"You need to open a ticket in the \"support\" category. Put \"Bikeeper does not work\" in the title of the ticket and you will be put in touch with the after-sales service.",
+        "optional-link":"/support/"
+    },
+    "I wish to cancel my subscription. How can I do this?" : {
+        "topic":"subscription",
+        "anwser":"You can change your subscription type whenever you want. The change will apply at the end of the month.",
+        "optional-link":""
+    },
+    "How do I change the mode of my Bikeeper?" : {
+        "topic":"basic",
+        "anwser":"We suggest that you follow this guide:",
+        "optional-link":""
+    },
+    "I changed my phone number and I can't contact my Bikeeper anymore. What should I do?" : {
+        "topic":"account",
+        "anwser":"Use the fonction \"Change my phone numer\". This will give to the Bikeeper a new usable phone number. ",
+        "optional-link":""
+    },
+    "I want to be able to record my trips. How can I do that?" : {
+        "topic":"general",
+        "anwser":"Simply change the Bikeeper mode to \"moving\". The device will automatically record the route taken.",
+        "optional-link":""
+    },
+
+}
