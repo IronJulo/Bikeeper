@@ -20,48 +20,85 @@
 
 {% block main %}
 <div class="flex">
-    <h2>Subscriptions</h2>
-    <section class='france'>
-        <h2>France</h2>
-        <div class="info">
-           <h4>This plan only works in France territories</h4>
-            <ul>
-                <li>Unlimited Notification</li>
-                <li>Top Customer Support</li>
-                <li>Mobile & Desktop web interfaces</li>
-                <li>Alert your friends</li>
-                <li>Smart Notification</li>
-                <li><s>World Wide Localisation</s></li>
-            </ul>
-        </div>
+    <a href="{{ url_for('settings.settings') }}" class=" goback">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+    <div class="flash">
+        {% include "messages.html" %}
+    </div>
+    
+    <form action="{{ url_for('settings.settings_subscriptions_update') }}" id="form-sub" method='POST'>
+        {% for sub in subscriptions %}
+            <section class='section-sub'>
+                <h2>{{sub.name_subscription}}</h2>
+                <div>
+                <h4>{{sub.localisation_subscription}}</h4>
+                    <ul>
+                        {% for feature in  features %}
+                            {% if sub.name_subscription == "France" and feature == "World Wide Localisation"%}
+                                <s>{{feature}}</s>
+                            {% else %}
+                                <li>{{feature}}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul> 
+                </div>
+                
+                <div class="sub-radio">
+                    {% if subscription_name != sub.name_subscription %}
+                    <button type="button" onclick="checkRadio(this)" data-toggle="modal" data-target="#modalCenter">
+                        <input type="radio" name="sub" value="{{sub.name_subscription}}">
+                        Choose this plan - €{{sub.price_subscription}}/mo
+                    </button>
+                    {% else %}
+                    <button type="button">Your current plan</button>
+                    {% endif %}
+                </div>
+            </section>
+        {% endfor %}
+        <section class='cancel'>
+            <h2>Cancel</h2>
+            <div>
+                <h4>Cancel your subscription</h4>
+                <p>Warning, this is an important action. Select this option will remove your privileges.</p>
+                <p>Please send your BiKeeper at 15 Avenue de Paris if you want to leave our community.</p>
+            </div>
 
-        <a href="{{url_for('settings.settings_subscriptions_change')}}" class="plan">
-            <span>Your plan - </span>
-            <span>€5/mo</span>
-        </a>
-    </section>
-    <section class='world'>
-        <h2>World</h2>
-        <div class="info">
-            <h4>This plan works everywhere</h4>
-            <ul>
-                <li>Unlimited Notification</li>
-                <li>Top Customer Support</li>
-                <li>Mobile & Desktop web interfaces</li>
-                <li>Alert your friends</li>
-                <li>Smart Notification</li>
-                <li>World Wide Localisation</li>
-            </ul>
-        </div>
+            <div class="sub-radio">
+                <button type="button" onclick="checkRadio(this)" data-toggle="modal" data-target="#modalCenter">
+                    <input type="radio" name="sub" value="cancel">
+                    Cancel
+                </button>
+            </div>
+        </section>
+    </form>
+</div>
 
-        <a href="{{url_for('settings.settings_subscriptions_change')}}" class="plan">
-            <span>Choose plan - </span>
-            <span>€7/mo</span>
-        </a>
-    </section>
-    <button type="button" class="cancel" value="cancel">Cancel my subscription</button>
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure?</p>
+                <p>Please enter your password to confirm.</p>
+                <fieldset class="modal-fd">
+                    <input type="password" form="form-sub" name="confirmpassword" placeholder='********'>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="form-sub" class="btn btn-danger">Yes</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
 
 {% block script %}
+<script src="{{ url_for('static', filename='pc/js/subscription.js') }}"></script>
 {% endblock script %}
