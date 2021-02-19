@@ -1,1 +1,24 @@
-a{}
+
+.link {
+  color: rgba(0,0,255,0.6)
+}
+
+.sommaire, .container{
+  box-shadow: 2px 1px 2px 1px rgba(0,0,0,0.30);
+  width: 90%
+}
+.sommaire{
+  margin-bottom: 50px
+}
+.question{
+  margin-top: 35px;
+}
+.anwser, .link{
+  padding-left: 10px
+}
+p{
+  margin-bottom: 0;
+}
+.box{
+  padding-bottom: 10px
+}
