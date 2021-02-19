@@ -39,20 +39,21 @@ form div *{
     flex-wrap: nowrap; 
     margin-top: 0.2em
 }
+
 form button{
     background-color: #DC1D21;
     color: white;
     border: None;
-    border-radius: 30px;
-    font-size: 36px;
-    margin-top: 0.5em;
-    padding-bottom: 2%;
-    padding-left: 3%;
-    padding-right: 3%;
-    height: 1.5em;
-    margin: auto
-    
+    border-radius: 2em;
+    margin: 6em auto;
+    padding: .5em 1em;
+    outline: none;
 }
+
+form button span {
+    font-size: 24px;
+}
+
 form div input{
     width: 70vw;
     height: 3em;
@@ -70,19 +71,16 @@ form div label{
     margin-left: 13%;
 }
 
-
-
-
-
 #rectangle{
     margin: auto;
-    margin-top: 5em;
-    margin-bottom: 2em;
+    position: absolute;
     width: 60%;
-    height:1vh;
+    height:.5em;
     background:white;
     border-radius: 10px;
-    
+    left: 0;
+    right: 0;
+    bottom: 10%;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

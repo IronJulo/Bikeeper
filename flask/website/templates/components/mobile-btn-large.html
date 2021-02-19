@@ -1,13 +1,12 @@
 {% macro newLargeButton(btn_link, btn_title, btn_icon, btn_alt) %}
 <div class="row btn-larger-custom">
-    <div class="col-11">
-        <a href="{{ btn_link }}">
+    <a href="{{ btn_link }}" id="find-localisation">
+        <div class="col-11">
             <h3>{{ btn_title }}</h3>
-        </a>
-    </div>
-
-    <div class="col-1">
-        <img src="{{ url_for('static', filename=btn_icon) }}" alt="{{ btn_alt }}">
-    </div>
+        </div>
+        <div class="col-1">
+            <img src="{{ url_for('static', filename=btn_icon) }}" alt="{{ btn_alt }}">
+        </div>
+    </a>
 </div>
 {% endmacro %}
