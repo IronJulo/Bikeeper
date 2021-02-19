@@ -4,10 +4,12 @@
     <img src="{{ url_for('static', filename='mobile/assets/close.png') }}" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
     <!-- Overlay content -->
     <div class="container">
+        <div id="img-profile"></div>
+        <span>{{current_user.username_user}}</span>
         {% if not current_user.is_admin_user %}
-        <a href="/home/">
+        <a href="{{ url_for('home.home') }}">
         {% else %}
-        <a href="/admin/home/">
+        <a href="{{ url_for('admin.admin_home') }}">
         {% endif %}
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Vector.svg') }}" alt="vector"></div>
@@ -59,9 +61,16 @@
             <div class="rectangle2"></div>
         </a>
         {% if not current_user.is_admin_user %}
+        <a href="#" onclick="dropdown()">
+            <div class="row">
+                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
+                <div class="col-10">Device</div>
+            </div>
+            <div class="rectangle2"></div>
+        </a>
         <div class="drpdwn">
             <div id="dropdown">
-                <div class="row">
+                <div class="row" id="devices">
                 {% for device in devices %}
                 <form action="{{ url_for('sidebar.sidebar_device_change') }}" method="POST">
                     <button type='submit' name="device_change" value="{{device.num_device}}" class="dropdown-item">{{ device.name_device }}</button>
@@ -70,13 +79,6 @@
                 </div>
             </div>
         </div>
-        <a href="#" onclick="dropdown()">
-            <div class="row">
-                <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/Device.svg') }}" alt="device"></div>
-                <div class="col-10">Device</div>
-            </div>
-            <div class="rectangle2"></div>
-        </a>
         {% endif %}
         <a href="{{ url_for('logout.logout')}}">
             <div class="row">
