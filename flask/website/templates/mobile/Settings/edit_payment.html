@@ -13,18 +13,21 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/edit_payement.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/payment.css') }}">
 
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
 
 {% block main %}
 <div class="flex">
+    <a href="{{ url_for('settings.settings_payment') }}"" class=" goback">
+        <i class="fa fa-chevron-left"></i>
+    </a>
     <section>
         <h2>Credit Card</h2>
         <img src="{{ url_for('static', filename='pc/assets/mastercard.png') }}" class="img-card" alt="mastercard logo">
 
-        <form action="{{ url_for('settings.settings_account_update') }}" method='POST'>
+        <form action="{{ url_for('settings.settings_payment_edit_check') }}" id="edit-payment" method='POST'>
             
             <div class="form-number">
                 <fieldset>
@@ -55,37 +58,34 @@
             </div>
 
             <div class="form-submit">
-                <!-- My Buttons -->
-                <a class='rotate-rouge' href="{{ request.referrer }}">Cancel</a>
-                <button class='rotate-vert' type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
-
-                <!-- Bootstrap -->
-                <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Enter your password to confirm changes.</p>
-                                <fieldset>
-                                    <input type="password" name="confirmpassword" placeholder='********'>
-                                </fieldset>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <a href="{{ url_for('settings.settings_payment') }}">Cancel</a>
+                <button type="button" data-toggle="modal" data-target="#modalCenter">Update</button>
             </div>
         </form>
     </section>
+</div>
+
+<div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Enter your password to confirm changes.</p>
+                <fieldset>
+                    <input type="password" form="edit-payment" name="confirmpassword" placeholder='********'>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+            <button type="submit" form="edit-payment" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock main %}
 

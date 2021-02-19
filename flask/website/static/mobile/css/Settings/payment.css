@@ -1,0 +1,189 @@
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(60vw - var(--taille-sidebar));
+    --taille-card: 14vw;
+    --taille-mastercard: 80px;
+}
+
+div.flex {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    position: relative;
+}
+
+section {
+    background-color: white;
+    border-radius: 1em;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+div.flex>section>a {
+    text-decoration: none;
+    color:white;
+    padding: 2em 1em;
+    background-color: var(--rouge);
+    border-radius: 15em;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 6%;
+    transform: translate(50%,-25%);
+}
+
+section div.credit-card {
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    height: 16em;
+    margin: 1em auto;
+    border: solid black 1px;
+}
+
+section div.credit-card div.haut {
+    background-color: blue;
+    width: 100%;
+    height: 55%;
+    position: relative;
+}
+
+section div.credit-card div.haut img {
+    width: var(--taille-mastercard);
+    height: auto;
+    display: block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+section div.credit-card div.bas {
+    background-color: white;
+    width: 100%;
+    height: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* EDIT */
+
+form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+form div.form-submit {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 3em;
+    margin-bottom: 3em;
+    align-self: center ;
+}
+
+form div.form-submit>a,
+form div.form-submit>button {
+    padding: 0.4em 3em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: .3em;
+}
+
+form div.form-submit>a {
+    border: solid var(--rouge) 2px;
+    display: block;
+}
+
+form div.form-submit>button {
+    border: solid var(--vert) 2px;
+    background-color: transparent;
+    outline: none;
+    margin: 1em 0;
+}
+
+form > div {
+    margin-top: 1em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form fieldset {
+    width: 60%;
+    border: solid 2px;
+    border-radius: .2em;
+}
+
+form input {
+    width: 100%;
+    outline: none;
+    border: none;
+    text-indent: 1em;
+}
+
+form fieldset legend {
+    width: fit-content;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    padding: 0 .2em;
+}
+
+section > img {
+    width: var(--taille-mastercard);
+    height: auto;
+}
+
+div.modal-body {
+	display: flex;
+    flex-direction: column;
+}
+
+.modal-fd {
+	display: flex;
+	justify-content: center;
+}
+
+.modal-fd input {
+	width: 100%;
+}
+
+button.close {
+	width: 1.2em;
+    height: 1.2em;
+    outline: none;
+    border: none;
+    border-radius: 2em;
+	position: relative;
+	background-color: var(--rouge);
+}
+
+button.close span {
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-43%, -55%);
+	color: white;
+}
+
+section.payment {
+    transform: translate(-50%, 50%);
+}
