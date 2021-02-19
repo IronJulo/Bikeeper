@@ -55,6 +55,7 @@ header {
   background-color: white;
   display: inline-flex;
   left: 0; right: 0; top: 0;
+  z-index: 1;
 }
 #header{
     height: 7.5em;

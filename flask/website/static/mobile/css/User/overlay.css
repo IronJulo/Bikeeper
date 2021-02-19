@@ -1,3 +1,15 @@
+:root {
+  --rouge: #DC1D21;
+  --rouge-hover: #c21a1c;
+  --vert: #0ea500;
+  --vert-hover: #0d9900;
+  --orange: #ff9100;
+  --taille-header:66px;
+  --taille-sidebar: 15vw;
+  --taille-elements-width: calc(60vw - var(--taille-sidebar));
+  --taille-card: 14vw;
+}
+
 .overlay {
   width: 0;
   height: 100%;
@@ -8,7 +20,7 @@
   z-index: 3;
 }
 
-div.container {
+#myNav div.container {
   margin: 0;
   padding: 1em;
   overflow: hidden;
@@ -16,7 +28,7 @@ div.container {
   top: 15%;
 }
 
-div.container a {
+#myNav div.container a {
   display: block;
 }
 
@@ -76,4 +88,21 @@ div.container a {
 #dropdown a{
   font-weight: normal;
   font-size: 25px
+}
+
+div.drpdwn {
+  transform: translate(5%, -10%);
+}
+
+div.drpdwn form {
+  font-size: 1.5rem;
+  margin: .2em;
+}
+
+div.drpdwn form button {
+}
+
+div#img-profile,
+div#img-profile + span {
+  display: none;
 }

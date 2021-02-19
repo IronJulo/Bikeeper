@@ -2,7 +2,5 @@
 #map {
     height: 600px!important;
     z-index: 1;
-    position: absolute!important;
-    bottom: 1em;
     width: 100%!important;
 }
