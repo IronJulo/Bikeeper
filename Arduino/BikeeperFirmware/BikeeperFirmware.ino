@@ -97,8 +97,8 @@ TinyGPSPlus gps;
 location_t location; // Declare the Location type
 SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 bool bikeMoved = false;
-#define GPS_TRESHOLD_LAT 0.000011
-#define GPS_TRESHOLD_LON 0.000020
+#define GPS_TRESHOLD_LAT 0.000050 //0.000011 
+#define GPS_TRESHOLD_LON 0.000050//0.000020
 /* GPS */
 /* Angle Detection */
 
@@ -140,44 +140,66 @@ void loop()
 	if (parked)
 	{
 		//interrupts();
-		if (vibartion)
+		if (vibartion) /* TODO timeout */
 		{
+			vibartion = false;
+
 			message_buffer.clear();
 
-			vibartion = false;
-			Serial.println("vibred moto*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 			smsFormatter.makeAlertSms('W', 'V', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
-			Serial.println(message_buffer.getStorage());
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			delay(500);
 
-			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, angle);
-			Serial.println(message_buffer.getStorage());
+			message_buffer.clear();
 
-			smsFormatter.makeHeartbeatSms('*', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
-			Serial.println(message_buffer.getStorage());
+			strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringVibrationDetected])));
+			sim800L.send(userPhoneNumber, message_buffer.getStorage());
+			delay(100);
 
-			smsFormatter.makeStateUpdateSms("F", 'A');
-			Serial.println(message_buffer.getStorage());
-
-			/* TODO CODE send sms vibration */
 			message_buffer.clear();
 		}
 
 		if (bikeMoved)
 		{
 			bikeMoved = false;
-			Serial.println("mouved moto*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 
-			/* TODO CODE send sms moved */
+			/*message_buffer.clear();
+			
+			smsFormatter.makeAlertSms('W', 'G', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			delay(500);
+
+			message_buffer.clear();
+
+			strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringMovementDetected])));
+			sim800L.send(userPhoneNumber, message_buffer.getStorage());
+			delay(100);
+
+			message_buffer.clear();*/
+
 		}
 	}
-	/*else 
+	if (bikeFallen && fallTime == 0)
 	{
-		noInterrupts();
-	}*/
+		fallTime = millis();
 
-	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in 60000 miliseconds
+		message_buffer.clear();
+
+		strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringFallDetected])));
+		sim800L.send(userPhoneNumber, smsFormatter.getStorage());
+		delay(500);
+
+		message_buffer.clear();
+	}
+
+	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in FALL_CALL_TIMEOUT miliseconds
 	{
-		/* TODO CODE send sms bike fallen */
+		bikeFallen = false;
+		smsFormatter.makeAlertSms('W', 'F', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+		sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+		delay(500);
+
+		/* TODO alert the user that we called is contacts */
 	}
 
 	Serial.println(F("latitude"));
@@ -262,7 +284,7 @@ void actualizeLocation()
 	if (location.latitude - gps.location.lat() >= GPS_TRESHOLD_LAT ||
 		location.latitude - gps.location.lat() <= -GPS_TRESHOLD_LAT ||
 		location.longitude - gps.location.lng() >= GPS_TRESHOLD_LON ||
-		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON)
+		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON)        // Calcul delta pos
 	{
 		bikeMoved = true;
 	}

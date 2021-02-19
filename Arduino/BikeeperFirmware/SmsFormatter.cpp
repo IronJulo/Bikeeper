@@ -35,7 +35,7 @@ SmsFormatter::setCoordinates(const location_t *location)
 	m_stringBuffer->storeDouble(location->longitude * 0.001, 18, 17);
 	setSeparator();
 	setSeparator();
-	m_stringBuffer->storeDouble(location->latitude * 0.01, 16, 15);
+	m_stringBuffer->storeDouble(location->latitude * 0.001, 16, 15);
 
 }
 
@@ -57,7 +57,7 @@ SmsFormatter::makeJourneySms(const char schema,
 {
 	clear();
 
-	m_stringBuffer->store("[BK]");
+	m_stringBuffer->store("[bk]");
 	setSeparator();
 	m_stringBuffer->store(schema);
 	setSeparator();
@@ -86,7 +86,7 @@ SmsFormatter::makeAlertSms(const char schema,
 {
 	clear();
 
-	m_stringBuffer->store("[BK]");
+	m_stringBuffer->store("[bk]");
 	setSeparator();
 	m_stringBuffer->store(schema);
 	setSeparator();
@@ -111,7 +111,7 @@ SmsFormatter::makeHeartbeatSms(const char schema,
 {
 	clear();
 
-	m_stringBuffer->store("[BK]");
+	m_stringBuffer->store("[bk]");
 	setSeparator();
 	m_stringBuffer->store(schema);
 	setSeparator();
@@ -130,7 +130,7 @@ SmsFormatter::makeStateUpdateSms(const char schema,
 {
 	clear();
 
-	m_stringBuffer->store("[BK]");
+	m_stringBuffer->store("[bk]");
 	setSeparator();
 	m_stringBuffer->store(schema);
 	setSeparator();
