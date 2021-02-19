@@ -1,7 +1,13 @@
 {% extends "mobile/base.html" %}
 
 {% block style %}
-
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+<link rel="stylesheet"
+        href="{{ url_for('static',filename = 'mobile/css/Settings/account_parameters_update.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/profile-picture.css') }}">
 {% endblock %}
 
 {% block header %}
@@ -10,17 +16,9 @@
                          alt="logo BiKeeper">
             <h1>BiKeeper</h1></a>
     </div>
-
     {% include "components/mobile-sidebar.html" %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-    <link rel="stylesheet"
-          href="{{ url_for('static',filename = 'mobile/css/Settings/account_parameters_update.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename = 'mobile/css/Settings/profile-picture.css') }}">
-
-    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu">
+    <nav onclick="openNav()">
+        <img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu">
     </nav>
 {% endblock %}
 
@@ -38,9 +36,15 @@
             </form>
         </div>
         <div class="account">
-            <h3>Registered on {{ register_date }}</h3>
+            <span>Registered on {{ current_user.date_creation_user }}</span>
             <div id="current-user" style="display: none">{{ current_user.username_user }}</div>
             <form action="{{ url_for('settings.settings_account_update') }}" id="update-account" method='POST'>
+
+                <fieldset>
+                    <legend>Password</legend>
+                    <input class="form-input" type="password" name="password">
+                </fieldset>
+
                 <fieldset>
                     <legend>First name</legend>
                     <input class="form-input" type="text" name="first-name" value="{{ current_user.firstname_user }}">
@@ -76,14 +80,39 @@
                     <input class="form-input" type="text" name="postal-code" pattern="[0-9]{5}"
                            value="{{ current_user.postal_code_user }}">
                 </fieldset>
-                <footer>
-                    <button class="update" type="submit">Update informations</button>
-                    <button class="cancel" type="button" onclick="window.location.reload();">Cancel</button>
-                </footer>
+                <div class="form-submit">
+                    <!-- My Buttons -->
+                    <a href="{{ request.referrer }}">Cancel</a>
+                    <button type="button" data-toggle="modal" data-target="#modalCenter">Update
+                    </button>
+                </div>
             </form>
         </div>
     </div>
+    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle"
+    aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <p>Enter your actual password to confirm changes.</p>
+               <fieldset class="modal-fd">
+                   <input type="password" form="update-account" name="confirmpassword" placeholder='********'>
+               </fieldset>
+           </div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" form="update-account" class="btn btn-primary">Save changes</button>
 
+           </div>
+       </div>
+   </div>
+</div>
 {% endblock %}
 
 {% block script %}

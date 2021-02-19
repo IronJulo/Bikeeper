@@ -1,8 +1,13 @@
-html {
-}
-
-body{
-
+:root {
+    --rouge: #DC1D21;
+    --rouge-hover: #c21a1c;
+    --vert: #0ea500;
+    --vert-hover: #0d9900;
+    --orange: #ff9100;
+    --taille-header:66px;
+    --taille-sidebar: 15vw;
+    --taille-elements-width: calc(60vw - var(--taille-sidebar));
+    --taille-card: 14vw;
 }
 
 header{
@@ -14,11 +19,11 @@ header{
 }
 
 span{
-	font-size: 60px;
 	font-weight: bold;
 	font-family: sans-serif;
-	margin-bottom: 5vh;
-	vertical-align: middle;
+	margin: 1em auto;
+	display: block;
+	text-align: center;
 }
 
 h2{
@@ -49,19 +54,30 @@ input.form-input{
 	font-size:18px;
     width: 100%;
     height: 2em;
+	text-indent: 1em;
 }
+
 input.form-input:focus{
 	outline: none;
 }
+
 legend{
-	font-weight: 500;
+	font-weight: 700;
 	font-size: 24px;
 	font-family: Roboto;
+	text-align: center;
+	margin: 0;
+	text-decoration: underline;
 }
-fieldset{
-    border: solid thin;
-    border-radius: 10px;
+
+fieldset:not(:first-of-type){
     margin-top:3em;
+}
+
+fieldset {
+	border: solid thin;
+	border-top: dashed thin;
+    border-radius: 10px;
 }
 
 button.update{
@@ -119,27 +135,65 @@ label.Icon{
 	height: 10px;
 }
 
-
-div.main{
-
+form {
+	margin: 0 .5em;
 }
 
-div.image{
 
+form div.form-submit {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-div.account{
-
+form div.form-submit>a,
+form div.form-submit>button {
+    padding: 0.4em 3em;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.6rem;
+    border-radius: .3em;
+	margin-top: .8em;
 }
 
-footer{
-
+form div.form-submit>a {
+    border: solid var(--rouge) 2px;
+    display: block;
 }
 
-button.update{
-
+form div.form-submit>button {
+    border: solid var(--vert) 2px;
+    background-color: transparent;
+    outline: none;
+	margin-bottom: 1em;
 }
 
-button.cancel{
+.modal-fd {
+	display: flex;
+	justify-content: center;
+}
 
+.modal-fd input {
+	width: 100%;
+}
+
+button.close {
+	width: 1.2em;
+    height: 1.2em;
+    outline: none;
+    border: none;
+    border-radius: 2em;
+	position: relative;
+	background-color: var(--rouge);
+}
+
+button.close span {
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+	color: white;
 }
