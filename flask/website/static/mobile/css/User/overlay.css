@@ -121,4 +121,6 @@ div#img-profile + span {
 }
 .fa-question{
   color: rgba(255,0,0,0.7);
+  font-size: 25px;
+  margin-top: 5px
 }
