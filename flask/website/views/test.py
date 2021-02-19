@@ -119,7 +119,4 @@ def sumbit_data_test():
     print(content)
     return Response(status=201, mimetype='application/json')
 
-@mod.route("/test/device/<int:id_device>", methods=["GET"])
-def is_parked(id_device):
-    return jsonify(parked=ORM.is_parked(id_device))
 
