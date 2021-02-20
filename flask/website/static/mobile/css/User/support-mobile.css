@@ -114,3 +114,7 @@ border-radius: 0px 24px 24px 24px;
 .blank{
   height: 60px
 }
+
+section.tickets {
+  position: relative;
+}

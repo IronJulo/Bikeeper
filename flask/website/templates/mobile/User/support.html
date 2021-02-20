@@ -1,77 +1,83 @@
 {% extends "mobile/base.html" %}
 
-        {% block header %}
-        <div class="logo">
-            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-            <h1>BiKeeper</h1></a>
-        </div>
-        {% include "components/mobile-sidebar.html" %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/support-mobile.css') }}">
-        <!-- Use any element to open/show the overlay navigation menu -->
-        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
-        {% endblock %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/support-mobile.css') }}">
+{% endblock %}
+
+{% block header %}
+<div class="logo">
+    <a href="{{ url_for('home.home')}}"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+    <h1>BiKeeper</h1></a>
+</div>
+{% include "components/mobile-sidebar.html" %}
+<!-- Use any element to open/show the overlay navigation menu -->
+<nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
 
     
 {% block main %}
-        <section class='tickets'>
-            <div>
-                <div class="container">
-                    <div class="container-fluid">
-                        <h3>TICKETS</h3>
-                    </div>
-                </div>
-                <div class="container">
-                    <ul class="nav">
-                    {% for numero in messages.keys() %}
-                    <div class="container-fluid tckt">
-                        <li onclick="" >
-                            <a href="/support/{{ numero }}/" class="tckt-id">
-                                Ticket#{{ numero }}
-                            </a>
-                            <p class="lst-msg">{{ last_messages[numero]["content"]  }}</p>
-                        </li>
-                    </div>
-                        
-                    {% endfor %}
-                </ul>
-                </div>
-                
-
-                
-
-                {% if not current_user.is_admin_user %}
-                <button type="button" class="btn btn-primary why-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Nous contacter
-                </button>
-                {% endif %}
-
-
-
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Pourquoi nous contactez-vous ?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <form action="{{ url_for('support.support_new_ticket') }}" method='POST'>
-                          <div class="modal-body">
-                            <fieldset>
-                                <input type="text" name="ticket" placeholder='I need you because...'>
-                            </fieldset>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Valider</button>
-                          </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+<section class='tickets'>
+    <a href="{{ url_for('home.home') }}" class="goback">
+      <i class="fa fa-chevron-left"></i>
+    </a>
+    <div>
+        <div class="container">
+            <div class="container-fluid">
+                <h3>TICKETS</h3>
             </div>
-        </section>
+        </div>
+        <div class="container">
+            <ul class="nav">
+            {% for numero in messages.keys() %}
+            <div class="container-fluid tckt">
+                <li onclick="" >
+                    <a href="/support/{{ numero }}/" class="tckt-id">
+                        Ticket#{{ numero }}
+                    </a>
+                    <p class="lst-msg">{{ last_messages[numero]["content"]  }}</p>
+                </li>
+            </div>
+                
+            {% endfor %}
+        </ul>
+        </div>
+        
+
+        
+
+        {% if not current_user.is_admin_user %}
+        <button type="button" class="btn btn-primary why-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Nous contacter
+        </button>
+        {% endif %}
+
+
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pourquoi nous contactez-vous ?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="{{ url_for('support.support_new_ticket') }}" method='POST'>
+                  <div class="modal-body">
+                    <fieldset>
+                        <input type="text" name="ticket" placeholder='I need you because...'>
+                    </fieldset>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Valider</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+</section>
 
 {% endblock main %}
 
