@@ -9,7 +9,7 @@
     <div class="vincent-wrapper">
         <img width="700" src="{{ url_for('static', filename='pc/assets/vincent.gif') }}"/>
         <h1>Ooups. La ressource demandée est indisponible !</h1>
-        <a href="/home">
+        <a href="{{ url_for('home.home') }}">
             <button type="button" class="btn btn-primary">Retour à l'accueil</button>
         </a>
 

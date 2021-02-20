@@ -16,11 +16,13 @@ div.main{
 
 div.info-border{
     border: solid black;
-	text-align: center;
-	margin-left: 10%;
-	margin-right:10%;
-	margin-top:10%;
-
+    text-align: center;
+    padding: 0.2em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
 }
 
 img.close_button{

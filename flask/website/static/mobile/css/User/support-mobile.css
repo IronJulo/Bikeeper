@@ -57,11 +57,7 @@ button{
 .modal-body{
   text-align: center
 }
-.why-btn{
-  position: absolute;
-  bottom: 10px;
-  left: 10px
-}
+
 .tckt{
   margin-left: 20px;
   margin-bottom: 10px;
@@ -117,4 +113,12 @@ border-radius: 0px 24px 24px 24px;
 
 section.tickets {
   position: relative;
+  height: 90vh;
+}
+
+button.why-btn {
+  position: absolute;
+  bottom: 10%;
+  right: 50%;
+  transform: translateX(50%);
 }
