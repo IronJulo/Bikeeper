@@ -5,27 +5,16 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
 
-    <!-- Import Leaflet CSS Style Sheet -->
-    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    {% if current_user.is_admin_user %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
-    {% else %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/statistic-mobile.css') }}">
-    {% endif %}
+<!-- Import Leaflet CSS Style Sheet -->
+<link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/statistic-mobile.css') }}">
 {% endblock %}
 
 
 {% block header %}
-<div class="logo">
-    <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}"
-            alt="logo BiKeeper">
-        <h1>BiKeeper</h1>
-    </a>
-</div>
-{% include "components/mobile-sidebar.html" %}
-<nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% include "components/mobile-header.html" %}
 {% endblock %}
 
 {% block main %}
@@ -118,8 +107,6 @@
             <div id="my_osm_widget_map"></div>
             <div id="temp"></div>
         </section>
-        
-    {% endif %}
 </div>
 {% endblock %}
 

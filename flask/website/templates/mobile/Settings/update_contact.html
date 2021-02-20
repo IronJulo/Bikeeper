@@ -8,12 +8,7 @@
 {% endblock %}
 
 {% block header %}
-        <div class="logo">
-            <a href="/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-            <h1>BiKeeper</h1></a>
-        </div>
-        {% include "components/mobile-sidebar.html" %}
-        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% include "components/mobile-header.html" %}
 {% endblock %}
 
 {% block main %}
@@ -57,7 +52,7 @@
             </div>
 
             <div class="form-submit">
-                <a href="{{ request.referrer }}">Cancel</a>
+                <a href="{{ url_for('settings.settings_contact') }}">Cancel</a>
                 <button type="submit">Apply</button>
             </div>
         </form>
