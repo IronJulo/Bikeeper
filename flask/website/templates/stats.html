@@ -3,10 +3,10 @@
 {% block style %}
     <!-- Import Leaflet CSS Style Sheet -->
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     {% if current_user.is_admin_user %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
     {% else %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics.css') }}">
     {% endif %}

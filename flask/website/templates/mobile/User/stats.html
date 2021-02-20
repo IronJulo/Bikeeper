@@ -4,13 +4,16 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/home-mobile.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/timeline.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/statistic-mobile.css') }}">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
-    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-    crossorigin="" />
-<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/map.css') }}">
+
+    <!-- Import Leaflet CSS Style Sheet -->
+    <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    {% if current_user.is_admin_user %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/statistics_admin.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/statistic-mobile.css') }}">
+    {% endif %}
 {% endblock %}
 
 
@@ -26,122 +29,100 @@
 {% endblock %}
 
 {% block main %}
-<div class="container">
-    <div class="container-fluid">
-        <div class="col-12">User Data</div>
-    </div>
-    <div class="row">
-        <div class="col-6">
-            <div class="card" style="width: 18rem;">
-                <img src="{{ url_for('static', filename='mobile/assets/battery_full_charge.png') }}"
-                    class="card-img-top" alt="battery">
-                <div class="card-body">
-                    <h5 class="card-title">60%</h5>
-                    <h6>Battery Charging</h6>
-                    <div class="charge"><i class="fa fa-bolt"></i></div>
+<div class="flex">
+        <section class='group1'>
+            <h2>User Data</h2>  
+            <div id="data" class='user-data'>      
+                <div class='bikeeper-data'>
+                    <img src="" alt="battery" id="battery-img">
+                    <p id="is-charging"></p>
                 </div>
 
-            </div>
-        </div>
-        <div class="col-6">
-            <div id="last-ride-information">
-                <p>Last ride :</p>
-                <p>Last ride time :</p>
-            </div>
-        </div>
-        <div class="container-fluid slctd-dvc">
-            Selected device :
-            {% for device in devices %}
-            {% if device.num_device == id_device %}
-            {{ device.name_device }}
-            {% endif %}
-            {% endfor %}
-        </div>
-        <div class="status container-fluid">
-            Status :
-            <div class="parked-{{id_device}} park"></div>
-        </div>
-    </div>
-</div>
-
-</div>
-<div class="container">
-    <div class="container-fluid">
-        <h2>Filters</h2>
-    </div>
-    <form class='filters'>
-        <div class="row filters">
-
-            <div class="col-6" id="date">
-                <label for="ride-date">Date</label>
-                <input type="date" name="ride-date" id="ride-date">
-            </div>
-            <div class="col-6" id="select">
-                <label for="number-ride">Ride n°</label>
-                <select name="device-number" id="device-number" class="form-select">
-                    <option value="device1">Device 1</option>
-                    <option value="device2">Device 2</option>
-                    <option value="device3">Device 3</option>
-                </select>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="container">
-    <div class="container-fluid">Timeline</div>
-    <div class="timeline">
-
-        <div class="entry purple">
-            <div class="cercle"></div>
-            <div class="body">
-                <p>Battery removed.</p>
                 <ul>
-                    <li>Motorbike battery is removed</li>
+                    <li><h6>Last Ride:</h6> <span id="last-ride">DATE</span></li>
+                    <li><h6>Last Ride Duration:</h6> <span id="last-ride-duration">TIME</span></li>
                 </ul>
             </div>
-        </div>
-        <div class="entry red">
-            <div class="cercle"></div>
-            <div class="body">
-                <p>Alert ! Bike Vibrations detected !</p>
-                <ul>
-                    <li>Notification send on your phone at 8h51.</li>
-                </ul>
+        </section>
+
+        <section class='group2'>
+            <div id="filters" class="filters">
+                <h2>Filters</h2>
+                <form class='filters'>
+                    <div class='ride-date'>
+                        <label for="ride-date">Ride Date: </label>
+                        <input onchange="loadDateBikeepers()" type="date" name="ride-date" id="ride-date">
+                    </div>
+                    <div class='device-number'>
+                        <label for="device-number">Device Number: </label>
+                        <select onchange="createTimelineElements();loadRides()" name="device-number"
+                                id="device-number">
+                        </select>
+                    </div>
+                    <div class='ride-number'>
+                        <label for="ride-number">Ride Number: </label>
+                        <select onchange="displayRideData()" name="ride-number" id="ride-number">
+                        </select>
+                    </div>
+                </form>
             </div>
-        </div>
-        <div class="entry blue">
-            <div class="cercle"></div>
-            <div class="body">
-                <p>Alert ! Bike Vibrations detected !</p>
-                <ul>
-                    <li>Notification send on your phone at 8h51.</li>
-                </ul>
+            <div id="timeline" class="container-timeline">
+                <h2>Timeline</h2>
+                <div class="timeline">
+                    
+                </div>
             </div>
-        </div>
 
-    </div>
+        </section>
+
+        <section class='group3'>
+            <div class="graph1">
+                <div class="canvas1">
+                    <canvas id="speed"></canvas>
+                </div>
+                <div class="info1">
+                    <ul>
+                        <li>Max Speed: <span id="max-speed"> - </span>km/h</li>
+                        <li>Average Speed: <span id="average-speed"> - </span>km/h</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="graph2">
+                <div class="canvas2">
+                    <canvas id="angle"></canvas>
+                </div>
+                <div class="info2">
+                    <ul>
+                        <li>Max Angle: <span id="max-angle"> - </span>°</li>
+                        <li>Average Angle: <span id="average-angle"> - </span>°</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="group5">
+            <div class="container-fluid">
+                <div class="parked park"></div>
+            </div>
+        </section>
+
+        <section class="group4">
+            <form action="{{ request.url }}" method='GET'>
+                <div class="btn-container">
+                    <input type="radio" name="local" id="local" checked hidden/>
+                    <label for="local">Local</label>
+                    <input type="radio" name="online" id="online" hidden/>
+                    <label for="online">Online</label>
+                </div>
+            </form>
+            <div id="my_osm_widget_map"></div>
+            <div id="temp"></div>
+        </section>
+        
+    {% endif %}
 </div>
-<div class="container">
-    <div class="container-fluid">Records</div>
-    <div id="records-information">
-        <p>Max Speed :</p>
-        <p>Best Right Angle :</p>
-        <p>Best Left Angle :</p>
-    </div>
-</div>
-<div class="container">
-
-    <div class="container-fluid">Ride</div>
-    <div class="container-fluid">
-        <div id="my_osm_widget_map"></div>
-        <div id="temp"></div>
-    </div>
-</div>
-
-
-</div>
-
 {% endblock %}
+
 {% block script %}
 <!-- Import Leaflet JS Library -->
 <script src="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.js"></script>
@@ -160,6 +141,8 @@
         username_stats = document.getElementById("user-name").innerText;
     }
 </script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
 <script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>

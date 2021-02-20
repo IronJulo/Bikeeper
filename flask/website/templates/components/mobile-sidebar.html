@@ -18,7 +18,7 @@
             <div class="rectangle2"></div>
         </a>
         {% if not current_user.is_admin_user %}
-        <a href="/statistics/">
+        <a href="{{ url_for('stats.statistics') }}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/graphicon1.svg') }}" alt="stat"></div>
                 <div class="col-10">Statistics</div>
@@ -27,7 +27,7 @@
         </a>
         {% endif %}
         {% if current_user.is_admin_user %}
-        <a href="#404">
+        <a href="{{ url_for('admin.admin_access') }}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
                 <div class="col-10">Users</div>
@@ -36,7 +36,7 @@
         </a>
         {% endif %}
         {% if current_user.is_admin_user %}
-        <a href="/admin/access/">
+        <a href="{{ url_for('admin.admin_access') }}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/layers.svg') }}" alt="setting"></div>
                 <div class="col-10">Platform</div>
@@ -45,7 +45,7 @@
         </a>
         {% endif %}
         {% if not current_user.is_admin_user %}
-        <a href="/settings/">
+        <a href="{{ url_for('settings.settings') }}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/settings1.svg') }}" alt="setting"></div>
                 <div class="col-10">Settings</div>
@@ -53,7 +53,7 @@
             <div class="rectangle2"></div>
         </a>
         {% endif %}
-        <a href="/support/">
+        <a href="{{ url_for('support.support') }}">
             <div class="row">
                 <div class="col-2"><img src="{{ url_for('static', filename='mobile/assets/support.svg') }}" alt="support"></div>
                 <div class="col-10">Support</div>
