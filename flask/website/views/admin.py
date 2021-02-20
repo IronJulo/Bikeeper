@@ -55,22 +55,6 @@ def admin_support(template):
 	return render_template(template)
 
 
-@mod.route('/admin/humberger', methods=['GET'])
-@mobile_template("{mobile/Admin/}humberger_overlay_connected_admin.html")
-@login_required
-@admin_required
-def humberger_overlay_connected_admin(template):
-	return render_template(template)
-
-
-@mod.route('/admin/dashboard', methods=['GET'])
-@mobile_template("{mobile/Admin/}support_dashboard_admin.html")
-@login_required
-@admin_required
-def support_dashboard_admin(template):
-	return render_template(template)
-
-
 @mod.route('/admin/platform', methods=["GET"])
 @login_required
 @admin_required

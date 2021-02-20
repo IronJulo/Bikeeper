@@ -93,6 +93,10 @@ ul.list {
     align-items: center;
 }
 
+ul.list > li > p {
+	margin: 0;
+}
+
 li>*:first-child{
 	position:absolute;
 }
