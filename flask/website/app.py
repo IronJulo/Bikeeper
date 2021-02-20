@@ -9,6 +9,8 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask import render_template
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
+from flask_mail import Mail, Message
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -24,13 +26,23 @@ app.config.update(
     MAX_CONTENT_LENGTH=2048 * 2048,
     UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
     UPLOAD_PATH='./website/static/user_profile_picture/',
-    UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/'
+    UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/',
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USERNAME='bikeeper.team@gmail.com',
+    MAIL_PASSWORD='bikeeper34',
+    MAIL_USE_TLS=False,
+    MAIL_USE_SSL=True
 
 )
 
 # toolbar = DebugToolbarExtension(app)
 
 Mobility(app)
+
+mail = Mail(app)
+
+
 
 
 def mkpath(p):
@@ -58,8 +70,6 @@ engine = sqlalchemy.create_engine(app.config['SQLALCHEMY_DATABASE_URI'], echo=Fa
 # Session that is used to perform sql requests to the engine -> here MariaDB
 Session = sessionmaker(bind=engine)
 session = Session()
-
-
 
 from website.views import home
 from website.views import settings
