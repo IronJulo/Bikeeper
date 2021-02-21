@@ -158,7 +158,7 @@ void treatSMS()
 				sendSMSToUser(indexStringJourneyNotStarted);
 			}
 		}
-		else if (sms_buffer.indexOf("ok", 2) != -1) // User sent ok command
+		else if (sms_buffer.indexOf("fine", 4) != -1) // User sent ok command
 		{
 			if (bikeFallen)
 			{
@@ -179,6 +179,7 @@ sendSMSToUser(const short index)
 	message_buffer.clear();
 
 	strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[index])));
+	Serial.println(smsFormatter.getStorage());
 	sim800L.send(userPhoneNumber, message_buffer.getStorage());
 	sim800L.smartRead("+CMGS", 5, 1000);
 

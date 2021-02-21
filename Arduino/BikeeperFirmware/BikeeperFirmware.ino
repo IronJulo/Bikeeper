@@ -21,8 +21,8 @@ for the arduino uno
                                         ║ [ ]A1    ═╣ O ╠═               4[ ] ║══════> GPS tx
                                         ║ [ ]A2     ╚═══╝           INT1/3[ ]~║
                                         ║ [ ]A3                     INT0/2[ ] ║══════> Interrupt pin for the "do" pin of the vibration sensor
-                                        ║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
-                                        ║ [ ]A5/SCL  [ ] [ ] [ ]      RX<0[ ] ║
+                   Gyroscope SDA <══════║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
+                   Gyroscope SCL <══════║ [ ]A5/SCL  [ ] [ ] [ ]      RX<0[ ] ║
                                         ║            [ ] [ ] [ ]              ║
                                         ║            GND MOSI 5V ╔════════════╝
                                         ╚═══UNO_R3═══════════════╝ 
@@ -32,6 +32,7 @@ for the arduino uno
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h> // for Sim800L & Tinygps++
 #include <string.h>
+#include "Wire.h"
 
 #include "I_Sim800L.hpp"
 #include "StringBuffer.hpp"
@@ -97,14 +98,20 @@ TinyGPSPlus gps;
 location_t location; // Declare the Location type
 SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 bool bikeMoved = false;
-#define GPS_TRESHOLD_LAT 0.000050 //0.000011 
-#define GPS_TRESHOLD_LON 0.000050//0.000020
+#define GPS_TRESHOLD_LAT 0.000050 //0.000011
+#define GPS_TRESHOLD_LON 0.000050 //0.000020
 /* GPS */
-/* Angle Detection */
 
+/* Angle Detection */
+#define GYRO_MIN_MAX_X 16000
+#define GYRO_MIN_MAX_Y 17600
+#define FALL_CALL_TIMEOUT 6000 // 1 minute
+#define ANGLE_TRESHOLD 20 // Max angle before threating it as a fall 
+
+const int MPU_ADDR = 0x68;
 bool bikeFallen = false;
-#define FALL_CALL_TIMEOUT 60000 // 1 minute
-signed short angle = 0; 
+double gyro_y, gyro_x;
+short zeroGyro_y, zeroGyro_x = 0;
 unsigned long fallTime = 0;
 /* Angle Detection */
 void setup()
@@ -128,6 +135,13 @@ void setup()
 	sim800L.deleteALL();
 	sim800L.setModeTexte();
 	sim800L.smartRead("OK", 2, 500);
+
+	Wire.begin();
+	Wire.beginTransmission(MPU_ADDR);
+	Wire.write(0x6B);
+	Wire.write(0);
+	Wire.endTransmission(true);
+
 	interrupts();
 }
 
@@ -137,6 +151,7 @@ void loop()
 	actualizeDeviceBattery();
 	actualizeBikeBattery();
 	actualizeIsBatteryCharging();
+	actualizeAngle();
 	if (parked)
 	{
 		//interrupts();
@@ -176,25 +191,29 @@ void loop()
 			delay(100);
 
 			message_buffer.clear();*/
-
 		}
 	}
 	if (bikeFallen && fallTime == 0)
 	{
 		fallTime = millis();
-
+		Serial.println("-----------------");
+		Serial.println(fallTime);
+		Serial.println("-----------------");
 		message_buffer.clear();
 
 		strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringFallDetected])));
 		sim800L.send(userPhoneNumber, smsFormatter.getStorage());
 		delay(500);
+		Serial.println(smsFormatter.getStorage());
 
 		message_buffer.clear();
 	}
 
 	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in FALL_CALL_TIMEOUT miliseconds
 	{
+		Serial.println("*******************************");
 		bikeFallen = false;
+		fallTime = 0;
 		smsFormatter.makeAlertSms('W', 'F', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
 		sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
 		delay(500);
@@ -202,11 +221,24 @@ void loop()
 		/* TODO alert the user that we called is contacts */
 	}
 
-	Serial.println(F("latitude"));
+	/*Serial.println(F("latitude"));
 	printFloat(location.latitude, 1, 11, 6);
 	Serial.println();
 	Serial.println(F("longitude"));
-	printFloat(location.longitude, 1, 12, 6);
+	printFloat(location.longitude, 1, 12, 6);*/
+	Serial.println();
+	Serial.println(fallTime);
+	Serial.println();
+
+	Serial.print(" | AngX = ");
+	Serial.print(gyro_x);
+	Serial.print(" | AngY = ");
+	Serial.print(gyro_y);
+	Serial.print(" | zeroGyro_x = ");
+	Serial.print(zeroGyro_x);
+	Serial.print(" | zeroGyro_y = ");
+	Serial.print(zeroGyro_y);
+
 	Serial.println();
 	Serial.println();
 
@@ -276,15 +308,15 @@ void actualizeLocation()
 {
 	//noInterrupts();
 	gpsSerial.listen();
-	printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
-	Serial.println();
-	printFloat(location.longitude - gps.location.lng(), 1, 12, 6);
-	Serial.println();
+	//printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
+	//Serial.println();
+	//printFloat(location.longitude - gps.location.lng(), 1, 12, 6);
+	//Serial.println();
 
 	if (location.latitude - gps.location.lat() >= GPS_TRESHOLD_LAT ||
 		location.latitude - gps.location.lat() <= -GPS_TRESHOLD_LAT ||
 		location.longitude - gps.location.lng() >= GPS_TRESHOLD_LON ||
-		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON)        // Calcul delta pos
+		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON) // Calcul delta pos
 	{
 		bikeMoved = true;
 	}
@@ -309,6 +341,36 @@ void actualizeBikeBattery()
 void actualizeIsBatteryCharging()
 {
 	isBatteryCharging = false;
+}
+
+void actualizeAngle()
+{
+	Wire.beginTransmission(MPU_ADDR);
+	Wire.write(0x3B);
+
+	Wire.endTransmission(false);
+	Wire.requestFrom(MPU_ADDR, 2 * 2, true);
+
+	gyro_y = Wire.read() << 8 | Wire.read();
+	gyro_x = Wire.read() << 8 | Wire.read();
+
+	if (zeroGyro_y == 0 || zeroGyro_x == 0)
+	{
+		zeroGyro_y = gyro_y; // reading registers: 0x43 (GYRO_XOUT_H) and 0x44 (GYRO_XOUT_L)
+		zeroGyro_x = gyro_x;
+	}
+	gyro_x = (gyro_x - zeroGyro_x) / GYRO_MIN_MAX_X * 90;
+	gyro_y = (gyro_y - zeroGyro_y) / GYRO_MIN_MAX_Y * 90;
+
+
+	if (fallTime == 0 && 
+		gyro_x >= ANGLE_TRESHOLD ||
+		gyro_x <= -ANGLE_TRESHOLD ||
+		gyro_y >= ANGLE_TRESHOLD ||
+		gyro_y <= -ANGLE_TRESHOLD)
+	{
+		bikeFallen = true;
+	}
 }
 
 void vibartionDetected()

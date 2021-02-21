@@ -17,7 +17,7 @@ const char StringJourneyNotStarted[] PROGMEM = "Journey not started you can star
 const char StringVibrationDetected[] PROGMEM = "Vibration detected check your bike";
 const char StringMovementDetected[] PROGMEM = "Bike movement detected check your bike";
 const char StringLowBatteryDetected[] PROGMEM = "Low battery check your bike";
-const char StringFallDetected[] PROGMEM = "Fall detected are you fine ? \'OK\'";
+const char StringFallDetected[] PROGMEM = "Fall detected are you fine ? \'Fine\'";
 const char StringOkBeSafe[] PROGMEM = "Ok be safe";
 const char StringCoordinatesStart[] = "Pos \rLon :  ";
 const char StringCoordinatesMiddle[] = "\rLat :  ";
@@ -55,6 +55,7 @@ const char *const string_table[] PROGMEM = {
 	StringVibrationDetected,
 	StringMovementDetected,
 	StringLowBatteryDetected,
+	StringFallDetected,
 	StringOkBeSafe
 	};
 
