@@ -48,7 +48,12 @@ html {
     font-weight: 500;
     z-index: 1000;
 }
-
+.sidebar #help{
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: white
+}
 .sidebar ul {
     width: 100%;
     margin: 0;

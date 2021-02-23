@@ -1,0 +1,28 @@
+
+.link {
+  color: rgba(0,0,255,0.6)
+}
+
+
+
+.question{
+  margin-top: 35px;
+}
+.anwser, .link{
+  padding-left: 10px
+}
+p{
+  margin-bottom: 0;
+}
+.box{
+  padding-bottom: 10px
+}
+#title{
+  padding-left: 20px;
+  margin-bottom: 15px;
+  font-size: 30px;
+
+}
+.accordion-button{
+padding-left: 35px;
+}

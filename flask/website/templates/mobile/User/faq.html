@@ -1,0 +1,49 @@
+{% extends "mobile/base.html" %}
+{% block header %}
+        <div class="logo">
+            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mobile/css/User/faq.css') }}">
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+{% block main %}
+
+
+<h2 id="title">FAQ</h2>
+
+
+{% for category in topic %}
+
+<div class="accordion accordion-flush" id="faq">
+  	<div class="accordion-item">
+    	<h2 class="accordion-header" id="{{category}}">
+      		<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#i-{{category}}" aria-expanded="false" aria-controls="i-{{category}}">
+        		{{category}}
+      		</button>
+    	</h2>
+    	<div id="i-{{category}}" class="accordion-collapse collapse box" aria-labelledby="{{category}}" data-bs-parent="#faq">
+    		{% for question in data %}
+			{% if data[question]["topic"] == category %}
+      		<div class="container-fluid">
+				<h4 class="question">{{question}}</h4><br>
+				<p class="anwser">{{data[question]["anwser"]}}</p>
+				{% if data[question]["optional-link"]!=""  %}
+				<a href="{{data[question]['optional-link']}}" class="link">Cliquez ici !</a>
+				{% endif %}
+			</div>
+      		{% endif %}
+			{% endfor %}
+    	</div>
+  	</div>
+</div>
+
+{% endfor %}
+
+
+
+{% endblock %}
