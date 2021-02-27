@@ -27,13 +27,6 @@ app.config.update(
     UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
     UPLOAD_PATH='./website/static/user_profile_picture/',
     UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/',
-    MAIL_SERVER='smtp.gmail.com',
-    MAIL_PORT=465,
-    MAIL_USERNAME='bikeeper.team@gmail.com',
-    MAIL_PASSWORD='bikeeper34',
-    MAIL_USE_TLS=False,
-    MAIL_USE_SSL=True
-
 )
 
 # toolbar = DebugToolbarExtension(app)
@@ -41,8 +34,6 @@ app.config.update(
 Mobility(app)
 
 mail = Mail(app)
-
-
 
 
 def mkpath(p):
@@ -53,11 +44,10 @@ def mkpath(p):
 
 
 # MariaDB Config
-SERVER_IP = "167.71.142.2"  # ip 167.71.142.2
-SERVER_USER = "root"
-SERVER_PASSWORD = "bikeeper"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.format(SERVER_USER, SERVER_PASSWORD,
-                                                                                   SERVER_IP)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{}:{}@{}/BIKEEPER'.format(os.environ.get('SERVER_USER'),
+                                                                                   os.environ.get('SERVER_PASSWORD'),
+                                                                                   os.environ.get('SERVER_IP'))
 
 # Module that will build python objects
 db = SQLAlchemy(app)
