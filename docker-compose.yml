@@ -1,0 +1,55 @@
+version: '3'
+services:
+    db:
+        image: mariadb/server:10.3
+        container_name: bikeeperbd
+        restart: always
+        ports:
+            - 32000:3306
+        command:
+            --log-bin
+            --binlog-format=MIXED
+        environment:
+            - MYSQL_USER=teambikeeper
+            - MYSQL_PASSWORD=bikeeper
+            - MARIADB_RANDOM_ROOT_PASSWORD=no
+            - MYSQL_ROOT_PASSWORD=bikeepersu
+        healthcheck:
+            test: "/usr/bin/mysql --user=teambikeeper --password=bikeeper --execute \"SHOW DATABASES;\""
+            interval: 2s
+            timeout: 20s
+            retries: 10
+
+    bikeeper-website:
+        container_name: bikeeper
+        restart: always
+        depends_on:
+            db:
+                condition: service_healthy
+        build: ./flask/
+        volumes:
+            - ./flask/:/usr/src/app/
+        ports:
+            - 8080:8080
+        environment:
+            PORT: 8080
+            HOST: 0.0.0.0
+            FLASK_DEBUG: 1
+
+    osm:
+        image: klokantech/tileserver-gl
+        container_name: osm
+        restart: always
+        build:
+            context: .
+            dockerfile: ./docker/openstreetmap/osm.Dockerfile
+        depends_on:
+            db:
+                condition: service_healthy
+        volumes:
+            - ./docker/openstreetmap/:/data
+        ports:
+            - 8989:80
+        command:
+            --bind 0.0.0.0
+            --mbtiles centre.mbtiles

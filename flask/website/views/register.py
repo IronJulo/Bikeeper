@@ -9,6 +9,7 @@ from flask.helpers import flash
 import datetime
 from ..utils import Utils
 from flask_mail import Message
+import os
 
 mod = Blueprint('register', __name__)
 
@@ -32,7 +33,7 @@ def send_welcome_email(username, email):
 	page = "<html>" \
 	       "<body>" \
 	       "<h1>Welcome ! 🔥</h1>" \
-	       "<h2>Hello<b>" + username + "</b>, Welcome in Bikeeper. Your account is now registered on " \
+	       "<h2>Hello<b> " + username + "</b>, Welcome in Bikeeper. Your account is now registered on " \
 	                                   "bikeeper. Your can log in into your account to start using " \
 	                                   "Bikeeper.</h2><br><img src=cid:logo></body></html> "
 	msg = Message(subject="Welcome from Bikeeper ! ", html=page, sender='bikeeper34@gmail.com',
