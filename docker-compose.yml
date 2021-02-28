@@ -1,55 +1,87 @@
 version: '3'
 services:
-    db:
-        image: mariadb/server:10.3
-        container_name: bikeeperbd
-        restart: always
-        ports:
-            - 32000:3306
-        command:
-            --log-bin
-            --binlog-format=MIXED
-        environment:
-            - MYSQL_USER=teambikeeper
-            - MYSQL_PASSWORD=bikeeper
-            - MARIADB_RANDOM_ROOT_PASSWORD=no
-            - MYSQL_ROOT_PASSWORD=bikeepersu
-        healthcheck:
-            test: "/usr/bin/mysql --user=teambikeeper --password=bikeeper --execute \"SHOW DATABASES;\""
-            interval: 2s
-            timeout: 20s
-            retries: 10
+  db:
+    image: mariadb/server:10.3
+    container_name: bikeeperbd
+    restart: always
+    ports:
+      - 32000:3306
+    command:
+      --log-bin
+      --binlog-format=MIXED
+    environment:
+      - MYSQL_USER=teambikeeper
+      - MYSQL_PASSWORD=bikeeper
+      - MARIADB_RANDOM_ROOT_PASSWORD=no
+      - MYSQL_ROOT_PASSWORD=bikeepersu
+      - MYSQL_DATABASE=BIKEEPER
+    healthcheck:
+      test: "/usr/bin/mysql --user=teambikeeper --password=bikeeper --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
 
-    bikeeper-website:
-        container_name: bikeeper
-        restart: always
-        depends_on:
-            db:
-                condition: service_healthy
-        build: ./flask/
-        volumes:
-            - ./flask/:/usr/src/app/
-        ports:
-            - 8080:8080
-        environment:
-            PORT: 8080
-            HOST: 0.0.0.0
-            FLASK_DEBUG: 1
+  bikeeper-website:
+    container_name: bikeeper
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    build: ./flask/
+    volumes:
+      - ./flask/:/usr/src/app/
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      HOST: 0.0.0.0
+      FLASK_DEBUG: 1
 
-    osm:
-        image: klokantech/tileserver-gl
-        container_name: osm
-        restart: always
-        build:
-            context: .
-            dockerfile: ./docker/openstreetmap/osm.Dockerfile
-        depends_on:
-            db:
-                condition: service_healthy
-        volumes:
-            - ./docker/openstreetmap/:/data
-        ports:
-            - 8989:80
-        command:
-            --bind 0.0.0.0
-            --mbtiles centre.mbtiles
+  osm:
+    image: klokantech/tileserver-gl
+    container_name: osm
+    restart: always
+    build:
+      context: .
+      dockerfile: ./docker/openstreetmap/osm.Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./docker/openstreetmap/:/data
+    ports:
+      - 8989:80
+    command:
+      --bind 0.0.0.0
+      --mbtiles centre.mbtiles
+
+  reverse-proxy:
+    image: nginx
+    container_name: nginxreverse
+    volumes:
+      - ./docker/ngnix/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      - "GF_INSTALL_PLUGINS=grafana-worldmap-panel"
+      - "GF_INSTALL_IMAGE_RENDERER_PLUGIN=true"
+      - "GF_DATABASE_TYPE=mysql"
+      - "GF_DATABASE_NAME=BIKEEPER"
+      - "GF_DATABASE_USER=teambikeeper"
+      - "GF_DATABASE_HOST=db"
+      - "GF_DATABASE_PASSWORD=bikeeper"
+      - "GF_ANALYTICS_REPORTING_ENABLED=false"
+      - "GF_SECURITY_ADMIN_USER=admin"
+      - "GF_SECURITY_ADMIN_PASSWORD:=admin"
+    volumes:
+      - ./docker/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./docker/grafana/grafana-storage:/var/lib/grafana
+    ports:
+      - 3000:3000
