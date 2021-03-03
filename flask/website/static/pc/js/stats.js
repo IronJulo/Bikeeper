@@ -98,7 +98,15 @@ const updateHeaderInfo = async () => {
         img_name = '/static/pc/assets/battery_low_charge.png';
     }
 
-    document.getElementById("battery-img").src = img_name;
+    if (document.getElementById("battery-img") == null) {
+        const img_child = document.createElement('img');
+        img_child.setAttribute("id", "battery-img");
+        img_child.setAttribute("alt", "battery");
+        img_child.setAttribute("src", img_name);
+        document.getElementsByClassName("bikeeper-data")[0].appendChild(img_child);
+    } else {
+        document.getElementById("battery-img").setAttribute("src", img_name);
+    }
     if (battery_info.charge === "t") {
         document.getElementById("is-charging").innerText = "The battery is charging"
     } else if (battery_info.charge === "f") {

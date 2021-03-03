@@ -380,9 +380,15 @@ def get_last_log_position(device_id):
     :param device_id: the device id
     :rtype: Response
     """
-    return jsonify(
-        ORM.get_last_log_position(device_id).serialize()
-    )
+    log = ORM.get_last_log_position(device_id)
+    if log is None:
+        return jsonify(
+            response="None"
+        )
+    else:
+        return jsonify(
+            log.serialize()
+        )
 
 
 @mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST']) #TODO replace /test/
