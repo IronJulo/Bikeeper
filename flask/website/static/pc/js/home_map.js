@@ -1,10 +1,15 @@
 const getLatLon = async () => {
     let response = await fetch('/api/bikeeper/get_last_log_position/' + selected_device);
     let last_log = await response.json();
-    let content = JSON.parse(last_log.content_log);
-    let lat = content.latitude;
-    let lon = content.longitude;
-    return [lat, lon];
+    console.log(last_log);
+    if (last_log.response !== "None"){
+        let content = JSON.parse(last_log.content_log);
+        let lat = content.latitude;
+        let lon = content.longitude;
+        return [lat, lon];
+    } else {
+        throw new Error()
+    }
 }
 
 // Fonction d'initialisation de la carte
