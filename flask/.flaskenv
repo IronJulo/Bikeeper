@@ -9,5 +9,5 @@ MAIL_PASSWORD = 'bikeeper34'
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 SERVER_IP = "167.71.142.2"
-SERVER_USER = root
+SERVER_USER = teambikeeper
 SERVER_PASSWORD = "bikeeper"

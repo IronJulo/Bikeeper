@@ -571,3 +571,56 @@ div.alert {
     border-radius: 20em;
     align-self: center;
 }
+
+@media (max-width: 1370px) {
+    div.flex > section.group2 form {
+        flex-wrap: wrap;
+    }
+
+    div.flex > section.group2 form > div{
+        flex-basis: 40%;
+    }
+}
+
+@media (max-width: 1200px) {
+    header.header-admin > div.show-user > img {
+        width: 7em;
+    }
+}
+
+@media (max-width: 1000px) {
+    header.header-admin > div.show-user > img {
+        width: 9em;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 1370px) {
+    div.flex > section.group2 form {
+        flex-wrap: wrap;
+    }
+
+    div.flex > section.group2 form > div{
+        flex-basis: 40%;
+        margin: .5em;
+        display: block;
+        flex-grow: 0;
+    }
+
+    div.flex > section.group2 form > div.ride-date{
+        flex-basis: 100%
+    }
+}
+
+@media (max-width: 950px) {
+    div.flex > section.group2 form {
+        flex-direction: column;
+    }
+
+    div.flex > section.group2 form select {
+        width: 30%;
+    }
+}

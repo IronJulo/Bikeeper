@@ -33,9 +33,9 @@ def send_welcome_email(username, email):
 	page = "<html>" \
 	       "<body>" \
 	       "<h1>Welcome ! 🔥</h1>" \
-	       "<h2>Hello<b> " + username + "</b>, Welcome in Bikeeper. Your account is now registered on " \
-	                                   "bikeeper. Your can log in into your account to start using " \
-	                                   "Bikeeper.</h2><br><img src=cid:logo></body></html> "
+	       "<h2>Hello<b> " + username + "</b>, Welcome in Bikeeper! Your account is now registered on " \
+	                                   "our web site. Your can log in into your account to start using " \
+	                                   "your device.</h2><br><img src=cid:logo></body></html> "
 	msg = Message(subject="Welcome from Bikeeper ! ", html=page, sender='bikeeper34@gmail.com',
 	              recipients=[email])
 	with open('website/static/pc/assets/logo_bikeeper.png', 'rb') as fp:

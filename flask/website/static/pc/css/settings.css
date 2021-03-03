@@ -39,28 +39,28 @@ div.settings-card>div.settings-card-img {
 }
 
 /** ACCOUNT PARAMETERS */
-div.settings-card:nth-child(1)>div.settings-card-img {
+div.settings-card:nth-child(2)>div.settings-card-img {
     background-image: url("../assets/account-parameters.png");
     background-position: right;
 }
 
 /** BIKEEPER SETTINGS */
-div.settings-card:nth-child(2)>div.settings-card-img {
+div.settings-card:nth-child(3)>div.settings-card-img {
     background-image: url("../assets/bikeeper-device.png");
 }
 
 /** CONTACTS */
-div.settings-card:nth-child(3)>div.settings-card-img {
+div.settings-card:nth-child(4)>div.settings-card-img {
     background-image: url("../assets/contacts.jpg");
 }
 
 /** PAYMENTS */
-div.settings-card:nth-child(4)>div.settings-card-img{
+div.settings-card:nth-child(5)>div.settings-card-img{
     background-image: url("../assets/payments.jpg");
 }
 
 /** MY SUBSCRIPTION */
-div.settings-card:nth-child(5)>div.settings-card-img {
+div.settings-card:nth-child(6)>div.settings-card-img {
     background-image: url("../assets/my-subscription.jpg");
 }
 
@@ -97,3 +97,9 @@ div.settings-card>a:hover {
     background: var(--orange);
 }
 
+@media (max-width: 1075px) {
+    div.settings-card {
+        width: 90%;
+        height: 25vh;
+    }
+}

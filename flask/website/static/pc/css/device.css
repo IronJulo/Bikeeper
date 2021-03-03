@@ -208,4 +208,27 @@ form div.form-submit>button {
     border-radius: 5px;
 }
 
-  
+@media (max-width: 1200px) {
+    section {
+        width: calc(var(--taille-elements-width) + 5em);
+    }
+}
+
+@media (max-width: 1050px) {
+    section {
+        width: calc(var(--taille-elements-width) + 10em);
+    }
+
+    form div.form-submit>a, 
+    form div.form-submit>button {
+        padding: 0.2em 2em;
+        font-size: 1.2rem;
+    }
+}
+
+
+@media (max-width: 1050px) {
+    section {
+        width: calc(var(--taille-elements-width) + 15em);
+    }
+}

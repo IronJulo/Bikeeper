@@ -13,6 +13,8 @@
 }
 
 div.flex, form {
+    position: absolute;
+    top: 0;
     display: flex;
     width: 100%;
     height: 100%;
@@ -129,4 +131,18 @@ section div.sub-radio {
 
 input[type=radio] {
     display: none;
+}
+
+@media (max-width: 1200px) {
+    form#form-sub {
+        flex-direction: column;
+        height: unset;
+    }
+
+    div.flex > form > section {
+        padding: 1em;
+        width: 60%;
+        height: fit-content;
+        margin: 1em;
+    }
 }

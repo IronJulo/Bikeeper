@@ -6,7 +6,7 @@ subscriptions:
       "price_subscription": 5
       "localisation_subscription" : "This plan only works in France territories"
       "features_subscription" : 
-        - "Unlimited NotificationUnlimited Notification"
+        - "Unlimited Notification"
         - "Top Customer Support"
         - "Mobile & Desktop web interfaces"
         - "Alert your friends"
@@ -17,7 +17,7 @@ subscriptions:
       "price_subscription": 7
       "localisation_subscription" : "This plan works everywhere"
       "features_subscription" : 
-        - "Unlimited NotificationUnlimited Notification"
+        - "Unlimited Notification"
         - "Top Customer Support"
         - "Mobile & Desktop web interfaces"
         - "Alert your friends"

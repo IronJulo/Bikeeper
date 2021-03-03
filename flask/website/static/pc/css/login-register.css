@@ -517,6 +517,7 @@ section.section-sub {
 
 div.register-subscription {
     display: flex;
+    justify-content: center;
 }
 
 div.active div.sub {
@@ -557,3 +558,97 @@ div.sub-radio span:hover {
     transform: scale(1.05);
     transition: all .2s;
 }
+
+@media (max-width: 1675px) {
+    section.section-sub {
+        width: 40vw;
+    }
+}
+
+@media (max-width: 1175px) {
+    section.section-sub {
+        font-size: 1.2rem;
+        height: fit-content;
+    }    
+}
+
+@media (max-width: 1000px){
+    section.section-sub {
+        font-size: 1rem;
+    }    
+}
+
+@media (max-height: 860px) {
+    section.section-sub {
+        padding: 2em;
+    }    
+}
+
+@media (max-height: 760px) {
+    section.section-sub {
+        padding: 1em;
+        font-size: 1rem;
+    }    
+}
+
+@media (max-height: 600px) {
+    section.section-sub {
+        width: 30%;
+    }    
+}
+
+@media (max-height: 550px) {
+    section.section-sub {
+        font-size: 0.8rem;
+    }    
+}
+
+@media (max-height: 500px) {
+    section.section-sub h4 {
+        font-size: 1rem;
+    }    
+}
+
+@media (max-height: 700px) and (max-width: 1220px) {
+    div.active .C-slide-title {
+        top: 5% !important;
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-height: 600px) {
+    .register-first-page,
+    .register-second-page,
+    .payment-information {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-height: 975px) {
+    div.active .C-slide-title {
+        font-size: 1.6rem !important;
+    }
+}
+
+@media (max-height: 550px) {
+    .register-first-page,
+    .register-second-page,
+    .payment-information {
+        font-size: 1rem;
+    }
+
+    main>h1 {
+        font-size: 1.6rem;
+    }
+
+    main>form>div input, .register-main input {
+        height: auto;
+    }
+}
+
+@media (max-height: 650px) {
+    main>h1 {
+        margin: 0;
+    }
+}
+

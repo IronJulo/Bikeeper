@@ -60,12 +60,7 @@ form>div.form-group3 > div {
 }
 
 div.img-avatar img {
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    position: absolute;
     width: 10em;
-    z-index: 1;
 }
 
 div.img-avatar img:hover {
@@ -79,14 +74,6 @@ div.img-avatar {
     position: relative;
 }
 
-div.img-avatar p {
-    top:50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    position: absolute;
-    z-index: 0;
-    font-size: 2em;
-}
 
 input[type=file]{
     display: none;
@@ -151,23 +138,23 @@ form div.form-submit>button {
     100% {
       transform: rotate(1turn);
     }
-  }
+}
   
   @keyframes rotate {
     100% {
       transform: rotate(1turn);
     }
-  }
-  .rotate-rouge:hover,
-  .rotate-vert:hover {
+}
+.rotate-rouge:hover,
+.rotate-vert:hover {
     position: relative;
     z-index: 0;
     border-radius: 10px;
     overflow: hidden;
-  }
+}
   
-  .rotate-rouge:hover::before,
-  .rotate-vert:hover::before {
+.rotate-rouge:hover::before,
+.rotate-vert:hover::before {
     content: "";
     position: absolute;
     z-index: -2;
@@ -181,24 +168,24 @@ form div.form-submit>button {
     background-position: 0 0, 100% 0, 100% 100%, 0 100%;
     -webkit-animation: rotate 3s linear infinite;
             animation: rotate 3s linear infinite;
-  }
+}
 
-  .rotate-rouge:hover::before {
+.rotate-rouge:hover::before {
     background-image: linear-gradient(var(--rouge), var(--rouge)), 
     linear-gradient(white, white),
     linear-gradient(var(--rouge), var(--rouge)),
     linear-gradient(white, white);
-  }
+}
 
-  .rotate-vert:hover::before {
+.rotate-vert:hover::before {
     background-image: linear-gradient(var(--vert), var(--vert)), 
     linear-gradient(white, white),
     linear-gradient(var(--vert), var(--vert)),
     linear-gradient(white, white);
-  }
+}
   
-  .rotate-rouge:hover::after,
-  .rotate-vert:hover::after {
+.rotate-rouge:hover::after,
+.rotate-vert:hover::after {
     content: "";
     position: absolute;
     z-index: -1;
@@ -208,4 +195,28 @@ form div.form-submit>button {
     height: calc(100% - 12px);
     background: white;
     border-radius: 5px;
-  }
+}
+
+@media (max-width: 1300px) {
+    section {
+        width: calc(var(--taille-elements-width) + 5em);
+    }
+}
+
+@media (max-width: 1150px) {
+    section {
+        width: calc(var(--taille-elements-width) + 10em);
+    }
+}
+
+@media (max-width: 1010px) {
+    section h1 {
+        font-size: 2rem;
+    }
+
+    form div.form-submit>a, 
+    form div.form-submit>button {
+        padding: 0.2em 2em;
+        font-size: 1.2rem;
+    }
+}
