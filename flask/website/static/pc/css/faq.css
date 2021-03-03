@@ -40,3 +40,21 @@ p{
 .accordion{
   padding-left: 10px
 }
+
+.accordion-header {
+  border-bottom: solid thin;
+}
+
+.accordion-flush:hover .accordion-header {
+  text-decoration: underline;
+}
+
+div.flex {
+  width: 60%;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+div.flex h2 {
+  text-align: center;
+}
