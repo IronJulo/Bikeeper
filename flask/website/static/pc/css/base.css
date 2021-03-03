@@ -280,3 +280,26 @@ html::-webkit-scrollbar-track
     width: 40px;
     background-size: cover;
 }
+
+@media (max-width: 1275px) {
+    .sidebar-navigation li a {
+        padding-left: 10px;
+    }
+
+    .sidebar-navigation li:hover svg,
+    .sidebar-navigation li:hover img {
+        transform: none;
+    }
+}
+
+@media (max-width: 1100px)  {
+    .sidebar-navigation li img {
+        width: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    :root {
+        --taille-sidebar: 20vw!important;
+    }
+}

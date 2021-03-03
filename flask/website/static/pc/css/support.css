@@ -284,3 +284,20 @@ div.tab-content > div > ul::-webkit-scrollbar-track
 {
     background: linear-gradient(90deg,#999999,#999999 1px,#111 0,#111);
 }
+
+@media (max-width: 1150px) {
+    section.tickets > div > a {
+        padding: .2em .4em;
+        font-size: .9rem;
+    }
+
+    section.tickets {
+        flex: 0 0 25%;
+    }
+}
+
+@media (max-width: 800px) {
+    section.tickets > div > a {
+        font-size: .7rem;
+    }
+}

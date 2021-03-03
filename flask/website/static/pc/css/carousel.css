@@ -9,7 +9,7 @@
 
 .C-carousel {
     background: #212121;
-    height: 100vh;
+    height: calc(100vh - var(--taille-header));
     width: 100%;
     overflow: hidden;
     position: relative;

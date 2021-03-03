@@ -315,3 +315,15 @@ html::-webkit-scrollbar-track
 div.flash {
     text-align: center;
 }
+
+@media (max-width: 1060px) {
+    .landing-banner div.card {
+        width: 40%;
+    }
+}
+
+@media (max-width: 850px) {
+    .landing-banner div.card {
+        width: 50%;
+    }
+}
