@@ -115,6 +115,7 @@ section.tickets ul li {
     text-decoration: none;
     color: black;
     cursor: pointer;
+    position: relative;
 }
 
 section.tickets ul li:first-child {
@@ -283,6 +284,29 @@ div.tab-content > div > ul::-webkit-scrollbar
 div.tab-content > div > ul::-webkit-scrollbar-track
 {
     background: linear-gradient(90deg,#999999,#999999 1px,#111 0,#111);
+}
+
+section.tickets ul li .check-ticket {
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    color: var(--vert);
+    font-size: 1.3rem;
+    transform: translateY(-50%);
+}
+
+section.tickets ul li .check-ticket:hover {
+    color: var(--rouge);
+    transform: translateY(-50%) scale(0.95);
+    transition: all .2s;
+}
+
+section.tickets input[type=radio] {
+    display: none;
 }
 
 @media (max-width: 1150px) {

@@ -9,16 +9,23 @@
         <section class='tickets'>
             <div>
                 <h3>Tickets</h3>
-
-                <ul class="nav">
-                    {% for numero in messages.keys() %}
-                        <li onclick="activeLink(this)" class="inactive" >
-                            <a href="#tab{{ numero }}" data-toggle="tab">
-                                Ticket#{{ numero }}
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>
+                <form id="deleteTicketForm" action="{{ url_for('support.support_delete_ticket') }}" method="POST">
+                    <ul class="nav">
+                        {% for numero in messages.keys() %}
+                            <li onclick="activeLink(this)" class="inactive" >
+                                
+                                <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
+                                    <i class="fa fa-check-circle"></i>
+                                </a>
+                                <input type="radio" name="id_ticket" value="{{numero}}">
+                                
+                                <a href="#tab{{ numero }}" class="a-tickets" data-toggle="tab">
+                                    Ticket#{{ numero }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </form>
                 {% if not current_user.is_admin_user %}
                     <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
                 {% endif %}
@@ -67,6 +74,26 @@
                         <button type="submit" class="btn btn-success">Contact</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteTicket" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+                    <button type="submit" form="deleteTicketForm" class="btn btn-danger">Delete</button>
+                </div>   
             </div>
         </div>
     </div>
