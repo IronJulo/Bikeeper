@@ -1143,3 +1143,16 @@ class ORM:
     def get_faq_json():
         with open("./website/faq.json") as f:
             return json.load(f)
+
+	@staticmethod
+	def get_faq_json():
+		with open("./website/faq.json") as f:
+			return json.load(f)
+
+	@staticmethod
+	def remove_tickets_by_id(idt):
+		MESSAGE.query.filter_by(id_ticket=idt).delete()
+		db.session.commit()
+		TICKET.query.filter_by(id_ticket=idt).delete()
+		db.session.commit()
+		

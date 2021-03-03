@@ -169,3 +169,8 @@ input.addEventListener("keyup", function(event) {
     input.value="";
   }
 });
+
+
+function checkRadioButton(elem) {
+  elem.nextSibling.nextSibling.checked=true
+}

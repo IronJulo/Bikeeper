@@ -170,7 +170,15 @@ def settings_contact_update_check():
     last = result['last-name']
     tel = result['phone']
     id_contact = result['id-contact']
-    ORM.update_contact(tel, first, last, id_contact)
+
+    if first != "" and last !="":
+        if Utils.is_valid_tel(tel):
+            ORM.update_contact(tel, first, last, id_contact)
+            flash("Contact has been updated.", "success")
+        else:
+            flash("Invalid phone number. Update failed.","error")
+    else:
+        flash("First name and Last name should not be empty. Update failed.","error")
     return redirect(url_for("settings.settings_contact"))
 
 
@@ -192,8 +200,14 @@ def settings_contact_add_check():
     device = ORM.get_current_num_device_by_username(current_user.username_user)
     img = '/static/pc/assets/avatar.png'
 
-    ORM.new_contact(tel, first, last, img, device)
-    flash("Contact has been added.", "success")
+    if first != "" and last !="":
+        if Utils.is_valid_tel(tel):
+            ORM.new_contact(tel, first, last, img, device)
+            flash("Contact has been added.", "success")
+        else:
+            flash("Invalid phone number.","error")
+    else:
+        flash("First name and Last name should not be empty.","error")
     return redirect(url_for("settings.settings_contact"))
 
 

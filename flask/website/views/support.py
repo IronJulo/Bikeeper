@@ -81,6 +81,15 @@ def support_new_ticket():
     db.session.commit()
     return redirect(url_for('support.support'))
 
+
+@login_required
+@mod.route('/support/ticket/close', methods=['POST'])
+def support_delete_ticket():
+    id_ticket = request.form.get('id_ticket')
+    ORM.remove_tickets_by_id(id_ticket)
+    return redirect(url_for('support.support'))
+
+
 @login_required
 @mod.route('/support/<int:user_id>/tickets/all', methods=['GET'])
 def get_user_tickets_by_id(user_id):

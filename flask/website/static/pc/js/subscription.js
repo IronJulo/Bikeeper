@@ -12,6 +12,5 @@ function selectSubscription(elem){
 }
 
 function checkRadio(elem){
-    console.log(elem.children[0])
     elem.children[0].checked = "true"
 }

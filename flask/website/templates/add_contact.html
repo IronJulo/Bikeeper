@@ -7,6 +7,9 @@
 {% block main %}
 <div class="flex">
     <section>
+        <div class="flash">
+            {% include "messages.html" %}
+        </div>
         <h1>Add contact</h1>
         <form action="{{ url_for('settings.settings_contact_add_check') }}" method='POST'>
             <div class="form-group1">
