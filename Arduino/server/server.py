@@ -5,6 +5,7 @@ from AlertSendProtocol import *
 from NormalSendProtocol import *
 import json
 from time import sleep
+from unidecode import unidecode
 
 ser = serial.Serial('COM3')
 ser.flushInput()
@@ -34,10 +35,14 @@ def alert_fall(dic1, lat, lon):
     url = f"http://127.0.0.1:5000/api/bikeeper/contacts/{dic1['sender']}"
     response = requests.request("GET", url).json()
     for contact in response["contacts"]:
-        ser.write(
-            (f'Message Automatique: {response["lastname_contact"]} {response["firstname_contact"]}, {response["bikeeper_owner"]} est tombé de sa moto à {lat} {lon}. Veuillez le contacter afin de vous assurez qu\'il va bien;{contact["num_contact"]}').encode())
-        sleep(1)
-    print(response.text)
+        print("sending")
+        msg = f'{unidecode(contact["lastname_contact"])} {unidecode(contact["firstname_contact"])}, {unidecode(response["bikeeper_owner"])} est tombe de sa moto a {(str(float(lon)*1000))[0:10]}, {(str(float(lat)*1000))[0:10]};{contact["num_contact"]}'
+        print(msg)
+        print(len(msg))
+        ser.write(msg.encode())
+        print("wait")
+        sleep(2)
+    print(response)
 
 while True:
     ser_bytes = ser.readline()
@@ -54,7 +59,7 @@ while True:
             send_log(dic1, PositionTrajet(data).to_dico())
         elif s == "W":
             if data[2] == "F":
-                alert_fall(dic1, data[2], data[3])
+                alert_fall(dic1, data[3], data[4])
             send_log(dic1, AlertSend(data).to_dico())
         elif s == "*":
             send_log(dic1, NormalSend(data).to_dico())
