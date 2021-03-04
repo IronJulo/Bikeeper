@@ -91,6 +91,13 @@ def support_delete_ticket():
 
 
 @login_required
+@mod.route('/support/ticket/close/<int:id_ticket>', methods=['POST'])
+def support_delete_ticket_by_id(id_ticket):
+    ORM.remove_tickets_by_id(id_ticket)
+    return redirect(url_for('support.support'))
+
+
+@login_required
 @mod.route('/support/<int:user_id>/tickets/all', methods=['GET'])
 def get_user_tickets_by_id(user_id):
     res = "<ul>"

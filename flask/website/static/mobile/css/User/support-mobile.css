@@ -122,3 +122,9 @@ button.why-btn {
   right: 50%;
   transform: translateX(50%);
 }
+#btn-close{
+  padding: 0;
+  height: 28px;
+  width: 28px;
+  border-radius: 10px
+}
