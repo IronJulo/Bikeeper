@@ -14,7 +14,11 @@
     
 {% block main %}
 <section class='tickets'>
-    <a href="{{ request.referrer }}" class="goback">
+    {% if not current_user.is_admin_user %}
+    <a href="{{ url_for('home.home') }}" class="goback">
+    {% else %}
+    <a href="{{ url_for('admin.admin_home') }}" class="goback">
+    {% endif %}
       <i class="fa fa-chevron-left"></i>
     </a>
     <div>
