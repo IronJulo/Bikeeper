@@ -3,7 +3,7 @@ let jsonData = null;
 
 
 function activeLink() {
-    api = "http://127.0.0.1:5000/test/message/"+ getIdTicket() +"/all"
+    api = "http://127.0.0.1:8080/test/message/"+ getIdTicket() +"/all"
     return api
 }
 
@@ -36,7 +36,7 @@ function draw(message) {
       var div = getChat();
       const admin_message = message["is_admin_message"];
       user = message['username_user'];
-      other_picture = message["other_user_picture"]
+      user_picture = message["user_picture"]
       estAdmin = isAdmin();
 
 
@@ -52,7 +52,7 @@ function draw(message) {
       }
       else if (admin_message==0 && estAdmin=="True" || admin_message==1 && estAdmin=="False"){
         div.innerHTML += "<div class='row msg'>"
-        + "<div class='col-2'><img src='"+other_picture+"' class='pp'></div>"
+        + "<div class='col-2'><img src='"+user_picture+"' class='pp'></div>"
         + "<div class='col-8 user'>" +message['content']+"</div>"
         + "</div>";
 
