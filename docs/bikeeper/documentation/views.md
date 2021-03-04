@@ -5,7 +5,8 @@
 > Routes
 
 
-To manage views and routes we use [Blueprints](https://exploreflask.com/en/latest/blueprints.html).
+?> **Tip** To manage views and routes we use [Blueprints](https://exploreflask.com/en/latest/blueprints.html).    
+
 **Why Blueprints ? :** Without blueprints all the routes was declared in a single file. A signle file can't suit to or needs 
 In app.py we register all Bikeeper views. 
 
@@ -36,13 +37,13 @@ app.register_blueprint(admin.mod)
 app.register_blueprint(stats.mod)
 app.register_blueprint(test.mod)
 ```
-
+---
 
 > Mobile/PC
 
 Because mobile webpages are very different from pc version, Bikeeper use special templates for pc and mobile. With tje library [Flask-Mobility](https://flask-mobility.readthedocs.io/en/latest/) Bikeeper is able to detect when a mobile do a request thank to HTTP headers. 
 
-With the flag **@mobile_template** we can specify which template correspond to mobile. 
+!> **Important** With the flag **@mobile_template** we can specify which template correspond to mobile. 
 ```python
 @mod.route('/home/', methods=['GET', 'POST'])
 @mobile_template('{mobile/User/}home.html')

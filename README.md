@@ -34,7 +34,7 @@ docker run \
 |Ngnix|docker/ngnix/ngnix.sh|Reverse proxy to allow flask and grafana to iframe a chart (CORS issues)|
 
 
-### Docker 
+### Docker 🐳
 Install docker and docker compose with `docker-setup.sh` script.
 After run `docker-compose up` to start the project. 
 
@@ -42,17 +42,21 @@ After run `docker-compose up` to start the project.
   
 ## Development 🔨 :
 
+## Documentation 📄 : 
+
+To see our project documentation clone this repo and run  `docsify serve docs`
+We use [docsify](https://docsify.js.org/#/) to write this documentation. 
 ## Screenshots 📸 
 
  
 ## 👷 Authors  :
 | Name | Email|
 |--|--|
-| **Andrew Mary Huet de Barochez** | @etu.univ-orleans.fr |
+| **Andrew Mary Huet de Barochez** | andrew.mary-huet-de-barochez@etu.univ-orleans.fr |
 | **Jules Brossier** | jules.brossier@etu.univ-orleans.fr |
 | **Xavier Lemaire**| xavier.lemaire@etu.univ-orleans.fr |
 | **Kevin Talland**| kevin.talland@etu.univ-orleans.fr |
 | **Dorian Hardy**| dorian.hardy@etu.univ-orleans.fr|
-| **Nicolas Pasquet**| @etu.univ-orleans.fr |
-| **Fabien Billauld**| @etu.univ-orleans.fr |
-| **Mathieu Ramel**| @etu.univ-orleans.fr |
+| **Nicolas Pasquet**| nicolas.pasquet@etu.univ-orleans.fr |
+| **Fabien Billauld**| fabien.billault@etu.univ-orleans.fr |
+| **Mathieu Ramel**| mathieu.ramel@etu.univ-orleans.fr |
