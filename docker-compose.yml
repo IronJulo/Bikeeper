@@ -4,8 +4,8 @@ services:
     image: mariadb/server:10.3
     container_name: bikeeperbd
     restart: always
-    ports:
-      - 32000:3306
+    expose:
+      - 3306
     command:
       --log-bin
       --binlog-format=MIXED
@@ -38,22 +38,24 @@ services:
       FLASK_DEBUG: 1
 
   osm:
-    image: klokantech/tileserver-gl
+    image: osm-bundle
     container_name: osm
     restart: always
     build:
       context: .
       dockerfile: ./docker/openstreetmap/osm.Dockerfile
+      args:
+        - MAP_TOKEN=WyJiZmZkZmM5NS1lMTVlLTRmYjgtYWFkZC1lNzM5MGQ1NjAxOTciLCItMSIsODcwMl0.YD6sPw.MEJHhB0BwjOEbCH95mX5o305m3s # get a new on here https://data.maptiler.com/downloads/tileset/osm/europe/france/centre/?wizard
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./docker/openstreetmap/:/data
+#    volumes:
+#      - ./docker/openstreetmap/:/data
     ports:
       - 8989:80
     command:
       --bind 0.0.0.0
-      --mbtiles centre.mbtiles
+      --mbtiles /bundle/centre.mbtiles
 
   reverse-proxy:
     image: nginx
