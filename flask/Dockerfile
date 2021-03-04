@@ -4,4 +4,4 @@ COPY . /usr/src/app/
 WORKDIR /usr/src/app/
 EXPOSE 8080
 RUN pip install -r requirements.txt
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD flask loaddb && flask run --host=0.0.0.0 
