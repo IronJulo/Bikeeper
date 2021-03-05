@@ -40,6 +40,19 @@ void StringBuffer::storeInt3(int i)
 		m_index += 3;
 	}
 }
+
+void StringBuffer::storeSignedShort(short i)
+{
+	if (m_index < m_length)
+	{
+		char buff[5] = { '0' };
+		buff[0] = i < 0 ? '-' : '+';
+		itoa( i, buff + ( i < 100) + ( i < 10), 10);
+		memcpy(m_storage + m_index, buff, 3);
+		m_index += 4;
+	}
+}
+
 /* TODO */
 void StringBuffer::storeShort(short i)
 {

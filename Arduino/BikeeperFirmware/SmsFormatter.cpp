@@ -22,7 +22,7 @@ SmsFormatter::setSeparator()
 }
 
 void 
-SmsFormatter::setBikeAngle(const short angle)
+SmsFormatter::storeBikeAngle(const short angle)
 {
 	/* TODO */
 	m_stringBuffer->storeInt3(angle);
@@ -47,10 +47,10 @@ SmsFormatter::getStorage()
 }
 
 void
-SmsFormatter::storebatt(const short bikebatteryLevel)
+SmsFormatter::storebatt(const short batteryLevel)
 {
 	//setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
+	m_stringBuffer->storeInt3(batteryLevel);
 }
 
 
@@ -62,7 +62,7 @@ SmsFormatter::makeJourneySms(const char schema,
 					const double devicebatteryLevel,
 					const double bikebatteryLevel,
 					const short speed,
-					const signed short angle)
+					const double angle)
 {
 	clear();
 
@@ -80,8 +80,7 @@ SmsFormatter::makeJourneySms(const char schema,
 	setSeparator();
 	m_stringBuffer->storeInt3(speed);
 	setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
-	setBikeAngle(angle);
+	storeBikeAngle(angle);
 	setSeparator();
 }
 

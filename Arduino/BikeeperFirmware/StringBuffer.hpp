@@ -14,6 +14,7 @@ class StringBuffer
         void store(char c);
         void storeInt(int i);
         void storeInt3(int i);
+        void storeSignedShort(short i);
         void storeShort(short i);
         void store(const char *arr);
         void storeDouble(double val, short len, short prec);

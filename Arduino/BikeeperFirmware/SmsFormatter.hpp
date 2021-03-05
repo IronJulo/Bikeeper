@@ -16,7 +16,7 @@ public:
 	void clear();
 	void setMagic();
 	void setCoordinates(const location_t *location);
-	void setBikeAngle(const short angle);
+	void storeBikeAngle(const short angle);
 	void setSeparator();
 
 	void store(const char *arr);
@@ -29,7 +29,7 @@ public:
 						const double devicebatteryLevel,
 						const double bikebatteryLevel,
 						const short speed,
-						const short angle);
+						const double angle);
 
 	void makeAlertSms(const char schema,
 					  const char type,

@@ -121,7 +121,7 @@ unsigned long fallTime = 0;
 
 
 /* heartbeat */
-#define HEARTBEAT_TIMEOUT 60000 //time between each heart beat sms
+#define HEARTBEAT_TIMEOUT 20000 //time between each heart beat sms
 unsigned long lastHeartbeatTime = millis();
 
 /* heartbeat */
@@ -242,15 +242,19 @@ void loop()
 		lastHeartbeatTime = millis();
 		if(journey)
 		{
-			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, 42);
-			//sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
-			//sim800L.smartRead("+CMGS", 5, 500);
+			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, gyro_y);
+			Serial.println("smsFormatter.getStorage()");
+			Serial.println(smsFormatter.getStorage());
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			sim800L.smartRead("+CMGS", 5, 500);
 			delay(500);
 		}else
 		{
 			smsFormatter.makeHeartbeatSms('*', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
-			//sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
-			//sim800L.smartRead("+CMGS", 5, 500);
+			Serial.println("smsFormatter.getStorage()");
+			Serial.println(smsFormatter.getStorage());
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			sim800L.smartRead("+CMGS", 5, 500);
 			delay(500);
 		}
 	}
@@ -258,11 +262,10 @@ void loop()
 	Serial.println(gyro_x);
 	Serial.println("gyro_y");
 	Serial.println(gyro_y);
-	Serial.println("--------------------");
-
-	Serial.println("--------------------");
-	Serial.println("sms_buffer.getStorage()");
-	Serial.println(sms_buffer.getStorage());
+	Serial.println("deviceBatteryLevel");
+	Serial.println(deviceBatteryLevel);
+	Serial.println("bikeBatteryLevel");
+	Serial.println(bikeBatteryLevel);
 	Serial.println("--------------------");
 	smartDelay(2000);
 	readIncommingSms();
