@@ -15,7 +15,7 @@ void treatSMS()
 	
 	message_buffer.clear();
 
-	if (arraysCompare(senderNumber, SERVER_PHONE_NUMBER) || arraysCompare(senderNumber, userPhoneNumber))
+	if (strcmp(senderNumber, SERVER_PHONE_NUMBER) || strcmp(senderNumber, userPhoneNumber))
 	{
 		if (sms_buffer.indexOf("unpark", 4) != -1) // User sent unpark bike command
 		{

@@ -22,10 +22,11 @@ SmsFormatter::setSeparator()
 }
 
 void 
-SmsFormatter::storeBikeAngle(const short angle)
+SmsFormatter::storeBikeAngle(const int angle)
 {
-	/* TODO */
-	m_stringBuffer->storeInt3(angle);
+	/* TODO store sign */
+	m_stringBuffer->store(angle < 0 ? '-' : '+');
+	m_stringBuffer->storeInt3(abs(angle));
 }
 
 void

@@ -16,7 +16,7 @@ public:
 	void clear();
 	void setMagic();
 	void setCoordinates(const location_t *location);
-	void storeBikeAngle(const short angle);
+	void storeBikeAngle(const int angle);
 	void setSeparator();
 
 	void store(const char *arr);

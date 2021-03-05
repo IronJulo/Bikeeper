@@ -262,10 +262,6 @@ void loop()
 	Serial.println(gyro_x);
 	Serial.println("gyro_y");
 	Serial.println(gyro_y);
-	Serial.println("deviceBatteryLevel");
-	Serial.println(deviceBatteryLevel);
-	Serial.println("bikeBatteryLevel");
-	Serial.println(bikeBatteryLevel);
 	Serial.println("--------------------");
 	smartDelay(2000);
 	readIncommingSms();
@@ -307,7 +303,6 @@ static void printFloat(float val, bool valid, int len, int prec)
 
 void readIncommingSms()
 {
-	Serial.println("readIncommingSms");
 	if (sms_buffer.indexOf("+CMTI", 5) != -1)
 	{
 		Serial.println("sms_buffer.getStorage()");
