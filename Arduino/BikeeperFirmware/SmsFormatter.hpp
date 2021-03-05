@@ -26,8 +26,8 @@ public:
 	void makeJourneySms(const char schema,
 						const location_t *location,
 						const bool charging,
-						const short devicebatteryLevel,
-						const short bikebatteryLevel,
+						const double devicebatteryLevel,
+						const double bikebatteryLevel,
 						const short speed,
 						const short angle);
 
@@ -35,19 +35,19 @@ public:
 					  const char type,
 					  const location_t *location,
 					  const bool charging,
-					  const short devicebatteryLevel,
-					  const short bikebatteryLevel);
+					  const double devicebatteryLevel,
+					  const double bikebatteryLevel);
 
 	void makeHeartbeatSms(const char schema,
 						  const location_t *location,
 						  const bool charging,
-						  const short devicebatteryLevel,
-						  const short bikebatteryLevel);
+						  const double devicebatteryLevel,
+						  const double bikebatteryLevel);
 
 	void makeStateUpdateSms(const char schema,
 							const char type);
 	
-	void makeUiPosSms(const location_t *location);
+	void storebatt(const short bikebatteryLevel);
 };
 
 #endif

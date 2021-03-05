@@ -62,6 +62,14 @@ void StringBuffer::storeDouble(double val, short len, short prec)
 	m_index = m_index + len;
 }
 
+void StringBuffer::storeUnsignedDouble(double val, short len, short prec)
+{
+	m_index > 0 ? m_index-- : m_index;
+
+	dtostrf(fabs(val), len, prec, m_storage + m_index);
+	m_index = m_index + len;
+}
+
 void StringBuffer::store(const char *arr)
 {
 	m_index > 0 ? m_index-- : m_index;

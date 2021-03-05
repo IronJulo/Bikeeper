@@ -46,11 +46,7 @@ void treatSMS()
 				if (!journey)
 				{
 					parked = true;
-
-					Serial.println("on est la 1 -------------------------------");
 					sendSMSToUser(indexStringBikeParked);
-					Serial.println("on est la 2 -------------------------------");
-
 					smsFormatter.clear();
 
 					smsFormatter.makeStateUpdateSms('+', 'A');
@@ -58,8 +54,6 @@ void treatSMS()
 					sim800L.smartRead("+CMGS", 5, 1000);
 
 					delay(BETWEEN_SMS_DELAY);
-
-					Serial.println("on est la 3 -------------------------------");
 				}
 				else
 				{
@@ -80,6 +74,8 @@ void treatSMS()
 					delay(BETWEEN_SMS_DELAY);
 
 				}
+				vibartion = false;
+				bikeMoved = false;
 			}
 			else
 			{
