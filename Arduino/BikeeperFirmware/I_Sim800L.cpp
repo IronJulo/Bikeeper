@@ -32,7 +32,7 @@ I_Sim800L::init(char userPhoneNumber[], const char serverPhoneNumber[])
     listen();
     
     Serial.println("Initialisation...");
-
+    delay(10000);
     setModeAT();                                                             // Start to talk to the SIM800L
     smartRead("OK", 2, 1000);                                               // Wait for ok
 
@@ -168,4 +168,3 @@ I_Sim800L::compareArrays(const char *left, const char *right)
 {
 
 }*/
-

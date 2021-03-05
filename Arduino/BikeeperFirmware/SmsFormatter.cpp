@@ -22,10 +22,10 @@ SmsFormatter::setSeparator()
 }
 
 void 
-SmsFormatter::setBikeAngle(const short angle)
+SmsFormatter::storeBikeAngle(const short angle)
 {
 	/* TODO */
-	m_stringBuffer->store("+ang");
+	m_stringBuffer->storeInt3(angle);
 }
 
 void
@@ -46,14 +46,23 @@ SmsFormatter::getStorage()
 	return m_stringBuffer->getStorage();
 }
 
+void
+SmsFormatter::storebatt(const short batteryLevel)
+{
+	//setSeparator();
+	m_stringBuffer->storeInt3(batteryLevel);
+}
+
+
+
 void 
 SmsFormatter::makeJourneySms(const char schema,
 					const location_t *location,
 					const bool charging,
-					const short devicebatteryLevel,
-					const short bikebatteryLevel,
+					const double devicebatteryLevel,
+					const double bikebatteryLevel,
 					const short speed,
-					const signed short angle)
+					const double angle)
 {
 	clear();
 
@@ -65,14 +74,13 @@ SmsFormatter::makeJourneySms(const char schema,
 	setSeparator();
 	m_stringBuffer->store(charging ? 't' : 'f');
 	setSeparator();
-	m_stringBuffer->storeInt3(devicebatteryLevel);
+	storebatt(devicebatteryLevel);
 	setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
+	storebatt(bikebatteryLevel);
 	setSeparator();
 	m_stringBuffer->storeInt3(speed);
 	setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
-	setBikeAngle(angle);
+	storeBikeAngle(angle);
 	setSeparator();
 }
 
@@ -81,8 +89,8 @@ SmsFormatter::makeAlertSms(const char schema,
 				  const char type,
 				  const location_t *location,
 				  const bool charging,
-				  const short devicebatteryLevel,
-				  const short bikebatteryLevel)
+				  const double devicebatteryLevel,
+				  const double bikebatteryLevel)
 {
 	clear();
 
@@ -96,9 +104,9 @@ SmsFormatter::makeAlertSms(const char schema,
 	setSeparator();
 	m_stringBuffer->store(charging ? 't' : 'f');
 	setSeparator();
-	m_stringBuffer->storeInt3(devicebatteryLevel);
+	storebatt(devicebatteryLevel);
 	setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
+	storebatt(bikebatteryLevel);
 	setSeparator();
 }
 
@@ -106,8 +114,8 @@ void
 SmsFormatter::makeHeartbeatSms(const char schema,
 					  const location_t *location,
 					  const bool charging,
-					  const short devicebatteryLevel,
-					  const short bikebatteryLevel)
+					  const double devicebatteryLevel,
+					  const double bikebatteryLevel)
 {
 	clear();
 
@@ -119,9 +127,9 @@ SmsFormatter::makeHeartbeatSms(const char schema,
 	setSeparator();
 	m_stringBuffer->store(charging ? 't' : 'f');
 	setSeparator();
-	m_stringBuffer->storeInt3(devicebatteryLevel);
+	storebatt(devicebatteryLevel);
 	setSeparator();
-	m_stringBuffer->storeInt3(bikebatteryLevel);
+	storebatt(bikebatteryLevel);
 	setSeparator();
 }
 void

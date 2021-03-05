@@ -19,10 +19,10 @@ for the arduino uno
                                         ║          ═╣ I ╠═               6[ ]~║
                                         ║ [ ]A0    ═╣ N ╠═               5[ ]~║
                                         ║ [ ]A1    ═╣ O ╠═               4[ ] ║══════> GPS tx
-                                        ║ [ ]A2     ╚═══╝           INT1/3[ ]~║
-                                        ║ [ ]A3                     INT0/2[ ] ║══════> Interrupt pin for the "do" pin of the vibration sensor
-                                        ║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
-                                        ║ [ ]A5/SCL  [ ] [ ] [ ]      RX<0[ ] ║
+                    Bike battery <══════║ [ ]A2     ╚═══╝           INT1/3[ ]~║
+                  Device battery <══════║ [ ]A3                     INT0/2[ ] ║══════> Interrupt pin for the "do" pin of the vibration sensor
+                   Gyroscope SDA <══════║ [ ]A4/SDA  RST SCK MISO     TX>1[ ] ║
+                   Gyroscope SCL <══════║ [ ]A5/SCL  [ ] [ ] [ ]      RX<0[ ] ║
                                         ║            [ ] [ ] [ ]              ║
                                         ║            GND MOSI 5V ╔════════════╝
                                         ╚═══UNO_R3═══════════════╝ 
@@ -32,6 +32,7 @@ for the arduino uno
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h> // for Sim800L & Tinygps++
 #include <string.h>
+#include "Wire.h"
 
 #include "I_Sim800L.hpp"
 #include "StringBuffer.hpp"
@@ -57,12 +58,12 @@ char userPhoneNumber[13] = "";
 
 SoftwareSerial softwareSim800l(GSM_RX, GSM_TX);
 
-char sms_storage[100];
+char sms_storage[150];
 StringBuffer sms_buffer(sms_storage, sizeof(sms_storage));
 
 char message_storage[70];
 StringBuffer message_buffer(message_storage, sizeof(message_storage));
-SmsFormatter smsFormatter(&message_buffer); //Not used all the time but to simplify coordinate
+SmsFormatter smsFormatter(&message_buffer); //Not used all the time but to simplify sms generation
 
 I_Sim800L sim800L(&softwareSim800l, &sms_buffer);
 /* Sim800L */
@@ -78,11 +79,14 @@ bool vibartion = false; // False most of the time but true if the module detecte
 /* Vibration sensor */
 
 /* Battery sensor */
-#define DEVICE_BATTERY_PIN 0 // Declare the device battery (analog)
-#define BIKE_BATTERY_PIN 1	 // Declare the device battery (analog)
+#define DEVICE_BATTERY_PIN A3 // Declare the device battery (analog)
+#define BIKE_BATTERY_PIN A2	 // Declare the device battery (analog)
 
-int deviceBatteryLevel = 0;
-int bikeBatteryLevel = 0;
+#define deviceMaxBatteryVoltage 1024 //verify later
+#define bikeMaxBatteryVoltage 1024 // verify later
+
+double deviceBatteryLevel = 0;
+double bikeBatteryLevel = 0;
 
 bool isBatteryCharging = false;
 /* Battery sensor */
@@ -97,16 +101,30 @@ TinyGPSPlus gps;
 location_t location; // Declare the Location type
 SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 bool bikeMoved = false;
-#define GPS_TRESHOLD_LAT 0.000050 //0.000011 
-#define GPS_TRESHOLD_LON 0.000050//0.000020
+#define GPS_TRESHOLD_LAT 0.000100 //0.000011
+#define GPS_TRESHOLD_LON 0.000100 //0.000020
 /* GPS */
-/* Angle Detection */
 
-bool bikeFallen = false;
+/* Angle Detection */
+#define GYRO_MIN_MAX_X 16000
+#define GYRO_MIN_MAX_Y 17600
 #define FALL_CALL_TIMEOUT 60000 // 1 minute
-signed short angle = 0; 
+#define ANGLE_TRESHOLD 80 // Max angle before threating it as a fall 
+
+const int MPU_ADDR = 0x68;
+bool bikeFallen = false;
+double gyro_y, gyro_x;
+short zeroGyro_y, zeroGyro_x = 0;
 unsigned long fallTime = 0;
 /* Angle Detection */
+
+
+
+/* heartbeat */
+#define HEARTBEAT_TIMEOUT 20000 //time between each heart beat sms
+unsigned long lastHeartbeatTime = millis();
+
+/* heartbeat */
 void setup()
 {
 	Serial.begin(9600);
@@ -128,32 +146,41 @@ void setup()
 	sim800L.deleteALL();
 	sim800L.setModeTexte();
 	sim800L.smartRead("OK", 2, 500);
+
+	Wire.begin();
+	Wire.beginTransmission(MPU_ADDR);
+	Wire.write(0x6B);
+	Wire.write(0);
+	Wire.endTransmission(true);
+
 	interrupts();
 }
 
 void loop()
 {
 	actualizeLocation();
-	actualizeDeviceBattery();
-	actualizeBikeBattery();
+	actualizeBatterys();
 	actualizeIsBatteryCharging();
+	actualizeAngle();
 	if (parked)
 	{
 		//interrupts();
 		if (vibartion) /* TODO timeout */
 		{
 			vibartion = false;
+			message_buffer.clear();
+
+			strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringVibrationDetected])));
+			sim800L.send(userPhoneNumber, message_buffer.getStorage());
+			sim800L.smartRead("+CMGS", 5, 1000);
+			delay(1500);
 
 			message_buffer.clear();
 
 			smsFormatter.makeAlertSms('W', 'V', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
 			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
-			delay(500);
+			sim800L.smartRead("+CMGS", 5, 1000);
 
-			message_buffer.clear();
-
-			strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringVibrationDetected])));
-			sim800L.send(userPhoneNumber, message_buffer.getStorage());
 			delay(100);
 
 			message_buffer.clear();
@@ -163,38 +190,46 @@ void loop()
 		{
 			bikeMoved = false;
 
-			/*message_buffer.clear();
-			
-			smsFormatter.makeAlertSms('W', 'G', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
-			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
-			delay(500);
-
 			message_buffer.clear();
 
 			strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringMovementDetected])));
 			sim800L.send(userPhoneNumber, message_buffer.getStorage());
+			sim800L.smartRead("+CMGS", 5, 1000);
+			delay(1000);
+
+			message_buffer.clear();
+			
+			smsFormatter.makeAlertSms('W', 'G', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			sim800L.smartRead("+CMGS", 5, 1000);
 			delay(100);
 
-			message_buffer.clear();*/
 
+
+			message_buffer.clear();
 		}
 	}
 	if (bikeFallen && fallTime == 0)
 	{
+		gyro_x = 0;
+		gyro_y = 0;
 		fallTime = millis();
-
 		message_buffer.clear();
 
 		strcpy_P(message_buffer.getStorage(), (char *)pgm_read_word(&(string_table[indexStringFallDetected])));
 		sim800L.send(userPhoneNumber, smsFormatter.getStorage());
-		delay(500);
+		delay(100);
+		Serial.println(smsFormatter.getStorage());
 
 		message_buffer.clear();
 	}
 
-	if (bikeFallen && fallTime - millis() >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in FALL_CALL_TIMEOUT miliseconds
+	if (bikeFallen && millis() - fallTime >= FALL_CALL_TIMEOUT) // If the bike has fallen && user didn't respond in FALL_CALL_TIMEOUT miliseconds
 	{
+		gyro_x = 0;
+		gyro_y = 0;
 		bikeFallen = false;
+		fallTime = 0;
 		smsFormatter.makeAlertSms('W', 'F', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
 		sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
 		delay(500);
@@ -202,19 +237,38 @@ void loop()
 		/* TODO alert the user that we called is contacts */
 	}
 
-	Serial.println(F("latitude"));
-	printFloat(location.latitude, 1, 11, 6);
-	Serial.println();
-	Serial.println(F("longitude"));
-	printFloat(location.longitude, 1, 12, 6);
-	Serial.println();
-	Serial.println();
-
-	Serial.println("waiting command");
-	Serial.println();
-
+	if (!bikeFallen && millis() - lastHeartbeatTime >= HEARTBEAT_TIMEOUT ) // if it has beed heartbeat_timeout time since last heart beat sms send
+	{
+		lastHeartbeatTime = millis();
+		if(journey)
+		{
+			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, gyro_y);
+			Serial.println("smsFormatter.getStorage()");
+			Serial.println(smsFormatter.getStorage());
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			sim800L.smartRead("+CMGS", 5, 500);
+			delay(500);
+		}else
+		{
+			smsFormatter.makeHeartbeatSms('*', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel);
+			Serial.println("smsFormatter.getStorage()");
+			Serial.println(smsFormatter.getStorage());
+			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
+			sim800L.smartRead("+CMGS", 5, 500);
+			delay(500);
+		}
+	}
+	Serial.println("gyro_x");
+	Serial.println(gyro_x);
+	Serial.println("gyro_y");
+	Serial.println(gyro_y);
+	Serial.println("deviceBatteryLevel");
+	Serial.println(deviceBatteryLevel);
+	Serial.println("bikeBatteryLevel");
+	Serial.println(bikeBatteryLevel);
+	Serial.println("--------------------");
+	smartDelay(2000);
 	readIncommingSms();
-	smartDelay(1000);
 }
 
 static void smartDelay(unsigned long ms)
@@ -253,22 +307,33 @@ static void printFloat(float val, bool valid, int len, int prec)
 
 void readIncommingSms()
 {
+	Serial.println("readIncommingSms");
+	if (sms_buffer.indexOf("+CMTI", 5) != -1)
+	{
+		Serial.println("sms_buffer.getStorage()");
+		Serial.println(sms_buffer.getStorage());
+		treatSMS();
+		return;
+	}
+	sim800L.carriageReturn();
+
 	sim800L.deleteALLRead();
 	sim800L.carriageReturn();
 	sim800L.setModeTexte();
 	sim800L.carriageReturn();
-	sim800L.carriageReturn();
-	sim800L.carriageReturn();
-	sim800L.carriageReturn();
 
-	if (sim800L.smartRead("+CMTI", 5, 1000))
+	if (sim800L.smartRead("+CMGR", 5, 1000))
 	{
-		Serial.println(sms_buffer.getStorage());
-		sim800L.setModeTexte();
-		sim800L.carriageReturn();
-		sim800L.smartRead("+CMTI", 5, 1000);
-		Serial.println(sms_buffer.getStorage());
-		treatSMS();
+		//if (sms_buffer.indexOf("+CMTI", 5) != -1)
+		//{
+			Serial.println("sim800L.smartRead(, 5, 1000)");
+			Serial.println(sms_buffer.getStorage());
+			sim800L.setModeTexte();
+			sim800L.carriageReturn();
+			sim800L.smartRead("+CMTI", 5, 1000);
+			Serial.println(sms_buffer.getStorage());
+			treatSMS();
+		//}
 	}
 }
 
@@ -276,15 +341,15 @@ void actualizeLocation()
 {
 	//noInterrupts();
 	gpsSerial.listen();
-	printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
-	Serial.println();
-	printFloat(location.longitude - gps.location.lng(), 1, 12, 6);
-	Serial.println();
+	//printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
+	//Serial.println();
+	//printFloat(location.longitude - gps.location.lng(), 1, 12, 6);
+	//Serial.println();
 
 	if (location.latitude - gps.location.lat() >= GPS_TRESHOLD_LAT ||
 		location.latitude - gps.location.lat() <= -GPS_TRESHOLD_LAT ||
 		location.longitude - gps.location.lng() >= GPS_TRESHOLD_LON ||
-		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON)        // Calcul delta pos
+		location.longitude - gps.location.lng() <= -GPS_TRESHOLD_LON) // Calcul delta pos
 	{
 		bikeMoved = true;
 	}
@@ -294,21 +359,45 @@ void actualizeLocation()
 	//interrupts();
 }
 
-void actualizeDeviceBattery()
+void actualizeBatterys()
 {
-	//TODO implement this ok!
-	deviceBatteryLevel = 50;
-}
-
-void actualizeBikeBattery()
-{
-	//TODO implement this ok!
-	bikeBatteryLevel = 42;
+	deviceBatteryLevel = 42;//(analogRead(A3)/deviceMaxBatteryVoltage*100);
+	bikeBatteryLevel = 69;//(analogRead(A3)/bikeMaxBatteryVoltage*100);
 }
 
 void actualizeIsBatteryCharging()
 {
 	isBatteryCharging = false;
+}
+
+void actualizeAngle()
+{
+	Wire.beginTransmission(MPU_ADDR);
+	Wire.write(0x3B);
+
+	Wire.endTransmission(false);
+	Wire.requestFrom(MPU_ADDR, 2 * 2, true);
+
+	gyro_y = Wire.read() << 8 | Wire.read();
+	gyro_x = Wire.read() << 8 | Wire.read();
+
+	if (zeroGyro_y == 0 || zeroGyro_x == 0)
+	{
+		zeroGyro_y = gyro_y; // reading registers: 0x43 (GYRO_XOUT_H) and 0x44 (GYRO_XOUT_L)
+		zeroGyro_x = gyro_x;
+	}
+	gyro_x = (gyro_x - zeroGyro_x) / GYRO_MIN_MAX_X * 90;
+	gyro_y = (gyro_y - zeroGyro_y) / GYRO_MIN_MAX_Y * 90;
+
+
+	if (fallTime == 0 && 
+		//gyro_x >= ANGLE_TRESHOLD ||
+		//gyro_x <= -ANGLE_TRESHOLD ||
+		gyro_y >= ANGLE_TRESHOLD ||
+		gyro_y <= -ANGLE_TRESHOLD)
+	{
+		bikeFallen = true;
+	}
 }
 
 void vibartionDetected()
