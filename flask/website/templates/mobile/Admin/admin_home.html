@@ -1,12 +1,15 @@
 {% extends "mobile/base.html" %}
 
+{% block title %}
+{{ super() }} | Home
+{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename = 'mobile/css/Admin/admin_home.css') }}">
 {% endblock %}
-
 
 {% block header %}
 <div class="logo">

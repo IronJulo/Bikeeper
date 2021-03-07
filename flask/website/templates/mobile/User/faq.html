@@ -1,4 +1,9 @@
 {% extends "mobile/base.html" %}
+
+{% block title %}
+{{ super() }} | FAQ
+{% endblock %}
+
 {% block header %}
         <div class="logo">
             <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
@@ -11,6 +16,7 @@
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='mobile/css/User/faq.css') }}">
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
+
 {% block main %}
 
 

@@ -1,5 +1,9 @@
 {% extends "mobile/base.html" %}
 
+{% block title %}
+{{ super() }} | Can't access
+{% endblock %}
+
 {% block header %}
 <link rel="shortcut icon" href="{{ url_for('static', filename = 'mobile/assets/logo_bikeeper_without_text.png') }}" type="image/x-icon">
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>

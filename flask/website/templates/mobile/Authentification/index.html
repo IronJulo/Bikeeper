@@ -1,5 +1,14 @@
 {% extends "mobile/base.html" %}
 
+{% block title %}
+{{ super() }}
+{% endblock %}
+
+{% block style %}
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/index-mobile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
+{% endblock %}
+
 {% block header %}
         <div class="logo">
             <a href="{{ url_for('index.index') }}"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
@@ -7,8 +16,6 @@
         </div>
 
         {% include "components/mobile-sidebar-guest.html" %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/index-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
         <!-- Use any element to open/show the overlay navigation menu -->
         <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
 {% endblock %}
@@ -53,7 +60,7 @@
         <article>
             <h3>How does it work<span style="color: #DC1D21; ">?</span></h3>
             <p><!-- TODO CHANGE -->
-                Within your vehicle lies the <strong>Bikeeper</strong> device, his function is to read many kinds of data and then send them to you in your account. <strong>Bikeeper</strong> wants you to feel <strong>protected</strong> and <strong>assured</strong> therefore you can access to all of the <strong>details</strong> the device received (the state of your vehicle, and your last rides) and it will send <strong>notifications</strong> if something happens either to you or your vehicle. Furthermore, if you are connected and you have an accident, your device will automatically send a <strong>message</strong> to one of your contact. If you want more information, be sure to check our <strong>FAQ after you create your account.</strong>            </p>
+                Within your vehicle lies the <strong>Bikeeper</strong> device, his function is to read many kinds of data and then send them to you in your account. <strong>Bikeeper</strong> wants you to feel <strong>protected</strong> and <strong>assured</strong> therefore you can access to all of the <strong>details</strong> the device received (the state of your vehicle, and your last rides) and it will send <strong>notifications</strong> if something happens either to you or your vehicle. Furthermore, if you are connected and you have an accident, your device will automatically send a <strong>message</strong> to one of your contact. What are you waiting to join our community? Ride safe!</p>
         </article>
 
 {% endblock %}

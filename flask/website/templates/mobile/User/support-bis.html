@@ -1,26 +1,29 @@
 {% extends "mobile/base.html" %}
 
-        {% block header %}
-        <div class="logo">
-            <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
-            <h1>BiKeeper</h1></a>
-        </div>
-        {% include "components/mobile-sidebar.html" %}
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/support-mobile.css') }}">
-        <!-- Use any element to open/show the overlay navigation menu -->
-        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
-        {% endblock %}
+{% block title %}
+{{ super() }} | Support
+{% endblock %}
 
-        {% block main %}
-        <div class="container">
-            <div class="row">
-                <div class="col-2"><a href="/support/"><i class="fa fa-chevron-left"></i></a></div>
-                <div class="col-8">TICKET #{{ id_ticket }}</div>
-                {% if current_user.is_admin_user %}
-                
+{% block header %}
+    <div class="logo">
+        <a href="/home/"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+        <h1>BiKeeper</h1></a>
+    </div>
+    {% include "components/mobile-sidebar.html" %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/support-mobile.css') }}">
+    <!-- Use any element to open/show the overlay navigation menu -->
+    <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2"><a href="/support/"><i class="fa fa-chevron-left"></i></a></div>
+            <div class="col-8">TICKET #{{ id_ticket }}</div>
+            {% if current_user.is_admin_user %}
                 <div class="col-1 check">
                     <form id="deleteTicketForm" action="{{ url_for('support.support_delete_ticket') }}/{{ id_ticket }}" method="POST">
                         <button type="submit" id="btn-close">
@@ -28,32 +31,23 @@
                         </button>
                     </form>
                 </div>
-                
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
-        <section class='chat'>
-            <div class="container" id="chat-{{ id_ticket }}"></div>
-    
-        </section>
-        <div class="blank"></div>
+    </div>
+    <section class='chat'>
+        <div class="container" id="chat-{{ id_ticket }}"></div>
 
+    </section>
+    <div class="blank"></div>
 
-
-        <div class="container-fluid" id="input-message">
-            <div class="row">
-                <div class="col-8"><input type="text" value="Write your message" name="msg" id="msg"></div>
-                <div class="col-2"><button type="button"><i class="fa fa-paperclip"></i></button></div>
-                <div class="col-2"><button type="submit" class="submit" id="send-msg"><i class="fa fa-paper-plane"></i></button></div>
-            </div>
+    <div class="container-fluid" id="input-message">
+        <div class="row">
+            <div class="col-8"><input type="text" value="Write your message" name="msg" id="msg"></div>
+            <div class="col-2"><button type="button"><i class="fa fa-paperclip"></i></button></div>
+            <div class="col-2"><button type="submit" class="submit" id="send-msg"><i class="fa fa-paper-plane"></i></button></div>
         </div>
-
-
-
-
-
-
-    {% endblock %}
+    </div>
+{% endblock %}
 
 
 {% block script %}

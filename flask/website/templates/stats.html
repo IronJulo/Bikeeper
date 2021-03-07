@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{ super() }} | Statistics
+{% endblock %}
+
 {% block style %}
     <!-- Import Leaflet CSS Style Sheet -->
     <link rel="stylesheet" href="https://npmcdn.com/leaflet@1.0.0-rc.2/dist/leaflet.css"/>
@@ -183,9 +187,9 @@
             <section class="group4">
                 <form action="{{ request.url }}" method='GET'>
                     <div class="btn-container">
-                        <input type="radio" name="local" id="local" checked hidden/>
+                        <input type="radio" name="localonline" id="local" checked hidden/>
                         <label for="local">Local</label>
-                        <input type="radio" name="online" id="online" hidden/>
+                        <input type="radio" name="localonline" id="online" hidden/>
                         <label for="online">Online</label>
                     </div>
                 </form>

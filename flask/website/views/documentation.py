@@ -6,6 +6,7 @@ from flask import (
     url_for,
     escape
 )
+from flask_login import login_required
 from flask_mobility.decorators import mobile_template
 from ..models import ORM
 mod = Blueprint('documentation', __name__)
@@ -13,7 +14,8 @@ mod = Blueprint('documentation', __name__)
 
 @mod.route('/faq/', methods=['GET'])
 @mobile_template('{mobile/User/}faq.html')
-def index(template):
+@login_required
+def faq(template):
     data = ORM.get_faq_json()
     topic = set()
     for reponse in data.values():

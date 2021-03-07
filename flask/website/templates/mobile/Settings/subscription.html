@@ -1,5 +1,9 @@
 {% extends "mobile/base.html" %}
 
+{% block title %}
+{{ super() }} | Subscription
+{% endblock %}
+
 {% block style %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
