@@ -1,14 +1,11 @@
 <aside class="sidebar sidebar-navigation">
-    {% if not current_user.is_admin_user %}
-    <a href="/faq/" id="help">Besoin d'aide ?</a>
-    {% endif %}
     <ul>
         {% if not current_user.is_admin_user %}
         <li>
             <div>
                 <img src="{{ url_for('static', filename='pc/assets/home-icon.svg') }}" alt="icone home">
                 <a href="{{ url_for('home.home') }}">
-                    Accueil
+                    Home
                 </a>
             </div>
         </li>
@@ -81,4 +78,7 @@
         </li>
         {% endif %}
     </ul>
+    {% if not current_user.is_admin_user %}
+    <a href="{{ url_for('documentation.faq') }}" id="help">Need some help?</a>
+    {% endif %}
 </aside>

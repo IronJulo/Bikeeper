@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{ super() }} | Support
+{% endblock %}
+
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/support.css') }}">
 {% endblock style %}

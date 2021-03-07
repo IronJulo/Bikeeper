@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{ super() }} | Platform
+{% endblock %}
+
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/admin_platform.css') }}">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css">

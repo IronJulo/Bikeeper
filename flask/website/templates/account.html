@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %}
+{{ super() }} | Account
+{% endblock %}
+
 {% block style %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='pc/css/account.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='dropzone/dropzone.min.css') }}">
