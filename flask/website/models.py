@@ -1141,16 +1141,19 @@ class ORM:
 
     @staticmethod
     def get_faq_json():
-        with open("./website/faq.json") as f:
-            return json.load(f)
-
-    @staticmethod
-    def get_faq_json():
+        """
+        Read faq/json file
+        :return: dict:
+        """
         with open("./website/faq.json") as f:
             return json.load(f)
 
     @staticmethod
     def remove_tickets_by_id(idt):
+        """
+        Remove tickets and messages regarding an id of a ticket
+        :param: int: the id ticket
+        """
         MESSAGE.query.filter_by(id_ticket=idt).delete()
         db.session.commit()
         TICKET.query.filter_by(id_ticket=idt).delete()

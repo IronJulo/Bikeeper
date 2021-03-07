@@ -355,7 +355,7 @@ div.nadmin > section.group3 > div.graph2 div.info2 ul {
 
 div.nadmin > section.group4 .btn-container{
     display: inline-block;
-    margin: 70px auto 0;
+    margin: 1em auto;
     font-size: 0;
     border: 1px solid white;
     background-color: black;
@@ -363,7 +363,7 @@ div.nadmin > section.group4 .btn-container{
 
 div.nadmin > section.group4 form {
     width: fit-content;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
 div.nadmin > section.group4 label{
@@ -395,19 +395,33 @@ div.nadmin > section.group4 label{
     left: 0;
 }
   
+#local:not(:checked) + label,
+#online:not(:checked) + label {
+    background-color: black;
+    text-align: center;
+}
+  
 #local:checked + label,
 #online:checked + label{
     background-color: white;
+    text-align: center;
+}
+
+#temp {
+    height: 150px;
 }
 
 div.nadmin > section.group4 {
-    height: 200px;
+    height: fit-content;
+    padding: 0;
+    margin: 0;
 }
 
-#map {
-    width: 100px;
-    height: 200px;
-    display: block;
+#my_osm_widget_map {
+    width: 100%;
+    height: 400px;
+    margin: 0;
+    border-radius: 5px;
 }
 
 div.global-admin {
@@ -623,4 +637,14 @@ div.alert {
     div.flex > section.group2 form select {
         width: 30%;
     }
+}
+
+div.autocomplete-suggestion {
+    text-align: center;
+    background-color: rgba(255,255,255,0.7);
+}
+
+div.autocomplete-suggestion:hover {
+    background-color: rgba(255,255,255,0.9);
+    cursor: pointer;
 }
