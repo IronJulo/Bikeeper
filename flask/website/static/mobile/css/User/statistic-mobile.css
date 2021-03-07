@@ -300,7 +300,7 @@ section.group3 ul {
 
 div.flex > section.group4 .btn-container{
   display: inline-block;
-  margin: 70px auto 0;
+  margin: 1em auto;
   font-size: 0;
   border: 1px solid white;
   background-color: black;
@@ -308,7 +308,7 @@ div.flex > section.group4 .btn-container{
 
 div.flex > section.group4 form {
   width: fit-content;
-  margin: 0 auto;
+  margin: 1em auto;
 }
 
 div.flex > section.group4 label{
@@ -340,11 +340,20 @@ div.flex > section.group4 label{
   left: 0;
 }
 
+#local:not(:checked) + label,
+#online:not(:checked) + label {
+    background-color: black;
+    text-align: center;
+}
+  
 #local:checked + label,
 #online:checked + label{
-  background-color: white;
+    background-color: white;
+    text-align: center;
 }
 
 div.flex > section.group4 {
-  height: 200px;
+  height: fit-content;
+  padding: 0;
+  margin: 0;
 }

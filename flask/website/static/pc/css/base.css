@@ -48,12 +48,25 @@ html {
     font-weight: 500;
     z-index: 1000;
 }
+
+.alert-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+a {
+    text-decoration: none!important;
+}
+
 .sidebar #help{
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: white
+    bottom: 1em;
+    color: white;
+    text-align: center;
+    width: 100%;
 }
+
 .sidebar ul {
     width: 100%;
     margin: 0;
@@ -145,7 +158,7 @@ header.base {
     justify-content: space-between;
     box-shadow: 7px 0px 12px rgba(0, 0, 0, 0.25);
     font-weight: 500;
-    z-index: 999;
+    z-index: 9999;
 }
 
 header>div:first-child {
