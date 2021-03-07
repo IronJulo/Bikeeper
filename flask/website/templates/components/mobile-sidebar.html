@@ -2,7 +2,7 @@
 
     <!-- Button to close the overlay navigation -->
     {% if not current_user.is_admin_user %}
-    <a href="/faq/" id="help"><i class="fa fa-question"></i></a>
+    <a href="{{ url_for('documentation.faq') }}" id="help"><i class="fa fa-question"></i></a>
     {% endif %}
     <img src="{{ url_for('static', filename='mobile/assets/close.png') }}" href="javascript:void(0)" class="closebtn" onclick="closeNav()" alt="close">
     <!-- Overlay content -->
