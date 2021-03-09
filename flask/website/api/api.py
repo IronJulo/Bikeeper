@@ -339,7 +339,7 @@ def get_user_picture(username):
 @mod.route('/api/contact/profile/<string:contact_id>', methods=['GET'])
 def get_contact_picture(contact_id):
     """
-    Get current user picture stored in database
+    Get current contact picture stored in database
     :param contact_id: the wanted contact_id
     :rtype: Response
     """
@@ -391,7 +391,7 @@ def get_last_log_position(device_id):
         )
 
 
-@mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST']) #TODO replace /test/
+@mod.route('/api/test/update_device/<string:username>/<int:id_device>', methods=['POST'])  # TODO replace /test/
 def update_current_selected_device(username, id_device):
     """
     Update the current selected device stored in database

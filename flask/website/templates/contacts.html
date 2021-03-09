@@ -16,11 +16,12 @@
             {% include "messages.html" %}
         </div>
         <h3><i class="fa fa-bell"></i> Contacts to Call</h3>
+
         {% for contact in contacts %}
         <div class="contact">
             <form action="{{ url_for('settings.settings_contact_update') }}" id="update-contact" method='POST'>
                 <div class="info">
-                    <img src="{{ url_for('static', filename='pc/assets/avatar.png') }}" alt="your contact avatar">
+                    <img src="{{ contact.profile_picture_contact }}" alt="your contact avatar">
                     <h4>{{contact.firstname_contact}} {{contact.lastname_contact}}</h4>
                 </div>
                 
@@ -33,6 +34,7 @@
             </form>
         </div>
         {% endfor %}
+
     </section>
 
     {% if number < 5 %}

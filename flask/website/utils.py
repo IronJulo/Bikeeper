@@ -1,4 +1,4 @@
-import re
+import re, os
 from flask_login import current_user
 from hashlib import sha256
 import random
@@ -55,7 +55,7 @@ class Utils:
 		encrypt = sha256()
 		encrypt.update(password.encode())
 		return encrypt.hexdigest()
-		
+
 	@staticmethod
 	def is_valid_change_account(password, phonenumber, email, city, street, postalcode):
 		if not Utils.is_valid_password(password):
@@ -84,3 +84,17 @@ class Utils:
 	def read_prefixes():
 		lines = open("./website/prefixes.txt").read().splitlines()
 		return "Bikeeper - " + str(random.choice(lines))
+
+	@staticmethod
+	def clean_old_image(path):
+		"""
+		Try to remove old user image when it necessary
+		:param: str path: path to remove
+		"""
+
+		if "http" in path:
+			print("It's an url no need to remove")
+		else:
+			if os.path.exists(path):
+				print("Removing.....")
+				os.remove(path)
