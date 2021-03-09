@@ -13,10 +13,10 @@
 <div class="flex">
     <section>
         <h1>Update contact</h1>
-         <form action="{{ url_for('settings.upload_files_contact') }} + {{id_contact}}" id="imageUpload"
+         <form action="/settings/contact/picture/{{contact_id}}" id="imageUpload"
                   class="dropzone">
                 <div class="img-avatar">
-                    <img id='picture' src="{{ current_user.profile_picture_user }}" alt="your avatar">
+                    <img id='picture' src="{{ contact.profile_picture_contact }}" alt="contact avatar">
                     <p>Current Picture</p>
                 </div>
             </form>
@@ -24,7 +24,7 @@
             <div class="form-group1">
 
             </div>
-            <div style="display: none" id="current-id-contact">{{id_contact}}</div>
+            <div style="display: none" id="current-id-contact">{{contact_id}}</div>
             <div class="form-group2">
                 <div class="form-first-name">
                     <fieldset>
@@ -44,7 +44,7 @@
                         <input type="tel" name="phone" value='{{tel}}'>
                     </fieldset>
                 </div>
-                <input type="hidden" name="id-contact" value="{{id_contact}}">
+                <input type="hidden" name="id-contact" value="{{contact_id}}">
             </div>
 
             <div class="form-submit">
@@ -76,14 +76,14 @@
                 });
                 this.on("success", function () {
                     console.log()
-                    let current_contact = document.querySelector("#img-profile+span").textContent
+                    let current_contact = document.querySelector("#imageUpload").split("picture/")[1]
 
                     console.log("Refreshing image");
                     $.ajax({
                         url: "/api/contact/profile/" + current_contact,
                         success: function (result) {
                             document.getElementById("picture").src = result.response;
-                            document.getElementById("img-profile").style.backgroundImage = "url('" + result.response + "')";
+
                         },
                         error: function (err) {
 

@@ -303,10 +303,10 @@ class ORM:
             return False, erreur
         elif not Utils.is_valid_password(password):
             erreur = "Incorrect password. Password must :\n \
-				• contains at least one upper case letter,\n \
-				• contains at least one lower case letter,\n \
-				• contains at least one number,\n \
-				• has a minimal length of 5 characters."
+                • contains at least one upper case letter,\n \
+                • contains at least one lower case letter,\n \
+                • contains at least one number,\n \
+                • has a minimal length of 5 characters."
             return (False, erreur)
         elif not Utils.is_valid_tel(phonenumber):
             erreur = "Incorrect phone number format. Please try again."
@@ -738,12 +738,15 @@ class ORM:
         return db.session.query(CONTACT).join(DEVICE).filter(DEVICE.username_user == pseudo).all()
 
     @staticmethod
-    def get_contact_by_id(contact_id: int) -> CONTACT:
+    def get_contact_by_id(contact_id: int) -> CONTACT:  # TODO produce bug
         """
         :param: int contact_id: the wanted contact's id
         :return: CONTACT: the contact associated with the given id
         """
-        return db.session.query(CONTACT).filter(CONTACT.id_contact == contact_id).one()
+        print("=" * 50)
+        print("Doing a query with : ", contact_id, "   ", type(contact_id))
+        print("=" * 50)
+        return db.session.query(CONTACT).filter(CONTACT.id_contact == int(contact_id)).one()
 
     @staticmethod
     def get_bikeeper_user_num(num: str) -> str:
@@ -947,18 +950,6 @@ class ORM:
         :param: str new_path:
         """
 
-        def clean_old_image(path):
-            """
-            Try to remove old image when it necessary
-            :param: str path: path to remove
-            """
-            if "http" in path:
-                print("It's an url no need to remove")
-            else:
-                if os.path.exists(path):
-                    print("Removing.....")
-                    os.remove(path)
-
         user = ORM.get_user(username)
         # Get current picture
         old_picture = user.profile_picture_user
@@ -970,7 +961,30 @@ class ORM:
         # remove old image
 
         print("Need to remove : ", "./website" + old_picture)
-        clean_old_image("./website" + old_picture)
+        Utils.clean_old_image("./website" + old_picture)
+
+    @staticmethod
+    def replace_image_contact(contact_id, new_path):
+        """
+        Replace the old contact image by the new one
+        :param: str contact_id: contact
+        :param: str new_path:
+        """
+
+        contact = ORM.get_contact_by_id(contact_id)
+        # Get current picture
+        old_picture = contact.profile_picture_contact
+        print("Old picture : ", old_picture)
+        print("new_path : ", new_path)
+        print(new_path.replace("./website", ""))
+        # update with new one
+        contact.profile_picture_contact = new_path.replace("./website", "")
+
+        db.session.commit()
+        # remove old image
+
+        print("Need to remove : ", "./website" + old_picture)
+        Utils.clean_old_image("./website" + old_picture)
 
     @staticmethod
     def get_last_ride_info(device_id: str) -> dict:
