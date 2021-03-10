@@ -15,6 +15,8 @@ header{
     top: 0;
     left: 0;
     right: 0;
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 }
 
@@ -39,13 +41,18 @@ h3{
 }
 
 footer{
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
 
 }
 
 div.list-buttons{
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	flex-basis: 100%;
+	-ms-flex-preferred-size: 100%;
+	    flex-basis: 100%;
 }
 input.form-input{
     border: none;
@@ -88,7 +95,8 @@ button.update{
 	border-color: #14FF00;
 	background-color: white;
 	padding: 5px;
-	flex-basis: 40%;
+	-ms-flex-preferred-size: 40%;
+	    flex-basis: 40%;
 	font-size: 2em;
 	margin: 6%;
 
@@ -113,7 +121,8 @@ button.cancel{
 	border-color: #D90B21;
 	background-color: white;
 	padding: 5px;
-	flex-basis: 40%;
+	-ms-flex-preferred-size: 40%;
+	    flex-basis: 40%;
 	font-size: 2em;
 	margin: 6%;
 
@@ -141,10 +150,17 @@ form {
 
 
 form div.form-submit {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 
 form div.form-submit>a,
@@ -171,8 +187,12 @@ form div.form-submit>button {
 }
 
 .modal-fd {
+	display: -webkit-box;
+	display: -ms-flexbox;
 	display: flex;
-	justify-content: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
 }
 
 .modal-fd input {
@@ -194,7 +214,9 @@ button.close span {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-43%, -55%);
+    -webkit-transform: translate(-43%, -55%);
+        -ms-transform: translate(-43%, -55%);
+            transform: translate(-43%, -55%);
 	color: white;
 }
 

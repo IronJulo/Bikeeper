@@ -27,7 +27,9 @@ div.container-fluid{
 font-style: normal;
 font-weight: bold;
 font-size: 24px;
-align-items: center;
+-webkit-box-align: center;
+    -ms-flex-align: center;
+        align-items: center;
 letter-spacing: 0.01em;
 color: #535B7B;
   text-align: center;
@@ -110,16 +112,23 @@ h6{
   font-size: 20px!important;
 }
 .status{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center
 }
 .park{
   padding-left: 5px
 }
 
 div.user-data {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   padding: .5em;
 }
 
@@ -130,8 +139,13 @@ div.user-data ul {
 }
 
 div.user-data ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   font-weight: 600;
 }
 
@@ -156,7 +170,8 @@ p#is-charging {
 }
 
 input, select {
-  box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109), 0 1px 1px rgba(128, 128, 128, 0.155), 0 2.1px 2.1px rgba(128, 128, 128, 0.195), 0 4.4px 4.4px rgba(128, 128, 128, 0.241), 0 8px 18px rgba(128, 128, 128, 0.35);
+  -webkit-box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109), 0 1px 1px rgba(128, 128, 128, 0.155), 0 2.1px 2.1px rgba(128, 128, 128, 0.195), 0 4.4px 4.4px rgba(128, 128, 128, 0.241), 0 8px 18px rgba(128, 128, 128, 0.35);
+          box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109), 0 1px 1px rgba(128, 128, 128, 0.155), 0 2.1px 2.1px rgba(128, 128, 128, 0.195), 0 4.4px 4.4px rgba(128, 128, 128, 0.241), 0 8px 18px rgba(128, 128, 128, 0.35);
   width: 50%;
   border: 1px solid;
   border-radius: .5em;
@@ -175,8 +190,13 @@ label {
 }
 
 .timeline {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 80% !important;
   margin: 5% auto;
   height: 70vh;
@@ -186,7 +206,8 @@ label {
 .timeline::-webkit-scrollbar-thumb {
   background: #434343;
   border-radius: 16px;
-  box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+  -webkit-box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+          box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
 .timeline::-webkit-scrollbar
@@ -205,10 +226,13 @@ label {
   background: #fff;
   margin-bottom: 20px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 20px 0;
   border-radius: 8px;
-  box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+          box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
 }
 
 .timeline__event__title {
@@ -233,10 +257,17 @@ label {
 .timeline__event__icon {
   border-radius: 8px 0 0 8px;
   background: var(--timeline-main-color);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-basis: 40%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-preferred-size: 40%;
+      flex-basis: 40%;
   font-size: 2rem;
   color: var(--timeline-main-color);
   padding: 20px;
@@ -248,11 +279,14 @@ label {
   top: 50%;
   left: -68px;
   font-size: 2.5rem;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
 }
 
 .timeline__event__description {
-  flex-basis: 60%;
+  -ms-flex-preferred-size: 60%;
+      flex-basis: 60%;
 }
 
 .timeline__event:before {
@@ -264,7 +298,9 @@ label {
   border-radius: 100%;
   left: -6rem;
   top: 50%;
-  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   border: 2px solid var(--timeline-main-color);
 }
 
@@ -277,7 +313,8 @@ section.group3 canvas#angle {
   width: 90% !important;
   display: block;
   margin: 1em auto;
-  box-shadow: 0 0.4px 0.4px rgb(128 128 128 / 11%), 0 1px 1px rgb(128 128 128 / 16%), 0 2.1px 2.1px rgb(128 128 128 / 20%), 0 4.4px 4.4px rgb(128 128 128 / 24%), 0 8px 18px rgb(128 128 128 / 35%);
+  -webkit-box-shadow: 0 0.4px 0.4px rgb(128 128 128 / 11%), 0 1px 1px rgb(128 128 128 / 16%), 0 2.1px 2.1px rgb(128 128 128 / 20%), 0 4.4px 4.4px rgb(128 128 128 / 24%), 0 8px 18px rgb(128 128 128 / 35%);
+          box-shadow: 0 0.4px 0.4px rgb(128 128 128 / 11%), 0 1px 1px rgb(128 128 128 / 16%), 0 2.1px 2.1px rgb(128 128 128 / 20%), 0 4.4px 4.4px rgb(128 128 128 / 24%), 0 8px 18px rgb(128 128 128 / 35%);
 }
 
 section.group3 ul {
@@ -307,6 +344,8 @@ div.flex > section.group4 .btn-container{
 }
 
 div.flex > section.group4 form {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
   width: fit-content;
   margin: 1em auto;
 }
@@ -320,6 +359,8 @@ div.flex > section.group4 label{
   letter-spacing: 5px;  
   width: 10em;
   padding: 13px 0;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;  
   margin-bottom: 0;
 }
@@ -333,6 +374,8 @@ div.flex > section.group4 label{
   left: 100%;
   z-index: -1;
   background-color: white;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
@@ -353,6 +396,8 @@ div.flex > section.group4 label{
 }
 
 div.flex > section.group4 {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
   height: fit-content;
   padding: 0;
   margin: 0;
