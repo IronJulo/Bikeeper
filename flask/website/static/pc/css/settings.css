@@ -12,11 +12,18 @@
 
 section.cards {
     margin: 1em auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     width: var(--taille-elements-width);
-    flex-direction: column;
-    align-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-line-pack: center;
+        align-content: center;
 }
 
 div.settings-card {
@@ -24,8 +31,11 @@ div.settings-card {
     width: 80%;
     margin: 2em 0;
     background-color: white;
-    box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.25);
+            box-shadow: 2px 0px 4px 1px rgba(0, 0, 0, 0.25);
     height: 20vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 

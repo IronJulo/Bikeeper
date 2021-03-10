@@ -23,6 +23,8 @@ header {
   width: 100%;
   height: 120px;
   background-color: rgba(0,0,0,0.31);
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   left: 0; right: 0; top: 0;
 }
@@ -30,9 +32,13 @@ header {
 header .logo{
     width: 74vW;
     padding: 0.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 header .logo a{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 header>.logo>a>img{
@@ -78,13 +84,17 @@ header a{
     width: 90%;
     margin: auto;
     background-color: white;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     font-size: 14px;
 
     letter-spacing: 0.005em;
     color: #263238;
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.16), 0px 2px 4px rgba(0, 0, 0, 0.12), 0px 1px 8px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
     margin-bottom: 50px
 
@@ -92,6 +102,8 @@ header a{
 
 .avis .mini-header{
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-top: 8px;
     margin-left: 12px;
@@ -109,6 +121,8 @@ header a{
 }
 .avis .rate{
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 12px;
 
@@ -143,11 +157,18 @@ article{
 .localisation{
     width: 90%;
     margin:auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     text-align: left;
     margin-top: 50px;
-    justify-content: center;
-    flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     
     
 }
@@ -220,5 +241,4 @@ article{
         background-position-y: -500px;
     }
 }
-
 

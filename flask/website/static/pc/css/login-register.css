@@ -88,7 +88,9 @@ header>nav a:hover {
 }
 
 header>div:first-child {
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
 }
 
 header>div:first-child>* {
@@ -185,28 +187,46 @@ main>form>div input:focus,
 }
 
 .login-main {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     text-align: center;
     color: white;
     width: 50%;
     -webkit-transition: margin 2s;
     -o-transition: margin 2s;
+    -webkit-transition: all 2s;
+    -o-transition: all 2s;
     transition: all 2s;
     margin-top: calc(0px - var(--taille-header));
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-30%);
+    -webkit-transform: translate(-50%,-30%);
+        -ms-transform: translate(-50%,-30%);
+            transform: translate(-50%,-30%);
 }
 
 .register-main {
     height: 100%;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     position: relative
 }
 
@@ -354,7 +374,8 @@ main>form>div input:focus,
     display: flex;
     -ms-flex-pack: distribute;
     justify-content: space-around;
-    flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
     margin-bottom: 0;
 }
 
@@ -379,21 +400,28 @@ main>form>div input:focus,
 }
 
 .register-third-page {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     max-width: 60vw;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .register-third-page h1 {
-    flex-basis: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
 }
 
 html::-webkit-scrollbar-thumb
 {
     background: #434343;
     border-radius: 16px;
-    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+    -webkit-box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+            box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
 html::-webkit-scrollbar
@@ -411,9 +439,13 @@ div.flash {
 }
 
 div.C-slide > div > div.subscription-form {
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     width: 100%;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 
 div.C-slide > div > div.subscription-form input {
@@ -450,11 +482,15 @@ section.section-sub label {
     position: absolute;
     bottom: 1em;
     left: 50%;
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
     border-radius: 2em;
     padding: .4em .8em;
     color: black;
     text-decoration: none;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -490,6 +526,8 @@ section.section-sub label {
 
 @media(max-width:1100px){
     div.flex > section.section-sub {
+        height: -webkit-max-content;
+        height: -moz-max-content;
         height: max-content;
     }
 
@@ -500,6 +538,8 @@ section.section-sub label {
 
 @media(max-height:800px){
     div.flex > section.section-sub {
+        height: -webkit-max-content;
+        height: -moz-max-content;
         height: max-content;
     }
 }
@@ -516,8 +556,12 @@ section.section-sub {
 }
 
 div.register-subscription {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 div.active div.sub {
@@ -550,12 +594,18 @@ div.sub-radio span:hover {
     cursor: pointer;
     background-color: #1ED1AC;
     color: white;
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
     transition: all .2s;
 }
 
 .selected-sub{
     border: solid 4px #1ED1AC;
-    transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+            transform: scale(1.05);
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
     transition: all .2s;
 }
 
@@ -568,6 +618,8 @@ div.sub-radio span:hover {
 @media (max-width: 1175px) {
     section.section-sub {
         font-size: 1.2rem;
+        height: -webkit-fit-content;
+        height: -moz-fit-content;
         height: fit-content;
     }    
 }

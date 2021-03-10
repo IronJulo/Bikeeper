@@ -26,8 +26,11 @@ main{
 }
 .information{
     padding: 5%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
    text-align: left
 }
 .information h2{
@@ -58,8 +61,11 @@ main{
     margin-top: 0.5em;
 }
 .information div{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap
 }
 
 #credit-card{
@@ -137,8 +143,13 @@ section.section-sub ul {
 }
 
 div.register-subscription {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 div.active div.sub {
@@ -169,6 +180,8 @@ div.sub-radio span:hover {
     cursor: pointer;
     background-color: #1ED1AC;
     color: white;
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
     transition: all .2s;
 }
 

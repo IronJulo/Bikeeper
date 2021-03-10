@@ -1,4 +1,3 @@
-
 html {
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
@@ -9,7 +8,8 @@ html {
 
 
 a{
-    text-decoration: None;
+    -webkit-text-decoration: None;
+            text-decoration: None;
     color: black;
 }
 header {
@@ -17,6 +17,8 @@ header {
   position: relative;
   height: 7.5em;
   background-color: white;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   left: 0; right: 0; top: 0;
     width: 100%;
@@ -28,10 +30,14 @@ header {
 header .logo{
     width: 74vW;
     padding: 0.5em;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     
 }
 header .logo a{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
 }
 header .logo a img{

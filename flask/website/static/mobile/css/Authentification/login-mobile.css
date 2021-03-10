@@ -33,8 +33,11 @@ form div{
     height: 8em;
 }
 form div *{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: nowrap; 
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap; 
     margin-top: 0.2em
 }
 
@@ -79,6 +82,26 @@ form div label{
     left: 0;
     right: 0;
     bottom: 10%;
+}
+
+::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1; /* Firefox */
+}
+
+::-moz-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgray;
+  opacity: 1; /* Firefox */
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

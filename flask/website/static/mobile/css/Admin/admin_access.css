@@ -1,17 +1,15 @@
-html {
-}
-
-body{
-
-}
-
 div.main{
-	width: 100%; /* largeur obligatoire pour être centré */
+	width: 100%;
+	display:-webkit-box;
+	display:-ms-flexbox;
 	display:flex;
-	flex-direction:column;
-	align-items:flex-end;
-
-
+	-webkit-box-orient:vertical;
+	-webkit-box-direction:normal;
+	    -ms-flex-direction:column;
+	        flex-direction:column;
+	-webkit-box-align:end;
+	    -ms-flex-align:end;
+	        align-items:flex-end;
 }
 
 div.info-border{
@@ -21,7 +19,9 @@ div.info-border{
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
     width: 90%;
 }
 
@@ -36,4 +36,3 @@ p{
 	font-weight: bold;
 	color: #DC1D21;
 }
-

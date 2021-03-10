@@ -25,13 +25,6 @@ p{
 .box{
   padding-bottom: 30px
 }
-/* .accordion-button{
-  color: rgb(220, 29, 33)!important;,
-} 
-.accordion-button.collapsed{
-  color: black!important;
-}
-*/
 .accordion-button{
   color: black!important;
   font-size: 20px;
