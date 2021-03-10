@@ -11,9 +11,14 @@
 }
 
 div.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     height: 100%;
 }
 
@@ -23,13 +28,20 @@ div.flex > section {
 }
 
 .nav {
-    flex-direction: column;
-    align-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-line-pack: center;
+        align-content: center;
 }
 
 section.tickets {
-    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
-    flex: 0 0 20%;
+    -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+            box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 20%;
+            flex: 0 0 20%;
     background-color: white;
 }
 
@@ -47,12 +59,16 @@ section.tickets > div > a {
     position: absolute;
     bottom: 1em;
     left: 50%;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
     background-color: transparent;
     border-radius: 2em;
     border: solid var(--vert) 2px;
     padding: .4em .8em;
     outline: none;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     text-decoration: none;
     color: black;
@@ -60,13 +76,15 @@ section.tickets > div > a {
 
 @-webkit-keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
 }
   
 @keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
 }
 
@@ -90,6 +108,14 @@ section.tickets > div > a:hover::before {
     background-position: 0 0, 100% 0, 100% 100%, 0 100%;
     -webkit-animation: rotate 3s linear infinite;
             animation: rotate 3s linear infinite;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))), 
+        -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+        -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))),
+        -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background-image: -o-linear-gradient(var(--vert), var(--vert)), 
+        -o-linear-gradient(white, white),
+        -o-linear-gradient(var(--vert), var(--vert)),
+        -o-linear-gradient(white, white);
     background-image: linear-gradient(var(--vert), var(--vert)), 
         linear-gradient(white, white),
         linear-gradient(var(--vert), var(--vert)),
@@ -133,12 +159,17 @@ section.tickets ul li a {
 
 section.tickets ul li a:hover {
     color: var(--orange);
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
     transition: all .2s;
 }
 
 section.chat {
-    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
-    flex-grow: 1;
+    -webkit-box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+            box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     background-color: white;
     margin-left: 2em;
     position: relative;
@@ -169,15 +200,24 @@ section.chat .message-input input:focus {
 section.chat ul {
     padding: 0;
     list-style-type: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 section.chat ul li {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     padding: 1.4em;
     padding-top: 1em;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 section.chat ul li:last-child {
@@ -185,12 +225,18 @@ section.chat ul li:last-child {
 }
 
 section.chat ul li.sent {
-    align-self: flex-end;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
 }
 
 section.chat ul li.sent>div:first-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 section.chat ul li.sent>div:last-child,
@@ -199,20 +245,26 @@ section.chat ul li.replies>div:first-child {
     height: 40px;
     width: 40px;
     background-size: cover;
-    align-self: flex-end;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
     border-radius: 20em;
 }
 
 section.chat ul li.sent span {
     margin-right: 2em;
-    align-self: flex-end;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
 }
 
 section.chat ul li.sent p {
     background: #435f7a;
     color: #f5f5f5;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     margin: 0;
     margin-right: 1em;
     padding: .5em .7em;
@@ -220,8 +272,13 @@ section.chat ul li.sent p {
 }
 
 section.chat ul li.replies>div:last-child {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 section.chat ul li.replies span {
@@ -230,8 +287,12 @@ section.chat ul li.replies span {
 
 section.chat ul li.replies p {
     background: #e2e2e2;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
     margin: 0;
     margin-left: 1em;
     padding: .5em .7em;
@@ -273,7 +334,8 @@ div.tab-content > div > ul::-webkit-scrollbar-thumb
 {
     background: #999999;
     border-radius: 12px;
-    box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+    -webkit-box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
+            box-shadow: inset 2px 2px 2px hsla(0,0%,100%,.25), inset -2px -2px 2px rgba(0,0,0,.25);
 }
 
 div.tab-content > div > ul::-webkit-scrollbar
@@ -287,7 +349,11 @@ div.tab-content > div > ul::-webkit-scrollbar-track
 }
 
 section.tickets ul li .check-ticket {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
     height: fit-content;
     padding: 0;
     display: block;
@@ -296,12 +362,18 @@ section.tickets ul li .check-ticket {
     right: 10%;
     color: var(--vert);
     font-size: 1.3rem;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
 }
 
 section.tickets ul li .check-ticket:hover {
     color: var(--rouge);
-    transform: translateY(-50%) scale(0.95);
+    -webkit-transform: translateY(-50%) scale(0.95);
+        -ms-transform: translateY(-50%) scale(0.95);
+            transform: translateY(-50%) scale(0.95);
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
     transition: all .2s;
 }
 
@@ -316,7 +388,9 @@ section.tickets input[type=radio] {
     }
 
     section.tickets {
-        flex: 0 0 25%;
+        -webkit-box-flex: 0;
+            -ms-flex: 0 0 25%;
+                flex: 0 0 25%;
     }
 }
 

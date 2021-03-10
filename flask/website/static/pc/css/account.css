@@ -11,10 +11,14 @@
 }
 
 div.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 section {
@@ -27,14 +31,20 @@ section {
     position: absolute;
     top: var(--taille-header);
     left: 50%;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
 }
 
 form {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 
 form > div {
@@ -44,11 +54,21 @@ form > div {
 form>div.form-group1,
 form>div.form-group2
 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex: 0 0 48%;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: space-between;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 48%;
+            flex: 0 0 48%;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
 }
 
 form>div.form-group3 {
@@ -65,6 +85,8 @@ div.img-avatar img {
 
 div.img-avatar img:hover {
     opacity: .6;
+    -webkit-transition: all .5s;
+    -o-transition: all .5s;
     transition: all .5s;
     cursor: pointer;
 }
@@ -98,6 +120,8 @@ form input {
 }
 
 form fieldset legend {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin-bottom: 0;
     font-size: 1.4rem;
@@ -106,10 +130,17 @@ form fieldset legend {
 
 form div.form-submit {
     width: 70%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     margin-top: 3em;
 }
 
@@ -136,13 +167,15 @@ form div.form-submit>button {
 
 @-webkit-keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
 }
   
   @keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
 }
 .rotate-rouge:hover,
@@ -171,6 +204,14 @@ form div.form-submit>button {
 }
 
 .rotate-rouge:hover::before {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(var(--rouge)), to(var(--rouge))), 
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+    -webkit-gradient(linear, left top, left bottom, from(var(--rouge)), to(var(--rouge))),
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background-image: -o-linear-gradient(var(--rouge), var(--rouge)), 
+    -o-linear-gradient(white, white),
+    -o-linear-gradient(var(--rouge), var(--rouge)),
+    -o-linear-gradient(white, white);
     background-image: linear-gradient(var(--rouge), var(--rouge)), 
     linear-gradient(white, white),
     linear-gradient(var(--rouge), var(--rouge)),
@@ -178,6 +219,14 @@ form div.form-submit>button {
 }
 
 .rotate-vert:hover::before {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))), 
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+    -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))),
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background-image: -o-linear-gradient(var(--vert), var(--vert)), 
+    -o-linear-gradient(white, white),
+    -o-linear-gradient(var(--vert), var(--vert)),
+    -o-linear-gradient(white, white);
     background-image: linear-gradient(var(--vert), var(--vert)), 
     linear-gradient(white, white),
     linear-gradient(var(--vert), var(--vert)),

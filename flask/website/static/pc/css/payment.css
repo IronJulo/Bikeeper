@@ -12,10 +12,14 @@
 }
 
 div.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
     height: 100%;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 section {
@@ -28,7 +32,9 @@ section {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
 }
 
 div.flex>section>a {
@@ -41,11 +47,14 @@ div.flex>section>a {
     position: absolute;
     top: 50%;
     right: 0;
-    transform: translate(50%,-50%);
+    -webkit-transform: translate(50%,-50%);
+        -ms-transform: translate(50%,-50%);
+            transform: translate(50%,-50%);
 }
 
 section div.credit-card {
-    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+            box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     width: 60%;
     height: 18em;
     margin: 1em auto;
@@ -66,36 +75,59 @@ section div.credit-card div.haut img {
     position: absolute;
     top:50%;
     left:50%;
-    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
 }
 
 section div.credit-card div.bas {
     background-color: white;
     width: 100%;
     height: 45%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 /* EDIT */
 
 form {
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
 }
 
 form div.form-submit {
     width: 70%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-around;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     margin-top: 3em;
     margin-bottom: 3em;
-    align-self: center ;
+    -ms-flex-item-align: center ;
+        align-self: center ;
 }
 
 form div.form-submit>a,
@@ -122,8 +154,12 @@ form div.form-submit>button {
 form > div {
     margin-top: 1em;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 form fieldset {
@@ -140,6 +176,8 @@ form input {
 }
 
 form fieldset legend {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     margin-bottom: 0;
     font-size: 1.4rem;
@@ -154,13 +192,15 @@ section > img {
 
 @-webkit-keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
   }
   
   @keyframes rotate {
     100% {
-      transform: rotate(1turn);
+      -webkit-transform: rotate(1turn);
+              transform: rotate(1turn);
     }
 }
 
@@ -190,6 +230,14 @@ section > img {
 }
 
 .rotate-rouge:hover::before {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(var(--rouge)), to(var(--rouge))), 
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+    -webkit-gradient(linear, left top, left bottom, from(var(--rouge)), to(var(--rouge))),
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background-image: -o-linear-gradient(var(--rouge), var(--rouge)), 
+    -o-linear-gradient(white, white),
+    -o-linear-gradient(var(--rouge), var(--rouge)),
+    -o-linear-gradient(white, white);
     background-image: linear-gradient(var(--rouge), var(--rouge)), 
     linear-gradient(white, white),
     linear-gradient(var(--rouge), var(--rouge)),
@@ -197,6 +245,14 @@ section > img {
 }
 
 .rotate-vert:hover::before {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))), 
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+    -webkit-gradient(linear, left top, left bottom, from(var(--vert)), to(var(--vert))),
+    -webkit-gradient(linear, left top, left bottom, from(white), to(white));
+    background-image: -o-linear-gradient(var(--vert), var(--vert)), 
+    -o-linear-gradient(white, white),
+    -o-linear-gradient(var(--vert), var(--vert)),
+    -o-linear-gradient(white, white);
     background-image: linear-gradient(var(--vert), var(--vert)), 
     linear-gradient(white, white),
     linear-gradient(var(--vert), var(--vert)),

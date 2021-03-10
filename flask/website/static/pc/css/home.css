@@ -11,8 +11,11 @@
 }
 
 section.cards {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     width: var(--taille-elements-width);
     margin:1em auto;
 }
@@ -20,12 +23,16 @@ section.cards {
 section.cards > div.card {
     width: var(--taille-card);
     margin: 2em 0 1em 2em;
-    align-items: center;
-    box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
+            box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
     border: none;
     font-weight: 600;
     overflow-x: hidden;
-    flex-basis: 20%;
+    -ms-flex-preferred-size: 20%;
+        flex-basis: 20%;
     font-size: 1.2rem;
 }
 
@@ -42,8 +49,13 @@ section.cards > div.card:hover {
 }
 
 section.cards > div.card a {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     color: black;
 }
 
