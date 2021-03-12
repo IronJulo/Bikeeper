@@ -41,14 +41,14 @@ void StringBuffer::storeInt3(int i)
 	}
 }
 
-void StringBuffer::storeSignedShort(short i)
+void StringBuffer::storeSignedInt3(int i)
 {
 	if (m_index < m_length)
 	{
 		char buff[5] = { '0' };
 		buff[0] = i < 0 ? '-' : '+';
-		itoa( i, buff + ( i < 100) + ( i < 10), 10);
-		memcpy(m_storage + m_index, buff, 3);
+		itoa( abs(i), buff + ( i < 100) + ( i < 10), 10);
+		memcpy(m_storage + m_index, buff, 4);
 		m_index += 4;
 	}
 }
