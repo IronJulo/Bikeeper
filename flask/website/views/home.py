@@ -19,6 +19,7 @@ mod = Blueprint('home', __name__)
 @login_required
 def home(template):
     ip_address = request.remote_addr
+    print("REAL IP ", request.headers['X-Real-IP'])
     ORM.log_ip(ip_address)
     devices = ORM.get_devices_by_username(current_user.username_user)
     selected_device = current_user.selected_device
