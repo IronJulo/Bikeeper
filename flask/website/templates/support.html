@@ -13,7 +13,7 @@
         <section class='tickets'>
             <h3>Tickets</h3>
             <div>
-                <form id="deleteTicketForm" action="{{ url_for('support.support_delete_ticket') }}" method="POST">
+                <form id="deleteTicketForm" >
                     <ul class="nav">
                         {% for numero, value in messages.items() %}
 
@@ -22,6 +22,13 @@
                             {% else %}
                             <li onclick="activeLink(this)" class="inactive">
                             {% endif %}
+                                
+                                {% if current_user.is_admin_user %}
+                                <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket-{{numero}}">
+                                    <i class="fa fa-check-circle"></i>
+                                </a>
+                                <input type="radio" name="id_ticket" value="{{numero}}">
+                                {% endif %}
                                 
                                 {% if numero == first_ticket_id %}
                                 <div class='ticket-title'>
@@ -110,8 +117,8 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="deleteTicket" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+{% for numero in messages.keys() %}
+    <div class="modal fade" id="deleteTicket-{{numero}}" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,14 +129,16 @@
                 </div>
                 <div class="modal-body">
                     <p>Are you sure?</p>
+                    <p>This action will delete Ticket {{numero}}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    <button type="submit" onclick="breakLoading()" form="deleteTicketForm" class="btn btn-danger">Delete</button>
+                    <button type="submit" onclick="deleteTicket({{numero}})"  class="btn btn-danger">Delete</button>
                 </div>   
             </div>
         </div>
     </div>
+    {% endfor %}
 {% endblock main %}
 
 
@@ -155,5 +164,5 @@
     }
 
 </script>
-<script src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pc/js/support.js') }}" defer></script>
 {% endblock script %}
