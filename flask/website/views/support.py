@@ -1,12 +1,12 @@
 from flask import (
-	Blueprint,
-	render_template,
-	session,
-	jsonify,
-	redirect,
-	url_for,
-	request,
-	Response
+    Blueprint,
+    render_template,
+    session,
+    jsonify,
+    redirect,
+    url_for,
+    request,
+    Response
 )
 from ..app import db
 from ..models import ORM, TICKET, USER, MESSAGE

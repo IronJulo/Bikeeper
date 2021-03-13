@@ -205,6 +205,12 @@ def get_current_user_contacts(device_id):
 
 @mod.route('/api/stats/cpu/', methods=['GET'])
 def get_current_cpu_usage():
+    """
+    Gets current cpu usage
+    This gets current cpu usage of the server.
+
+    :rtype: Response
+    """
     return jsonify(
         response=ORM.get_current_cpu_usage()
     )
@@ -212,6 +218,12 @@ def get_current_cpu_usage():
 
 @mod.route('/api/stats/ram/', methods=['GET'])
 def get_current_ram_usage():
+    """
+    Gets current ram usage
+    This gets current ram usage of the server.
+
+    :rtype: Response
+    """
     return jsonify(
         response=ORM.get_current_ram_usage()
     )
@@ -255,7 +267,7 @@ def get_last_ride_bikeeper(device_id: str):
 @mod.route('/api/bikeeper/get_rides_bikeeper_from_user_at_time/<string:username>/<string:date>', methods=['GET'])
 def get_rides_bikeeper_from_user_at_time(username: str, date: str):
     """
-    Gets the user's bikeepers that has logs at a given date.
+    Gets rides by user and selected date
 
     :param username: username of the user
     :param date: date
