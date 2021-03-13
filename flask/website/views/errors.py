@@ -16,10 +16,14 @@ def missing_resource(invalid_path):
 
 @mod.app_errorhandler(404)
 def handle_404(err):
-	return render_template('404.html',devices = ORM.get_devices_by_username(current_user.username_user)), 404
+	if current_user.is_authenticated:
+		return render_template('404.html',devices = ORM.get_devices_by_username(current_user.username_user)), 404
+	return render_template('404.html'), 404
 
 
 @mod.app_errorhandler(403)
 def handle_403(err):
-	return render_template('403.html',devices = ORM.get_devices_by_username(current_user.username_user)), 403
+	if current_user.is_authenticated:
+		return render_template('403.html',devices = ORM.get_devices_by_username(current_user.username_user)), 403
+	return render_template('403.html'), 403
 

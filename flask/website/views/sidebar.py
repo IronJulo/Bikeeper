@@ -13,11 +13,11 @@ from flask_login import current_user, login_required
 
 mod = Blueprint('sidebar', __name__)
 
-@login_required
 @mod.route("/sidebar/device/change/", methods=['GET', 'POST'])
+@login_required
 def sidebar_device_change():
     number = request.form.get("device_change")
     user = current_user.username_user
     ORM.update_user_selected_device(number, user)
-    return redirect(url_for('request.referrer'))
+    return redirect(request.referrer)
 

@@ -27,8 +27,8 @@
         <span>BiKeeper</span>
     </div>
     <nav>
-        <a href="/register/">Register</a>
-        <a href="/login/">Login</a>
+        <a href="{{ url_for('register.register')}}">Register</a>
+        <a href="{{ url_for('login.login')}}">Login</a>
     </nav>
 </header>
 
@@ -97,7 +97,7 @@
                 <div class="date">STEP 1</div>
                 <p>Fill out the registration form with your personal information. Proceed to secure online payment. Once
                     done, you will be assigned a BiKeeper device!</p>
-                <a class="bnt-more" href="/register/">Register</a>
+                <a class="bnt-more" href="{{ url_for('register.register') }}">Register</a>
             </div>
         </div>
 
@@ -144,7 +144,7 @@
                 <div class="date">STEP 3</div>
                 <p>In order to enjoy the full capabilities of your device, you must now connect it to your motorcycle's
                     battery! We can accompany you in this process with our online guide.</p>
-                <a class="bnt-more" href="/guide/">Our guide</a>
+                <a class="bnt-more" href="{{ url_for('documentation.guide')}}">Our guide</a>
             </div>
         </div>
 

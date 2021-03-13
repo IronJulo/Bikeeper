@@ -16,10 +16,11 @@ from flask_login import login_required, current_user
 mod = Blueprint('support', __name__)
 
 
-@login_required
 @mod.route('/support/', methods=['GET'])
 @mobile_template('{mobile/User/}support.html')
+@login_required
 def support(template):
+
     messages = {}
 
     if not current_user.is_admin_user:
@@ -55,8 +56,8 @@ def support(template):
     )
 
 
-@login_required
 @mod.route('/support/<int:id_ticket>/', methods=['GET'])
+@login_required
 def support_message(id_ticket):
     return render_template(
         'mobile/User/support-bis.html',
@@ -66,8 +67,8 @@ def support_message(id_ticket):
     )
 
 
-@login_required
 @mod.route('/support/message/new', methods=['POST'])
+@login_required
 def support_message_new():
     if request.method == 'POST':
         contenu_message = request.json['content']
@@ -83,8 +84,8 @@ def support_message_new():
         return Response(status=200)
 
 
-@login_required
 @mod.route('/support/ticket/new', methods=['POST'])
+@login_required
 def support_new_ticket():
     title = request.form.get('ticket')
     if not current_user.is_authenticated:
@@ -96,22 +97,22 @@ def support_new_ticket():
     return redirect(url_for('support.support'))
 
 
-@login_required
 @mod.route('/support/ticket/close/<string:id_ticket>', methods=['DELETE'])
+@login_required
 def support_delete_ticket(id_ticket):
     ORM.remove_tickets_by_id(id_ticket)
     return Response(status=200)
 
 
-@login_required
 @mod.route('/support/ticket/close/<int:id_ticket>', methods=['POST'])
+@login_required
 def support_delete_ticket_by_id(id_ticket):
     ORM.remove_tickets_by_id(id_ticket)
     return redirect(url_for('support.support'))
 
 
-@login_required
 @mod.route('/support/<int:user_id>/tickets/all', methods=['GET'])
+@login_required
 def get_user_tickets_by_id(user_id):
     res = "<ul>"
     list_ticket = ORM.get_user_tickets(user_id)
@@ -123,8 +124,8 @@ def get_user_tickets_by_id(user_id):
     return res
 
 
-@login_required
 @mod.route('/support/tickets/open/all', methods=['GET'])
+@login_required
 def get_open_tickets():
     res = "<ul>"
     open_tickets = ORM.get_open_ticket()

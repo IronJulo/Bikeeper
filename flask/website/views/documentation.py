@@ -27,3 +27,8 @@ def faq(template):
 		topic=list(topic),
 		devices = ORM.get_devices_by_username(current_user.username_user)
 	)
+
+@mod.route("/guide/",methods=['GET'])
+@mobile_template('{mobile/User/}guide.html')
+def guide(template):
+	return render_template(template)

@@ -18,9 +18,9 @@ from flask.helpers import flash
 mod = Blueprint("stats", __name__)
 
 
-@login_required
 @mod.route('/statistics/', methods=['GET', 'POST'])
 @mobile_template('{mobile/User/}stats.html')
+@login_required
 def statistics(template):
 	search_user = request.form.get('search_user', default=None, type=str)
 
@@ -58,8 +58,8 @@ def statistics(template):
 			id_device =current_user.selected_device
 		)
 
-@login_required
 @mod.route('/statistics/unblock', methods=['GET', 'POST'])
+@login_required
 def statistics_unblock():
 	username = request.form.get("username")
 	if ORM.get_number_of_devices_by_username(username) > 0:
@@ -68,8 +68,8 @@ def statistics_unblock():
 		flash("This user has left our community. He cannot be unblocked.","error")
 	return redirect(url_for('stats.statistics'))
 
-@login_required
 @mod.route('/statistics/block', methods=['GET', 'POST'])
+@login_required
 def statistics_block():
 	username = request.form.get("username")
 	ORM.block_user(username)
