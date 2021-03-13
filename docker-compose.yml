@@ -60,6 +60,9 @@ services:
   reverse-proxy:
     image: nginx
     container_name: nginxreverse
+    depends_on:
+      - grafana
+      - bikeeper-website
     volumes:
       - ./docker/ngnix/nginx.conf:/etc/nginx/nginx.conf
     ports:
