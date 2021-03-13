@@ -368,7 +368,7 @@ section.tickets ul li .check-ticket {
     height: fit-content;
     padding: 0;
     display: block;
-    color: var(--vert);
+    color: var(--rouge);
     position: absolute;
     right: 5%;
     top: 50%;
