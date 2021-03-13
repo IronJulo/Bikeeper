@@ -103,8 +103,8 @@
             </div>
         </div>
     </div>
-{% for numero in messages.keys() %}
-    <div class="modal fade" id="deleteTicket-{{numero}}" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
+
+    <div class="modal fade" id="deleteTicket" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -115,16 +115,16 @@
                 </div>
                 <div class="modal-body">
                     <p>Are you sure?</p>
-                    <p>This action will delete Ticket {{numero}}</p>
+                    <p id="p-delete-ticket">This action will delete your Ticket</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    <button type="submit" onclick="deleteTicket({{numero}})"  class="btn btn-danger">Delete</button>
+                    <button type="submit" onclick="deleteTicket()"  class="btn btn-danger">Delete</button>
                 </div>   
             </div>
         </div>
     </div>
-    {% endfor %}
+
 {% endblock main %}
 
 

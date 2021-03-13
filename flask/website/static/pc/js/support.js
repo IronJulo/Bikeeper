@@ -202,15 +202,12 @@ function checkRadioButton(elem) {
   elem.nextSibling.nextSibling.checked=true
 }
 
-function deleteTicket(id_ticket) {
-
-    console.log("Deleting : " + id_ticket);
+function deleteTicket() {
+    id_ticket = getIdTicket()
     $.ajax({
     url: "/support/ticket/close/" + id_ticket,
     type: 'DELETE',
     success: function(result) {
-        console.log("===============")
-        console.log(result)
         window.location.replace(window.location.href)
     }, error: function (data) {
         console.log('Error:', data);
