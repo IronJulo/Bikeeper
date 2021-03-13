@@ -166,7 +166,7 @@ $(function() {
     xhttp.open("POST", "/support/message/new", true); 
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState === 4 && this.status === 200) {
         console.log("le message est envoyé")
       }
     };
@@ -196,4 +196,21 @@ input.addEventListener("keyup", function(event) {
 
 function checkRadioButton(elem) {
   elem.nextSibling.nextSibling.checked=true
+}
+
+function deleteTicket(id_ticket) {
+
+    console.log("Deleting : " + id_ticket);
+    $.ajax({
+    url: "/support/ticket/close/" + id_ticket,
+    type: 'DELETE',
+    success: function(result) {
+        console.log("===============")
+        console.log(result)
+        window.location.replace(window.location.href)
+    }, error: function (data) {
+        console.log('Error:', data);
+    }
+
+});
 }
