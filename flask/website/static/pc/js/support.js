@@ -78,7 +78,8 @@ function draw(message) {
 let oldData = null;
 
 $(document).ready(function () {
-  api = "/test/message/"+ getIdTicket() +"/all"
+  try {
+    api = "/test/message/"+ getIdTicket() +"/all"
     get(api).then((data) => {
       clearDiv();
       try {
@@ -88,13 +89,16 @@ $(document).ready(function () {
       }
       if (jsonData != null) {
           for (let message in jsonData) {
-            draw(jsonData[message])
+            draw(jsonData[message]);
           }
           let activeDiv = getActiveUL();
           activeDiv.parentNode.classList.add("active","show");
-          oldData = data
+          oldData = data;
       }
     })
+  } catch (TypeError) {
+    console.log("No active link");
+  }
 });
 
 $(document).ready(function () {
