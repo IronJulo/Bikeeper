@@ -11,7 +11,6 @@ from ..app import db
 from ..models import ORM, TICKET, USER, MESSAGE
 from flask_mobility.decorators import mobile_template
 from flask_login import login_required, current_user
-from time import sleep
 
 mod = Blueprint('support', __name__)
 
@@ -26,16 +25,16 @@ def support(template):
 
         if len(open_tickets_user) != 0:
             for ticket in open_tickets_user:
-                messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
+                messages[ticket.id_ticket] = [ORM.get_message_by_ticket_id(ticket.id_ticket),ticket.title_ticket]
     else:
         open_tickets = ORM.get_open_ticket()
         for ticket in open_tickets:
-            messages[ticket.id_ticket] = ORM.get_message_by_ticket_id(ticket.id_ticket)
+            messages[ticket.id_ticket] = [ORM.get_message_by_ticket_id(ticket.id_ticket),ticket.title_ticket]
     
     last_messages = {}
     for i_mes in messages.keys():
         last_messages[i_mes] = ORM.get_last_message_by_ticket_id(i_mes)
-    
+
     return render_template(
         template,
         messages = messages,
@@ -89,7 +88,6 @@ def support_new_ticket():
 def support_delete_ticket():
     id_ticket = request.form.get('id_ticket')
     ORM.remove_tickets_by_id(id_ticket)
-    sleep(2)
     return redirect(url_for('support.support'))
 
 

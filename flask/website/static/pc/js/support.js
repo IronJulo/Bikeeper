@@ -18,7 +18,7 @@ function getActive(){
 }
 
 function getLinkActive(){
-  return document.querySelector("ul.nav li.active > a:last-of-type");
+  return document.querySelector("ul.nav li.active div.ticket-title a:first-of-type");
 }
 
 function getActiveUL(){

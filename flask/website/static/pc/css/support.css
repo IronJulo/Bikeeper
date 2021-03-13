@@ -137,12 +137,12 @@ section.tickets > div > a:hover::after {
 
 section.tickets ul li {
     border-bottom: solid black 1px;
-    width: 100%;
     text-align: center;
     text-decoration: none;
     color: black;
     cursor: pointer;
     position: relative;
+    padding: 1rem;
 }
 
 section.tickets ul li:first-child {
@@ -153,9 +153,19 @@ section.tickets ul li a {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 1.5em;
     text-decoration: none;
     color: black;
+}
+
+section.tickets ul {
+    position: relative;
+}
+
+section.tickets ul li span {
+    color: lightgray;
+    width: 80%;
+    overflow-x: hidden;
+    word-break: break-word;
 }
 
 section.tickets ul li a:hover {
@@ -317,18 +327,18 @@ button.submit i {
     color: white;
 }
 
-ul.nav > li > a.active {
+ul.nav > li.active {
     border-left: solid #0077B5 5px;
 }
 
 div.tab-content,
-div.tab-content > div,
-div.tab-content > div > ul {
+div.tab-content > div {
     height: 100%;
 }
 
 div.tab-content > div > ul {
-    overflow: scroll;
+    overflow-y: scroll;
+    height: 100%;
 }
 
 div.tab-content > div > ul::-webkit-scrollbar-thumb
@@ -358,21 +368,21 @@ section.tickets ul li .check-ticket {
     height: fit-content;
     padding: 0;
     display: block;
-    position: absolute;
-    top: 50%;
-    right: 10%;
     color: var(--vert);
+    position: absolute;
+    right: 5%;
+    top: 50%;
     font-size: 1.3rem;
-    -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-            transform: translateY(-50%);
+    -webkit-transform: translate(100%,-50%);
+    -ms-transform: translate(100%,-50%);
+    transform: translate(100%,-50%);
 }
 
 section.tickets ul li .check-ticket:hover {
     color: var(--rouge);
-    -webkit-transform: translateY(-50%) scale(0.95);
-        -ms-transform: translateY(-50%) scale(0.95);
-            transform: translateY(-50%) scale(0.95);
+    -webkit-transform: translate(100%,-50%) scale(0.95);
+        -ms-transform: translate(100%,-50%) scale(0.95);
+            transform: translate(100%,-50%) scale(0.95);
     -webkit-transition: all .2s;
     -o-transition: all .2s;
     transition: all .2s;
@@ -399,4 +409,12 @@ section.tickets input[type=radio] {
     section.tickets > div > a {
         font-size: .7rem;
     }
+}
+
+.tab-content>.active {
+    position: relative;
+}
+
+div.ticket-title {
+    position: relative;
 }
