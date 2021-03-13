@@ -23,38 +23,24 @@
                             <li onclick="activeLink(this)" class="inactive">
                             {% endif %}
                                 
-                                {% if current_user.is_admin_user %}
-                                <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket-{{numero}}">
-                                    <i class="fa fa-check-circle"></i>
-                                </a>
-                                <input type="radio" name="id_ticket" value="{{numero}}">
-                                {% endif %}
-                                
                                 {% if numero == first_ticket_id %}
                                 <div class='ticket-title'>
                                     <a href="#tab{{ numero }}" class="a-tickets active" data-toggle="tab">
                                         Ticket#{{ numero }}
                                     </a>
-                                    {% if current_user.is_admin_user %}
-                                    <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
-                                        <i class="fa fa-check-circle"></i>
-                                    </a>
-                                    <input type="radio" name="id_ticket" value="{{numero}}">
-                                    {% endif %}
-                                </div>
                                 {% else %}
                                 <div class='ticket-title'>
                                     <a href="#tab{{ numero }}" class="a-tickets" data-toggle="tab">
                                         Ticket#{{ numero }}
                                     </a>
+                                {% endif %}
                                     {% if current_user.is_admin_user %}
                                     <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
-                                        <i class="fa fa-check-circle"></i>
+                                        <i class="fa fa-trash"></i>
                                     </a>
                                     <input type="radio" name="id_ticket" value="{{numero}}">
                                     {% endif %}
                                 </div>
-                                {% endif %}
                                 <span>{{value[1]}}</span>
                             </li>
                         {% endfor %}
