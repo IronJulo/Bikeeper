@@ -15,29 +15,40 @@
             <div>
                 <form id="deleteTicketForm" action="{{ url_for('support.support_delete_ticket') }}" method="POST">
                     <ul class="nav">
-                        {% for numero in messages.keys() %}
+                        {% for numero, value in messages.items() %}
+
                             {% if numero == first_ticket_id %}
                             <li onclick="activeLink(this)" class="active">
                             {% else %}
                             <li onclick="activeLink(this)" class="inactive">
                             {% endif %}
                                 
-                                {% if current_user.is_admin_user %}
-                                <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
-                                    <i class="fa fa-check-circle"></i>
-                                </a>
-                                <input type="radio" name="id_ticket" value="{{numero}}">
-                                {% endif %}
-                                
                                 {% if numero == first_ticket_id %}
-                                <a href="#tab{{ numero }}" class="a-tickets active" data-toggle="tab">
-                                    Ticket#{{ numero }}
-                                </a>
+                                <div class='ticket-title'>
+                                    <a href="#tab{{ numero }}" class="a-tickets active" data-toggle="tab">
+                                        Ticket#{{ numero }}
+                                    </a>
+                                    {% if current_user.is_admin_user %}
+                                    <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
+                                        <i class="fa fa-check-circle"></i>
+                                    </a>
+                                    <input type="radio" name="id_ticket" value="{{numero}}">
+                                    {% endif %}
+                                </div>
                                 {% else %}
-                                <a href="#tab{{ numero }}" class="a-tickets" data-toggle="tab">
-                                    Ticket#{{ numero }}
-                                </a>
+                                <div class='ticket-title'>
+                                    <a href="#tab{{ numero }}" class="a-tickets" data-toggle="tab">
+                                        Ticket#{{ numero }}
+                                    </a>
+                                    {% if current_user.is_admin_user %}
+                                    <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
+                                        <i class="fa fa-check-circle"></i>
+                                    </a>
+                                    <input type="radio" name="id_ticket" value="{{numero}}">
+                                    {% endif %}
+                                </div>
                                 {% endif %}
+                                <span>{{value[1]}}</span>
                             </li>
                         {% endfor %}
                     </ul>
@@ -45,13 +56,19 @@
             </div>
             {% if not current_user.is_admin_user %}
             <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
+            {% else %}
+            <style>
+                section.tickets > div {
+                    overflow-y: visible !important;
+                }
+            </style>
             {% endif %}
         </section>
 
         <section class='chat'>
             <div class="tab-content">
 
-                {% for numero,message in messages.items() %}
+                {% for numero,value in messages.items() %}
                     <div id="tab{{ numero }}" role="tabpanel" class="tab-pane fade in">
                         <ul id="ul-{{numero}}">
 

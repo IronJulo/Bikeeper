@@ -113,3 +113,10 @@ div.settings-card>a:hover {
         height: 25vh;
     }
 }
+
+@media (max-height: 600px) {
+    div.settings-card {
+        width: 90%;
+        height: 25vh;
+    }
+}
