@@ -1,7 +1,11 @@
 <header class="base">
     <div>
         {% if not current_user.is_admin_user %}
-        <a href="{{ url_for('home.home') }}">
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('home.home') }}">
+            {% else %}
+            <a href="{{ url_for('index.index') }}">
+            {% endif %}
         {% else %}
         <a href="{{ url_for('admin.admin_home') }}">
         {% endif %}
@@ -26,9 +30,9 @@
                 </div>
             </div>
         {% else %}
-            <div>
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <a href="{{ url_for('login.login')}}"><span>Login</span></a>
+            <div class='notlogged'>
+                <a href="{{ url_for('register.register')}}">Register</a>
+                <a href="{{ url_for('login.login')}}">Login</a>
             </div>
         {% endif %}
     </div>
