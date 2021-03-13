@@ -214,7 +214,7 @@ main {
     position: absolute;
     top: var(--taille-header);
     left: var(--taille-sidebar);
-    width: calc(98.7vw - var(--taille-sidebar));
+    width: calc(98.5vw - var(--taille-sidebar));
     height: calc(99vh - var(--taille-header));
 }
 

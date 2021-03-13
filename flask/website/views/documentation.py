@@ -6,7 +6,7 @@ from flask import (
 	url_for,
 	escape
 )
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flask_mobility.decorators import mobile_template
 from ..models import ORM
 
@@ -24,5 +24,6 @@ def faq(template):
 	return render_template(
 		template,
 		data=data,
-		topic=list(topic)
+		topic=list(topic),
+		devices = ORM.get_devices_by_username(current_user.username_user)
 	)

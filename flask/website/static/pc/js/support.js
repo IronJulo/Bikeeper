@@ -1,7 +1,6 @@
 var api=null;
 let jsonData = null;
 
-
 function activeLink(tab) {
     try{
         active = getActive();
@@ -19,7 +18,7 @@ function getActive(){
 }
 
 function getLinkActive(){
-  return document.querySelector("ul.nav li.active a");
+  return document.querySelector("ul.nav li.active > a:last-of-type");
 }
 
 function getActiveUL(){
@@ -48,6 +47,7 @@ function get(url) {
 }
 
 function draw(message) {
+  console.log("draw : "+message);
       var div = getActiveUL();
       const admin_message = message["is_admin_message"];
       user = message['username_user'];
@@ -75,11 +75,30 @@ function draw(message) {
       }
 }
 
-
 let oldData = null;
 
 $(document).ready(function () {
-    setInterval(function () {  // loop every 5 seconds
+  api = "/test/message/"+ getIdTicket() +"/all"
+    get(api).then((data) => {
+      clearDiv();
+      try {
+          jsonData = JSON.parse(data);
+      } catch (e) {
+          console.error("Parsing error:", e);
+      }
+      if (jsonData != null) {
+          for (let message in jsonData) {
+            draw(jsonData[message])
+          }
+          let activeDiv = getActiveUL();
+          activeDiv.parentNode.classList.add("active","show");
+          oldData = data
+      }
+    })
+});
+
+$(document).ready(function () {
+    var loadingMessage = setInterval(function () {
       if (api!=null){
         get(api).then((data) => {
                 //Si data a changé :
@@ -91,7 +110,7 @@ $(document).ready(function () {
                     } catch (e) {
                         console.error("Parsing error:", e);
                     }
-
+                    
                     if (jsonData != null) {
                         for (let message in jsonData) {
                             //console.log("Drawing message")
@@ -108,6 +127,10 @@ $(document).ready(function () {
       }
     }, 1000);
 });
+
+function breakLoading(){
+  clearInterval(loadingMessage)
+}
 
 function getDate(){
   var today = new Date();
