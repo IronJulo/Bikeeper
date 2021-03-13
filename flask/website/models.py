@@ -1169,6 +1169,5 @@ class ORM:
         :param: int: the id ticket
         """
         MESSAGE.query.filter_by(id_ticket=idt).delete()
-        db.session.commit()
         TICKET.query.filter_by(id_ticket=idt).delete()
         db.session.commit()

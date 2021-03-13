@@ -31,3 +31,7 @@
 .vincent-wrapper img {
     margin-top: 3em;
 }
+
+main {
+    width: calc(98vw - var(--taille-sidebar)) !important;
+}

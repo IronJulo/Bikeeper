@@ -34,7 +34,7 @@ div.flex > form > section {
     padding: 3em;
     position: relative;
     width: var(--taille-elements-width);
-    height: var(--taille-elements-height);
+    height: max-content;
     margin: 0 1em;
 }
 
@@ -170,5 +170,9 @@ input[type=radio] {
         height: -moz-fit-content;
         height: fit-content;
         margin: 1em;
+    }
+
+    div.flex > form > section > div:first-of-type {
+        margin-bottom: 5em;
     }
 }

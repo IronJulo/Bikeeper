@@ -11,29 +11,41 @@
 {% block main %}
     <div class='flex'>
         <section class='tickets'>
+            <h3>Tickets</h3>
             <div>
-                <h3>Tickets</h3>
                 <form id="deleteTicketForm" action="{{ url_for('support.support_delete_ticket') }}" method="POST">
                     <ul class="nav">
                         {% for numero in messages.keys() %}
-                            <li onclick="activeLink(this)" class="inactive" >
+                            {% if numero == first_ticket_id %}
+                            <li onclick="activeLink(this)" class="active">
+                            {% else %}
+                            <li onclick="activeLink(this)" class="inactive">
+                            {% endif %}
                                 
+                                {% if current_user.is_admin_user %}
                                 <a class="check-ticket" onclick="checkRadioButton(this)" href="#" data-toggle="modal" data-target="#deleteTicket">
                                     <i class="fa fa-check-circle"></i>
                                 </a>
                                 <input type="radio" name="id_ticket" value="{{numero}}">
+                                {% endif %}
                                 
+                                {% if numero == first_ticket_id %}
+                                <a href="#tab{{ numero }}" class="a-tickets active" data-toggle="tab">
+                                    Ticket#{{ numero }}
+                                </a>
+                                {% else %}
                                 <a href="#tab{{ numero }}" class="a-tickets" data-toggle="tab">
                                     Ticket#{{ numero }}
                                 </a>
+                                {% endif %}
                             </li>
                         {% endfor %}
                     </ul>
                 </form>
-                {% if not current_user.is_admin_user %}
-                    <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
-                {% endif %}
             </div>
+            {% if not current_user.is_admin_user %}
+            <a href="#" data-toggle="modal" data-target="#modalCenter">Contact BiKeeper Team</a>
+            {% endif %}
         </section>
 
         <section class='chat'>
@@ -96,7 +108,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-                    <button type="submit" form="deleteTicketForm" class="btn btn-danger">Delete</button>
+                    <button type="submit" onclick="breakLoading()" form="deleteTicketForm" class="btn btn-danger">Delete</button>
                 </div>   
             </div>
         </div>
