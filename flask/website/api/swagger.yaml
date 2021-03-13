@@ -1,0 +1,231 @@
+swagger: "2.0"
+info:
+  title: Bikeeper API
+  description: Bikeeper API.
+  version: 1.0.0
+host: bikeeperwebsite.com
+basePath: /
+schemes:
+  - http
+paths:
+
+  /api/sms/add/:
+    post:
+      summary: This sends a SMS to the database.
+      description: Sends sms to the bd
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+
+  /api/bikeeper/add/:
+    post:
+      summary: Adds bikeeper to the database
+      description: This adds a new bikeeper device to the database.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/bikeeper/add_raw/:
+    post:
+      summary: Adds raw bikeeper to the database
+      description: This adds a bikeeper with raw parameters to the database.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/bikeeper/remove/<int:device_id>/:
+    delete:
+      summary: Removes selected device
+      description: This removes the current device from the database using ORM function.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/bikeeper/settings/<string:device_id>/update/:
+    post:
+      summary: Update current device settings to the database
+      description: This updates settings of the device on the database using ORM function.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/bikeeper/currentphone/<string:device_id>/:
+    get:
+      summary: Gets current user associated phone
+      description: This gets the current user phone associated on the database from ORM and returns it.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/bikeeper/contacts/<string:device_id>/:
+    get:
+      summary: Gets current user contacts
+      description: This gets current user contacts from ORM and returns it.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/stats/cpu/:
+    get:
+      summary: Gets current cpu usage 
+      description:  This gets current cpu usage of the server.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+  /api/stats/ram/:
+    get:
+      summary: Gets current ram usage
+      description:  This gets current ram usage of the server.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK          
+  /api/bikeeper/get_user_num/<string:device_id>/:
+    get:
+      summary: Gets bikeeper's owner number
+      description: This gets the number of the bikeeper's owner and returns it.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK              
+          
+  /api/bikeeper/get_last_ride_bikeeper/<string:device_id>:
+    get:
+      summary: Gets the user's bikeepers that has logs at a given date.
+      description: Gets the user's bikeepers that has logs at a given date.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK             
+          
+       
+  /api/bikeeper/get_rides_bikeeper_from_user_at_time/<string:username>/<string:date>:
+    get:
+      summary: Gets rides by user and selected date 
+      description: Gets rides by user and selected date 
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK               
+ 
+  /api/bikeeper/get_rides_from_user_at_time_with_bikeeper/<string:username>/<string:device_id>/<string:date>:
+    get:
+      summary: Gets a list of rides at a given date, bikeeper and user.
+      description: Gets a list of rides at a given date, bikeeper and user.
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK              
+          
+  /api/bikeeper/get_bikeer_name_by_id/<string:device_id>:
+    get:
+      summary: Gets the device name of a given device
+      description: Gets the device name of a given device
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK            
+          
+  /api/bikeeper/get_logs_at_date/<string:device_id>/<string:date>:
+    get:
+      summary: Get logs corresponding to a date
+      description: Get logs corresponding to a date
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK              
+  /api/current_device/<string:username>:
+    get:
+      summary: Get the current selected device stored in database
+      description: Get the current selected device stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK                     
+          
+  /api/user/profile/<string:username>:
+    get:
+      summary: Get current user picture stored in database
+      description: Get current user picture stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK             
+  /api/contact/profile/<string:contact_id>:
+    get:
+      summary: Get current contact picture stored in database
+      description: Get current contact picture stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK               
+          
+  /api/bikeeper/get_battery_level/<string:device_id>:
+    get:
+      summary: Get current user picture stored in database
+      description: Get current user picture stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK               
+  /api/bikeeper/search_user/:
+    get:
+      summary: Get user research
+      description: Find user in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK            
+  /api/bikeeper/get_last_log_position/<string:device_id>:
+    get:
+      summary: Get last log that gives the location
+      description: Get last log that gives the location
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK            
+  /api/test/update_device/<string:username>/<int:id_device>:
+    post:
+      summary: Update the current selected device stored in database
+      description: Update the current selected device stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK            
+  /api/device/<int:id_device>:
+    get:
+      summary: Update the current selected device stored in database
+      description: Update the current selected device stored in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK                      
+          
+          
+          
+          
