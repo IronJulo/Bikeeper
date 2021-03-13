@@ -18,6 +18,6 @@ def sidebar_device_change():
     number = request.form.get("device_change")
     user = current_user.username_user
     ORM.update_user_selected_device(number, user)
-    return(redirect(url_for('home.home')))
+    return redirect(request.referrer)
 
     
