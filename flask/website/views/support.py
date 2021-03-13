@@ -89,7 +89,7 @@ def support_new_ticket():
 def support_delete_ticket():
     id_ticket = request.form.get('id_ticket')
     ORM.remove_tickets_by_id(id_ticket)
-    sleep(3)
+    sleep(2)
     return redirect(url_for('support.support'))
 
 
