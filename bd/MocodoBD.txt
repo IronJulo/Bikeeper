@@ -1,22 +1,27 @@
 ------------------------------
-MESSAGE: id_message, is_admin_message, datetime_message, title_message, content_message
-HAS_TICKETS, 11 TICKET, 0N USER
-USER: username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user
+ALERTED_CONTACT, 0N DEVICE, 11 CONTACT
+DEVICE: num_device, name_device, row_parameters_device, username_user
+BELONGS_, 11 LOG, 1N DEVICE
+LOG: id_log, content_log, type_log, datetime_log, exception_log
 :
 
-HAS_MESSAGE, 11 MESSAGE, 0N TICKET
-TICKET: id_ticket, is_closed_ticked
-BELONGS, 0N USER, 11 DEVICE
-LOG: id_log, content_log, type_log, datetime_log, exception_log
-
 CONTACT: id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact
-ALERTED_CONTACT, 0N DEVICE, 11 CONTACT
-DEVICE: num_device, name_device, row_parameters_device
-BELONGS_, 11 LOG, 1N DEVICE
+BELONGS, 0N USER, 11 DEVICE
+USER: username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, profile_picture_user, is_admin_user, selected_device_user, is_account_blocked_user, date_creation_user
+HAS_TICKETS, 11 TICKET, 0N USER
+TICKET: id_ticket, title_ticket, is_closed_ticked
+
+IPLOGGER: ip_log, ip_address, time_info, latitude, longitude, timestamp
+SUBSCRIPTION: name_subscription, price_subscription, localisation_subscription, features_subscription
+SUBSCRIPTED, 0N SUBSCRIPTION, 11 USER
+MESSAGE: id_message, is_admin_message, datetime_message, content_message, username_user
+HAS_MESSAGE, 11 MESSAGE, 0N TICKET
 ---------------------------------------------------
-MESSAGE ( id_message, is_admin_message, datetime_message, title_message, content_message, id_ticket )
-USER ( username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, is_admin_user, num_device )
-TICKET ( id_ticket, is_closed_ticked, username_user )
+DEVICE ( num_device, name_device, row_parameters_device, username_user, username_user.1 )
 LOG ( id_log, content_log, type_log, datetime_log, exception_log, num_device )
 CONTACT ( id_contact, num_contact, firstname_contact, lastname_contact, profile_picture_contact, num_device )
-DEVICE ( num_device, row_parameters_device )
+USER ( username_user, num_user, firstname_user, lastname_user, email_user, town_user, postal_code_user, street_user, profile_picture_user, is_admin_user, selected_device_user, is_account_blocked_user, date_creation_user, name_subscription )
+TICKET ( id_ticket, title_ticket, is_closed_ticked, username_user )
+IPLOGGER ( ip_log, ip_address, time_info, latitude, longitude, timestamp )
+SUBSCRIPTION ( name_subscription, price_subscription, localisation_subscription, features_subscription )
+MESSAGE ( id_message, is_admin_message, datetime_message, content_message, username_user, id_ticket )
