@@ -1,0 +1,188 @@
+{% extends "mobile/base.html" %}
+
+{% block title %}
+{{ super() }} | FAQ
+{% endblock %}
+
+{% block header %}
+        <div class="logo">
+            <a href="{% if current_user.is_authenticated %}/home/{% else %}{{ url_for('index.index') }}{% endif %}"><img src="{{ url_for('static', filename='mobile/assets/logo_bikeeper_without_text.png') }}" alt="logo BiKeeper">
+            <h1>BiKeeper</h1></a>
+        </div>
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/guide.css') }}">
+        {% if current_user.is_authenticated %}
+        {% include "components/mobile-sidebar.html" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/overlay.css') }}">
+        {% else %}
+        {% include "components/mobile-sidebar-guest.html" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/Authentification/overlay.css') }}">
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='mobile/css/User/header-mobile.css') }}">
+        <nav onclick="openNav()"><img src="{{ url_for('static', filename='mobile/assets/menu.png') }}" alt="logo menu"></nav>
+{% endblock %}
+
+{% block main %}
+<div class="flash">
+    {% include "messages.html" %}
+</div>
+
+<section class='landing-banner'>
+    <div class="banner"></div>
+    <div class="card">
+        <div class="card-title">
+            <h4>BiKeeper Guide</h4>
+        </div>
+        
+        <p>Welcome in our guide. If you're searching for :</p>
+        <ul>
+            <li>How to install your device?</li>
+            <li>How does your device work?</li>
+            <li>How can you get help from BiKeeper?</li>
+        </ul>
+        <p>Then you're in the right place!</p>
+    </div>
+</section>
+
+<main>
+    <h2>How to install my device?</h2>
+    <section class="timeline">
+
+        <div class="container">
+            <div class="timeline-item">   
+                <div class="timeline-img"></div> 
+                <div class="timeline-content timeline-card js--fadeInLeft">
+                    <div class="timeline-img-header">
+                        <h2>Locate your battery</h2>
+                    </div>
+                    <div class="date">STEP 1</div>
+                    <p>The first step of the installation is to detect the position of your battery. Most of the time, it is located under your tank or your seat.</p>
+                </div>
+            </div>
+    
+            <div class="timeline-item">
+                <div class="timeline-img"></div>
+                <div class="timeline-content timeline-card js--fadeInRight">
+                    <div class="timeline-img-header">
+                        <h2>Connect the device</h2>
+                    </div>
+                    <div class="date">STEP 2</div>
+                    <p>Once the battery is located, you will have to try to connect the device to the electrical poles of the battery.</p>
+                    <p>First, connect the positive terminal which is usually red.</p>
+                    <p>Then, do the same with the negative terminal which is often blue or black.</p>
+                    <p>The hardest part is done!</p>
+                </div>
+            </div>
+    
+            <div class="timeline-item">
+                <div class="timeline-img"></div>
+                <div class="timeline-content timeline-card js--fadeInLeft">
+                    <div class="timeline-img-header">
+                        <h2>Remove the adhesive</h2>
+                    </div>
+                    <div class="date">STEP 3</div>
+                    <p>Gently pull the back tab to expose the adhesive portion of the device.</p>
+                </div>
+            </div>
+    
+            <div class="timeline-item">
+                <div class="timeline-img"></div>
+                <div class="timeline-content timeline-card js--fadeInRight">
+                    <div class="timeline-img-header">
+                        <h2>Affix the Device</h2>
+                    </div>
+                    <div class="date">STEP 4</div>
+                    <p>Fix the device on a flat surface while respecting the direction of the affixing index</p>
+                    <p>Your device is now installed! Congratulations!</p>
+                </div>
+            </div>
+    
+            <div class="timeline-item">
+                <div class="timeline-img"></div>
+                <div class="timeline-content timeline-card js--fadeInLeft">
+                    <div class="timeline-img-header">
+                        <h2>Check for proper installation</h2>
+                    </div>
+                    <div class="date">STEP 5</div>
+                    <p>Now that your device is installed, it is important to check that it is properly connected to your motorcycle. We therefore invite you to turn on the power and test your BiKeeper device right now.</p>
+                </div>
+            </div>
+    
+            <div class="timeline-item">
+                <div class="timeline-img"></div>
+                <div class="timeline-content timeline-card js--fadeInRight">
+                    <div class="timeline-img-header">
+                        <h2>Good road</h2>
+                    </div>
+                    <p>the device is now fully ready to live great moments with you! Take care and see you soon!</p>
+                    <p>BiKeeper Team</p>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+
+    <section class='sms'>
+        <h2>How does my device work?</h2>
+        <p>With BiKeeper you don't have to worry about missing features! We have made a list of all the things that could be useful for you in the future! If you have any questions, please contact us at the following email address: <a href='mailto:bikeeper.team@gmail.com'>bikeeper.team@gmail.com</a></p>
+
+        <h4>First, here are the sms you have to type to use your device :</h4>
+        <table>
+            <thead>
+                <tr><th>SMS</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>parked</td><td>To activate the park mode on your device. It will switch to anti-theft mode and alert you if necessary.</td></tr>
+                <tr><td>unpark</td><td>To deactivate the park mode on your device. The system will no longer theft and vibration.</td></tr>
+                <tr><td>start</td><td> The system will start to record your positions and make statistics of your trip. It will also detect vibrations and switch to protection mode.</td></tr>
+                <tr><td>stop</td><td>The system will no longer record your journey or protect you. It will also save your journey on your statistics page.</td></tr>
+                <tr><td>position</td><td>The system will send you your device position. It is very useful to be sure your motorbike is safe.</td></tr>
+            </tbody>
+        </table>
+
+        <h4>Also, here's a list of sms you could receive and their signification :</h4>
+        <table>
+            <thead>
+                <tr><th>SMS</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Now sync with your device</td><td>Sent when you start your device.</td></tr>
+                <tr><td>Your Bike is now unparked</td><td>You deactivated the park mode.</td></tr>
+                <tr><td>Your Bike is not parked</td><td>You tried to deactivate park mode while it was already disabled.</td></tr>
+                <tr><td>We stopped your journey & your bike is now parked</td><td>Sent when you were on a trip and you activate park mode.</td></tr>
+                <tr><td>Your bike is now parked</td><td>You activated the park mode.</td></tr>
+                <tr><td>Your Bike is already parked</td><td>You tried to park your motorbike while it was already parked.</td></tr>
+                <tr><td>Journey already started please stop it</td><td>A trip is already in progress. Stop it first to start an other one.</td></tr>
+                <tr><td>Journey started & your bike is now unparked</td><td>A trip has begun. Your bike is no longer parked.</td></tr>
+                <tr><td>Journey started ride safe</td><td>A trip has begun.</td></tr>
+                <tr><td>Journey stopped</td><td>A trip just ended.</td></tr>
+                <tr><td>Journey not started you can start one</td><td>You tried to stop a journey but there's no trip in progress.</td></tr>
+                <tr><td>Vibration detected check your bike</td><td>An important vibration has been detected. You should take a look at your motorbike.</td></tr>
+                <tr><td>Bike movement detected check your bike</td><td>Your bike is parked but it is moving!</td></tr>
+                <tr><td>Low battery check your bike</td><td>Your battery is low. The device will run on its own battery from now on.</td></tr>
+                <tr><td>Fall detected are you fine ?</td><td>Your device has detected an important drop in altitude. Did you fall? Send "Fine" to cancel the alert.</td></tr>
+                <tr><td>Ok be safe</td><td>Sent after you answered "Fine" to the sms above.</td></tr>
+                <tr><td>Pos<br>lon: ...<br>lat: ...</td><td>Sent when you're asking for the position of your bike by typing "position"</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class='help'>
+        <hr>
+        <h2>How can I get help with all of this?</h2>
+        <p>BiKeeper Team is dedicated to its community and offers you answers as soon as possible via
+        <a href='mailto:bikeeper.team@gmail.com'>bikeeper.team@gmail.com</a>
+        <br>or via our <a href="{{ url_for('support.support')}}">online messaging system</a>
+
+        </p>
+    </section>
+
+    <div id="thankyou">
+        <img src="{{ url_for('static', filename='pc/assets/logo_bikeeper_transparent.png') }}" alt="bikeeper logo">
+        <h2>Thank you for choosing BiKeeper!</h2>
+    </div>
+    
+    
+</main>
+
+{% endblock %}
