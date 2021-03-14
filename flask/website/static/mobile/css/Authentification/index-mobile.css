@@ -241,4 +241,7 @@ article{
         background-position-y: -500px;
     }
 }
-
+#guide{
+    color: grey;
+    text-decoration: none;
+}
