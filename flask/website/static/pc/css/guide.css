@@ -807,3 +807,9 @@ header div.notlogged a:hover {
     transition: transform .5s, -webkit-transform .5s;
     background: var(--orange);
 }
+
+@media (max-width:1200px) {
+  table {
+    width: 90%;
+  }
+}
