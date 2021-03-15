@@ -69,16 +69,30 @@
         "anwser":"You can open a ticket in the \"support\" category to contact us. We will then try our best to fix it.",
         "optional-link":"/support/"
     },
-    "I would like to report a bug. How can I do it?" : {
-        "topic":"General",
-        "anwser":"You can open a ticket in the \"support\" category to contact us. We will then try our best to fix it.",
-        "optional-link":"/support/"
-    },
     "I heard that I can see the stats of my lasts rides. How can I do that?" : {
         "topic":"General",
         "anwser":"To check the stat on a specific ride you will have to go to the \"statistics\" page. After that you just have to select the date when the ride happened and it will show you the stats automatically.",
         "optional-link":"/statistics/"
+    },
+    "I have a new credit card but my subscription is canceled, what should I do?" : {
+        "topic": "Subscriptions",
+        "anwser": "Go to the \"payement\" section and put your new credit card details.",
+        "optional-link": "/settings/"
+    },
+    "I receive a lot of SMS thanks to my Bikeeper, can I adjust the delay?" : {
+        "topic": "Account",
+        "anwser": "Go to the \"settings\" section and select your device, then you can switch the Minimum Movement Distance and the SMS Sending Delay.",
+        "optional-link": "/settings/"
+    },
+    "I wish to know if I can find a trip with a precise date, is it possible?" : {
+        "topic": "Basic",
+        "anwser": "In the \"statistics\" page, you will find the filters between the data and the timeline, choose a date in the left field and your trip will appear.",
+        "optional-link": "/statistics/"
+    },
+    "I have some trouble to install my device, what should I do?" : {
+        "topic": "General",
+        "anwser": "If you have trouble you can always find our guide in the home page, otherwise you can ask help from a garage owner.",
+        "optional-link": ""
     }
-
 
 }
