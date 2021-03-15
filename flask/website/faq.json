@@ -48,6 +48,11 @@
         "topic":"General",
         "anwser":"Simply change the Bikeeper mode to \"moving\". The device will automatically record the route taken.",
         "optional-link":""
+    },
+    "I put the wrong phone number for one of my contacts. How can i change it?" : {
+        "topic":"Contact",
+        "anwser":"If the informations of your contacts are wrong or misspelled you can still change them in the contact's page.",
+        "optional-link":"/settings/contacts/"
     }
 
 }
