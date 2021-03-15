@@ -49,12 +49,12 @@
         "anwser":"Simply change the Bikeeper mode to \"moving\". The device will automatically record the route taken.",
         "optional-link":""
     },
-    "I put the wrong phone number for one of my contacts. How can i change it?" : {
+    "I put the wrong phone number for one of my contacts. How can I change it?" : {
         "topic":"Contact",
         "anwser":"If the informations of your contacts are wrong or misspelled you can still change them in the contact's page.",
         "optional-link":"/settings/contacts/"
     },
-    "I have bought multiple Bikeeper devices. How do i choose which one I am using on the website?" : {
+    "I have bought multiple Bikeeper devices. How do I choose which one I am using on the website?" : {
         "topic":"Account",
         "anwser":"Use the \"device\" button. It will show the name of all your devices. Then you can just click on the one you want to choose ",
         "optional-link":""
@@ -63,6 +63,22 @@
         "topic":"Account",
         "anwser":"You can change your profile details from the settings. It includes updating your password. You just have to write your new password in the \"password\" box and validate the changes with the \"Save Changes\" button. To finalize your changes you will have to write your old passowrd and then validate.",
         "optional-link":"/settings/account/update/"
+    },
+    "I would like to report a bug. How can I do it?" : {
+        "topic":"General",
+        "anwser":"You can open a ticket in the \"support\" category to contact us. We will then try our best to fix it.",
+        "optional-link":"/support/"
+    },
+    "I would like to report a bug. How can I do it?" : {
+        "topic":"General",
+        "anwser":"You can open a ticket in the \"support\" category to contact us. We will then try our best to fix it.",
+        "optional-link":"/support/"
+    },
+    "I heard that I can see the stats of my lasts rides. How can I do that?" : {
+        "topic":"General",
+        "anwser":"To check the stat on a specific ride you will have to go to the \"statistics\" page. After that you just have to select the date when the ride happened and it will show you the stats automatically.",
+        "optional-link":"/statistics/"
     }
+
 
 }
