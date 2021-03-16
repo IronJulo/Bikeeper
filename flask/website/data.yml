@@ -187,7 +187,7 @@ messages:
   - message:
      "is_admin_message": 1
      "datetime_message": "datetime.datetime(1989, 9, 30, 23, 59, 59, 300080)"
-     "content_message": "Wtf les mecs je viens d'inventé internet"
+     "content_message": "Wtf les mecs je viens d'inventer internet"
      "id_ticket": "5"
      "username_user": "admin"
 
@@ -195,7 +195,7 @@ messages:
 device:
 
   - device:
-      "num_device": "0769342048"
+      "num_device": "0631704631"
       "name_device": "JuleBrossier"
       "row_parameters_device": ""
       "user": "user1"
