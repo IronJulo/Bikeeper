@@ -1171,3 +1171,20 @@ class ORM:
         MESSAGE.query.filter_by(id_ticket=idt).delete()
         TICKET.query.filter_by(id_ticket=idt).delete()
         db.session.commit()
+
+    @staticmethod
+    def get_total_number_rides():
+        """
+        Get total number of rides dones
+        :return: int: the number of rides
+        """
+        
+        return int(len(db.session.query(LOG.content_log).filter(LOG.type_log == "+").all())/2)
+
+    @staticmethod
+    def get_total_number_alerts():
+        """
+        Get total number of alerts received
+        :return: int: the number of alerts
+        """
+        return db.session.query(func.count(LOG.type_log)).filter(LOG.type_log == "W").scalar()
