@@ -2,7 +2,7 @@ import requests
 import random
 import json
 
-sender = "0769342048"
+sender = "0631704631"
 
 for i in range(10):
     url = "http://167.71.142.2/api/sms/add/"
