@@ -36,15 +36,6 @@ function getIdTicket(){
   return numero;
 }
 
-function get(url) {
-    return new Promise((resolve, reject) => {
-        const req = new XMLHttpRequest();
-        req.open('GET', url);
-        req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
-        req.onerror = (e) => reject(Error(`Network Error: ${e}`));
-        req.send();
-    });
-}
 
 function draw(message) {
   console.log("draw : "+message);
@@ -54,7 +45,7 @@ function draw(message) {
       user_picture = message["user_picture"]
       estAdmin = isAdmin();
 
-      if (admin_message==1 && estAdmin=="True" || admin_message==0 && estAdmin=="False"){
+      if (admin_message===1 && estAdmin==="True" || admin_message===0 && estAdmin=="False"){
         div.innerHTML += "<li class=\"sent\"><div>"
         + "<span>"+ user +"</span>"
         + "<p>" + message["content"] + "</p>"
@@ -62,7 +53,7 @@ function draw(message) {
         + "<div style=\"background-image: url('" + getImageUser() + "')\"></div>"
         + "</li>"
       }
-      else if (admin_message==0 && estAdmin=="True" || admin_message==1 && estAdmin=="False"){
+      else if (admin_message===0 && estAdmin==="True" || admin_message===1 && estAdmin==="False"){
         div.innerHTML +="<li class=\"replies\">"
         + "<div style=\"background-image: url('" + user_picture + "')\"></div>"
         + "<div>"
@@ -137,34 +128,34 @@ function breakLoading(){
 }
 
 function getDate(){
-  var today = new Date();
-  var month = today.getMonth()+1;
-  var seconds = today.getSeconds();
+  let today = new Date();
+  let month = today.getMonth()+1;
+  let seconds = today.getSeconds();
   if (month<10){
       month = '0'+month;
   }
   if (seconds<10){
       seconds = '0'+seconds;
   }
-  var date = today.getFullYear()+'-'+month+'-'+today.getDate();
-  var time = today.getHours() + ":" + today.getMinutes() + ":" + seconds;
+  let date = today.getFullYear()+'-'+month+'-'+today.getDate();
+  let time = today.getHours() + ":" + today.getMinutes() + ":" + seconds;
   return date+' '+time;
 }
 
 $(function() {
   $('#send-msg').on('click', function() {
-    var contenu_message = document.getElementById("msg").value;
-    var is_admin_msg = 0;
+    let content_message = document.getElementById("msg").value;
+    let is_admin_msg = 0;
 
-    if (is_admin=="True"){
+    if (is_admin==="True"){
         is_admin_msg = 1;
     }
 
     console.log("message envoyé")
 
-    var datetime_msg = getDate();
-    var id_ticket = getIdTicket();
-    var username = getUsername();
+    let datetime_msg = getDate();
+    let id_ticket = getIdTicket();
+    let username = getUsername();
 
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST", "/support/message/new", true); 
@@ -175,7 +166,7 @@ $(function() {
       }
     };
     var data = {
-        content:contenu_message,
+        content:content_message,
         is_admin:is_admin_msg,
         date:datetime_msg,
         id_ticket:id_ticket,

@@ -3,9 +3,10 @@ services:
   db:
     image: mariadb/server:10.3
     container_name: bikeeperbd
-    restart: always
     expose:
       - 3306
+    ports:
+    - 3306:3306
     command:
       --log-bin
       --binlog-format=MIXED
@@ -23,7 +24,6 @@ services:
 
   bikeeper-website:
     container_name: bikeeper
-    restart: always
     depends_on:
       db:
         condition: service_healthy
@@ -40,7 +40,6 @@ services:
   osm:
     image: osm-bundle
     container_name: osm
-    restart: always
     build:
       context: .
       dockerfile: ./docker/openstreetmap/osm.Dockerfile
@@ -71,7 +70,6 @@ services:
   grafana:
     image: grafana/grafana
     container_name: grafana
-    restart: unless-stopped
     depends_on:
       - db
     environment:
