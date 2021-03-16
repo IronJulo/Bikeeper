@@ -23,7 +23,7 @@
                 <div class="flash">
                     {% include "messages.html" %}
                 </div>
-                <form action="{{ request.url }}" method="post">
+                <form action="{{ url_for('stats.statistics') }}" method="post">
                     <i class="fa fa-user"></i>
                     <input type="search" name="search_user" id="search_user" placeholder="Username">
                     <button type="submit">
@@ -180,7 +180,7 @@
             </section>
 
             <section class="group4">
-                <form action="{{ request.url }}" method='GET'>
+                <form action="{{ url_for('stats.statistics') }}" method='GET'>
                     <div class="btn-container">
                         <input type="radio" name="localonline" id="local" checked hidden/>
                         <label for="local">Local</label>

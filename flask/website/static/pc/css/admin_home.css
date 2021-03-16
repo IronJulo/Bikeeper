@@ -7,10 +7,11 @@
     --bleu-card: #5593CD;
     --vert-card: #78D381;
     --orange-card: #E09D5E;
-    --violet-card: #8664D0;
+    --violet-card: #8664d0;
     --bleu-card-opacity-75: rgba(85, 147, 206, 0.75);
     --vert-card-opacity-75: rgba(120, 211, 129, 0.75);
     --orange-card-opacity-75: rgba(224, 157, 94, 0.75);
+    --violet-card-opacity-75: rgba(134, 100, 208, 0.75);
     --taille-header:66px;
     --taille-sidebar: 15vw;
     --taille-card: 14vw;
@@ -89,11 +90,7 @@ ul.list > li:nth-child(5) {
 }
 
 ul.list > li:nth-child(6) {
-    background-color: var(--vert-card-opacity-75);
-}
-
-ul.list > li:nth-child(7) {
-    background-color: var(--orange-card-opacity-75);
+    background-color: var(--violet-card-opacity-75);
 }
 
 span {
