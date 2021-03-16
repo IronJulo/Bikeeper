@@ -19,14 +19,20 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login.login"
 
 app.config.update(
-    SECRET_KEY="GH5H-QLPE4-MPN3-1THB",
-    SEND_FILE_MAX_AGE_DEFAULT=0,
-    SQLALCHEMY_TRACK_MODIFICATIONS=True,
-    DEBUG_TB_INTERCEPT_REDIRECTS=False,
-    MAX_CONTENT_LENGTH=2048 * 2048,
-    UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
-    UPLOAD_PATH='./website/static/user_profile_picture/',
-    UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/',
+	SECRET_KEY="GH5H-QLPE4-MPN3-1THB",
+	SEND_FILE_MAX_AGE_DEFAULT=0,
+	SQLALCHEMY_TRACK_MODIFICATIONS=True,
+	DEBUG_TB_INTERCEPT_REDIRECTS=False,
+	MAX_CONTENT_LENGTH=2048 * 2048,
+	UPLOAD_EXTENSIONS=['.jpg', '.png', '.gif', '.jpeg'],
+	UPLOAD_PATH='./website/static/user_profile_picture/',
+	UPLOAD_PATH_CONTACT='./website/static/contact_profile_picture/',
+	MAIL_SERVER='smtp.gmail.com',
+	MAIL_PORT=465,
+	MAIL_USERNAME='bikeeper.team@gmail.com',
+	MAIL_PASSWORD='bikeeper34',
+	MAIL_USE_TLS=False,
+	MAIL_USE_SSL=True
 )
 
 # toolbar = DebugToolbarExtension(app)
@@ -37,10 +43,10 @@ mail = Mail(app)
 
 
 def mkpath(p):
-    return os.path.normpath(
-        os.path.join(
-            os.path.dirname(__file__),
-            p))
+	return os.path.normpath(
+		os.path.join(
+			os.path.dirname(__file__),
+			p))
 
 
 # MariaDB Config
