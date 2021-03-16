@@ -1,77 +1,3 @@
-let ctx = document.getElementById('angle').getContext('2d');
-
-const gradientStroke = ctx.createLinearGradient(0, 20, 0, screen.height / 2.45);
-gradientStroke.addColorStop(0, "#FF4500");
-gradientStroke.addColorStop(0.30, "#FFFF00");
-gradientStroke.addColorStop(0.5, "#00FF00");
-gradientStroke.addColorStop(0.70, "#FFFF00");
-gradientStroke.addColorStop(1, "#FF4500");
-
-const Angle = new Chart(ctx, { // Angle chart
-    type: 'line',
-    title: 'Angle',
-    data: {
-        labels: [],
-        datasets: [{
-            label: 'Hard',
-            data: [],
-            backgroundColor: gradientStroke,
-            borderWidth: 1
-        },
-            {
-                label: "Medium",
-                backgroundColor: "rgba(255,255,0,1)"
-            },
-            {
-                label: "Easy",
-                backgroundColor: "rgba(0,255,0,1)"
-            }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Droite                                    Gauche'
-                },
-                ticks: {
-                    beginAtZero: true
-                },
-
-            }]
-        },
-        elements: {
-            point: {
-                radius: 0
-            }
-        }
-    }
-});
-
-const Speed = new Chart(document.getElementById('speed').getContext('2d'), { // Speed chart
-    type: 'line',
-    title: 'Speed',
-    data: {
-        labels: [],
-        datasets: [{
-            fill: false,
-            label: 'speed',
-            data: [],
-            borderColor: ['rgba(135,206,235,1)'],
-            pointBackgroundColor: [],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-    }
-});
 
 
 const updateHeaderInfo = async () => {
@@ -114,29 +40,7 @@ const updateHeaderInfo = async () => {
     }
 }
 
-function updateSpeedChart(data, labels) {
-    let colors = new Array(data.length).fill('rgba(135,206,235,1)');
-    Speed.data.datasets[0].data = data;
-    Speed.data.datasets[0].pointBackgroundColor = colors;
-    Speed.data.labels = labels;
-    document.getElementById("max-speed").innerText = data.reduce((a, b) => {
-        return Math.max(a, b)
-    });
-    document.getElementById("average-speed").innerText = (data.reduce((a, b) => a + b, 0) / data.length).toString();
-    Speed.update();
-}
 
-function updateAngleChart(data, labels) {
-    let colors = new Array(data.length).fill('rgba(135,206,235,1)');
-    Angle.data.datasets[0].data = data;
-    Angle.data.datasets[0].pointBackgroundColor = colors;
-    Angle.data.labels = labels;
-    document.getElementById("max-angle").innerText = data.reduce((a, b) => {
-        return Math.max(a, b)
-    });
-    document.getElementById("average-angle").innerText = (data.reduce((a, b) => a + b, 0) / data.length).toString();
-    Angle.update();
-}
 
 let rides = null; // rides data
 let logs = null; // logs data
@@ -185,106 +89,6 @@ const loadRides = async () => { // updates the field "rides" to show rides of a 
     }
 }
 
-const createTimelineElements = async () => {
-    let date = document.getElementById('ride-date').value;
-    let bikeeper = document.getElementById('device-number').value;
-    const response = await fetch('/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
-    let timeline_logs = await response.json();
-    const allowed_logs = ["W", "+"]
-    let div_timeline = document.getElementsByClassName('timeline')[0];
-    reset_timeline_by_class('timeline');
-    for (const log of timeline_logs.reverse()) {
-        if (allowed_logs.includes(log.type_log)) {
-            let style = document.createElement("style");
-            div_timeline.appendChild(style);
-            let timeline_event = document.createElement("div");
-            timeline_event.classList.add("timeline__event", "animated", "fadeInUp", "delay-3s", "timeline__event--type1");
-            let timeline_event_icon = document.createElement("div");
-            timeline_event_icon.classList.add("timeline__event__icon");
-            let icon = document.createElement("i");
-            icon.classList.add("fa", "fa-info-circle");
-            let timeline_date = document.createElement("div");
-            timeline_date.classList.add("timeline__event__date");
-            let timeline_content = document.createElement("div");
-            timeline_content.classList.add("timeline__event__content");
-            let timeline_title = document.createElement("div");
-            timeline_title.classList.add("timeline__event__title");
-            let timeline_description = document.createElement("div");
-            timeline_description.classList.add("timeline__event__description");
-            let timeline_description_text = document.createElement("p");
-            let date_content = document.createTextNode(log.datetime_log);
-            div_timeline.appendChild(timeline_event);
-            timeline_event.appendChild(timeline_event_icon);
-            timeline_event_icon.appendChild(icon);
-            timeline_event_icon.appendChild(timeline_date);
-            timeline_event.appendChild(timeline_content);
-            timeline_content.appendChild(timeline_title);
-            timeline_content.appendChild(timeline_description);
-            timeline_description.appendChild(timeline_description_text);
-            timeline_date.appendChild(date_content);
-            if (log.type_log !== "W") {
-                let t = "";
-                if (log.content_log.type === "A") {
-                    t = "The vehicle has been parked.";
-                }
-                if (log.content_log.type === "B") {
-                    t = "The vehicle is not longer parked.";
-                } else if (log.content_log.type === "C") {
-                    t = "A journey has begun.";
-                } else if (log.content_log.type === "D") {
-                    t = "A journey ended up.";
-                }
-
-
-                let title_content = document.createTextNode("Information")
-                timeline_title.appendChild(title_content);
-                let style_content = document.createTextNode(":root {\n" +
-                    "                                    --timeline-main-color: #7BC6E1;\n" +
-                    "                                }");
-                style.appendChild(style_content);
-                let timeline_description_text_content = document.createTextNode(t)
-                timeline_description_text.appendChild(timeline_description_text_content);
-            } else {
-                let t = "";
-                let text_content = "";
-                if (log.content_log.type === "V") {
-                    t = "Vibration detected";
-                    text_content = "A vibration has been detected at those coordinates :\n" +
-                        "Longitude : " + log.content_log.longitude + "\n" +
-                        "Latitude : " + log.content_log.latitude + "\n" +
-                        "Someone or something may have it your vehicle.";
-                } else if (log.content_log.type === "G") {
-                    t = "GPS Signal detected";
-                    text_content = "Your device begun to move from those coordinates :\n" +
-                        "Longitude : " + log.content_log.longitude + "\n" +
-                        "Latitude : " + log.content_log.latitude + "\n" +
-                        "Maybe someone is trying to steal your vehicle.";
-                } else if (log.content_log.type === "F") {
-                    t = "Vehicle fall detected";
-                    text_content = "Your device has fallen at those coordinates :\n" +
-                        "Longitude : " + log.content_log.longitude + "\n" +
-                        "Latitude : " + log.content_log.latitude + "\n";
-                }
-                let title_content = document.createTextNode("Alert - " + t)
-                let style_content = document.createTextNode(":root {\n" +
-                    "                                    --timeline-main-color: #DC1D21;\n" +
-                    "                                }");
-                style.appendChild(style_content);
-                timeline_title.appendChild(title_content);
-                let timeline_description_text_content = document.createTextNode(text_content);
-                timeline_description_text.appendChild(timeline_description_text_content);
-            }
-        }
-    }
-}
-
-
-function reset_timeline_by_class(classe) {
-    let timeline = document.getElementsByClassName(classe)[0];
-    while (timeline.firstChild) {
-        timeline.removeChild(timeline.lastChild);
-    }
-}
 
 function reset_form_by_id(name) { // reset a form
     let form = document.getElementById(name);
@@ -296,41 +100,6 @@ function reset_form_by_id(name) { // reset a form
 document.getElementById('ride-date').value = new Date().toJSON().slice(0, 10); // setting todays date by default
 loadDateBikeepers();
 
-const url = window.location.href;
-const arr = url.split("/");
-const result = arr[0] + "//" + arr[2];
-const myIcon = L.icon({
-    iconUrl: result + "/static/pc/assets/logo_bikeeper_without_text.png",
-    iconSize: [40, 40],
-    iconAnchor: [25, 50],
-    popupAnchor: [-3, -76],
-});
-
-
-// On initialise la latitude et la longitude de Paris (centre de la carte)
-const lat = 47.902964;
-const lon = 1.909251;
-
-const mymap = L.map('my_osm_widget_map', { /* use the same name as your <div id=""> */
-    center: [lat, lon], /* set GPS Coordinates */
-    zoom: 17, /* define the zoom level */
-    zoomControl: true, /* false = no zoom control buttons displayed */
-    icon: myIcon,
-    scrollWheelZoom: true /* false = scrolling zoom on the map is locked */
-});
-
-L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', { /* set your personal MapBox Access Token */
-    maxZoom: 20, /* zoom limit of the map */
-    attribution: 'Données &copy; Contributeurs <a href="http://openstreetmap.org">OpenStreetMap</a> + ' +
-        '<a href="http://mapbox.com">Mapbox</a> | ' +
-        '<a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> ' +
-        'Guillaume Rouan 2016', /* set the map's caption */
-    id: 'mapbox.streets' /* mapbox.light / dark / streets / outdoors / satellite */
-}).addTo(mymap);
-
-L.marker([lat, lon], {
-    icon: myIcon
-}).addTo(mymap); /* set your location's GPS Coordinates : [LAT,LON] */
 
 let polyline = null;
 
@@ -364,57 +133,49 @@ const displayRideData = async () => { // Called when a user selects a ride displ
     // #################################################################################################
     // #################################################################################################
 
-    var api=null;
+    var api = null;
     let parkData = null;
 
 
     function activeLink() {
-        api = "http://127.0.0.1:5000/api/device/"+ getIdDevice()
+        api = "http://127.0.0.1:8080/api/device/" + getIdDevice()
         return api
     }
 
 
-    function getPark(){
-      return String("parked");
+    function getPark() {
+        return String("parked");
     }
+
     function getTextOfSelectedNumberDevice() {
         return document.getElementById("device-number")[document.getElementById("device-number").options.selectedIndex].text;
     }
 
-    function clearPark(){
-      getPark().innerHTML = "";
+    function clearPark() {
+        getPark().innerHTML = "";
     }
 
-    function getIdDevice(){
-      return document.getElementById("device-number").value;
+    function getIdDevice() {
+        return document.getElementById("device-number").value;
     }
 
-    function get(url) {
-        return new Promise((resolve, reject) => {
-            const req = new XMLHttpRequest();
-            req.open('GET', url);
-            req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
-            req.onerror = (e) => reject(Error(`Network Error: ${e}`));
-            req.send();
-        });
-    }
+
 
     function draw(is_parked) {
-      console.log("Draw");
-      console.log(getIdDevice())
-          let park = "." + getPark();
-          let parked = is_parked.parked;
-          let text = "<div class='row'><div class='col-6 goche'>Selected device : " + getTextOfSelectedNumberDevice() + "</div>";
-          text += "<div class='col-6 drouate'>Status : ";
-          if (parked) {
+        console.log("Draw");
+        console.log(getIdDevice())
+        let park = "." + getPark();
+        let parked = is_parked.parked;
+        let text = "<div class='row'><div class='col-6 goche'>Selected device : " + getTextOfSelectedNumberDevice() + "</div>";
+        text += "<div class='col-6 drouate'>Status : ";
+        if (parked) {
             console.log("Pause")
             text += " Parked <i class='fa fa-pause'></i>";
-          }
-          else {
+        } else {
             console.log("Play")
             text += " Moving <i class='fa fa-play'></i>"
-          }
-          document.querySelector(park).innerHTML = text + "</div></div>";
+        }
+        document.querySelector(park).innerHTML = text + "</div></div>";
     }
 
 
@@ -423,55 +184,34 @@ const displayRideData = async () => { // Called when a user selects a ride displ
     $(document).ready(function () {
         setInterval(function () {  // loop every 5 seconds
             activeLink()
-            if (api!=null){
+            if (api != null) {
                 get(api).then((data) => {
-                    //Si data a changé :
-                    try {
+                        //Si data a changé :
+                        try {
                             //on actualise parkData
                             parkData = JSON.parse(data);
                         } catch (e) {
                             console.error("Parsing error:", e);
                         }
 
+                        if (oldData == null || (parkData.parked > oldData || parkData.parked < oldData)) { // si on doit redraw car nouveau changement
 
+                            clearPark();
 
-                    if (oldData==null || (parkData.parked > oldData || parkData.parked < oldData)) { // si on doit redraw car nouveau changement
-                      
-                      
-                      clearPark();
-                        
-                        if (parkData != null) {
-                          oldData = parkData.parked
-                          console.log(oldData)
-                            draw(parkData)
+                            if (parkData != null) {
+                                oldData = parkData.parked
+                                console.log(oldData)
+                                draw(parkData)
+                            }
+
+                        } else {
+                            oldData = parkData.parked
                         }
-
-                    } else {
-                      oldData = parkData.parked
                     }
-                }
-            )
-          }
+                )
+            }
         }, 5000);
     });
-
-    function getDate(){
-      var today = new Date();
-      var month = today.getMonth()+1;
-      var seconds = today.getSeconds();
-      if (month<10){
-          month = '0'+month;
-      }
-      if (seconds<10){
-          seconds = '0'+seconds;
-      }
-      var date = today.getFullYear()+'-'+month+'-'+today.getDate();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + seconds;
-      return date+' '+time;
-    }
-
-
-
 
 
 

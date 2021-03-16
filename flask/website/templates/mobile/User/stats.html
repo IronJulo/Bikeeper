@@ -134,7 +134,12 @@
 </script>
 
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
-<script src="{{ url_for('static', filename='pc/js/stats.js') }}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.bundle.min.js"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='utils.js') }}" defer></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pc/js/stats_maps.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='pc/js/stats_chart.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pc/js/stats_timeline.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='mobile/js/stats.js') }}"></script>
 {% endblock %}
