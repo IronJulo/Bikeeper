@@ -9,12 +9,12 @@ from unidecode import unidecode
 
 ser = serial.Serial('COM3')
 ser.flushInput()
-
+base_url = "http://167.71.142.2/"
 
 def send_log(dic1, separated_values):
     dic2 = separated_values
     dic = {"header": dic1, "data": dic2}
-    url = "http://127.0.0.1:5000/api/sms/add/"
+    url = f"{base_url}api/sms/add/"
     headers = {'Content-Type': 'application/json'}
     response = requests.request("POST",
                                 url,
@@ -25,14 +25,18 @@ def send_log(dic1, separated_values):
 
 
 def init(dic1):
-    url = f"http://127.0.0.1:5000/api/bikeeper/get_user_num/{dic1['sender']}"
+    url = f"{base_url}api/bikeeper/get_user_num/{dic1['sender']}"
     response = requests.request("GET", url)
-    if response.json["type_message"] == "response_num":
-        ser.write((response.json()["numero"] + f';{dic1["sender"]}').encode())
+    if response.json()["type_message"] == "response_num":
+        msg = "+33" + response.json()["numero"][1:] + f';{dic1["sender"]}'
+        ser.write(msg.encode())
+        print(msg)
+    else:
+        print(response.json()["error"])
 
 
 def alert_fall(dic1, lat, lon):
-    url = f"http://127.0.0.1:5000/api/bikeeper/contacts/{dic1['sender']}"
+    url = f"{base_url}api/bikeeper/contacts/{dic1['sender']}"
     response = requests.request("GET", url).json()
     for contact in response["contacts"]:
         print("sending")
