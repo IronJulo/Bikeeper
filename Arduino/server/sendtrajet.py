@@ -5,7 +5,7 @@ import json
 sender = "0769342048"
 
 for i in range(10):
-    url = "http://localhost:8080/api/sms/add/"
+    url = "http://167.71.142.2/api/sms/add/"
     headers = {
         'Content-Type': 'application/json'
     }
