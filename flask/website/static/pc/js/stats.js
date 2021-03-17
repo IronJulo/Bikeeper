@@ -159,11 +159,7 @@ const displayRideData = async () => { // Called when a user selects a ride displ
         return document.getElementById("device-number").value;
     }
 
-
-
     function draw(is_parked) {
-        console.log("Draw");
-        console.log(getIdDevice())
         let park = "." + getPark();
         let parked = is_parked.parked;
         let text = "<div class='row'><div class='col-6 goche'>Selected device : " + getTextOfSelectedNumberDevice() + "</div>";
@@ -175,7 +171,12 @@ const displayRideData = async () => { // Called when a user selects a ride displ
             console.log("Play")
             text += " Moving <i class='fa fa-play'></i>"
         }
-        document.querySelector(park).innerHTML = text + "</div></div>";
+        try {
+            document.querySelector(park).innerHTML = text + "</div></div>";
+        } catch {
+            
+        }
+        
     }
 
 

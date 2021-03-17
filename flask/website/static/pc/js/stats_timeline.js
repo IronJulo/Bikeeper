@@ -5,118 +5,111 @@ function reset_timeline_by_class(css_class) {
     }
 }
 
+function createTimelineEvent(date){
+    //main div
+    let timeline_event = document.createElement("div");
+    timeline_event.classList.add("timeline__event", "animated", "fadeInUp", "delay-3s", "timeline__event--type1");
+    //first child of main div
+    let timeline_event_icon = document.createElement("div");
+    timeline_event_icon.classList.add("timeline__event__icon");
+    timeline_event.appendChild(timeline_event_icon);
+    //first child of timeline_event_icon
+    let icon = document.createElement("i");
+    icon.classList.add("fa", "fa-info-circle");
+    timeline_event_icon.appendChild(icon);
+    //second child of timeline_event_icon
+    let timeline_date = document.createElement("div");
+    timeline_date.textContent = date
+    timeline_date.classList.add("timeline__event__date");
+    timeline_event_icon.appendChild(timeline_date);
+    //second child of main div
+    let timeline_content = document.createElement("div");
+    timeline_content.classList.add("timeline__event__content");
+    timeline_event.appendChild(timeline_content);
+    //first child of timeline_content
+    let timeline_title = document.createElement("div");
+    timeline_title.classList.add("timeline__event__title");
+    timeline_content.appendChild(timeline_title);
+    //second child of timeline_content
+    let timeline_description = document.createElement("div");
+    timeline_description.classList.add("timeline__event__description");
+    timeline_content.appendChild(timeline_description);
+    //paragraph of timeline_description
+    let timeline_description_text = document.createElement("p");
+    timeline_description.appendChild(timeline_description_text);
+    
+    document.querySelector(".timeline").appendChild(timeline_event);
+
+    return {
+        "main": timeline_event,
+        "div_icon": timeline_event_icon,
+        "icon": icon,
+        "date": timeline_date,
+        "content": timeline_content,
+        "title": timeline_title,
+        "description": timeline_description,
+        "description_text": timeline_description_text
+    }
+}
+
+const type_log_plus = {
+    "A": "The vehicle has been parked.",
+    "B": "The vehicle is not longer parked.",
+    "C": "A journey has begun.",
+    "D": "A journey ended up."
+}
+
 const createTimelineElements = async () => {
     let date = document.getElementById('ride-date').value;
     let bikeeper = document.getElementById('device-number').value;
     const response = await fetch('/api/bikeeper/get_logs_at_date/' + bikeeper + "/" + date);
     let timeline_logs = await response.json();
     const allowed_logs = ["W", "+"]
-    let div_timeline = document.getElementsByClassName('timeline')[0];
     reset_timeline_by_class('timeline');
 
     for (const log of timeline_logs.reverse()) {
         if (allowed_logs.includes(log.type_log)) {
-            let style = document.createElement("style");
-            div_timeline.appendChild(style);
-            let timeline_event = document.createElement("div");
-            timeline_event.classList.add("timeline__event", "animated", "fadeInUp", "delay-3s", "timeline__event--type1");
-            let timeline_event_icon = document.createElement("div");
-            timeline_event_icon.classList.add("timeline__event__icon");
-            let icon = document.createElement("i");
-            icon.classList.add("fa", "fa-info-circle");
-            let timeline_date = document.createElement("div");
-            timeline_date.classList.add("timeline__event__date");
-            let timeline_content = document.createElement("div");
-            timeline_content.classList.add("timeline__event__content");
-            let timeline_title = document.createElement("div");
-            timeline_title.classList.add("timeline__event__title");
-            let timeline_description = document.createElement("div");
-            timeline_description.classList.add("timeline__event__description");
-            let timeline_description_text = document.createElement("p");
-            let date_content = document.createTextNode(log.datetime_log);
-            div_timeline.appendChild(timeline_event);
-            timeline_event.appendChild(timeline_event_icon);
-            timeline_event_icon.appendChild(icon);
-            timeline_event_icon.appendChild(timeline_date);
-            timeline_event.appendChild(timeline_content);
-            timeline_content.appendChild(timeline_title);
-            timeline_content.appendChild(timeline_description);
-            timeline_description.appendChild(timeline_description_text);
-            timeline_date.appendChild(date_content);
-            if (log.type_log !== "W") {
-                let t = "";
-                switch (log.content_log.type) {
 
-                    case "A" :
-                        t = "The vehicle has been parked.";
-                        break;
-
-                    case "B" :
-                        t = "The vehicle is not longer parked.";
-                        break;
-
-                    case "C" :
-                        t = "A journey has begun.";
-                        break;
-                    case "D" :
-                        t = "A journey ended up.";
-                        break;
-                    default :
-                        t = "Error";
-                        console.log("Error")
+            let timelineEvent = createTimelineEvent(log.datetime_log);
+            
+            let type_log_w = {
+                "V": {
+                    "title": "Vibration detected",
+                    "textContent": "A vibration has been detected at those coordinates :\n" +
+                                    "Longitude : " + log.content_log.longitude + "\n" +
+                                    "Latitude : " + log.content_log.latitude + "\n" +
+                                    "Someone or something may have it your vehicle."
+                },
+                "G": {
+                    "title": "GPS Signal detected",
+                    "textContent": "Your device began to move from those coordinates :\n" +
+                                    "Longitude : " + log.content_log.longitude + "\n" +
+                                    "Latitude : " + log.content_log.latitude + "\n" +
+                                    "Maybe someone is trying to steal your vehicle."
+                },
+                "F": {
+                    "title": "Vehicle fall detected",
+                    "textContent": "Your device has fallen at those coordinates :\n" +
+                                    "Longitude : " + log.content_log.longitude + "\n" +
+                                    "Latitude : " + log.content_log.latitude + "\n"
                 }
+                
+            }
 
-                let title_content = document.createTextNode("Information")
-                timeline_title.appendChild(title_content);
-                let style_content = document.createTextNode(":root {\n" +
-                    "                                    --timeline-main-color: #7BC6E1;\n" +
-                    "                                }");
-                style.appendChild(style_content);
-                let timeline_description_text_content = document.createTextNode(t)
-                timeline_description_text.appendChild(timeline_description_text_content);
-            } else {
-                let t = "";
-                let text_content = "";
-                switch (log.content_log.type) {
-
-                    case "V" :
-                        t = "Vibration detected";
-                        text_content = "A vibration has been detected at those coordinates :\n" +
-                            "Longitude : " + log.content_log.longitude + "\n" +
-                            "Latitude : " + log.content_log.latitude + "\n" +
-                            "Someone or something may have it your vehicle.";
-                        break;
-
-                    case "G" :
-                        t = "GPS Signal detected";
-                        text_content = "Your device begun to move from those coordinates :\n" +
-                            "Longitude : " + log.content_log.longitude + "\n" +
-                            "Latitude : " + log.content_log.latitude + "\n" +
-                            "Maybe someone is trying to steal your vehicle.";
-                        break;
-
-                    case "F" :
-                        t = "Vehicle fall detected";
-                        text_content = "Your device has fallen at those coordinates :\n" +
-                            "Longitude : " + log.content_log.longitude + "\n" +
-                            "Latitude : " + log.content_log.latitude + "\n";
-                        break;
-
-                    default :
-                        t = "Error";
-                        text_content = "Alerte Error";
-                        console.log("Error");
-
+            try {
+                if (log.type_log === "+") {
+                    timelineEvent.description.textContent = type_log_plus[log.content_log.type];
+                    timelineEvent.title.textContent = "Information";
+                } 
+                else {
+                    let type = type_log_w[log.content_log.type];
+                    timelineEvent.title.textContent = "Alert - " + type["title"];
+                    timelineEvent.title.style.color = "#DC1D21";
+                    timelineEvent.icon.style.backgroundColor = "#DC1D21";
+                    timelineEvent.description.textContent = type["textContent"];
                 }
-                let title_content = document.createTextNode("Alert - " + t)
-                        let style_content = document.createTextNode(":root {\n" +
-                            "                                    --timeline-main-color: #DC1D21;\n" +
-                            "                                }");
-                        style.appendChild(style_content);
-                        timeline_title.appendChild(title_content);
-                        let timeline_description_text_content = document.createTextNode(text_content);
-                        timeline_description_text.appendChild(timeline_description_text_content);
-
+            } catch (error) {
+                console.log("Error : "+error);
             }
         }
     }
