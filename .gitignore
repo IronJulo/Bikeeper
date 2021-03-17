@@ -200,3 +200,5 @@ pip-selfcheck.json
 *.code-workspace
 
 .idea/
+
+docs/.vscode/
