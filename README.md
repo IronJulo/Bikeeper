@@ -44,8 +44,9 @@ After run `docker-compose up` to start the project.
 
 ## Documentation 📄 : 
 
-To see our project documentation clone this repo and run  `docsify serve docs`
+To see our project documentation clone this repo and run  `docsify serve docs` or open [page](https://ironjulo.gitlab.io/project-bikeeper/#/)
 We use [docsify](https://docsify.js.org/#/) to write this documentation. 
+
 ## Screenshots 📸 
 
  

@@ -5,8 +5,8 @@
 >Global Arch
 
 
-
-![alt text](../../images/BikeeperNetwork.png "Bikeeper networks")
+![alt text](../../images/netw.gif "Bikeeper networks")
+![alt text](../../images/BikeeperNetwork.png "Bikeeper networks")    
 
 >Website
 

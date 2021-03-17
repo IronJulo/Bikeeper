@@ -64,7 +64,7 @@ class LOG(db.Model):
 
 ```
 
-?> **Tip** `serialize` methode allow us to print directly the object. 
+?> **Tip** `serialize` method allow us to print directly the object. 
 
 
 --- 
