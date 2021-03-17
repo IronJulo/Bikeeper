@@ -7,16 +7,26 @@ from flask import (
 	redirect,
 	url_for,
 	request,
-	current_app
+	current_app,
+	abort
 )
 from flask_login import current_user, login_required
 
 from ..models import ORM
 from flask_mobility.decorators import mobile_template
 from flask.helpers import flash
+from functools import wraps
 
 mod = Blueprint("stats", __name__)
 
+def admin_required(f):
+	@wraps(f)
+	def wrap(*args, **kwargs):
+		if not current_user.is_admin_user:
+			abort(403, description="Can't access an admin page as user")
+		return f(*args, **kwargs)
+
+	return wrap
 
 @mod.route('/statistics/', methods=['GET', 'POST'])
 @mobile_template('{mobile/User/}stats.html')
@@ -59,6 +69,7 @@ def statistics(template):
 		)
 
 @mod.route('/statistics/unblock', methods=['GET', 'POST'])
+@admin_required
 @login_required
 def statistics_unblock():
 	username = request.form.get("username")
@@ -69,6 +80,7 @@ def statistics_unblock():
 	return redirect(url_for('stats.statistics'))
 
 @mod.route('/statistics/block', methods=['GET', 'POST'])
+@admin_required
 @login_required
 def statistics_block():
 	username = request.form.get("username")

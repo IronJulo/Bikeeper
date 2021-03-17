@@ -45,6 +45,8 @@ class LoginForm(FlaskForm):
 @mod.route('/login/', methods=['GET', 'POST'])
 @mobile_template("{mobile/Authentification/}login.html")
 def login(template):
+    if current_user.is_authenticated:
+        logout_user()
     f = LoginForm()
     if not f.is_submitted():
         f.next.data = request.args.get("next")

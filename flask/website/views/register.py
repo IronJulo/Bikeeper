@@ -10,13 +10,15 @@ import datetime
 from ..utils import Utils
 from flask_mail import Message
 import os
-
+from flask_login import current_user, logout_user
 mod = Blueprint('register', __name__)
 
 
 @mod.route('/register/', methods=['GET', 'POST'])
 @mobile_template('{mobile/Authentification/}register.html')
 def register(template):
+	if current_user.is_authenticated:
+		logout_user()
 	subscriptions = ORM.get_subscriptions()
 	features = Utils.str_collon_to_list(ORM.get_subscriptions_features()[0])
 	return render_template(

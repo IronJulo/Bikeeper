@@ -74,7 +74,6 @@ from website.views import register
 from website.views import index
 from website.views import logout
 from website.views import support
-from website.views import users
 from website.views import admin
 from website.views import errors
 from website.api import api
@@ -91,7 +90,6 @@ app.register_blueprint(register.mod)
 app.register_blueprint(index.mod)
 app.register_blueprint(logout.mod)
 app.register_blueprint(support.mod)
-app.register_blueprint(users.mod)
 app.register_blueprint(errors.mod)
 app.register_blueprint(api.mod)
 app.register_blueprint(admin.mod)
