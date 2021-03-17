@@ -1,6 +1,5 @@
 import sqlalchemy
 from flask import Flask
-import os.path
 from flask_sqlalchemy import SQLAlchemy
 from flask_mobility import Mobility
 from sqlalchemy.orm import sessionmaker

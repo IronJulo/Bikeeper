@@ -3,11 +3,14 @@ let jsonData = null;
 
 function activeLink(tab) {
     try{
-        active = getActive();
-        active.classList.replace("active","inactive");
+        li_active = getActive();
+        a_active = getLinkActive();
+
+        li_active.classList.replace("active","inactive");
+        a_active.classList.replace("active","inactive");
     }
     catch {
-
+      console.log("cannot get active link");
     }
     tab.classList.replace("inactive","active");
     api = "/test/message/"+ getIdTicket() +"/all"
