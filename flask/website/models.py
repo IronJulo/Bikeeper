@@ -730,12 +730,12 @@ class ORM:
         return CONTACT.query.filter(CONTACT.num_device == device_id).all()
 
     @staticmethod
-    def get_contacts_by_user(pseudo: str) -> List[CONTACT]:
+    def get_contacts_by_device_number(number_device: int) -> List[CONTACT]:
         """
-        :param: str pseudo: the wanted user's pseudo
-        :return: list[CONTACT]: the list of contact linked to the indicated user
+        :param: int number_device: 
+        :return: list[CONTACT]: the list of contact linked to the indicated number_device
         """
-        return db.session.query(CONTACT).join(DEVICE).filter(DEVICE.username_user == pseudo).all()
+        return db.session.query(CONTACT).filter(CONTACT.num_device == number_device).all()
 
     @staticmethod
     def get_contact_by_id(contact_id: int) -> CONTACT:  # TODO produce bug
@@ -1076,14 +1076,14 @@ class ORM:
         return db.session.query(USER.password_user).filter(USER.username_user == username).first()[0]
 
     @staticmethod
-    def get_number_of_contacts_by_username(username):
+    def get_number_of_contacts_by_device_number(device_number):
         """
-        Get number of contacts of an user
-        :param: string: an username
+        Get number of contacts of a device
+        :param: int: a device number
         :return: int: the number of contacts
         """
-        return db.session.query(func.count(CONTACT.id_contact)).join(DEVICE).filter(
-            DEVICE.username_user == username).scalar()
+        return db.session.query(func.count(CONTACT.num_device)).join(DEVICE).filter(
+            DEVICE.num_device == device_number).scalar()
 
     @staticmethod
     def is_parked(id_device):
