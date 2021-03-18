@@ -1188,3 +1188,12 @@ class ORM:
         :return: int: the number of alerts
         """
         return db.session.query(func.count(LOG.type_log)).filter(LOG.type_log == "W").scalar()
+
+    @staticmethod
+    def new_user_device(username, number_device):
+        """
+        Create a new device and link it to an user
+        """
+        d = DEVICE(number_device, Utils.read_prefixes(), None, username)
+        db.session.add(d)
+        db.session.commit();

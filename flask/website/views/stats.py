@@ -86,3 +86,12 @@ def statistics_block():
 	username = request.form.get("username")
 	ORM.block_user(username)
 	return redirect(url_for('stats.statistics'))
+
+@mod.route("/statistics/device/add", methods=['POST'])
+@admin_required
+@login_required
+def add_device():
+	num_device = request.form.get("number_device")
+	username = request.form.get("user")
+	ORM.new_user_device(username, num_device)
+	return redirect(url_for('stats.statistics'))
