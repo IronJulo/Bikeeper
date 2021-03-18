@@ -3,8 +3,8 @@
 
 struct location_t
 {
-	double latitude;
-	double longitude;
+	float latitude;
+	float longitude;
 
 	location_t() : 
 		latitude(),

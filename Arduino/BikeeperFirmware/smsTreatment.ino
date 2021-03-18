@@ -15,7 +15,7 @@ void treatSMS()
 	
 	message_buffer.clear();
 
-	if (strcmp(senderNumber, SERVER_PHONE_NUMBER) || strcmp(senderNumber, userPhoneNumber))
+	if (arraysCompare(senderNumber, SERVER_PHONE_NUMBER) || arraysCompare(senderNumber, userPhoneNumber))
 	{
 		if (sms_buffer.indexOf("unpark", 4) != -1) // User sent unpark bike command
 		{
@@ -50,7 +50,7 @@ void treatSMS()
 					smsFormatter.clear();
 
 					smsFormatter.makeStateUpdateSms('+', 'A');
-					sim800L.send(userPhoneNumber, smsFormatter.getStorage());
+					sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
 					sim800L.smartRead("+CMGS", 5, 1000);
 
 					delay(BETWEEN_SMS_DELAY);

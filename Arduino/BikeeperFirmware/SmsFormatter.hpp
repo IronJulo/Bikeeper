@@ -28,8 +28,8 @@ public:
 						const bool charging,
 						const double devicebatteryLevel,
 						const double bikebatteryLevel,
-						const short speed,
-						const double angle);
+						const int speed,
+						const short angle);
 
 	void makeAlertSms(const char schema,
 					  const char type,

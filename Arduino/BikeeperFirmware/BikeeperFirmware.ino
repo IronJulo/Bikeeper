@@ -48,7 +48,8 @@ for the arduino uno
 #include "Headers/location.h"
 
 /* Sim800L */
-#define SERVER_PHONE_NUMBER "+33769342048" // BiKServer number (main server) called to get user number
+// and +33664277796
+#define SERVER_PHONE_NUMBER "+33664277796" // BiKServer number (main server) called to get user number
 
 char userPhoneNumber[13] = "";
 
@@ -61,7 +62,7 @@ SoftwareSerial softwareSim800l(GSM_RX, GSM_TX);
 char sms_storage[150];
 StringBuffer sms_buffer(sms_storage, sizeof(sms_storage));
 
-char message_storage[70];
+char message_storage[80];
 StringBuffer message_buffer(message_storage, sizeof(message_storage));
 SmsFormatter smsFormatter(&message_buffer); //Not used all the time but to simplify sms generation
 
@@ -99,6 +100,7 @@ bool isBatteryCharging = false;
 TinyGPSPlus gps;
 
 location_t location; // Declare the Location type
+int bikeSpeed = 0;
 SoftwareSerial gpsSerial(GPS_RX, GPS_TX);
 bool bikeMoved = false;
 #define GPS_TRESHOLD_LAT 0.000100 //0.000011
@@ -109,7 +111,7 @@ bool bikeMoved = false;
 #define GYRO_MIN_MAX_X 16000
 #define GYRO_MIN_MAX_Y 17600
 #define FALL_CALL_TIMEOUT 60000 // 1 minute
-#define ANGLE_TRESHOLD 80 // Max angle before threating it as a fall 
+#define ANGLE_TRESHOLD 800 // Max angle before threating it as a fall 
 
 const int MPU_ADDR = 0x68;
 bool bikeFallen = false;
@@ -242,7 +244,11 @@ void loop()
 		lastHeartbeatTime = millis();
 		if(journey)
 		{
-			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, 100, gyro_y);
+			int gyro_int_y = gyro_y;
+			Serial.println("gyro_int_y before print --------------");
+			Serial.println(gyro_int_y);
+			Serial.println("--------------------");
+			smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, bikeSpeed, gyro_int_y);
 			Serial.println("smsFormatter.getStorage()");
 			Serial.println(smsFormatter.getStorage());
 			sim800L.send(SERVER_PHONE_NUMBER, smsFormatter.getStorage());
@@ -258,13 +264,31 @@ void loop()
 			delay(500);
 		}
 	}
+	Serial.println("gyro ---------------");
 	Serial.println("gyro_x");
 	Serial.println(gyro_x);
 	Serial.println("gyro_y");
 	Serial.println(gyro_y);
+
+	Serial.println("pos ----------------");
+	Serial.println("latitude");
+	printFloat(location.latitude , 1, 12, 6);
+	Serial.println();
+	Serial.println("longitude");
+	printFloat(location.longitude , 1, 12, 6);
+	Serial.println();
+
+	Serial.println("speed --------------");
+	Serial.println(bikeSpeed);
 	Serial.println("--------------------");
+
 	smartDelay(2000);
 	readIncommingSms();
+
+	/*smsFormatter.makeJourneySms('@', &location, isBatteryCharging, deviceBatteryLevel, bikeBatteryLevel, bikeSpeed, 40);
+	Serial.println("smsFormatter.getStorage()");
+	Serial.println(smsFormatter.getStorage());*/
+	//delay(2000);
 }
 
 static void smartDelay(unsigned long ms)
@@ -336,10 +360,6 @@ void actualizeLocation()
 {
 	//noInterrupts();
 	gpsSerial.listen();
-	//printFloat(location.latitude - gps.location.lat(), 1, 12, 6);
-	//Serial.println();
-	//printFloat(location.longitude - gps.location.lng(), 1, 12, 6);
-	//Serial.println();
 
 	if (location.latitude - gps.location.lat() >= GPS_TRESHOLD_LAT ||
 		location.latitude - gps.location.lat() <= -GPS_TRESHOLD_LAT ||
@@ -350,6 +370,7 @@ void actualizeLocation()
 	}
 	location.latitude = gps.location.lat();
 	location.longitude = gps.location.lng();
+	bikeSpeed = gps.speed.kmph();
 	sim800L.listen();
 	//interrupts();
 }
@@ -378,7 +399,7 @@ void actualizeAngle()
 
 	if (zeroGyro_y == 0 || zeroGyro_x == 0)
 	{
-		zeroGyro_y = gyro_y; // reading registers: 0x43 (GYRO_XOUT_H) and 0x44 (GYRO_XOUT_L)
+		zeroGyro_y = gyro_y;
 		zeroGyro_x = gyro_x;
 	}
 	gyro_x = (gyro_x - zeroGyro_x) / GYRO_MIN_MAX_X * 90;
@@ -393,6 +414,7 @@ void actualizeAngle()
 	{
 		bikeFallen = true;
 	}
+	Wire.endTransmission(true);
 }
 
 void vibartionDetected()
