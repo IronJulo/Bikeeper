@@ -8,6 +8,14 @@
 
 bool arraysCompare(const char *left, const char *right)
 {
-	return true; /* TODO */
+	Serial.println(left);
+	Serial.println(right);
+	for (int i = 0 ; i < 11; i++)
+	{
+		if (left[i] != right[i]){
+			return false;
+		}
+	}
+	return true;
 }
 

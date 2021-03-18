@@ -34,10 +34,14 @@ void StringBuffer::storeInt3(int i)
 {
 	if (m_index < m_length)
 	{
-		char buff[4] = { '0' };
-		itoa( i, buff + ( i < 100) + ( i < 10), 10);
-		memcpy(m_storage + m_index, buff, 3);
-		m_index += 3;
+		if (i <= 0){
+			store('0');
+			store('0');
+			store('0');
+		}else {
+			sprintf(m_storage + m_index, "%03d", i);
+			m_index += 3;
+		}
 	}
 }
 

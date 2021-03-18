@@ -62,8 +62,8 @@ SmsFormatter::makeJourneySms(const char schema,
 					const bool charging,
 					const double devicebatteryLevel,
 					const double bikebatteryLevel,
-					const short speed,
-					const double angle)
+					const int speed,
+					const short angle)
 {
 	clear();
 
@@ -81,6 +81,7 @@ SmsFormatter::makeJourneySms(const char schema,
 	setSeparator();
 	m_stringBuffer->storeInt3(speed);
 	setSeparator();
+	//m_stringBuffer->storeInt3(angle);
 	storeBikeAngle(angle);
 	setSeparator();
 }
