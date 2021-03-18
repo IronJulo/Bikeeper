@@ -35,8 +35,7 @@ function clearDiv(){
 function getIdTicket(){
   actif = getLinkActive();
   lien = actif.href;
-  numero = lien.split('tab')[1];
-  return numero;
+  return lien.split('tab')[1];
 }
 
 
