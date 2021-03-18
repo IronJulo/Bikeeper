@@ -33,7 +33,7 @@ subscriptions:
 users:
   - user:
       "username": "user1"
-      "num": "0789101112"
+      "num": "0769342048"
       "firstname": "Luffy"
       "lastname": "Monkey D"
       "email": "mugiwara@gmail.com"
@@ -42,7 +42,7 @@ users:
       "street": "5 rue du roi des pirates"
       "profile_picture": "https://assets.change.org/photos/9/xm/ov/HuXMoVlIDzauXCp-800x450-noPad.jpg?1562964866"
       "is_admin": False
-      "selected_device" : "0769342048"
+      "selected_device" : "0631704631"
       "is_account_blocked" : False
       "name_subscription" : "World"
   - user:
@@ -59,34 +59,7 @@ users:
       "selected_device" : "0664277796"
       "is_account_blocked" : False
       "name_subscription" : "France"
-  - user:
-      "username": "user3"
-      "num": "0789101162"
-      "firstname": "Nice"
-      "lastname": "Guy"
-      "email": "oicegenerator@gmail.com"
-      "town": "Mont Corvo"
-      "postal_code": "45000"
-      "street": "69 rue des 420"
-      "profile_picture": "https://eu.ui-avatars.com/api/user3"
-      "is_admin": False
-      "selected_device" : "0564277796"
-      "is_account_blocked" : False
-      "name_subscription" : "France"
-  - user:
-      "username": "user4"
-      "num": "0785101162"
-      "firstname": "sdsd"
-      "lastname": "sdsd"
-      "email": "sdsd@gmail.com"
-      "town": "Mont sd"
-      "postal_code": "45000"
-      "street": "69 rue des 420"
-      "profile_picture": "https://eu.ui-avatars.com/api/user3"
-      "is_admin": False
-      "selected_device" : "0964277796"
-      "is_account_blocked" : False
-      "name_subscription" : "France"
+
   - user:
       "username": "admin"
       "num": "0781546427"
@@ -131,14 +104,7 @@ tickets:
       "title_ticket": "ticket message 3"
       "is_closed_ticket": 1
       "user": "admin"
-  - ticket:
-      "title_ticket": "ticket message 4"
-      "is_closed_ticket": 1
-      "user": "user3"
-  - ticket:
-      "title_ticket": "ticket message 5"
-      "is_closed_ticket": 1
-      "user": "user3"
+
 
 # Messages, please add ticket before
 messages:
@@ -212,16 +178,3 @@ device:
      "name_device": "Andrew"
      "row_parameters_device": ""
      "user": "user2"
-
-  - device:
-     "num_device": "0564277796"
-     "name_device": "Xavier"
-     "row_parameters_device": ""
-     "user": "user3"
-
-
-  - device:
-     "num_device": "0964277796"
-     "name_device": "Balkany"
-     "row_parameters_device": ""
-     "user": "user4"
