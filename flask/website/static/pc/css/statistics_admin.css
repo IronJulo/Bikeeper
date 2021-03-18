@@ -669,6 +669,20 @@ header.header-admin div.info-user > ul > li {
     border-radius: 2em;
 }
 
+header.header-admin div.info-user > ul > li:last-of-type {
+    background-color: transparent;
+    border-radius: 2em;
+}
+
+header.header-admin div.info-user > ul > li:last-of-type i {
+    color: var(--rouge);
+    font-size: 1.1em;
+}
+
+header.header-admin div.info-user > ul > li:last-of-type i:hover {
+    color: var(--orange);
+}
+
 header.header-admin div.info-user > ul > li > i {
     color: var(--orange);
     margin-right: .2em;

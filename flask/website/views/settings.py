@@ -146,9 +146,10 @@ CONTACT
 @admin_forbidden
 @login_required
 def settings_contact(template):
-	contacts = ORM.get_contacts_by_user(current_user.username_user)
+	number_device = ORM.get_current_device_by_username(current_user.username_user).num_device
+	contacts = ORM.get_contacts_by_device_number(number_device)
 	devices = ORM.get_devices_by_username(current_user.username_user)
-	number_contacts = ORM.get_number_of_contacts_by_username(current_user.username_user)
+	number_contacts = ORM.get_number_of_contacts_by_device_number(number_device)
 
 	return render_template(
 		template,
@@ -197,9 +198,7 @@ def settings_contact_update_check():  # TODO check bug reports
 	last = result['last-name']
 	tel = result['phone']
 	id_contact = result['id-contact']
-	print("="*50)
-	print("IDConstact from form : ", id_contact)
-	print("=" * 50)
+
 	if first != "" and last != "":
 		if Utils.is_valid_tel(tel):
 			ORM.update_contact(tel, first, last, id_contact)
