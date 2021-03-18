@@ -46,9 +46,13 @@ form button{
     color: white;
     border: None;
     border-radius: 2em;
-    margin: 3em auto;
     padding: .5em 1em;
     outline: none;
+    position: absolute;
+    left: 50%;
+    right: 0;
+    bottom: 15%;
+    transform: translateX(-50%);
 }
 
 form button span {
@@ -81,7 +85,7 @@ form div label{
     border-radius: 10px;
     left: 0;
     right: 0;
-    bottom: 10%;
+    bottom: 5%;
 }
 
 ::-webkit-input-placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */

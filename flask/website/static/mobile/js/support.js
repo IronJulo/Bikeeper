@@ -2,7 +2,7 @@ var api = null;
 let jsonData = null;
 
 function activeLink() {
-    api = "http://127.0.0.1/test/message/" + getIdTicket() + "/all"
+    api = "http://localhost:8000/test/message/" + getIdTicket() + "/all"
     return api
 }
 
@@ -27,7 +27,6 @@ function draw(message) {
     user_picture = message["user_picture"]
     estAdmin = isAdmin();
 
-
     if (admin_message === 1 && estAdmin === "True" || admin_message === 0 && estAdmin === "False") {
         div.innerHTML += "<div class='row msg'>"
             + "<div class='col-2'></div>"
@@ -50,7 +49,30 @@ function draw(message) {
 let oldData = null;
 
 $(document).ready(function () {
-    activeLink();
+    try {
+      api = "/test/message/"+ getIdTicket() +"/all"
+      get(api).then((data) => {
+        clearDiv();
+        try {
+            jsonData = JSON.parse(data);
+        } catch (e) {
+            console.error("Parsing error:", e);
+        }
+        if (jsonData != null) {
+            for (let message in jsonData) {
+              draw(jsonData[message]);
+            }
+            let activeDiv = getActiveUL();
+            activeDiv.parentNode.classList.add("active","show");
+            oldData = data;
+        }
+      })
+    } catch (TypeError) {
+      console.log("No active link");
+    }
+});
+
+$(document).ready(function () {
     setInterval(function () {  // loop every 5 seconds
         if (api != null) {
             get(api).then((data) => {
