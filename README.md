@@ -4,7 +4,7 @@
   
 
 ## What is it? 💡
-Bikeeper is a school project ".........."
+Bikeeper is a DUT 2 project. The goal of this project is to help bikers to find their motorbike and prevent motocycle stealing. In case off falling or stealing the arduino placed on the motorbike alert his owner. 
 
 
 ## Run 🚀
@@ -38,9 +38,7 @@ docker run \
 Install docker and docker compose with `docker-setup.sh` script.
 After run `docker-compose up` to start the project. 
 
-  
-  
-## Development 🔨 :
+
 
 ## Documentation 📄 : 
 
@@ -49,6 +47,11 @@ We use [docsify](https://docsify.js.org/#/) to write this documentation.
 
 ## Screenshots 📸 
 
+
+![alt text](https://i.imgur.com/ZtYGXJY.png)
+![alt text](https://i.imgur.com/L43L8Ny.jpg)
+![alt text](https://i.imgur.com/xSDQnF2.jpg)
+![alt text](https://i.imgur.com/01kRkwk.jpg)
  
 ## 👷 Authors  :
 | Name | Email|
