@@ -152,9 +152,9 @@
 }
 
 .timeline-item:nth-child(6) .timeline-img-header {
-    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/Support.jpg") center center no-repeat;
-    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/Support.jpg") center center no-repeat;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/Support.jpg") center center no-repeat;
+    background: -o-linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/support.jpg") center center no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.4))), url("../assets/support.jpg") center center no-repeat;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.4)), url("../assets/support.jpg") center center no-repeat;
     background-size: cover;
 }
 
