@@ -129,33 +129,6 @@ messages:
      "id_ticket": "1"
      "username_user": "user1"
 
-  - message:
-     "is_admin_message": 1
-     "datetime_message": "datetime.datetime(2015, 8, 23, 10, 55, 9, 342380)"
-     "content_message": "Salut bro"
-     "id_ticket": "2"
-     "username_user": "admin"
-
-  - message:
-     "is_admin_message": 0
-     "datetime_message": "datetime.datetime(2021, 11, 22, 14, 12, 8, 300080)"
-     "content_message": "Test message, ceci est un message test"
-     "id_ticket": "3"
-     "username_user": "user1"
-
-  - message:
-     "is_admin_message": 1
-     "datetime_message": "datetime.datetime(2020, 12, 31, 23, 59, 59, 300080)"
-     "content_message": "Bonne année 2021"
-     "id_ticket": "4"
-     "username_user": "admin"
-
-  - message:
-     "is_admin_message": 1
-     "datetime_message": "datetime.datetime(1989, 9, 30, 23, 59, 59, 300080)"
-     "content_message": "Wtf les mecs je viens d'inventer internet"
-     "id_ticket": "5"
-     "username_user": "admin"
 
 # Devices, please add user before
 device:
@@ -165,7 +138,6 @@ device:
       "name_device": "JuleBrossier"
       "row_parameters_device": ""
       "user": "user1"
-
 
   - device:
       "num_device": "0781546421"
