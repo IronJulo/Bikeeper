@@ -4,7 +4,7 @@ let parkData = null;
 
 function activeLink() {
 
-    return "http://127.0.0.1/api/device/" + getIdDevice()
+    return "http://167.71.142.2/api/device/" + getIdDevice() // replace ip by localhost during tests
 }
 
 
