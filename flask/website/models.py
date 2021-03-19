@@ -362,8 +362,9 @@ class ORM:
         :return: boolean, true if available
         """
         if ORM.is_admin(pseudo):
-            ticket_list = session.query(TICKET).filter(TICKET.username_user == pseudo and USER.is_admin_user == 1).all()
-            session.commit()
+            ticket_list = db.session.query(TICKET).filter(
+                TICKET.username_user == pseudo and USER.is_admin_user == 1).all()
+            db.session.commit()
             return ticket_list
         else:
             # not admin, return false
@@ -376,7 +377,7 @@ class ORM:
         :return: boolean, true if available
         """
         query = "SELECT table_schema AS \"Database\", SUM(data_length + index_length) / 1024 / 1024 AS \"Size (MB)\"" + "FROM information_schema.TABLES" + " WHERE table_schema = 'BIKEEPER' GROUP BY table_schema"
-        result_proxy = session.execute(query)
+        result_proxy = db.session.execute(query)
 
         tables_dict, tables = {}, []
         for row_proxy in result_proxy:
@@ -407,7 +408,7 @@ class ORM:
         """
         :return: number of opened tickets,
         """
-        res = session.query(func.count(TICKET.id_ticket)) \
+        res = db.session.query(func.count(TICKET.id_ticket)) \
             .filter(TICKET.is_closed_ticket == 0) \
             .first()
         db.session.commit()
@@ -429,7 +430,7 @@ class ORM:
         """
         :return: number of Bikeepers,
         """
-        res = session.query(func.count(DEVICE.num_device)).first()
+        res = db.session.query(func.count(DEVICE.num_device)).first()
         return res[0]
 
     @staticmethod
@@ -483,7 +484,7 @@ class ORM:
         """
         :return: opened tickets,
         """
-        res = session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
+        res = db.session.query(TICKET).filter(TICKET.is_closed_ticket == 0).all()
         db.session.commit()
         return res
 
@@ -1178,8 +1179,8 @@ class ORM:
         Get total number of rides dones
         :return: int: the number of rides
         """
-        
-        return int(len(db.session.query(LOG.content_log).filter(LOG.type_log == "+").all())/2)
+
+        return int(len(db.session.query(LOG.content_log).filter(LOG.type_log == "+").all()) / 2)
 
     @staticmethod
     def get_total_number_alerts():
@@ -1196,4 +1197,4 @@ class ORM:
         """
         d = DEVICE(number_device, Utils.read_prefixes(), None, username)
         db.session.add(d)
-        db.session.commit();
+        db.session.commit()
