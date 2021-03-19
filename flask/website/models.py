@@ -418,7 +418,7 @@ class ORM:
         """
         :return: number of users,
         """
-        res = session.query(func.count(USER.username_user)) \
+        res = db.session.query(func.count(USER.username_user)) \
             .filter(USER.is_admin_user == 0) \
             .first()
         db.session.commit()
