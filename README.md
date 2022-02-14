@@ -61,10 +61,10 @@ API is documented, in **docs** folder open `api-documentation.pdf`
 | Name | Email|
 |--|--|
 | **Andrew Mary Huet de Barochez** | andrew.mary-huet-de-barochez@etu.univ-orleans.fr |
-| **Jules Brossier** | jules.brossier@etu.univ-orleans.fr |
+| **Jules Brossier** | jules.brss@gmail.com |
 | **Xavier Lemaire**| xavier.lemaire@etu.univ-orleans.fr |
 | **Kevin Talland**| kevin.talland@etu.univ-orleans.fr |
-| **Dorian Hardy**| dorian.hardy@etu.univ-orleans.fr|
+| **Dorian Hardy**| @thegostisdead |
 | **Nicolas Pasquet**| nicolas.pasquet@etu.univ-orleans.fr |
 | **Fabien Billauld**| fabien.billault@etu.univ-orleans.fr |
 | **Mathieu Ramel**| mathieu.ramel@etu.univ-orleans.fr |
