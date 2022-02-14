@@ -64,7 +64,7 @@ API is documented, in **docs** folder open `api-documentation.pdf`
 | **Jules Brossier** | jules.brss@gmail.com |
 | **Xavier Lemaire**| xavier.lemaire@etu.univ-orleans.fr |
 | **Kevin Talland**| kevin.talland@etu.univ-orleans.fr |
-| **Dorian Hardy**| @thegostisdead |
+| **Dorian Hardy**|  [@thegostisdead]( https://github.com/thegostisdead ) |
 | **Nicolas Pasquet**| nicolas.pasquet@etu.univ-orleans.fr |
 | **Fabien Billauld**| fabien.billault@etu.univ-orleans.fr |
 | **Mathieu Ramel**| mathieu.ramel@etu.univ-orleans.fr |
